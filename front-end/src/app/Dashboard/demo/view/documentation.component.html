@@ -89,7 +89,7 @@ Run 'ng help' for more options.
 <pre>
 <code class="language-javascript" pCode>
 import &#123; Component, OnInit &#125; from '@angular/core';
-import &#123; AppComponent &#125; from './app.component';
+import &#123; DashboardComponent &#125; from './dashboard.component';
 
 @Component(&#123;
     selector: 'app-menu',
@@ -100,7 +100,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit &#123;
 
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ScrollPanel;
 
-    constructor(public app: AppComponent) &#123; &#125;
+    constructor(public app: DashboardComponent) &#123; &#125;
 
     ngOnInit() &#123;
         this.model = [

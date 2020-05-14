@@ -1,17 +1,30 @@
 <div class="layout-topbar">
     <a href="#" class="layout-topbar-logo">
-        <img id="topbar-logo" src="assets/layout/images/logo-olympia.png">
+        <img id="topbar-logo" src="assets/layout/images/logo-olympia.png" />
     </a>
 
-    <a href="#" class="layout-menu-button" (click)="app.onMenuButtonClick($event)">
+    <a
+        href="#"
+        class="layout-menu-button"
+        (click)="app.onMenuButtonClick($event)"
+    >
         <i class="fa fa-bars"></i>
     </a>
 
-    <a href="#" class="layout-topbar-user" (click)="app.onTopbarMenuButtonClick($event)">
+    <a
+        href="#"
+        class="layout-topbar-user"
+        (click)="app.onTopbarMenuButtonClick($event)"
+    >
         <img src="assets/layout/images/avatar.png" alt="olympia-layout" />
     </a>
 
-    <ul  class="layout-topbar-usermenu" [ngClass]="{'layout-topbar-usermenu-active fadeInDown': app.topbarMenuActive}">
+    <ul
+        class="layout-topbar-usermenu"
+        [ngClass]="{
+            'layout-topbar-usermenu-active fadeInDown': app.topbarMenuActive
+        }"
+    >
         <li class="layout-topbar-usermenu-header">
             <img src="assets/layout/images/avatar.png" alt="olympia-layout" />
             <div class="layout-topbar-usermenu-info">
@@ -31,16 +44,10 @@
                 <span class="topbar-item-name">Settings</span>
             </a>
         </li>
-        <li #messages>
-            <a href="#">
-                <i class="fa fa-fw fa-envelope-o"></i>
-                <span class="topbar-item-name">Messages</span>
-            </a>
-        </li>
-        <li #notifications>
-            <a href="#">
-                <i class="fa fa-fw fa-bell-o"></i>
-                <span class="topbar-item-name">Notifications</span>
+        <li>
+            <a href="javascript:void(0)" (click)="logout()">
+                <i class="fa fa-fw fa-sign-out"></i>
+                <span class="topbar-item-name">Logout</span>
             </a>
         </li>
     </ul>
@@ -49,7 +56,7 @@
         <li class="layout-topbar-search-item">
             <div class="layout-topbar-search">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search"/>
+                <input type="text" placeholder="Search" />
             </div>
         </li>
         <li>
@@ -68,5 +75,4 @@
             </a>
         </li>
     </ul>
-
 </div>
