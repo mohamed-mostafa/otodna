@@ -27,8 +27,8 @@ export const routes: Routes = [
         path: "dashboard",
         component: DashboardComponent,
         children: [
-            { path: "", component: DashboardDemoComponent },
-            { path: "searchPatient", component: SearchPatientComponent },
+            { path: "", component: SearchPatientComponent },
+            { path: "dashboard", component: DashboardDemoComponent },
             { path: "patient", component: NewPatientComponent },
             { path: "users", component: UsersComponent },
             { path: "sample", component: SampleDemoComponent },

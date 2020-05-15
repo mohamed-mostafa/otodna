@@ -1,1 +1,102 @@
-<p>search-patient works!</p>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-12">
+        <div class="card card-w-title">
+            <h1>Search Patients</h1>
+            <div class="ui-inputgroup">
+                <input type="text" pInputText placeholder="Keyword" />
+                <button
+                    pButton
+                    type="button"
+                    label="Search"
+                    class="marginRight"
+                ></button>
+                <button
+                    pButton
+                    type="button"
+                    label="Advanced Search"
+                    (click)="showAdvancedSearch()"
+                ></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-12" *ngIf="show">
+        <div class="card card-w-title">
+            <h1>Advanced Search</h1>
+            <div class="ui-g form-group">
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"
+                            ><i class="pi pi-user"></i
+                        ></span>
+                        <input
+                            type="text"
+                            pKeyFilter="alphanum"
+                            pInputText
+                            placeholder="Username"
+                        />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"
+                            ><i class="fa fa-envelope"></i
+                        ></span>
+                        <input type="text" pInputText placeholder="Email" />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"
+                            ><i class="fa fa-phone"></i
+                        ></span>
+                        <input
+                            type="text"
+                            pInputText
+                            pKeyFilter="int"
+                            placeholder="Phone"
+                        />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <p-calendar
+                        [(ngModel)]="rangeDates"
+                        selectionMode="range"
+                        [readonlyInput]="true"
+                        placeholder="Last Modified"
+                        [showIcon]="true"
+                    ></p-calendar>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <p-dropdown
+                        [options]="teams"
+                        [(ngModel)]="selectedMember"
+                        placeholder="All team"
+                        filter="true"
+                    >
+                        <ng-template let-team pTemplate="item">
+                            <div
+                                class="ui-helper-clearfix"
+                                style="position: relative; height: 25px;"
+                            >
+                                <div>
+                                    {{ team.label }}
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-12 ui-md-5"></div>
+                <div class="ui-g-12 ui-md-2">
+                    <button
+                        pButton
+                        type="button"
+                        label="Search"
+                        style="margin-bottom: 10px;"
+                        class="ui-button-info ui-button-raised"
+                    ></button>
+                </div>
+                <div class="ui-g-12 ui-md-5"></div>
+            </div>
+        </div>
+    </div>
+</div>

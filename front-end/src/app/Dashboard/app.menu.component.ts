@@ -1,3 +1,4 @@
+import { SelectButtonModule } from "primeng/selectbutton";
 import { Component, OnInit } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
 
@@ -12,19 +13,20 @@ export class AppMenuComponent implements OnInit {
 
     ngOnInit() {
         this.model = [
-            {
-                label: "DASHBOARD",
-                icon: "fa fa-fw fa-dashboard",
-                routerLink: ["/dashboard"],
-            },
+            // {
+            //     label: "DASHBOARD",
+            //     icon: "fa fa-fw fa-dashboard",
+            //     routerLink: ["/dashboard"],
+            // },
             {
                 label: "PATIENTS",
                 icon: "fa fa-fw fa-users",
+                SelectButtonModule,
                 items: [
                     {
                         label: "Search",
                         icon: "fa fa-fw fa-search",
-                        routerLink: ["searchPatient"],
+                        routerLink: ["/dashboard"],
                     },
                     {
                         label: "New Patient",
