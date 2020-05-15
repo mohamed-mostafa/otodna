@@ -1,5 +1,5 @@
-import { CarService } from "./../demo/service/carservice";
-import { Car } from "./../demo/domain/car";
+import { TeamsService } from "./../demo/service/teamService";
+import { Team } from "./../demo/domain/team";
 import { Component, OnInit } from "@angular/core";
 import { SelectItem } from "primeng/api";
 
@@ -12,15 +12,16 @@ export class SearchPatientComponent implements OnInit {
     teamsDropdownList: SelectItem[];
     show = false;
     cols: any[];
-    cars1: Car[];
-    selectedCar: Car;
+    teams: Team[];
+    selectedTeam: Team;
     colors: SelectItem[];
     brands: SelectItem[];
 
-    constructor(private carService: CarService) {}
+    constructor(private teamService: TeamsService) {}
 
     ngOnInit(): void {
-        this.carService.getCarsMedium().then((cars) => (this.cars1 = cars));
+        this.teamService.getTeams().then((teams) => (this.teams = teams));
+
         this.teamsDropdownList = [
             { label: "Ahmed Mohamed", value: "ahmedMohamed" },
             { label: "Mariem Mohamed", value: "mariemMohamed" },
@@ -34,10 +35,12 @@ export class SearchPatientComponent implements OnInit {
             { label: "Salah Abdallah", value: "salahAbdallah" },
         ];
         this.cols = [
-            { field: "vin", header: "Vin" },
-            { field: "year", header: "Year" },
-            { field: "brand", header: "Brand" },
-            { field: "color", header: "Color" },
+            { field: "id", header: "Id" },
+            { field: "username", header: "Username" },
+            { field: "phone", header: "Phone" },
+            { field: "lastActionDate", header: "Last Action Date" },
+            { field: "lastAction", header: "Last Action" },
+            { field: "team", header: "Team" },
         ];
         this.colors = [
             { label: "White", value: "White" },
@@ -51,15 +54,15 @@ export class SearchPatientComponent implements OnInit {
             { label: "Blue", value: "Blue" },
         ];
         this.brands = [
-            { label: 'Audi', value: 'Audi' },
-            { label: 'BMW', value: 'BMW' },
-            { label: 'Fiat', value: 'Fiat' },
-            { label: 'Honda', value: 'Honda' },
-            { label: 'Jaguar', value: 'Jaguar' },
-            { label: 'Mercedes', value: 'Mercedes' },
-            { label: 'Renault', value: 'Renault' },
-            { label: 'Volkswagen', value: 'Volkswagen' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: "Audi", value: "Audi" },
+            { label: "BMW", value: "BMW" },
+            { label: "Fiat", value: "Fiat" },
+            { label: "Honda", value: "Honda" },
+            { label: "Jaguar", value: "Jaguar" },
+            { label: "Mercedes", value: "Mercedes" },
+            { label: "Renault", value: "Renault" },
+            { label: "Volkswagen", value: "Volkswagen" },
+            { label: "Volvo", value: "Volvo" },
         ];
     }
     showAdvancedSearch() {

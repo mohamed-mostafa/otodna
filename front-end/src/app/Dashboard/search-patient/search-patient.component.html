@@ -103,12 +103,12 @@
                 #dt
                 [columns]="cols"
                 styleClass="ui-table-cars"
-                [value]="cars1"
+                [value]="teams"
                 [paginator]="true"
                 [rows]="10"
                 dataKey="vin"
                 selectionMode="single"
-                [(selection)]="selectedCar"
+                [(selection)]="selectedTeam"
             >
                 <ng-template pTemplate="caption">
                     Filter
@@ -143,140 +143,15 @@
                             ></button>
                         </th>
                     </tr>
-                    <tr>
-                        <th
-                            *ngFor="let col of columns"
-                            [ngSwitch]="col.field"
-                            style="padding: 0.5em;"
-                        >
-                            <input
-                                *ngSwitchCase="'vin'"
-                                pInputText
-                                type="text"
-                                placeholder="Starts with"
-                                class="ui-column-filter"
-                                style="width: 100%; margin-top: 0;"
-                                (input)="
-                                    dt.filter(
-                                        $event.target.value,
-                                        col.field,
-                                        'startsWith'
-                                    )
-                                "
-                            />
-                            <input
-                                *ngSwitchCase="'year'"
-                                pInputText
-                                type="text"
-                                placeholder="Contains"
-                                class="ui-column-filter"
-                                style="width: 100%; margin-top: 0;"
-                                (input)="
-                                    dt.filter(
-                                        $event.target.value,
-                                        col.field,
-                                        'contains'
-                                    )
-                                "
-                            />
-                            <p-dropdown
-                                *ngSwitchCase="'brand'"
-                                appendTo="body"
-                                [options]="brands"
-                                styleClass="ui-column-filter"
-                                [showClear]="true"
-                                [style]="{
-                                    'min-width': '1em',
-                                    width: '100%',
-                                    'margin-top': '0'
-                                }"
-                                placeholder="Select a Brand"
-                                (onChange)="
-                                    dt.filter($event.value, col.field, 'equals')
-                                "
-                            >
-                                <ng-template let-item pTemplate="selectedItem">
-                                    <img
-                                        src="assets/demo/images/car/{{
-                                            item.label
-                                        }}.png"
-                                        style="
-                                            width: 16px;
-                                            vertical-align: middle;
-                                        "
-                                    />
-                                    <span
-                                        style="
-                                            vertical-align: middle;
-                                            margin-left: 0.5em;
-                                        "
-                                        >{{ item.label }}</span
-                                    >
-                                </ng-template>
-                                <ng-template let-car pTemplate="item">
-                                    <div
-                                        class="ui-helper-clearfix"
-                                        style="
-                                            position: relative;
-                                            height: 25px;
-                                        "
-                                    >
-                                        <img
-                                            src="assets/demo/images/car/{{
-                                                car.label
-                                            }}.png"
-                                            style="
-                                                width: 24px;
-                                                position: absolute;
-                                                top: 1px;
-                                                left: 5px;
-                                            "
-                                        />
-                                        <div
-                                            style="
-                                                font-size: 14px;
-                                                float: right;
-                                                margin-top: 4px;
-                                            "
-                                        >
-                                            {{ car.label }}
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
-                            <p-multiSelect
-                                *ngSwitchCase="'color'"
-                                [options]="colors"
-                                [filter]="false"
-                                styleClass="ui-column-filter"
-                                [style]="{ width: '100%', 'margin-top': '0' }"
-                                defaultLabel="Select a color"
-                                (onChange)="
-                                    dt.filter($event.value, col.field, 'in')
-                                "
-                            ></p-multiSelect>
-                        </th>
-                        <th style="width: 8em;"></th>
-                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td>{{ rowData.vin }}</td>
-                        <td>{{ rowData.year }}</td>
-                        <td>
-                            <img
-                                src="assets/demo/images/car/{{
-                                    rowData.brand
-                                }}.png"
-                                style="
-                                    width: 50px;
-                                    margin-right: 1em;
-                                    vertical-align: middle;
-                                "
-                            />
-                            {{ rowData.brand }}
-                        </td>
-                        <td>{{ rowData.color }}</td>
+                        <td>{{ rowData.id }}</td>
+                        <td>{{ rowData.username }}</td>
+                        <td>{{ rowData.phone }}</td>
+                        <td>{{ rowData.lastActionDate }}</td>
+                        <td>{{ rowData.lastAction }}</td>
+                        <td>{{ rowData.team }}</td>
                         <td>
                             <button
                                 pButton

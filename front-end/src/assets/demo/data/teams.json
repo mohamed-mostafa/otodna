@@ -1,4 +1,5 @@
-[{"id":1,"username":"Woodrow Wandrack","phone":"63(195)395-4232","lastActionDate":"12/5/2019","lastAction":"eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget","team":"Evered Antognelli"},
+{
+    "data":[{"id":1,"username":"Woodrow Wandrack","phone":"63(195)395-4232","lastActionDate":"12/5/2019","lastAction":"eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget","team":"Evered Antognelli"},
 {"id":2,"username":"Ira Corwin","phone":"63(598)867-4350","lastActionDate":"3/7/2020","lastAction":"bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis","team":"Schuyler Pierce"},
 {"id":3,"username":"Felike Stack","phone":"46(883)280-6686","lastActionDate":"2/5/2020","lastAction":"cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla","team":"Bertrando Lowdes"},
 {"id":4,"username":"Zak Skettles","phone":"57(522)254-5652","lastActionDate":"10/24/2019","lastAction":"sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus","team":"Ricardo Kernley"},
@@ -97,4 +98,4 @@
 {"id":97,"username":"Stoddard Stirtle","phone":"57(673)961-1696","lastActionDate":"3/22/2020","lastAction":"amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus","team":"Geneva Duffy"},
 {"id":98,"username":"Riane Offell","phone":"66(290)129-6944","lastActionDate":"8/11/2019","lastAction":"sit amet consectetuer adipiscing elit proin interdum mauris non ligula","team":"Meredith Christian"},
 {"id":99,"username":"Wynn Scutts","phone":"98(223)551-3618","lastActionDate":"10/31/2019","lastAction":"integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor","team":"Dimitry Harhoff"},
-{"id":100,"username":"Elfie Crebott","phone":"55(792)755-6720","lastActionDate":"2/1/2020","lastAction":"nisi eu orci mauris lacinia sapien quis libero nullam sit amet","team":"Clarinda Hayhoe"}]
+{"id":100,"username":"Elfie Crebott","phone":"55(792)755-6720","lastActionDate":"2/1/2020","lastAction":"nisi eu orci mauris lacinia sapien quis libero nullam sit amet","team":"Clarinda Hayhoe"}]}
