@@ -18,6 +18,9 @@ import { EmptyDemoComponent } from "./demo/view/emptydemo.component";
 import { ChartsDemoComponent } from "./demo/view/chartsdemo.component";
 import { FileDemoComponent } from "./demo/view/filedemo.component";
 import { DocumentationComponent } from "./demo/view/documentation.component";
+import { SearchPatientComponent } from "./search-patient/search-patient.component";
+import { NewPatientComponent } from "./new-patient/new-patient.component";
+import { UsersComponent } from "./users/users.component";
 
 export const routes: Routes = [
     {
@@ -25,6 +28,9 @@ export const routes: Routes = [
         component: DashboardComponent,
         children: [
             { path: "", component: DashboardDemoComponent },
+            { path: "searchPatient", component: SearchPatientComponent },
+            { path: "patient", component: NewPatientComponent },
+            { path: "users", component: UsersComponent },
             { path: "sample", component: SampleDemoComponent },
             { path: "forms", component: FormsDemoComponent },
             { path: "data", component: DataDemoComponent },
@@ -61,6 +67,9 @@ export const COMPONENTS = [
     EmptyDemoComponent,
     FileDemoComponent,
     DocumentationComponent,
+    SearchPatientComponent,
+    NewPatientComponent,
+    UsersComponent,
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, {

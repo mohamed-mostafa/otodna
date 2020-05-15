@@ -18,6 +18,43 @@ export class AppMenuComponent implements OnInit {
                 routerLink: ["/dashboard"],
             },
             {
+                label: "PATIENTS",
+                icon: "fa fa-fw fa-users",
+                items: [
+                    {
+                        label: "Search",
+                        icon: "fa fa-fw fa-search",
+                        routerLink: ["searchPatient"],
+                    },
+                    {
+                        label: "New Patient",
+                        icon: "fa fa-fw fa-plus-circle",
+                        routerLink: ["patient"],
+                    },
+                ],
+            },
+            {
+                label: "REPORTS",
+                icon: "fa fa-fw fa-area-chart",
+                items: [],
+            },
+            {
+                label: "TEAMS",
+                icon: "fa fa-fw fa-user-md",
+                items: [],
+            },
+            {
+                label: "SETTINGS",
+                icon: "fa fa-fw fa-cogs",
+                items: [
+                    {
+                        label: "Users",
+                        icon: "fa fa-fw fa-users",
+                        routerLink: ["users"],
+                    },
+                ],
+            },
+            {
                 label: "TOPBAR COLORS",
                 icon: "fa fa-fw fa-magic",
                 badge: 10,
@@ -214,185 +251,185 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
-            {
-                label: "COMPONENTS",
-                icon: "fa fa-fw fa-bars",
-                routerLink: ["/components"],
-                items: [
-                    {
-                        label: "Sample Page",
-                        icon: "fa fa-fw fa-columns",
-                        routerLink: ["sample"],
-                    },
-                    {
-                        label: "Forms",
-                        icon: "fa fa-fw fa-code",
-                        routerLink: ["forms"],
-                    },
-                    {
-                        label: "Data",
-                        icon: "fa fa-fw fa-table",
-                        routerLink: ["data"],
-                    },
-                    {
-                        label: "Panels",
-                        icon: "fa fa-fw fa-list-alt",
-                        routerLink: ["panels"],
-                    },
-                    {
-                        label: "Overlays",
-                        icon: "fa fa-fw fa-square",
-                        routerLink: ["overlays"],
-                    },
-                    {
-                        label: "Menus",
-                        icon: "fa fa-fw fa-minus-square-o",
-                        routerLink: ["menus"],
-                    },
-                    {
-                        label: "Messages",
-                        icon: "fa fa-fw fa-circle-o-notch",
-                        routerLink: ["messages"],
-                    },
-                    {
-                        label: "Charts",
-                        icon: "fa fa-fw fa-area-chart",
-                        routerLink: ["charts"],
-                    },
-                    {
-                        label: "File",
-                        icon: "fa fa-fw fa-arrow-circle-o-up",
-                        routerLink: ["file"],
-                    },
-                    {
-                        label: "Misc",
-                        icon: "fa fa-fw fa-user-secret",
-                        routerLink: ["misc"],
-                    },
-                ],
-            },
-            {
-                label: "PAGES",
-                icon: "fa fa-fw fa-cube",
-                routerLink: ["/pages"],
-                items: [
-                    {
-                        label: "Empty",
-                        icon: "fa fa-fw fa-square-o",
-                        routerLink: ["/pages/empty"],
-                    },
-                    {
-                        label: "Login",
-                        icon: "fa fa-fw fa-sign-in",
-                        url: "assets/pages/login.html",
-                        target: "_blank",
-                    },
-                    {
-                        label: "Landing",
-                        icon: "fa fa-fw fa-certificate",
-                        url: "assets/pages/landing.html",
-                        target: "_blank",
-                    },
-                    {
-                        label: "Error",
-                        icon: "fa fa-fw fa-exclamation-circle",
-                        url: "assets/pages/error.html",
-                        target: "_blank",
-                    },
-                    {
-                        label: "404",
-                        icon: "fa fa-fw fa-times",
-                        url: "assets/pages/404.html",
-                        target: "_blank",
-                    },
-                    {
-                        label: "Access Denied",
-                        icon: "fa fa-fw fa-exclamation-triangle",
-                        url: "assets/pages/access.html",
-                        target: "_blank",
-                    },
-                ],
-            },
-            {
-                label: "HIERARCHY",
-                icon: "fa fa-fw fa-sitemap",
-                items: [
-                    {
-                        label: "Submenu 1",
-                        icon: "fa fa-fw fa-sign-in",
-                        items: [
-                            {
-                                label: "Submenu 1.1",
-                                icon: "fa fa-fw fa-sign-in",
-                                items: [
-                                    {
-                                        label: "Submenu 1.1.1",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                    {
-                                        label: "Submenu 1.1.2",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                    {
-                                        label: "Submenu 1.1.3",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                ],
-                            },
-                            {
-                                label: "Submenu 1.2",
-                                icon: "fa fa-fw fa-sign-in",
-                                items: [
-                                    {
-                                        label: "Submenu 1.2.1",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        label: "Submenu 2",
-                        icon: "fa fa-fw fa-sign-in",
-                        items: [
-                            {
-                                label: "Submenu 2.1",
-                                icon: "fa fa-fw fa-sign-in",
-                                items: [
-                                    {
-                                        label: "Submenu 2.1.1",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                    {
-                                        label: "Submenu 2.1.2",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                ],
-                            },
-                            {
-                                label: "Submenu 2.2",
-                                icon: "fa fa-fw fa-sign-in",
-                                items: [
-                                    {
-                                        label: "Submenu 2.2.1",
-                                        icon: "fa fa-fw fa-sign-in",
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                label: "DOCS",
-                icon: "fa fa-fw fa-file-code-o",
-                routerLink: ["/documentation"],
-            },
-            {
-                label: "BUY NOW",
-                icon: "fa fa-fw fa-credit-card-alt",
-                url: ["https://www.primefaces.org/store"],
-            },
+            // {
+            //     label: "COMPONENTS",
+            //     icon: "fa fa-fw fa-bars",
+            //     routerLink: ["/components"],
+            //     items: [
+            //         {
+            //             label: "Sample Page",
+            //             icon: "fa fa-fw fa-columns",
+            //             routerLink: ["sample"],
+            //         },
+            //         {
+            //             label: "Forms",
+            //             icon: "fa fa-fw fa-code",
+            //             routerLink: ["forms"],
+            //         },
+            //         {
+            //             label: "Data",
+            //             icon: "fa fa-fw fa-table",
+            //             routerLink: ["data"],
+            //         },
+            //         {
+            //             label: "Panels",
+            //             icon: "fa fa-fw fa-list-alt",
+            //             routerLink: ["panels"],
+            //         },
+            //         {
+            //             label: "Overlays",
+            //             icon: "fa fa-fw fa-square",
+            //             routerLink: ["overlays"],
+            //         },
+            //         {
+            //             label: "Menus",
+            //             icon: "fa fa-fw fa-minus-square-o",
+            //             routerLink: ["menus"],
+            //         },
+            //         {
+            //             label: "Messages",
+            //             icon: "fa fa-fw fa-circle-o-notch",
+            //             routerLink: ["messages"],
+            //         },
+            //         {
+            //             label: "Charts",
+            //             icon: "fa fa-fw fa-area-chart",
+            //             routerLink: ["charts"],
+            //         },
+            //         {
+            //             label: "File",
+            //             icon: "fa fa-fw fa-arrow-circle-o-up",
+            //             routerLink: ["file"],
+            //         },
+            //         {
+            //             label: "Misc",
+            //             icon: "fa fa-fw fa-user-secret",
+            //             routerLink: ["misc"],
+            //         },
+            //     ],
+            // },
+            // {
+            //     label: "PAGES",
+            //     icon: "fa fa-fw fa-cube",
+            //     routerLink: ["/pages"],
+            //     items: [
+            //         {
+            //             label: "Empty",
+            //             icon: "fa fa-fw fa-square-o",
+            //             routerLink: ["/pages/empty"],
+            //         },
+            //         {
+            //             label: "Login",
+            //             icon: "fa fa-fw fa-sign-in",
+            //             url: "assets/pages/login.html",
+            //             target: "_blank",
+            //         },
+            //         {
+            //             label: "Landing",
+            //             icon: "fa fa-fw fa-certificate",
+            //             url: "assets/pages/landing.html",
+            //             target: "_blank",
+            //         },
+            //         {
+            //             label: "Error",
+            //             icon: "fa fa-fw fa-exclamation-circle",
+            //             url: "assets/pages/error.html",
+            //             target: "_blank",
+            //         },
+            //         {
+            //             label: "404",
+            //             icon: "fa fa-fw fa-times",
+            //             url: "assets/pages/404.html",
+            //             target: "_blank",
+            //         },
+            //         {
+            //             label: "Access Denied",
+            //             icon: "fa fa-fw fa-exclamation-triangle",
+            //             url: "assets/pages/access.html",
+            //             target: "_blank",
+            //         },
+            //     ],
+            // },
+            // {
+            //     label: "HIERARCHY",
+            //     icon: "fa fa-fw fa-sitemap",
+            //     items: [
+            //         {
+            //             label: "Submenu 1",
+            //             icon: "fa fa-fw fa-sign-in",
+            //             items: [
+            //                 {
+            //                     label: "Submenu 1.1",
+            //                     icon: "fa fa-fw fa-sign-in",
+            //                     items: [
+            //                         {
+            //                             label: "Submenu 1.1.1",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                         {
+            //                             label: "Submenu 1.1.2",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                         {
+            //                             label: "Submenu 1.1.3",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                     ],
+            //                 },
+            //                 {
+            //                     label: "Submenu 1.2",
+            //                     icon: "fa fa-fw fa-sign-in",
+            //                     items: [
+            //                         {
+            //                             label: "Submenu 1.2.1",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                     ],
+            //                 },
+            //             ],
+            //         },
+            //         {
+            //             label: "Submenu 2",
+            //             icon: "fa fa-fw fa-sign-in",
+            //             items: [
+            //                 {
+            //                     label: "Submenu 2.1",
+            //                     icon: "fa fa-fw fa-sign-in",
+            //                     items: [
+            //                         {
+            //                             label: "Submenu 2.1.1",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                         {
+            //                             label: "Submenu 2.1.2",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                     ],
+            //                 },
+            //                 {
+            //                     label: "Submenu 2.2",
+            //                     icon: "fa fa-fw fa-sign-in",
+            //                     items: [
+            //                         {
+            //                             label: "Submenu 2.2.1",
+            //                             icon: "fa fa-fw fa-sign-in",
+            //                         },
+            //                     ],
+            //                 },
+            //             ],
+            //         },
+            //     ],
+            // },
+            // {
+            //     label: "DOCS",
+            //     icon: "fa fa-fw fa-file-code-o",
+            //     routerLink: ["/documentation"],
+            // },
+            // {
+            //     label: "BUY NOW",
+            //     icon: "fa fa-fw fa-credit-card-alt",
+            //     url: ["https://www.primefaces.org/store"],
+            // },
         ];
     }
 
