@@ -1,3 +1,7 @@
+import { AppFooterComponent } from "./app.footer.component";
+import { AppTopBarComponent } from "./app.topbar.component";
+import { AppMenuitemComponent } from "./app.menuitem.component";
+import { AppMenuComponent } from "./app.menu.component";
 import { DashboardComponent } from "./dashboard.component";
 import { Routes, RouterModule } from "@angular/router";
 import { ModuleWithProviders } from "@angular/core";
@@ -35,6 +39,28 @@ export const routes: Routes = [
             { path: "documentation", component: DocumentationComponent },
         ],
     },
+];
+
+export const COMPONENTS = [
+    DashboardComponent,
+    AppMenuComponent,
+    AppMenuitemComponent,
+    AppTopBarComponent,
+    AppFooterComponent,
+    DashboardDemoComponent,
+    SampleDemoComponent,
+    FormsDemoComponent,
+    DataDemoComponent,
+    PanelsDemoComponent,
+    OverlaysDemoComponent,
+    MenusDemoComponent,
+    MessagesDemoComponent,
+    MessagesDemoComponent,
+    MiscDemoComponent,
+    ChartsDemoComponent,
+    EmptyDemoComponent,
+    FileDemoComponent,
+    DocumentationComponent,
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, {
