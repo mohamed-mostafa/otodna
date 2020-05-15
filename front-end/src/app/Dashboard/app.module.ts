@@ -1,3 +1,4 @@
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { PrimeNgComponents } from "./primengComponents";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -23,6 +24,7 @@ import { TeamsService } from "./demo/service/teamService";
         HttpClientModule,
         BrowserAnimationsModule,
         PrimeNgComponents,
+        NgxSpinnerModule
     ],
     declarations: [COMPONENTS],
     providers: [
