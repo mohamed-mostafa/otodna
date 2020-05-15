@@ -13,6 +13,7 @@ import { CountryService } from "./demo/service/countryservice";
 import { EventService } from "./demo/service/eventservice";
 import { NodeService } from "./demo/service/nodeservice";
 import { MenuService } from "./app.menu.service";
+import { TeamsService } from "./demo/service/teamService";
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import { MenuService } from "./app.menu.service";
         EventService,
         NodeService,
         MenuService,
+        TeamsService,
     ],
     bootstrap: [DashboardComponent],
 })
