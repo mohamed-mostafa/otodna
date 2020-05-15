@@ -7,9 +7,17 @@ import { DashboardComponent } from "./dashboard.component";
     templateUrl: "./app.topbar.component.html",
 })
 export class AppTopBarComponent {
-    constructor(public app: DashboardComponent, private router: Router) {}
+    username;
+    constructor(public app: DashboardComponent, private router: Router) {
+        if (localStorage.getItem("username") === null) {
+            this.router.navigate(["login"]);
+        } else {
+            this.username = localStorage.getItem("username");
+        }
+    }
 
     logout() {
+        localStorage.removeItem("username");
         this.router.navigate(["login"]);
     }
 }

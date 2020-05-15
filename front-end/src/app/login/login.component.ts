@@ -24,6 +24,6 @@ export class LoginComponent implements OnInit {
     }
 
     callSwal(title, text, icon) {
-        return swal({ title, text, icon, timer: 1500, buttons: [false] });
+        return swal({ title, text, icon, timer: 1000, buttons: [false] });
     }
 }
