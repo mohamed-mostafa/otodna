@@ -15,6 +15,10 @@ const routes: Routes = [
     { path: "**", 	resolve: { path: PathResolveService }, component:NotFoundComponent },
 ];
 
+export const BasicComponents =[
+    LoginComponent,
+    NotFoundComponent
+]
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, {
