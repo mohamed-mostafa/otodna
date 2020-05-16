@@ -1,3 +1,5 @@
+import { PathResolveService } from './not-found/path-resolve.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from "./login/login.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
@@ -6,11 +8,11 @@ const routes: Routes = [
     { path: "", redirectTo: "login", pathMatch: "full" },
     { path: "login", component: LoginComponent },
     {
-        path: "Dashboard",
+        path: "dashboard",
         loadChildren: () =>
             import("./Dashboard/app.module").then((m) => m.DashboardModule),
     },
-    // { path: "**", pathMatch: "full", component: NotFoundComponent },
+    { path: "**", 	resolve: { path: PathResolveService }, component:NotFoundComponent },
 ];
 
 @NgModule({

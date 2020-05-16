@@ -4,7 +4,7 @@ import { AppMenuitemComponent } from "./app.menuitem.component";
 import { AppMenuComponent } from "./app.menu.component";
 import { DashboardComponent } from "./dashboard.component";
 import { Routes, RouterModule } from "@angular/router";
-import { ModuleWithProviders } from "@angular/core";
+import { ModuleWithProviders, NgModule } from "@angular/core";
 import { DashboardDemoComponent } from "./demo/view/dashboarddemo.component";
 import { SampleDemoComponent } from "./demo/view/sampledemo.component";
 import { FormsDemoComponent } from "./demo/view/formsdemo.component";
@@ -24,7 +24,7 @@ import { UsersComponent } from "./users/users.component";
 
 export const routes: Routes = [
     {
-        path: "dashboard",
+        path: "",
         component: DashboardComponent,
         children: [
             { path: "", component: SearchPatientComponent },
@@ -71,7 +71,8 @@ export const COMPONENTS = [
     NewPatientComponent,
     UsersComponent,
 ];
-
-export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, {
-    scrollPositionRestoration: "enabled",
-});
+@NgModule({
+	exports: [RouterModule],
+	imports: [RouterModule.forChild(routes)],
+})
+export class AppRoutes {}
