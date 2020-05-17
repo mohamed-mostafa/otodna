@@ -452,6 +452,7 @@ a {
 .layout-wrapper .layout-topbar .layout-topbar-user {
   float: right;
   margin-left: 20px;
+  margin-top: 20px;
 }
 .layout-wrapper .layout-topbar .layout-topbar-user img {
   width: 45px;

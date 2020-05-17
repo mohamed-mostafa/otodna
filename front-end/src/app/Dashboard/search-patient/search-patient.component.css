@@ -1,3 +1,16 @@
 .marginRight {
     margin-right: 10px;
 }
+.marginTop{
+    margin-top: 5px;
+}
+.displayInline{
+    display: inline;
+}
+.sampleSearch{
+    float: right;
+    margin-top: 10px;
+}
+.dataMarinTop{
+    margin-top: 20px;
+}

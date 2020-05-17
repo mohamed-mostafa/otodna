@@ -10,8 +10,8 @@ import { SelectItem } from "primeng/api";
     styleUrls: ["./search-patient.component.css"],
 })
 export class SearchPatientComponent implements OnInit {
-    teamsDropdownList: SelectItem[];
     show = false;
+    show2 = true;
     cols: any[];
     teams: Team[];
     selectedTeam: Team;
@@ -26,18 +26,6 @@ export class SearchPatientComponent implements OnInit {
     ngOnInit(): void {
         this.teamService.getTeams().then((teams) => (this.teams = teams));
 
-        this.teamsDropdownList = [
-            { label: "Ahmed Mohamed", value: "ahmedMohamed" },
-            { label: "Mariem Mohamed", value: "mariemMohamed" },
-            { label: "ibrahim Mahmoud", value: "ibrahimMohamoud" },
-            { label: "Aya zaki", value: "ayaZaki" },
-            { label: "Eslam ahmed", value: "eslamAhmed" },
-            { label: "Mostafa ashref", value: "mostafaAshref" },
-            { label: "Hend Mahmoud", value: "hendMahmoud" },
-            { label: "Tamer Mahmoud", value: "tamerMahmoumd" },
-            { label: "Nada ahmed", value: "nadaAhmed" },
-            { label: "Salah Abdallah", value: "salahAbdallah" },
-        ];
         this.cols = [
             { field: "id", header: "Id" },
             { field: "username", header: "Username" },
@@ -47,8 +35,9 @@ export class SearchPatientComponent implements OnInit {
             { field: "team", header: "Team" },
         ];
     }
-    showAdvancedSearch() {
+    showSearch() {
         this.show = !this.show;
+        this.show2 = !this.show2;
     }
     search() {
         this.spinner.show();
