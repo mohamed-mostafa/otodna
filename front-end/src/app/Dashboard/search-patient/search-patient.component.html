@@ -108,6 +108,7 @@
                             *ngFor="let col of columns"
                             [pSortableColumn]="col.field"
                             [ngSwitch]="col.field"
+                            [ngStyle]="{'width': col.width}"
                         >
                             {{ col.header }}
                             <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -117,7 +118,7 @@
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td>{{ rowData.id }}</td>
-                        <td>{{ rowData.username }}</td>
+                        <td><a href="#" target="_blank">{{ rowData.username }}</a></td>
                         <td>{{ rowData.phone }}</td>
                         <td>{{ rowData.lastActionDate }}</td>
                         <td>{{ rowData.lastAction }}</td>

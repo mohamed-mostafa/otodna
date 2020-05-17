@@ -27,12 +27,12 @@ export class SearchPatientComponent implements OnInit {
         this.teamService.getTeams().then((teams) => (this.teams = teams));
 
         this.cols = [
-            { field: "id", header: "Id" },
-            { field: "username", header: "Username" },
-            { field: "phone", header: "Phone" },
-            { field: "lastActionDate", header: "Last Action Date" },
-            { field: "lastAction", header: "Last Action" },
-            { field: "team", header: "Team" },
+            { field: "id", header: "Id" , width:'5%'},
+            { field: "username", header: "Patient Name" , width:'20%'},
+            { field: "phone", header: "Phone" , width:'20%'},
+            { field: "lastActionDate", header: "Last Action Date" , width:'15%'},
+            { field: "lastAction", header: "Last Action" , width:'25%'},
+            { field: "team", header: "Team" , width:'15%'},
         ];
     }
     showSearch() {
