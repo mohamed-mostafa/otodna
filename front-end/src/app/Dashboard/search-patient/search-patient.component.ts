@@ -17,13 +17,14 @@ export class SearchPatientComponent implements OnInit {
     selectedTeam: Team;
     colors: SelectItem[];
     brands: SelectItem[];
-
+    username;
     constructor(
         private teamService: TeamsService,
         private spinner: NgxSpinnerService
     ) {}
 
     ngOnInit(): void {
+        this.username = localStorage.getItem("username");
         this.teamService.getTeams().then((teams) => (this.teams = teams));
 
         this.cols = [
