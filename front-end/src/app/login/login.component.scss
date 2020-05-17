@@ -1,10 +1,15 @@
+
 .ui-button .ui-button-text {
     display: inline-block;
     line-height: normal;
 }
 
 .login-body {
-    padding: 0;
+    position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
     background: url("/assets/layout/images/pages/login-bg.jpg");
     background-size: cover;
 
@@ -37,8 +42,8 @@
         top: 50%;
         margin-left: -280px;
         margin-top: -175px;
-        // background-color: rgba(0, 0, 0, .13);
-        background: url("/assets/layout/images/pages/login-bg.jpg");
+        background-color: rgba(0, 0, 0, .13);
+        // background: url("/assets/layout/images/pages/login-bg.jpg");
         // @include border-radius($borderRadius);
 
         h1 {
