@@ -244,7 +244,8 @@ a {
     display: inline-block;
     vertical-align: middle; }
     .layout-wrapper .layout-topbar .layout-topbar-logo img {
-      height: 30px; }
+      height: 70px;
+      width: 140px; }
   .layout-wrapper .layout-topbar .layout-menu-button {
     display: inline-block;
     vertical-align: middle;
@@ -325,7 +326,9 @@ a {
             outline: none; }
   .layout-wrapper .layout-topbar .layout-topbar-user {
     float: right;
-    margin-left: 20px; }
+    margin-left: 20px;
+    margin-top: 20px;
+  }
     .layout-wrapper .layout-topbar .layout-topbar-user img {
       width: 45px;
       height: 45px; }
@@ -751,7 +754,7 @@ a {
   background-color: #ffffff;
   border-top: 1px solid #dadada; }
   .layout-footer img {
-    height: 30px; }
+    height: 50px; width: 100px; }
   .layout-footer .footer-icons {
     text-align: right; }
     .layout-footer .footer-icons a {

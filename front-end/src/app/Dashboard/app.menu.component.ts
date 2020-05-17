@@ -1,4 +1,3 @@
-import { SelectButtonModule } from "primeng/selectbutton";
 import { Component, OnInit } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
 
@@ -21,7 +20,6 @@ export class AppMenuComponent implements OnInit {
             {
                 label: "PATIENTS",
                 icon: "fa fa-fw fa-users",
-                SelectButtonModule,
                 items: [
                     {
                         label: "Search",
@@ -56,203 +54,203 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
-            {
-                label: "TOPBAR COLORS",
-                icon: "fa fa-fw fa-magic",
-                badge: 10,
-                items: [
-                    {
-                        label: "Light",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-light",
-                                "logo-olympia"
-                            ),
-                    },
-                    {
-                        label: "Dark",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-dark",
-                                "logo-olympia-white"
-                            ),
-                    },
-                    {
-                        label: "Blue-Grey",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-bluegrey",
-                                "logo-olympia-white"
-                            ),
-                    },
-                    {
-                        label: "Purple",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-purple",
-                                "logo-olympia-white"
-                            ),
-                    },
-                    {
-                        label: "Cyan",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-cyan",
-                                "logo-olympia-white"
-                            ),
-                    },
-                    {
-                        label: "Pink",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-pink",
-                                "logo-olympia-white"
-                            ),
-                    },
-                    {
-                        label: "Teal",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-teal",
-                                "logo-olympia-white"
-                            ),
-                    },
-                    {
-                        label: "Yellow",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-yellow",
-                                "logo-olympia"
-                            ),
-                    },
-                    {
-                        label: "Lime",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-lime",
-                                "logo-olympia"
-                            ),
-                    },
-                    {
-                        label: "Green",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) =>
-                            this.changeTopbarColor(
-                                "layout-topbar-green",
-                                "logo-olympia"
-                            ),
-                    },
-                ],
-            },
-            {
-                label: "MENU COLORS",
-                icon: "fa fa-fw fa-list",
-                items: [
-                    {
-                        label: "Light",
-                        icon: "fa fa-fw fa-circle-o",
-                        command: (event) => (this.app.lightMenu = true),
-                    },
-                    {
-                        label: "Dark",
-                        icon: "fa fa-fw fa-circle",
-                        command: (event) => (this.app.lightMenu = false),
-                    },
-                ],
-            },
-            {
-                label: "LAYOUTS",
-                icon: "fa fa-fw fa-desktop",
-                items: [
-                    {
-                        label: "Static",
-                        icon: "fa fa-fw fa-bars",
-                        command: (event) => this.app.changeMenuMode("static"),
-                    },
-                    {
-                        label: "Overlay",
-                        icon: "fa fa-fw fa-bars",
-                        command: (event) => this.app.changeMenuMode("overlay"),
-                    },
-                    {
-                        label: "Slim",
-                        icon: "fa fa-fw fa-bars",
-                        command: (event) => this.app.changeMenuMode("slim"),
-                    },
-                    {
-                        label: "Horizontal",
-                        icon: "fa fa-fw fa-bars",
-                        command: (event) =>
-                            this.app.changeMenuMode("horizontal"),
-                    },
-                ],
-            },
-            {
-                label: "THEMES",
-                icon: "fa fa-fw fa-paint-brush",
-                badge: 10,
-                items: [
-                    {
-                        label: "Blue-Grey Teal",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("bluegrey-teal"),
-                    },
-                    {
-                        label: "Green Yellow",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("green-yellow"),
-                    },
-                    {
-                        label: "Purple Blue",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("purple-blue"),
-                    },
-                    {
-                        label: "Blue Orange",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("blue-orange"),
-                    },
-                    {
-                        label: "Indigo Yellow",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("indigo-yellow"),
-                    },
-                    {
-                        label: "Amber Teal",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("amber-teal"),
-                    },
-                    {
-                        label: "Cyan Amber",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("cyan-amber"),
-                    },
-                    {
-                        label: "Brown Cyan",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("brown-cyan"),
-                    },
-                    {
-                        label: "Lime Purple",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("lime-purple"),
-                    },
-                    {
-                        label: "Deep-Orange Blue",
-                        icon: "fa fa-fw fa-paint-brush",
-                        command: (event) => this.changeTheme("deeporange-blue"),
-                    },
-                ],
-            },
+            // {
+            //     label: "TOPBAR COLORS",
+            //     icon: "fa fa-fw fa-magic",
+            //     badge: 10,
+            //     items: [
+            //         {
+            //             label: "Light",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-light",
+            //                     "logo-olympia"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Dark",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-dark",
+            //                     "logo-olympia-white"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Blue-Grey",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-bluegrey",
+            //                     "logo-olympia-white"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Purple",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-purple",
+            //                     "logo-olympia-white"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Cyan",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-cyan",
+            //                     "logo-olympia-white"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Pink",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-pink",
+            //                     "logo-olympia-white"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Teal",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-teal",
+            //                     "logo-olympia-white"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Yellow",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-yellow",
+            //                     "logo-olympia"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Lime",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-lime",
+            //                     "logo-olympia"
+            //                 ),
+            //         },
+            //         {
+            //             label: "Green",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) =>
+            //                 this.changeTopbarColor(
+            //                     "layout-topbar-green",
+            //                     "logo-olympia"
+            //                 ),
+            //         },
+            //     ],
+            // },
+            // {
+            //     label: "MENU COLORS",
+            //     icon: "fa fa-fw fa-list",
+            //     items: [
+            //         {
+            //             label: "Light",
+            //             icon: "fa fa-fw fa-circle-o",
+            //             command: (event) => (this.app.lightMenu = true),
+            //         },
+            //         {
+            //             label: "Dark",
+            //             icon: "fa fa-fw fa-circle",
+            //             command: (event) => (this.app.lightMenu = false),
+            //         },
+            //     ],
+            // },
+            // {
+            //     label: "LAYOUTS",
+            //     icon: "fa fa-fw fa-desktop",
+            //     items: [
+            //         {
+            //             label: "Static",
+            //             icon: "fa fa-fw fa-bars",
+            //             command: (event) => this.app.changeMenuMode("static"),
+            //         },
+            //         {
+            //             label: "Overlay",
+            //             icon: "fa fa-fw fa-bars",
+            //             command: (event) => this.app.changeMenuMode("overlay"),
+            //         },
+            //         {
+            //             label: "Slim",
+            //             icon: "fa fa-fw fa-bars",
+            //             command: (event) => this.app.changeMenuMode("slim"),
+            //         },
+            //         {
+            //             label: "Horizontal",
+            //             icon: "fa fa-fw fa-bars",
+            //             command: (event) =>
+            //                 this.app.changeMenuMode("horizontal"),
+            //         },
+            //     ],
+            // },
+            // {
+            //     label: "THEMES",
+            //     icon: "fa fa-fw fa-paint-brush",
+            //     badge: 10,
+            //     items: [
+            //         {
+            //             label: "Blue-Grey Teal",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("bluegrey-teal"),
+            //         },
+            //         {
+            //             label: "Green Yellow",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("green-yellow"),
+            //         },
+            //         {
+            //             label: "Purple Blue",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("purple-blue"),
+            //         },
+            //         {
+            //             label: "Blue Orange",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("blue-orange"),
+            //         },
+            //         {
+            //             label: "Indigo Yellow",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("indigo-yellow"),
+            //         },
+            //         {
+            //             label: "Amber Teal",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("amber-teal"),
+            //         },
+            //         {
+            //             label: "Cyan Amber",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("cyan-amber"),
+            //         },
+            //         {
+            //             label: "Brown Cyan",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("brown-cyan"),
+            //         },
+            //         {
+            //             label: "Lime Purple",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("lime-purple"),
+            //         },
+            //         {
+            //             label: "Deep-Orange Blue",
+            //             icon: "fa fa-fw fa-paint-brush",
+            //             command: (event) => this.changeTheme("deeporange-blue"),
+            //         },
+            //     ],
+            // },
             // {
             //     label: "COMPONENTS",
             //     icon: "fa fa-fw fa-bars",
