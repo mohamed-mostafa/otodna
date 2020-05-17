@@ -352,7 +352,8 @@ a {
   vertical-align: middle;
 }
 .layout-wrapper .layout-topbar .layout-topbar-logo img {
-  height: 30px;
+  height: 70px;
+  width: 150px;
 }
 .layout-wrapper .layout-topbar .layout-menu-button {
   display: inline-block;
@@ -999,7 +1000,8 @@ a {
   border-top: 1px solid #dadada;
 }
 .layout-footer img {
-  height: 30px;
+  height: 50px;
+  width: 105px;
 }
 .layout-footer .footer-icons {
   text-align: right;
