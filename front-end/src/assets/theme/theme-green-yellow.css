@@ -1742,7 +1742,7 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page {
   vertical-align: top;
 }
 body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
-  background-color: #feedbc;
+  background-color: #a0d8cb;
   color: #4c4224;
 }
 body .ui-paginator .ui-paginator-pages .ui-paginator-page:not(.ui-state-active):hover {
