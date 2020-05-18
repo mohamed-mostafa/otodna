@@ -20,6 +20,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: "PATIENTS",
                 icon: "fa fa-fw fa-users",
+                routerLink: ["/dashboard"],
                 items: [
                     {
                         label: "Search",
@@ -46,6 +47,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: "SETTINGS",
                 icon: "fa fa-fw fa-cogs",
+                routerLink: ["/dashboard/users"],
                 items: [
                     {
                         label: "Users",
