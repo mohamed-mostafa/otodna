@@ -352,7 +352,8 @@ a {
   vertical-align: middle;
 }
 .layout-wrapper .layout-topbar .layout-topbar-logo img {
-  height: 30px;
+  height: 70px;
+  width: 140px;
 }
 .layout-wrapper .layout-topbar .layout-menu-button {
   display: inline-block;
@@ -451,6 +452,7 @@ a {
 .layout-wrapper .layout-topbar .layout-topbar-user {
   float: right;
   margin-left: 20px;
+  margin-top: 20px;
 }
 .layout-wrapper .layout-topbar .layout-topbar-user img {
   width: 45px;
@@ -999,10 +1001,12 @@ a {
   border-top: 1px solid #dadada;
 }
 .layout-footer img {
-  height: 30px;
+  height: 50px;
+  width: 100px;
 }
 .layout-footer .footer-icons {
   text-align: right;
+  margin-top: 15px;
 }
 .layout-footer .footer-icons a {
   color: #848484;
