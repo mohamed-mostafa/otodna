@@ -1,1 +1,132 @@
-<p>lab-results works!</p>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-9"></div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            (click)="showDialog()"
+            pButton
+            icon="pi pi-external-link"
+            label="Add Lab Result"
+        ></button>
+    </div>
+</div>
+<p-dialog
+    header="Add Lab Result"
+    [(visible)]="displayBasic"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [maximizable]="true"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <p-card [style]="{ height: '250px' }">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-inputgroup">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Lab Test"
+                        [(ngModel)]="labResult.labTest"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-inputgroup">
+                    <input
+                        type="text"
+                        pInputText
+                        pKeyFilter="int"
+                        placeholder="Value"
+                        [(ngModel)]="labResult.value"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-inputgroup">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Unit"
+                        [(ngModel)]="labResult.unit"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <p-calendar
+                    [readonlyInput]="true"
+                    placeholder="Noted Date"
+                    [showIcon]="true"
+                    [(ngModel)]="labResult.notedDate"
+                ></p-calendar>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+                <textarea
+                    [rows]="5"
+                    [cols]="30"
+                    pInputTextarea
+                    autoResize="autoResize"
+                    placeholder="Comments"
+                    [(ngModel)]="labResult.comments"
+                ></textarea>
+            </div>
+        </div>
+    </p-card>
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="cancel()"
+            label="Cancel"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="save()"
+            label="Save"
+        ></button>
+    </p-footer>
+</p-dialog>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <p-table
+                #dt
+                [columns]="cols"
+                styleClass="ui-table-cars"
+                [value]="labResults"
+                [paginator]="true"
+                [rows]="10"
+                dataKey="vin"
+                selectionMode="single"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.field"
+                            [ngSwitch]="col.field"
+                            [ngStyle]="{ width: col.width }"
+                        >
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>{{ rowData.labTest }}</td>
+                        <td>{{ rowData.value }}</td>
+                        <td>{{ rowData.unit }}</td>
+                        <td>{{ rowData.notedDate | date }}</td>
+                        <td>{{ rowData.comments }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>
