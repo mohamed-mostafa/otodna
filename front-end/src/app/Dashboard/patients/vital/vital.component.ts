@@ -81,8 +81,12 @@ export class VitalComponent implements OnInit {
         this.vital = new Vital();
     }
     save() {
-        this.vitals.push(this.vital);
-        this.displayBasic = false;
-        this.vital = new Vital();
+        this.spinner.show();
+        setTimeout(() => {
+            this.vitals.push(this.vital);
+            this.displayBasic = false;
+            this.vital = new Vital();
+            this.spinner.hide();
+        }, 2000);
     }
 }

@@ -1,5 +1,5 @@
 export class Allergies {
-    alergyType: string;
+    allergyType: string;
     substance: string;
     reaction: string;
     severity: string;

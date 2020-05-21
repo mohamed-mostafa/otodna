@@ -28,8 +28,12 @@ export class FamilyComponent implements OnInit {
         this.family = new Family();
     }
     save() {
-        this.families.push(this.family);
-        this.displayBasic = false;
-        this.family = new Family();
+        this.spinner.show();
+        setTimeout(() => {
+            this.families.push(this.family);
+            this.displayBasic = false;
+            this.family = new Family();
+            this.spinner.hide();
+        }, 2000);
     }
 }
