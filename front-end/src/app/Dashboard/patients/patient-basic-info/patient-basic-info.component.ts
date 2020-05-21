@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "./patient";
@@ -11,7 +12,10 @@ import { Patient } from "./patient";
 export class PatientBasicInfoComponent implements OnInit {
     gender = [];
     patient: Patient = new Patient();
-    constructor(private messageService: MessageService) {}
+    constructor(
+        private messageService: MessageService,
+        private spinner: NgxSpinnerService
+    ) {}
 
     ngOnInit(): void {
         this.gender = [{ name: "Male" }, { name: "Female" }];
@@ -22,9 +26,18 @@ export class PatientBasicInfoComponent implements OnInit {
     save() {
         this.validatePatient((callback) => {
             if (callback === "valid") {
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.spinner.show();
+                setTimeout(() => {
+                    this.spinner.hide();
+                    this.reset();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
+                }, 2000);
             } else {
-                this.showMessage("warning", "Error", "Please try again");
+                this.showMessage("warn", "Error", "Please try again");
             }
         });
     }
@@ -33,6 +46,7 @@ export class PatientBasicInfoComponent implements OnInit {
             severity: type,
             summary: title,
             detail: message,
+            life: 1000,
         });
     }
     validatePatient(callback) {
@@ -70,6 +84,14 @@ export class PatientBasicInfoComponent implements OnInit {
         }
         if (!this.patient.email) {
             this.showMessage("error", "Validation Error", "email is required");
+            return false;
+        }
+        if (!this.validateMail(this.patient.email)) {
+            this.showMessage(
+                "warn",
+                "Invalid Mail",
+                "email is not a valid mail"
+            );
             return false;
         }
         if (!this.patient.phone) {
@@ -134,5 +156,9 @@ export class PatientBasicInfoComponent implements OnInit {
         } else {
             callback("valid");
         }
+    }
+    validateMail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 }
