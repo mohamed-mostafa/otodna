@@ -1,10 +1,19 @@
+import { PatientHistoryComponent } from "./patients/patient-history/patient-history.component";
+import { ProblemsComponent } from "./patients/problems/problems.component";
+import { MedicationsComponent } from "./patients/medications/medications.component";
+import { ImmunizationsComponent } from "./patients/immunizations/immunizations.component";
+import { LabResultsComponent } from "./patients/lab-results/lab-results.component";
+import { AllergiesComponent } from "./patients/allergies/allergies.component";
+import { VitalComponent } from "./patients/vital/vital.component";
+import { FamilyComponent } from "./patients/family/family.component";
+import { PatientBasicInfoComponent } from "./patients/patient-basic-info/patient-basic-info.component";
 import { AppFooterComponent } from "./app.footer.component";
 import { AppTopBarComponent } from "./app.topbar.component";
 import { AppMenuitemComponent } from "./app.menuitem.component";
 import { AppMenuComponent } from "./app.menu.component";
 import { DashboardComponent } from "./dashboard.component";
 import { Routes, RouterModule } from "@angular/router";
-import { ModuleWithProviders, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { DashboardDemoComponent } from "./demo/view/dashboarddemo.component";
 import { SampleDemoComponent } from "./demo/view/sampledemo.component";
 import { FormsDemoComponent } from "./demo/view/formsdemo.component";
@@ -18,7 +27,7 @@ import { EmptyDemoComponent } from "./demo/view/emptydemo.component";
 import { ChartsDemoComponent } from "./demo/view/chartsdemo.component";
 import { FileDemoComponent } from "./demo/view/filedemo.component";
 import { DocumentationComponent } from "./demo/view/documentation.component";
-import { SearchPatientComponent } from "./search-patient/search-patient.component";
+import { SearchPatientComponent } from "./patients/search-patient/search-patient.component";
 import { NewPatientComponent } from "./new-patient/new-patient.component";
 import { UsersComponent } from "./users/users.component";
 
@@ -29,7 +38,7 @@ export const routes: Routes = [
         children: [
             { path: "", component: SearchPatientComponent },
             { path: "dashboard", component: DashboardDemoComponent },
-            { path: "patient", component: NewPatientComponent },
+            { path: "patient2", component: NewPatientComponent },
             { path: "users", component: UsersComponent },
             { path: "sample", component: SampleDemoComponent },
             { path: "forms", component: FormsDemoComponent },
@@ -43,6 +52,15 @@ export const routes: Routes = [
             { path: "charts", component: ChartsDemoComponent },
             { path: "file", component: FileDemoComponent },
             { path: "documentation", component: DocumentationComponent },
+            { path: "patient", component: PatientBasicInfoComponent },
+            { path: "family", component: FamilyComponent },
+            { path: "vital", component: VitalComponent },
+            { path: "allergies", component: AllergiesComponent },
+            { path: "labResults", component: LabResultsComponent },
+            { path: "immunizations", component: ImmunizationsComponent },
+            { path: "medications", component: MedicationsComponent },
+            { path: "problems", component: ProblemsComponent },
+            { path: "patientHistory", component: PatientHistoryComponent },
         ],
     },
 ];
@@ -70,9 +88,18 @@ export const COMPONENTS = [
     SearchPatientComponent,
     NewPatientComponent,
     UsersComponent,
+    PatientBasicInfoComponent,
+    FamilyComponent,
+    VitalComponent,
+    AllergiesComponent,
+    LabResultsComponent,
+    ImmunizationsComponent,
+    MedicationsComponent,
+    ProblemsComponent,
+    PatientHistoryComponent,
 ];
 @NgModule({
-	exports: [RouterModule],
-	imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
 })
 export class AppRoutes {}

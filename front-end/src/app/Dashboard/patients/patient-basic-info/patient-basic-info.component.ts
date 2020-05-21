@@ -1,0 +1,138 @@
+import { MessageService } from "primeng/api";
+import { Component, OnInit } from "@angular/core";
+import { Patient } from "./patient";
+
+@Component({
+    selector: "app-patient-basic-info",
+    templateUrl: "./patient-basic-info.component.html",
+    styleUrls: ["./patient-basic-info.component.css"],
+    providers: [MessageService],
+})
+export class PatientBasicInfoComponent implements OnInit {
+    gender = [];
+    patient: Patient = new Patient();
+    constructor(private messageService: MessageService) {}
+
+    ngOnInit(): void {
+        this.gender = [{ name: "Male" }, { name: "Female" }];
+    }
+    reset() {
+        this.patient = new Patient();
+    }
+    save() {
+        this.validatePatient((callback) => {
+            if (callback === "valid") {
+                this.showMessage("success", "Saved", "Data saved successfully");
+            } else {
+                this.showMessage("warning", "Error", "Please try again");
+            }
+        });
+    }
+    showMessage(type, title, message) {
+        this.messageService.add({
+            severity: type,
+            summary: title,
+            detail: message,
+        });
+    }
+    validatePatient(callback) {
+        if (!this.patient.fileId) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "File id is required"
+            );
+            return false;
+        }
+        if (!this.patient.firstName) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "First name is required"
+            );
+            return false;
+        }
+        if (!this.patient.middleName) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Middle name is required"
+            );
+            return false;
+        }
+        if (!this.patient.lastName) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Last Name is required"
+            );
+            return false;
+        }
+        if (!this.patient.email) {
+            this.showMessage("error", "Validation Error", "email is required");
+            return false;
+        }
+        if (!this.patient.phone) {
+            this.showMessage("error", "Validation Error", "Phone is required");
+            return false;
+        }
+        if (!this.patient.dateOfBirth) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Date of birth is required"
+            );
+            return false;
+        }
+        if (!this.patient.gender) {
+            this.showMessage("error", "Validation Error", "Gender is required");
+            return false;
+        }
+        if (!this.patient.country) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Country is required"
+            );
+            return false;
+        }
+        if (!this.patient.city) {
+            this.showMessage("error", "Validation Error", "City is required");
+            return false;
+        }
+        if (!this.patient.address) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Address is required"
+            );
+            return false;
+        }
+        if (!this.patient.bloodType) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Blood type is required"
+            );
+            return false;
+        }
+        if (!this.patient.emergencyContact) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Emergency contact is required"
+            );
+            return false;
+        }
+        if (!this.patient.emergencyPhone) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Emergency phone is required"
+            );
+            return false;
+        } else {
+            callback("valid");
+        }
+    }
+}

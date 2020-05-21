@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
 
@@ -7,10 +8,24 @@ import { DashboardComponent } from "./dashboard.component";
 })
 export class AppMenuComponent implements OnInit {
     model: any[];
-
-    constructor(public app: DashboardComponent) {}
+    patientMenu: any[];
+    showMainMenu = true;
+    patientArray;
+    showPatientMenu = false;
+    constructor(public app: DashboardComponent, private router: Router) {}
 
     ngOnInit() {
+        this.patientArray = [
+            "patient",
+            "family",
+            "vital",
+            "allergies",
+            "labResults",
+            "immunizations",
+            "medications",
+            "problems",
+            "patientHistory",
+        ];
         this.model = [
             // {
             //     label: "DASHBOARD",
@@ -433,8 +448,72 @@ export class AppMenuComponent implements OnInit {
             //     url: ["https://www.primefaces.org/store"],
             // },
         ];
+        this.patientMenu = [
+            {
+                label: "DASHBOARD",
+                icon: "fa fa-fw fa-dashboard",
+                routerLink: ["/dashboard"],
+            },
+            {
+                label: "Basic Information",
+                icon: "fa fa-fw fa-info",
+                routerLink: ["patient"],
+            },
+            {
+                label: "Family",
+                icon: "fa fa-fw fa-users",
+                routerLink: ["family"],
+            },
+            {
+                label: "Vital",
+                icon: "fa fa-fw fa-star",
+                routerLink: ["vital"],
+            },
+            {
+                label: "Allergies",
+                icon: "fa fa-fw fa-user-md",
+                routerLink: ["allergies"],
+            },
+            {
+                label: "Lab Results",
+                icon: "fa fa-fw fa-flask",
+                routerLink: ["labResults"],
+            },
+            {
+                label: "Immunizations",
+                icon: "fa fa-fw fa-user-md",
+                routerLink: ["immunizations"],
+            },
+            {
+                label: "Medications",
+                icon: "fa fa-fw fa-heartbeat",
+                routerLink: ["medications"],
+            },
+            {
+                label: "Problems",
+                icon: "fa fa-fw fa-exclamation-triangle",
+                routerLink: ["problems"],
+            },
+            {
+                label: "Patient History",
+                icon: "fa fa-fw fa-history",
+                routerLink: ["patientHistory"],
+            },
+        ];
+        this.setMenuData();
     }
-
+    setMenuData() {
+        for (const patient of this.patientArray) {
+            if (this.router.url === `/dashboard/${patient}`) {
+                this.showMainMenu = false;
+                this.showPatientMenu = true;
+                break;
+            } else {
+                this.showMainMenu = true;
+                this.showPatientMenu = false;
+            }
+        }
+    }
     changeTheme(theme: string) {
         const layoutLink: HTMLLinkElement = document.getElementById(
             "layout-css"
@@ -457,7 +536,9 @@ export class AppMenuComponent implements OnInit {
 
     onMenuClick(event) {
         if (!this.app.isHorizontal()) {
+        } else {
+            this.app.onMenuClick(event);
         }
-        this.app.onMenuClick(event);
+        this.setMenuData();
     }
 }

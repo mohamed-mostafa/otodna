@@ -1,6 +1,6 @@
 import { NgxSpinnerService } from "ngx-spinner";
-import { TeamsService } from "./../demo/service/teamService";
-import { Team } from "./../demo/domain/team";
+import { TeamsService } from "../../demo/service/teamService";
+import { Team } from "../../demo/domain/team";
 import { Component, OnInit } from "@angular/core";
 import { SelectItem } from "primeng/api";
 
