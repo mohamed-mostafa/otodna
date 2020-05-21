@@ -59,18 +59,14 @@
                 ></p-calendar>
             </div>
             <div class="ui-g-12 ui-md-12">
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon backgroundColor"
-                        ><i class="fa fa-comments"></i
-                    ></span>
-                    <input
-                        type="text"
-                        pKeyFilter="alphanum"
-                        pInputText
-                        placeholder="Comments"
-                        [(ngModel)]="vital.comments"
-                    />
-                </div>
+                <textarea
+                    [rows]="5"
+                    [cols]="30"
+                    pInputTextarea
+                    autoResize="autoResize"
+                    placeholder="Comments"
+                    [(ngModel)]="vital.comments"
+                ></textarea>
             </div>
         </div>
     </p-card>
