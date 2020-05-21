@@ -1,1 +1,131 @@
-<p>vital works!</p>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-9"></div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            (click)="showDialog()"
+            pButton
+            icon="pi pi-external-link"
+            label="Add Vital"
+        ></button>
+    </div>
+</div>
+<p-dialog
+    header="Add Vital"
+    [(visible)]="displayBasic"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [maximizable]="true"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-6">
+            <p-dropdown
+                [options]="recordType"
+                placeholder="Select..."
+                optionLabel="name"
+                [showClear]="true"
+                [(ngModel)]="vital.recordType"
+            ></p-dropdown>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <div class="ui-inputgroup">
+                <input
+                    type="text"
+                    pInputText
+                    pKeyFilter="int"
+                    placeholder="Record Value"
+                    [(ngModel)]="vital.recordValue"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <p-dropdown
+                [options]="recordValue"
+                placeholder="Select..."
+                optionLabel="name"
+                [showClear]="true"
+                [(ngModel)]="vital.recordValueType"
+            ></p-dropdown>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <p-calendar
+                [readonlyInput]="true"
+                placeholder="Noted Date"
+                [showIcon]="true"
+                [(ngModel)]="vital.notedDate"
+            ></p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="fa fa-comments"></i
+                ></span>
+                <input
+                    type="text"
+                    pKeyFilter="alphanum"
+                    pInputText
+                    placeholder="Comments"
+                    [(ngModel)]="vital.comments"
+                />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="cancel()"
+            label="Cancel"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="save()"
+            label="Save"
+        ></button>
+    </p-footer>
+</p-dialog>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <p-table
+                #dt
+                [columns]="cols"
+                styleClass="ui-table-cars"
+                [value]="vitals"
+                [paginator]="true"
+                [rows]="10"
+                dataKey="vin"
+                selectionMode="single"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.field"
+                            [ngSwitch]="col.field"
+                            [ngStyle]="{ width: col.width }"
+                        >
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>{{ rowData.recordType.name }}</td>
+                        <td>{{ rowData.recordValue }}</td>
+                        <td>{{ rowData.notedDate | date }}</td>
+                        <td>{{ rowData.comments }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>
