@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { LabResult } from "./labResult";
@@ -11,6 +12,8 @@ import { Component, OnInit } from "@angular/core";
 })
 export class LabResultsComponent implements OnInit {
     cols: any[];
+    items: MenuItem[];
+    home: MenuItem;
     labResults: any[] = [];
     displayBasic: boolean;
     labResult: LabResult = new LabResult();
@@ -26,6 +29,8 @@ export class LabResultsComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comments", header: "Comments" },
         ];
+        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
         this.displayBasic = true;

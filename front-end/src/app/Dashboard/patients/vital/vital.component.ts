@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
@@ -12,6 +13,8 @@ import { Vital } from "./vital";
 export class VitalComponent implements OnInit {
     cols: any[];
     vitals: any[] = [];
+    items: MenuItem[];
+    home: MenuItem;
     recordType = [];
     recordValue = [];
     displayBasic: boolean;
@@ -76,6 +79,8 @@ export class VitalComponent implements OnInit {
                 name: "Value * Percent",
             },
         ];
+        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
         this.displayBasic = true;

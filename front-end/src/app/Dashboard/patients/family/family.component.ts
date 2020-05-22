@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
@@ -12,6 +13,8 @@ import { Family } from "./family";
 export class FamilyComponent implements OnInit {
     cols: any[];
     families: any[] = [];
+    items: MenuItem[];
+    home: MenuItem;
     displayBasic: boolean;
     family: Family = new Family();
     constructor(
@@ -23,6 +26,8 @@ export class FamilyComponent implements OnInit {
             { field: "familyMemberName", header: "Family Member Name" },
             { field: "relation", header: "Relation" },
         ];
+        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
         this.displayBasic = true;

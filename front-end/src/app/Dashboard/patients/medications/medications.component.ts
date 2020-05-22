@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
@@ -13,6 +14,8 @@ export class MedicationsComponent implements OnInit {
     cols: any[];
     medications: any[] = [];
     status = [];
+    items: MenuItem[];
+    home: MenuItem;
     displayBasic: boolean;
     medication: Medication = new Medication();
     constructor(
@@ -43,6 +46,8 @@ export class MedicationsComponent implements OnInit {
                 name: "No longer active",
             },
         ];
+        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
         this.displayBasic = true;

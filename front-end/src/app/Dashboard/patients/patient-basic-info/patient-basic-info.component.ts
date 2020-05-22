@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
@@ -12,6 +13,8 @@ import { Patient } from "./patient";
 export class PatientBasicInfoComponent implements OnInit {
     gender = [];
     patient: Patient = new Patient();
+    items: MenuItem[];
+    home: MenuItem;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -19,6 +22,8 @@ export class PatientBasicInfoComponent implements OnInit {
 
     ngOnInit(): void {
         this.gender = [{ name: "Male" }, { name: "Female" }];
+        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        this.home = { icon: "fa fa-user-md" };
     }
     reset() {
         this.patient = new Patient();
