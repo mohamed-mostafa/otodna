@@ -97,6 +97,11 @@ export class VitalComponent implements OnInit {
                     this.vitals.push(this.vital);
                     this.displayBasic = false;
                     this.vital = new Vital();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {

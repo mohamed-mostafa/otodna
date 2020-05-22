@@ -99,6 +99,11 @@ export class AllergiesComponent implements OnInit {
                     this.allergies.push(this.allergy);
                     this.displayBasic = false;
                     this.allergy = new Allergies();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {

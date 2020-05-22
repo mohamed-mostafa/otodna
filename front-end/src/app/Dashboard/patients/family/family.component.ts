@@ -44,6 +44,11 @@ export class FamilyComponent implements OnInit {
                     this.families.push(this.family);
                     this.displayBasic = false;
                     this.family = new Family();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {

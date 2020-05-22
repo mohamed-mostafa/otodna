@@ -58,6 +58,11 @@ export class ProblemsComponent implements OnInit {
                     this.problems.push(this.problem);
                     this.displayBasic = false;
                     this.problem = new Problem();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {

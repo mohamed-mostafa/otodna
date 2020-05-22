@@ -62,6 +62,11 @@ export class ImmunizationsComponent implements OnInit {
                     this.immunizations.push(this.immunization);
                     this.displayBasic = false;
                     this.immunization = new Immunizations();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {

@@ -64,6 +64,11 @@ export class MedicationsComponent implements OnInit {
                     this.medications.push(this.medication);
                     this.displayBasic = false;
                     this.medication = new Medication();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {

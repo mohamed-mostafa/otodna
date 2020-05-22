@@ -47,6 +47,11 @@ export class LabResultsComponent implements OnInit {
                     this.labResults.push(this.labResult);
                     this.displayBasic = false;
                     this.labResult = new LabResult();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
                     this.spinner.hide();
                 }, 2000);
             } else {
