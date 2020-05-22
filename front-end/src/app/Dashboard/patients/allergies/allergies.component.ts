@@ -1,3 +1,4 @@
+import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Allergies } from "./allergies";
@@ -6,6 +7,7 @@ import { Allergies } from "./allergies";
     selector: "app-allergies",
     templateUrl: "./allergies.component.html",
     styleUrls: ["./allergies.component.css"],
+    providers: [MessageService],
 })
 export class AllergiesComponent implements OnInit {
     cols: any[];
@@ -17,8 +19,10 @@ export class AllergiesComponent implements OnInit {
     allergyType = [];
     severity = [];
     allergiesStatus = [];
-    constructor(private spinner: NgxSpinnerService) {}
-
+    constructor(
+        private messageService: MessageService,
+        private spinner: NgxSpinnerService
+    ) {}
     ngOnInit(): void {
         this.cols = [
             { field: "allergyType", header: "Allergy Type" },
@@ -83,12 +87,82 @@ export class AllergiesComponent implements OnInit {
         this.allergy = new Allergies();
     }
     save() {
-        this.spinner.show();
-        setTimeout(() => {
-            this.allergies.push(this.allergy);
-            this.displayBasic = false;
-            this.allergy = new Allergies();
-            this.spinner.hide();
-        }, 2000);
+        this.validateAllergy((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                setTimeout(() => {
+                    this.allergies.push(this.allergy);
+                    this.displayBasic = false;
+                    this.allergy = new Allergies();
+                    this.spinner.hide();
+                }, 2000);
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    showMessage(type, title, message) {
+        this.messageService.add({
+            severity: type,
+            summary: title,
+            detail: message,
+            life: 1000,
+        });
+    }
+    validateAllergy(callback) {
+        if (!this.allergy.allergyType) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Allergy type is required"
+            );
+            return false;
+        }
+        if (!this.allergy.substance) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Substance is required"
+            );
+            return false;
+        }
+        if (!this.allergy.reaction) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Reaction is required"
+            );
+            return false;
+        }
+        if (!this.allergy.severity) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Severity is required"
+            );
+            return false;
+        }
+        if (!this.allergy.status) {
+            this.showMessage("error", "Validation Error", "Status is required");
+            return false;
+        }
+        if (!this.allergy.notedDate) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Noted date is required"
+            );
+            return false;
+        }
+        if (!this.allergy.comments) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Comments is required"
+            );
+            return false;
+        } else {
+            callback("valid");
+        }
     }
 }

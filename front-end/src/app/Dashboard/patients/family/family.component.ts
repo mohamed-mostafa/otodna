@@ -1,3 +1,4 @@
+import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Family } from "./family";
@@ -6,14 +7,17 @@ import { Family } from "./family";
     selector: "app-family",
     templateUrl: "./family.component.html",
     styleUrls: ["./family.component.css"],
+    providers: [MessageService],
 })
 export class FamilyComponent implements OnInit {
     cols: any[];
     families: any[] = [];
     displayBasic: boolean;
     family: Family = new Family();
-    constructor(private spinner: NgxSpinnerService) {}
-
+    constructor(
+        private messageService: MessageService,
+        private spinner: NgxSpinnerService
+    ) {}
     ngOnInit(): void {
         this.cols = [
             { field: "familyMemberName", header: "Family Member Name" },
@@ -28,12 +32,46 @@ export class FamilyComponent implements OnInit {
         this.family = new Family();
     }
     save() {
-        this.spinner.show();
-        setTimeout(() => {
-            this.families.push(this.family);
-            this.displayBasic = false;
-            this.family = new Family();
-            this.spinner.hide();
-        }, 2000);
+        this.validateFamily((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                setTimeout(() => {
+                    this.families.push(this.family);
+                    this.displayBasic = false;
+                    this.family = new Family();
+                    this.spinner.hide();
+                }, 2000);
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    showMessage(type, title, message) {
+        this.messageService.add({
+            severity: type,
+            summary: title,
+            detail: message,
+            life: 1000,
+        });
+    }
+    validateFamily(callback) {
+        if (!this.family.familyMemberName) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Family member name is required"
+            );
+            return false;
+        }
+        if (!this.family.relation) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "relation is required"
+            );
+            return false;
+        } else {
+            callback("valid");
+        }
     }
 }
