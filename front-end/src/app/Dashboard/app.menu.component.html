@@ -9,10 +9,10 @@
                 [root]="true"
             ></li>
         </ng-container>
-        <ng-container *ngIf="showPatientMenu">
+        <ng-container *ngIf="showOtherMenu">
             <li
                 app-menuitem
-                *ngFor="let item of patientMenu; let i = index"
+                *ngFor="let item of otherMenu; let i = index"
                 [item]="item"
                 [index]="i"
                 [root]="true"

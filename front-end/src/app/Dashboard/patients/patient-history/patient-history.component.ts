@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 
@@ -9,10 +10,17 @@ import { Component, OnInit } from "@angular/core";
 export class PatientHistoryComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
-    constructor() {}
+    constructor(private router: Router) {}
 
     ngOnInit(): void {
         this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
+    }
+    addDiagnosis() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addDiagnosis"]);
+            });
     }
 }

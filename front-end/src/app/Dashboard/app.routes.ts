@@ -1,3 +1,4 @@
+import { AddDiagnosisComponent } from "./diagnosis/add-diagnosis/add-diagnosis.component";
 import { PatientHistoryComponent } from "./patients/patient-history/patient-history.component";
 import { ProblemsComponent } from "./patients/problems/problems.component";
 import { MedicationsComponent } from "./patients/medications/medications.component";
@@ -59,6 +60,7 @@ export const routes: Routes = [
             { path: "medications", component: MedicationsComponent },
             { path: "problems", component: ProblemsComponent },
             { path: "patientHistory", component: PatientHistoryComponent },
+            { path: "addDiagnosis", component: AddDiagnosisComponent },
         ],
     },
 ];
@@ -94,6 +96,7 @@ export const COMPONENTS = [
     MedicationsComponent,
     ProblemsComponent,
     PatientHistoryComponent,
+    AddDiagnosisComponent,
 ];
 @NgModule({
     exports: [RouterModule],
