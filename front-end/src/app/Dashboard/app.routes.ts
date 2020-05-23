@@ -1,3 +1,5 @@
+import { AddFollowupComponent } from "./followup/add-followup/add-followup.component";
+import { AddTreatmentComponent } from "./treatment/add-treatment/add-treatment.component";
 import { AddDiagnosisComponent } from "./diagnosis/add-diagnosis/add-diagnosis.component";
 import { PatientHistoryComponent } from "./patients/patient-history/patient-history.component";
 import { ProblemsComponent } from "./patients/problems/problems.component";
@@ -61,6 +63,8 @@ export const routes: Routes = [
             { path: "problems", component: ProblemsComponent },
             { path: "patientHistory", component: PatientHistoryComponent },
             { path: "addDiagnosis", component: AddDiagnosisComponent },
+            { path: "addTreatment", component: AddTreatmentComponent },
+            { path: "addFollowup", component: AddFollowupComponent },
         ],
     },
 ];
@@ -97,6 +101,8 @@ export const COMPONENTS = [
     ProblemsComponent,
     PatientHistoryComponent,
     AddDiagnosisComponent,
+    AddTreatmentComponent,
+    AddFollowupComponent,
 ];
 @NgModule({
     exports: [RouterModule],

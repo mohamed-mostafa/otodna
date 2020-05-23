@@ -449,9 +449,37 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ["/dashboard"],
                 },
                 {
-                    label: "Add Diagnosis",
+                    label: "Diagnosis",
                     icon: "fa fa-fw fa-info",
                     routerLink: ["addDiagnosis"],
+                },
+            ];
+        } else if (this.router.url === "/dashboard/addTreatment") {
+            this.routesArray = ["addTreatment"];
+            this.otherMenu = [
+                {
+                    label: "DASHBOARD",
+                    icon: "fa fa-fw fa-dashboard",
+                    routerLink: ["/dashboard"],
+                },
+                {
+                    label: "Treatment",
+                    icon: "fa fa-fw fa-info",
+                    routerLink: ["addTreatment"],
+                },
+            ];
+        } else if (this.router.url === "/dashboard/addFollowup") {
+            this.routesArray = ["addFollowup"];
+            this.otherMenu = [
+                {
+                    label: "DASHBOARD",
+                    icon: "fa fa-fw fa-dashboard",
+                    routerLink: ["/dashboard"],
+                },
+                {
+                    label: "Followup",
+                    icon: "fa fa-fw fa-info",
+                    routerLink: ["addFollowup"],
                 },
             ];
         } else {

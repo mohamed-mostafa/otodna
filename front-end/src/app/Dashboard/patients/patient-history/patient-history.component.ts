@@ -23,4 +23,18 @@ export class PatientHistoryComponent implements OnInit {
                 this.router.navigate(["/dashboard/addDiagnosis"]);
             });
     }
+    addTreatment() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addTreatment"]);
+            });
+    }
+    addFollowup() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addFollowup"]);
+            });
+    }
 }
