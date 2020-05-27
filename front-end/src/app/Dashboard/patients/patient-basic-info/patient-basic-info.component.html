@@ -91,6 +91,9 @@
                 placeholder="Date Of Birth"
                 [showIcon]="true"
                 [(ngModel)]="patient.dateOfBirth"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1950:2020"
             ></p-calendar>
         </div>
         <div class="ui-g-12 ui-md-4">

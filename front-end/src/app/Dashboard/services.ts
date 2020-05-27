@@ -1,3 +1,4 @@
+import { HistoryService } from "./patients/services/historyService";
 import { CarService } from "./demo/service/carservice";
 import { CountryService } from "./demo/service/countryservice";
 import { EventService } from "./demo/service/eventservice";
@@ -12,4 +13,5 @@ export const SERVICES = [
     NodeService,
     MenuService,
     TeamsService,
+    HistoryService,
 ];

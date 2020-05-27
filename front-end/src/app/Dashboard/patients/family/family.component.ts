@@ -16,17 +16,29 @@ export class FamilyComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     family: Family = new Family();
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "familyMemberName", header: "Family Member Name" },
             { field: "relation", header: "Relation" },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
@@ -42,6 +54,7 @@ export class FamilyComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.families.push(this.family);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.family = new Family();
                     this.showMessage(

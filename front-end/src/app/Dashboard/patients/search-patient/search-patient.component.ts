@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { TeamsService } from "../../demo/service/teamService";
 import { Team } from "../../demo/domain/team";
@@ -20,7 +21,8 @@ export class SearchPatientComponent implements OnInit {
     username;
     constructor(
         private teamService: TeamsService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -28,12 +30,16 @@ export class SearchPatientComponent implements OnInit {
         this.teamService.getTeams().then((teams) => (this.teams = teams));
 
         this.cols = [
-            { field: "id", header: "Id" , width:'5%'},
-            { field: "username", header: "Patient Name" , width:'20%'},
-            { field: "phone", header: "Phone" , width:'20%'},
-            { field: "lastActionDate", header: "Last Action Date" , width:'15%'},
-            { field: "lastAction", header: "Last Action" , width:'25%'},
-            { field: "team", header: "Team" , width:'15%'},
+            { field: "id", header: "Id", width: "5%" },
+            { field: "username", header: "Patient Name", width: "20%" },
+            { field: "phone", header: "Phone", width: "20%" },
+            {
+                field: "lastActionDate",
+                header: "Last Action Date",
+                width: "15%",
+            },
+            { field: "lastAction", header: "Last Action", width: "25%" },
+            { field: "team", header: "Team", width: "15%" },
         ];
     }
     showSearch() {
@@ -45,5 +51,13 @@ export class SearchPatientComponent implements OnInit {
         setTimeout(() => {
             this.spinner.hide();
         }, 2000);
+    }
+    editPatient(patient) {
+        localStorage.setItem("selectedPatient", JSON.stringify(patient));
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/editPatient"]);
+            });
     }
 }

@@ -18,6 +18,7 @@ export class AllergiesComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     allergy: Allergies = new Allergies();
     allergyType = [];
     severity = [];
@@ -27,6 +28,18 @@ export class AllergiesComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "allergyType", header: "Allergy Type" },
             { field: "substance", header: "Substance" },
@@ -81,7 +94,6 @@ export class AllergiesComponent implements OnInit {
                 name: "Resolved",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
@@ -97,6 +109,7 @@ export class AllergiesComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.allergies.push(this.allergy);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.allergy = new Allergies();
                     this.showMessage(

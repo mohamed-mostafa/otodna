@@ -17,12 +17,25 @@ export class MedicationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     medication: Medication = new Medication();
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "medication", header: "Medication" },
             { field: "date", header: "Start Date" },
@@ -46,7 +59,6 @@ export class MedicationsComponent implements OnInit {
                 name: "No longer active",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
@@ -62,6 +74,7 @@ export class MedicationsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.medications.push(this.medication);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.medication = new Medication();
                     this.showMessage(

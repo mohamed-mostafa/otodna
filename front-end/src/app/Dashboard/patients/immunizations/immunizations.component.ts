@@ -17,12 +17,25 @@ export class ImmunizationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     immunization: Immunizations = new Immunizations();
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "vaccineName", header: "Vaccine Name" },
             { field: "status", header: "Status" },
@@ -44,7 +57,6 @@ export class ImmunizationsComponent implements OnInit {
                 name: "Completed",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
@@ -60,6 +72,7 @@ export class ImmunizationsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.immunizations.push(this.immunization);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.immunization = new Immunizations();
                     this.showMessage(

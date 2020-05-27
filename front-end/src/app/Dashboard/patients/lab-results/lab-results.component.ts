@@ -16,12 +16,25 @@ export class LabResultsComponent implements OnInit {
     home: MenuItem;
     labResults: any[] = [];
     displayBasic: boolean;
+    showPagination = false;
     labResult: LabResult = new LabResult();
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "labTest", header: "Lab Test" },
             { field: "value", header: "Value" },
@@ -29,7 +42,6 @@ export class LabResultsComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comments", header: "Comments" },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
@@ -45,6 +57,7 @@ export class LabResultsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.labResults.push(this.labResult);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.labResult = new LabResult();
                     this.showMessage(

@@ -18,12 +18,25 @@ export class VitalComponent implements OnInit {
     recordType = [];
     recordValue = [];
     displayBasic: boolean;
+    showPagination = false;
     vital: Vital = new Vital();
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "recordType", header: "Record Type" },
             { field: "recordValue", header: "Record Value" },
@@ -79,7 +92,6 @@ export class VitalComponent implements OnInit {
                 name: "Value * Percent",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {
@@ -95,6 +107,7 @@ export class VitalComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.vitals.push(this.vital);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.vital = new Vital();
                     this.showMessage(

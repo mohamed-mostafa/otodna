@@ -1,33 +1,84 @@
 <div class="layout-dashboard">
     <div class="ui-g">
-    <div class="ui-g-12 ui-md-3">
-        <div class="intro-box">
-            <div class="intro-box-name intro-box-greeting">Morning {{username}}</div>
-            <div class="intro-box-detail">System Administrator</div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="intro-box">
+                <div class="intro-box-name intro-box-greeting">
+                    Morning {{ username }}
+                </div>
+                <div class="intro-box-detail">System Administrator</div>
+            </div>
         </div>
-    </div>
-    <div class="ui-g-12 ui-md-9 intro-box-detail-container">
-        <div class="intro-box">
-            <div class="intro-box-name">New Patients This Month</div>
-            <div class="intro-box-detail textCenter">15</div>
+        <div class="ui-g-12 ui-md-9 intro-box-detail-container">
+            <div class="intro-box">
+                <div class="intro-box-name">New Patients This Month</div>
+                <div class="intro-box-detail textCenter">15</div>
+            </div>
+            <div class="intro-box">
+                <div class="intro-box-name">Diagnosis This Month</div>
+                <div class="intro-box-detail textCenter">10</div>
+            </div>
+            <div class="intro-box">
+                <div class="intro-box-name">Treatments This Month</div>
+                <div class="intro-box-detail textCenter">20</div>
+            </div>
+            <div class="intro-box">
+                <div class="intro-box-name">Followups This Month</div>
+                <div class="intro-box-detail textCenter">30</div>
+            </div>
         </div>
-        <div class="intro-box">
-            <div class="intro-box-name">Diagnosis This Month</div>
-            <div class="intro-box-detail textCenter">10</div>
+        <div class="ui-g-12 ui-md-6 ui-xl-3">
+            <div class="overview-box overview-box-checkins">
+                <img
+                    src="assets/layout/images/dashboard/asset-users.svg"
+                    alt="olympia-layout"
+                />
+                <div class="overview-box-content">
+                    <div class="overview-box-title">
+                        New Patients This Month
+                    </div>
+                    <div class="overview-box-details">15</div>
+                </div>
+            </div>
         </div>
-        <div class="intro-box">
-            <div class="intro-box-name">Treatments This Month</div>
-            <div class="intro-box-detail textCenter">20</div>
+        <div class="ui-g-12 ui-md-6 ui-xl-3">
+            <div class="overview-box overview-box-checkins">
+                <img
+                    src="assets/layout/images/dashboard/asset-users.svg"
+                    alt="olympia-layout"
+                />
+                <div class="overview-box-content">
+                    <div class="overview-box-title">Diagnosis This Month</div>
+                    <div class="overview-box-details">20</div>
+                </div>
+            </div>
         </div>
-        <div class="intro-box">
-            <div class="intro-box-name">Followups This Month</div>
-            <div class="intro-box-detail textCenter">30</div>
+        <div class="ui-g-12 ui-md-6 ui-xl-3">
+            <div class="overview-box overview-box-checkins">
+                <img
+                    src="assets/layout/images/dashboard/asset-users.svg"
+                    alt="olympia-layout"
+                />
+                <div class="overview-box-content">
+                    <div class="overview-box-title">Treatments This Month</div>
+                    <div class="overview-box-details">35</div>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="ui-g-12 ui-md-6 ui-xl-3">
+            <div class="overview-box overview-box-checkins">
+                <img
+                    src="assets/layout/images/dashboard/asset-users.svg"
+                    alt="olympia-layout"
+                />
+                <div class="overview-box-content">
+                    <div class="overview-box-title">Followups This Month</div>
+                    <div class="overview-box-details">25</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="ui-g ui-fluid">
-  
     <div class="ui-g-12 ui-md-12" *ngIf="show2">
         <div class="card card-w-title">
             <h1>Search Patients</h1>
@@ -36,17 +87,19 @@
                     <div class="ui-inputgroup">
                         <input type="text" pInputText placeholder="Keyword" />
                         <button
-                        pButton
-                        type="button"
-                        label="Search"
-                        class="marginRight"
-                        (click)="search()"
-                    ></button>
+                            pButton
+                            type="button"
+                            label="Search"
+                            class="marginRight"
+                            (click)="search()"
+                        ></button>
                     </div>
                 </div>
-              
+
                 <div class="ui-g-12 ui-md-2 marginTop">
-                    <a href="javascript:void(0)" (click)="showSearch()">Advanced Search</a>
+                    <a href="javascript:void(0)" (click)="showSearch()"
+                        >Advanced Search</a
+                    >
                 </div>
             </div>
         </div>
@@ -55,7 +108,9 @@
         <div class="card card-w-title">
             <h1 class="displayInline">Advanced Search</h1>
             <div class="displayInline sampleSearch">
-                <a href="javascript:void(0)" (click)="showSearch()">Simple Search</a>
+                <a href="javascript:void(0)" (click)="showSearch()"
+                    >Simple Search</a
+                >
             </div>
             <div class="ui-g form-group dataMarinTop">
                 <div class="ui-g-12 ui-md-2">
@@ -100,9 +155,14 @@
                         [showIcon]="true"
                     ></p-calendar>
                 </div>
-                <div class="ui-g-12 ui-md-2 marginTop"><p-checkbox name="group1" value="allTeams"
-                     label="All Teams"  inputId="ny"></p-checkbox>
-                </div>    
+                <div class="ui-g-12 ui-md-2 marginTop">
+                    <p-checkbox
+                        name="group1"
+                        value="allTeams"
+                        label="All Teams"
+                        inputId="ny"
+                    ></p-checkbox>
+                </div>
                 <div class="ui-g-12 ui-md-1">
                     <button
                         pButton
@@ -112,7 +172,7 @@
                         style="margin-bottom: 10px;"
                         class="ui-button-icon-primary ui-button-raised"
                     ></button>
-                </div>            
+                </div>
             </div>
         </div>
     </div>
@@ -135,7 +195,7 @@
                             *ngFor="let col of columns"
                             [pSortableColumn]="col.field"
                             [ngSwitch]="col.field"
-                            [ngStyle]="{'width': col.width}"
+                            [ngStyle]="{ width: col.width }"
                         >
                             {{ col.header }}
                             <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -145,7 +205,13 @@
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td>{{ rowData.id }}</td>
-                        <td><a href="#" target="_blank">{{ rowData.username }}</a></td>
+                        <td>
+                            <a
+                                href="javascript:void(0)"
+                                (click)="editPatient(rowData)"
+                                >{{ rowData.username }}</a
+                            >
+                        </td>
                         <td>{{ rowData.phone }}</td>
                         <td>{{ rowData.lastActionDate }}</td>
                         <td>{{ rowData.lastAction }}</td>

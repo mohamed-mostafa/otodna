@@ -1,3 +1,5 @@
+import { filter } from "rxjs/operators";
+import { Router, NavigationEnd } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
@@ -12,17 +14,45 @@ import { Patient } from "./patient";
 })
 export class PatientBasicInfoComponent implements OnInit {
     gender = [];
+    editMode = false;
     patient: Patient = new Patient();
     items: MenuItem[];
     home: MenuItem;
     constructor(
         private messageService: MessageService,
-        private spinner: NgxSpinnerService
-    ) {}
+        private spinner: NgxSpinnerService,
+        private router: Router
+    ) {
+        router.events
+            .pipe(filter((event) => event instanceof NavigationEnd))
+            .subscribe((event: NavigationEnd) => {
+                if (event.url === "/dashboard/editPatient") {
+                    this.editMode = true;
+                } else {
+                    this.editMode = false;
+                    this.items = [
+                        { label: "Patients" },
+                        { label: "Create Patient" },
+                    ];
+                }
+            });
+    }
 
     ngOnInit(): void {
+        if (this.editMode === true) {
+            localStorage.setItem("patientType", "update");
+            let selected = localStorage.getItem("selectedPatient");
+            let selectedPatient = JSON.parse(selected);
+            this.patient.fileId = selectedPatient.id;
+            this.patient.firstName = selectedPatient.username;
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        } else {
+            localStorage.setItem("patientType", "create");
+        }
         this.gender = [{ name: "Male" }, { name: "Female" }];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     reset() {
