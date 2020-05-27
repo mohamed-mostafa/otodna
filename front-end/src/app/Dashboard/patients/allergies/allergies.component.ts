@@ -18,6 +18,7 @@ export class AllergiesComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     allergy: Allergies = new Allergies();
     allergyType = [];
     severity = [];
@@ -108,6 +109,7 @@ export class AllergiesComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.allergies.push(this.allergy);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.allergy = new Allergies();
                     this.showMessage(

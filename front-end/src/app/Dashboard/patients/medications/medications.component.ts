@@ -17,6 +17,7 @@ export class MedicationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     medication: Medication = new Medication();
     constructor(
         private messageService: MessageService,
@@ -73,6 +74,7 @@ export class MedicationsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.medications.push(this.medication);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.medication = new Medication();
                     this.showMessage(

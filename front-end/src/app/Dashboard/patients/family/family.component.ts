@@ -16,6 +16,7 @@ export class FamilyComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
+    showPagination = false;
     family: Family = new Family();
     constructor(
         private messageService: MessageService,
@@ -53,6 +54,7 @@ export class FamilyComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.families.push(this.family);
+                    this.showPagination = true;
                     this.displayBasic = false;
                     this.family = new Family();
                     this.showMessage(
