@@ -25,4 +25,13 @@
             (click)="addFollowup()"
         ></button>
     </div>
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <h1>Patient History</h1>
+            <p-fullCalendar
+                [events]="events"
+                [options]="fullcalendarOptions"
+            ></p-fullCalendar>
+        </div>
+    </div>
 </div>
