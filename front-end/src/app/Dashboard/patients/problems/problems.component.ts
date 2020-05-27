@@ -40,7 +40,18 @@ export class ProblemsComponent implements OnInit {
                 name: "Resolved",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {

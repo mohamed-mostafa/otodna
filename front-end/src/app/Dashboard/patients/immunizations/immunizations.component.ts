@@ -23,6 +23,18 @@ export class ImmunizationsComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "vaccineName", header: "Vaccine Name" },
             { field: "status", header: "Status" },
@@ -44,7 +56,6 @@ export class ImmunizationsComponent implements OnInit {
                 name: "Completed",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {

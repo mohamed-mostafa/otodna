@@ -54,6 +54,7 @@ export const routes: Routes = [
             { path: "file", component: FileDemoComponent },
             { path: "documentation", component: DocumentationComponent },
             { path: "patient", component: PatientBasicInfoComponent },
+            { path: "editPatient", redirectTo: "patient", pathMatch: "full" },
             { path: "family", component: FamilyComponent },
             { path: "vital", component: VitalComponent },
             { path: "allergies", component: AllergiesComponent },

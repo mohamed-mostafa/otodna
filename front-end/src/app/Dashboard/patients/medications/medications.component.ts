@@ -23,6 +23,18 @@ export class MedicationsComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
+        let patientType = localStorage.getItem("patientType");
+        if (patientType === "create") {
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+        } else {
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            this.items = [
+                { label: "Patients" },
+                { label: selectedPatient.username },
+            ];
+        }
         this.cols = [
             { field: "medication", header: "Medication" },
             { field: "date", header: "Start Date" },
@@ -46,7 +58,6 @@ export class MedicationsComponent implements OnInit {
                 name: "No longer active",
             },
         ];
-        this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         this.home = { icon: "fa fa-user-md" };
     }
     showDialog() {

@@ -104,6 +104,7 @@ export class AppMenuComponent implements OnInit {
         } else {
             this.routesArray = [
                 "patient",
+                "editPatient",
                 "family",
                 "vital",
                 "allergies",
