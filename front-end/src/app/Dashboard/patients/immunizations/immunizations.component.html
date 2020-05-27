@@ -99,6 +99,8 @@
                 styleClass="ui-table-cars"
                 [value]="immunizations"
                 [paginator]="showPagination"
+                [resizableColumns]="true"
+                [responsive]="true"
                 [rows]="10"
                 dataKey="vin"
                 selectionMode="single"
@@ -121,11 +123,26 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td>{{ rowData.vaccineName }}</td>
-                        <td>{{ rowData.status.name }}</td>
-                        <td>{{ rowData.provider }}</td>
-                        <td>{{ rowData.notedDate | date }}</td>
-                        <td>{{ rowData.comments }}</td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Vaccine Name </span
+                            >{{ rowData.vaccineName }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Status </span
+                            >{{ rowData.status.name }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Provider </span
+                            >{{ rowData.provider }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Noted Date </span
+                            >{{ rowData.notedDate | date }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Comments </span
+                            >{{ rowData.comments }}
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

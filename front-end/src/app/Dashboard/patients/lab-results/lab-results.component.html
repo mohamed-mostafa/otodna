@@ -102,6 +102,8 @@
                 [value]="labResults"
                 [paginator]="showPagination"
                 [rows]="10"
+                [resizableColumns]="true"
+                [responsive]="true"
                 dataKey="vin"
                 selectionMode="single"
             >
@@ -123,11 +125,26 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td>{{ rowData.labTest }}</td>
-                        <td>{{ rowData.value }}</td>
-                        <td>{{ rowData.unit }}</td>
-                        <td>{{ rowData.notedDate | date }}</td>
-                        <td>{{ rowData.comments }}</td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Lab Test </span
+                            >{{ rowData.labTest }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Value </span
+                            >{{ rowData.value }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Unit </span
+                            >{{ rowData.unit }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Noted Date </span
+                            >{{ rowData.notedDate | date }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Comments </span
+                            >{{ rowData.comments }}
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

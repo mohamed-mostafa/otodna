@@ -25,13 +25,66 @@
             (click)="addFollowup()"
         ></button>
     </div>
-    <div class="ui-g-12">
-        <div class="card card-w-title">
-            <h1>Patient History</h1>
-            <p-fullCalendar
-                [events]="events"
-                [options]="fullcalendarOptions"
-            ></p-fullCalendar>
+</div>
+<div class="layout-dashboard">
+    <div class="ui-g">
+        <div class="ui-g-12 ui-lg-12">
+            <div class="card timeline ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <span class="event-time">just now</span>
+                        <i class="fa fa-map-signs" style="color: #c6bca2;"></i>
+                    </div>
+                    <div class="ui-g-9">
+                        <span class="event-owner">Katherine May</span>
+                        <span class="event-text">Lorem ipsun dolor amet</span>
+                        <div class="event-content">
+                            <img
+                                src="assets/layout/images/dashboard/antalya.png"
+                                alt="olympia-layout"
+                                width="100"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="ui-g-3">
+                        <span class="event-time">12h ago</span>
+                        <i class="fa fa-star" style="color: #b5c6c0;"></i>
+                    </div>
+                    <div class="ui-g-9">
+                        <span class="event-owner">Brandon Santos</span>
+                        <span class="event-text"
+                            >Ab nobis, magnam sunt eum. Laudantium, repudiandae,
+                            similique!.</span
+                        >
+                    </div>
+
+                    <div class="ui-g-3">
+                        <span class="event-time">2d ago</span>
+                        <i class="fa fa-map" style="color: #bab3cc;"></i>
+                    </div>
+                    <div class="ui-g-9">
+                        <span class="event-owner">Jason Smith</span>
+                        <span class="event-text"
+                            >Laudantium, repudiandae, similique!</span
+                        >
+                        <div class="event-content">
+                            <img
+                                src="assets/layout/images/dashboard/stats-comp.png"
+                                alt="olympia-layout"
+                            />
+                        </div>
+                    </div>
+                    <div class="ui-g-3">
+                        <span class="event-time">2w ago</span>
+                        <i class="fa fa-history" style="color: #b5c6c0;"></i>
+                    </div>
+                    <div class="ui-g-9">
+                        <span class="event-owner">Walter White</span>
+                        <span class="event-text">I am the one who knocks!</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

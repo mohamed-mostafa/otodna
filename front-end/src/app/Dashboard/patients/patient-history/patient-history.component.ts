@@ -1,7 +1,3 @@
-import { HistoryService } from "./../services/historyService";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
@@ -16,10 +12,7 @@ export class PatientHistoryComponent implements OnInit {
     home: MenuItem;
     events: any[];
     fullcalendarOptions: any;
-    constructor(
-        private router: Router,
-        private historyService: HistoryService
-    ) {}
+    constructor(private router: Router) {}
 
     ngOnInit(): void {
         let patientType = localStorage.getItem("patientType");
@@ -35,18 +28,6 @@ export class PatientHistoryComponent implements OnInit {
             ];
         }
         this.home = { icon: "fa fa-user-md" };
-        this.historyService.getHistory().then((events) => {
-            this.events = events;
-        });
-        this.fullcalendarOptions = {
-            plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-            defaultDate: new Date(),
-            header: {
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-            },
-        };
     }
     addDiagnosis() {
         this.router
