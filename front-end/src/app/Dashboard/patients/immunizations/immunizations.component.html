@@ -115,6 +115,9 @@
                             <p-sortIcon [field]="col.field"></p-sortIcon>
                         </th>
                     </tr>
+                    <tr *ngIf="!showPagination">
+                        <h3>No Data Found</h3>
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
