@@ -149,7 +149,7 @@ export class AppMenuComponent implements OnInit {
                 },
                 {
                     label: "Immunizations",
-                    icon: "fa fa-fw fa-user-md",
+                    icon: "fa fa-fw fa-medkit",
                     routerLink: ["immunizations"],
                 },
                 {
