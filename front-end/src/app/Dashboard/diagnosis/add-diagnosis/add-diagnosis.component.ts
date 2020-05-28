@@ -12,23 +12,20 @@ export class AddDiagnosisComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        let patientType = localStorage.getItem("patientType");
-        if (patientType === "create") {
-            this.items = [
-                { label: "Patients" },
-                { label: "Create Patient" },
-                { label: "Add Diagnosis" },
-            ];
-        } else {
-            let selectedPatient = JSON.parse(
-                localStorage.getItem("selectedPatient")
-            );
-            this.items = [
-                { label: "Patients" },
-                { label: selectedPatient.username },
-                { label: "Add Diagnosis" },
-            ];
-        }
+        let selectedPatient = JSON.parse(
+            localStorage.getItem("selectedPatient")
+        );
+        this.items = [
+            { label: "Patients" },
+            {
+                label: selectedPatient.username
+                    ? selectedPatient.username
+                    : selectedPatient.firstName +
+                      " " +
+                      selectedPatient.lastName,
+            },
+            { label: "Add Diagnosis" },
+        ];
         this.home = { icon: "fa fa-user-md" };
     }
 }

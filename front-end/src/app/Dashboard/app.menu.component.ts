@@ -1,4 +1,5 @@
-import { Router } from "@angular/router";
+import { filter } from "rxjs/operators";
+import { Router, NavigationEnd } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
 
@@ -11,6 +12,7 @@ export class AppMenuComponent implements OnInit {
     otherMenu: any[];
     showMainMenu = true;
     routesArray;
+    disabledMenuItem;
     showOtherMenu = false;
     constructor(public app: DashboardComponent, private router: Router) {}
 
@@ -59,6 +61,9 @@ export class AppMenuComponent implements OnInit {
         this.setMenuData();
     }
     setMenuData() {
+        if (this.router.url === "/dashboard") {
+            localStorage.removeItem("selectedPatient");
+        }
         if (this.router.url === "/dashboard/addDiagnosis") {
             this.routesArray = ["addDiagnosis"];
             this.otherMenu = [
@@ -114,6 +119,13 @@ export class AppMenuComponent implements OnInit {
                 "problems",
                 "patientHistory",
             ];
+            let selectedPatient = JSON.parse(
+                localStorage.getItem("selectedPatient")
+            );
+            if (!selectedPatient) {
+                this.disabledMenuItem = true;
+            }
+
             this.otherMenu = [
                 {
                     label: "DASHBOARD",
@@ -129,45 +141,54 @@ export class AppMenuComponent implements OnInit {
                     label: "Family",
                     icon: "fa fa-fw fa-users",
                     routerLink: ["family"],
-                    disabled: true,
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Vital",
                     icon: "fa fa-fw fa-star",
                     routerLink: ["vital"],
-                    visible: false,
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Allergies",
                     icon: "fa fa-fw fa-user-md",
                     routerLink: ["allergies"],
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Lab Results",
                     icon: "fa fa-fw fa-flask",
                     routerLink: ["labResults"],
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Immunizations",
                     icon: "fa fa-fw fa-medkit",
                     routerLink: ["immunizations"],
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Medications",
                     icon: "fa fa-fw fa-heartbeat",
                     routerLink: ["medications"],
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Problems",
                     icon: "fa fa-fw fa-exclamation-triangle",
                     routerLink: ["problems"],
+                    disabled: this.disabledMenuItem,
                 },
                 {
                     label: "Patient History",
                     icon: "fa fa-fw fa-history",
                     routerLink: ["patientHistory"],
+                    disabled: this.disabledMenuItem,
                 },
             ];
+            this.otherMenu = this.otherMenu.filter(
+                (item) => item.disabled !== true
+            );
         }
         for (const route of this.routesArray) {
             if (this.router.url === `/dashboard/${route}`) {

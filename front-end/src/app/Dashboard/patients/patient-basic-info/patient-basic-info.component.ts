@@ -1,5 +1,4 @@
-import { filter } from "rxjs/operators";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
@@ -22,35 +21,31 @@ export class PatientBasicInfoComponent implements OnInit {
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
         private router: Router
-    ) {
-        router.events
-            .pipe(filter((event) => event instanceof NavigationEnd))
-            .subscribe((event: NavigationEnd) => {
-                if (event.url === "/dashboard/editPatient") {
-                    this.editMode = true;
-                } else {
-                    this.editMode = false;
-                    this.items = [
-                        { label: "Patients" },
-                        { label: "Create Patient" },
-                    ];
-                }
-            });
-    }
+    ) {}
 
     ngOnInit(): void {
-        if (this.editMode === true) {
-            localStorage.setItem("patientType", "update");
-            let selected = localStorage.getItem("selectedPatient");
-            let selectedPatient = JSON.parse(selected);
-            this.patient.fileId = selectedPatient.id;
-            this.patient.firstName = selectedPatient.username;
+        let selectedPatient = JSON.parse(
+            localStorage.getItem("selectedPatient")
+        );
+        if (selectedPatient) {
+            this.patient.fileId = selectedPatient.id
+                ? selectedPatient.id
+                : selectedPatient.fileId;
+            this.patient.firstName = selectedPatient.username
+                ? selectedPatient.username
+                : selectedPatient.firstName;
             this.items = [
                 { label: "Patients" },
-                { label: selectedPatient.username },
+                {
+                    label: selectedPatient.username
+                        ? selectedPatient.username
+                        : selectedPatient.firstName +
+                          " " +
+                          selectedPatient.lastName,
+                },
             ];
         } else {
-            localStorage.setItem("patientType", "create");
+            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         }
         this.gender = [{ name: "Male" }, { name: "Female" }];
         this.home = { icon: "fa fa-user-md" };
@@ -62,6 +57,17 @@ export class PatientBasicInfoComponent implements OnInit {
         this.validatePatient((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
+                localStorage.setItem(
+                    "selectedPatient",
+                    JSON.stringify(this.patient)
+                );
+                this.router
+                    .navigateByUrl("/RefreshComponent", {
+                        skipLocationChange: true,
+                    })
+                    .then(() => {
+                        this.router.navigate(["/dashboard/patient"]);
+                    });
                 setTimeout(() => {
                     this.spinner.hide();
                     this.reset();
