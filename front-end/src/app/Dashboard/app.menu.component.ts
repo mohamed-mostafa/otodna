@@ -129,13 +129,11 @@ export class AppMenuComponent implements OnInit {
                     label: "Family",
                     icon: "fa fa-fw fa-users",
                     routerLink: ["family"],
-                    disabled: true,
                 },
                 {
                     label: "Vital",
                     icon: "fa fa-fw fa-star",
                     routerLink: ["vital"],
-                    visible: false,
                 },
                 {
                     label: "Allergies",
