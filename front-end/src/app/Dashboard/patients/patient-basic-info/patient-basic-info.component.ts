@@ -17,6 +17,7 @@ export class PatientBasicInfoComponent implements OnInit {
     patient: Patient = new Patient();
     items: MenuItem[];
     home: MenuItem;
+    hideDiscard = false;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
@@ -44,6 +45,7 @@ export class PatientBasicInfoComponent implements OnInit {
                           selectedPatient.lastName,
                 },
             ];
+            this.hideDiscard = true;
         } else {
             this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         }

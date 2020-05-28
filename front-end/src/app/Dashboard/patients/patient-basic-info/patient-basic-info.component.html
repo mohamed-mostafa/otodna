@@ -197,7 +197,7 @@
 </p-fieldset>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-8"></div>
-    <div class="ui-g-12 ui-md-2">
+    <div class="ui-g-12 ui-md-2" *ngIf="!hideDiscard">
         <button
             pButton
             type="button"
@@ -207,6 +207,7 @@
             class="ui-button-danger ui-button-raised"
         ></button>
     </div>
+    <div class="ui-g-12 ui-md-2" *ngIf="hideDiscard"></div>
     <div class="ui-g-12 ui-md-2">
         <button
             pButton
