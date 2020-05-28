@@ -12,23 +12,20 @@ export class AddFollowupComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        let patientType = localStorage.getItem("patientType");
-        if (patientType === "create") {
-            this.items = [
-                { label: "Patients" },
-                { label: "Create Patient" },
-                { label: "Add Follow Up" },
-            ];
-        } else {
-            let selectedPatient = JSON.parse(
-                localStorage.getItem("selectedPatient")
-            );
-            this.items = [
-                { label: "Patients" },
-                { label: selectedPatient.username },
-                { label: "Add Follow Up" },
-            ];
-        }
+        let selectedPatient = JSON.parse(
+            localStorage.getItem("selectedPatient")
+        );
+        this.items = [
+            { label: "Patients" },
+            {
+                label: selectedPatient.username
+                    ? selectedPatient.username
+                    : selectedPatient.firstName +
+                      " " +
+                      selectedPatient.lastName,
+            },
+            { label: "Add Follow Up" },
+        ];
         this.home = { icon: "fa fa-user-md" };
     }
 }
