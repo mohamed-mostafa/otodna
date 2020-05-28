@@ -219,4 +219,34 @@
         ></button>
     </div>
 </div>
+<div class="ui-g ui-fluid" *ngIf="hideDiscard">
+    <div class="ui-g-12 ui-md-3"></div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            pButton
+            label="Add Diagnosis"
+            icon="fa fa-stethoscope"
+            (click)="addDiagnosis()"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            pButton
+            label="Add Treatment"
+            icon="fa fa-medkit"
+            (click)="addTreatment()"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            pButton
+            label="Add Follow Up"
+            icon="fa fa-ambulance"
+            (click)="addFollowup()"
+        ></button>
+    </div>
+</div>
 <ngx-spinner></ngx-spinner>

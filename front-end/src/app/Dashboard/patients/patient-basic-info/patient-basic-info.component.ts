@@ -204,4 +204,25 @@ export class PatientBasicInfoComponent implements OnInit {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
+    addDiagnosis() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addDiagnosis"]);
+            });
+    }
+    addTreatment() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addTreatment"]);
+            });
+    }
+    addFollowup() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addFollowup"]);
+            });
+    }
 }
