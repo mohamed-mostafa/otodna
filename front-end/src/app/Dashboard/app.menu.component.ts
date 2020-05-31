@@ -73,8 +73,8 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ["/dashboard"],
                 },
                 {
-                    label: "Diagnosis",
-                    icon: "fa fa-fw fa-info",
+                    label: "Basic Info",
+                    icon: "fa fa-fw fa-stethoscope",
                     routerLink: ["addDiagnosis"],
                 },
             ];
