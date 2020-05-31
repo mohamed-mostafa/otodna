@@ -64,8 +64,18 @@ export class AppMenuComponent implements OnInit {
         if (this.router.url === "/dashboard") {
             localStorage.removeItem("selectedPatient");
         }
-        if (this.router.url === "/dashboard/addDiagnosis") {
-            this.routesArray = ["addDiagnosis"];
+        if (
+            this.router.url === "/dashboard/addDiagnosis" ||
+            this.router.url === "/dashboard/diagnosisTests" ||
+            this.router.url === "/dashboard/diagnosisPathology" ||
+            this.router.url === "/dashboard/diagnosisCandidacy"
+        ) {
+            this.routesArray = [
+                "addDiagnosis",
+                "diagnosisTests",
+                "diagnosisPathology",
+                "diagnosisCandidacy",
+            ];
             this.otherMenu = [
                 {
                     label: "DASHBOARD",
@@ -76,6 +86,21 @@ export class AppMenuComponent implements OnInit {
                     label: "Basic Info",
                     icon: "fa fa-fw fa-stethoscope",
                     routerLink: ["addDiagnosis"],
+                },
+                {
+                    label: "Tests",
+                    icon: "fa fa-fw fa-flask",
+                    routerLink: ["diagnosisTests"],
+                },
+                {
+                    label: "Pathology",
+                    icon: "fa fa-fw fa-book",
+                    routerLink: ["diagnosisPathology"],
+                },
+                {
+                    label: "Candidacy",
+                    icon: "fa fa-fw fa-stethoscope",
+                    routerLink: ["diagnosisCandidacy"],
                 },
             ];
         } else if (this.router.url === "/dashboard/addTreatment") {
