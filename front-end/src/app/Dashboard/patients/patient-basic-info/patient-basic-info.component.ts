@@ -17,6 +17,7 @@ export class PatientBasicInfoComponent implements OnInit {
     patient: Patient = new Patient();
     items: MenuItem[];
     home: MenuItem;
+    hideDiscard = false;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
@@ -44,6 +45,7 @@ export class PatientBasicInfoComponent implements OnInit {
                           selectedPatient.lastName,
                 },
             ];
+            this.hideDiscard = true;
         } else {
             this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         }
@@ -201,5 +203,26 @@ export class PatientBasicInfoComponent implements OnInit {
     validateMail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
+    }
+    addDiagnosis() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addDiagnosis"]);
+            });
+    }
+    addTreatment() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addTreatment"]);
+            });
+    }
+    addFollowup() {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/addFollowup"]);
+            });
     }
 }

@@ -1,22 +1,31 @@
 .marginRight {
     margin-right: 10px;
 }
-.marginTop{
+.marginTop {
     margin-top: 5px;
 }
-.displayInline{
+.displayInline {
     display: inline;
 }
-.sampleSearch{
+.sampleSearch {
     float: right;
     margin-top: 10px;
 }
-.dataMarinTop{
+.dataMarinTop {
     margin-top: 20px;
 }
-.textCenter{
+.textCenter {
     text-align: center;
 }
-.backgroundColor{
+.backgroundColor {
     background-color: #d8efe9 !important;
+}
+.iconStyle {
+    color: #61b5a1;
+    background-color: white;
+    padding: 15px;
+    border-radius: 50px;
+}
+.titleMarginTop {
+    margin-top: 10px;
 }

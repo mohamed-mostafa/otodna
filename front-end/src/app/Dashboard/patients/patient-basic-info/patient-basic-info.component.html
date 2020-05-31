@@ -197,7 +197,7 @@
 </p-fieldset>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-8"></div>
-    <div class="ui-g-12 ui-md-2">
+    <div class="ui-g-12 ui-md-2" *ngIf="!hideDiscard">
         <button
             pButton
             type="button"
@@ -207,6 +207,7 @@
             class="ui-button-danger ui-button-raised"
         ></button>
     </div>
+    <div class="ui-g-12 ui-md-2" *ngIf="hideDiscard"></div>
     <div class="ui-g-12 ui-md-2">
         <button
             pButton
@@ -215,6 +216,36 @@
             (click)="save()"
             style="margin-bottom: 10px;"
             class="ui-button-icon-primary ui-button-raised"
+        ></button>
+    </div>
+</div>
+<div class="ui-g ui-fluid" *ngIf="hideDiscard">
+    <div class="ui-g-12 ui-md-3"></div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            pButton
+            label="Add Diagnosis"
+            icon="fa fa-stethoscope"
+            (click)="addDiagnosis()"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            pButton
+            label="Add Treatment"
+            icon="fa fa-medkit"
+            (click)="addTreatment()"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-3">
+        <button
+            type="button"
+            pButton
+            label="Add Follow Up"
+            icon="fa fa-ambulance"
+            (click)="addFollowup()"
         ></button>
     </div>
 </div>
