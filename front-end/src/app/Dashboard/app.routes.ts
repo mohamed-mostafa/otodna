@@ -32,6 +32,9 @@ import { FileDemoComponent } from "./demo/view/filedemo.component";
 import { DocumentationComponent } from "./demo/view/documentation.component";
 import { SearchPatientComponent } from "./patients/search-patient/search-patient.component";
 import { UsersComponent } from "./users/users.component";
+import { TestsComponent } from "./diagnosis/tests/tests.component";
+import { PathologyComponent } from "./diagnosis/pathology/pathology.component";
+import { CandidacyComponent } from "./diagnosis/candidacy/candidacy.component";
 
 export const routes: Routes = [
     {
@@ -63,6 +66,9 @@ export const routes: Routes = [
             { path: "problems", component: ProblemsComponent },
             { path: "patientHistory", component: PatientHistoryComponent },
             { path: "addDiagnosis", component: AddDiagnosisComponent },
+            { path: "diagnosisTests", component: TestsComponent },
+            { path: "diagnosisPathology", component: PathologyComponent },
+            { path: "diagnosisCandidacy", component: CandidacyComponent },
             { path: "addTreatment", component: AddTreatmentComponent },
             { path: "addFollowup", component: AddFollowupComponent },
         ],
@@ -103,6 +109,9 @@ export const COMPONENTS = [
     AddDiagnosisComponent,
     AddTreatmentComponent,
     AddFollowupComponent,
+    TestsComponent,
+    PathologyComponent,
+    CandidacyComponent,
 ];
 @NgModule({
     exports: [RouterModule],

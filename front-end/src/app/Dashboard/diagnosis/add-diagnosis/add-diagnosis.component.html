@@ -1,2 +1,135 @@
+<p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-<h1>Welcome From Diagnosis Page</h1>
+<p-fieldset legend="Patient Session">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="pi pi-user"></i
+                ></span>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Display Name"
+                    [(ngModel)]="diagnosis.displayName"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <p-calendar
+                [readonlyInput]="true"
+                placeholder="Date"
+                [showIcon]="true"
+                [(ngModel)]="diagnosis.date"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1950:2020"
+            ></p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="pi pi-user"></i
+                ></span>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Created By"
+                    [(ngModel)]="diagnosis.createdBy"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <p-calendar
+                [readonlyInput]="true"
+                placeholder="Created At"
+                [showIcon]="true"
+                [(ngModel)]="diagnosis.createdAt"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1950:2020"
+            ></p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="pi pi-user"></i
+                ></span>
+                <input
+                    type="text"
+                    pInputText
+                    pKeyFilter="int"
+                    placeholder="Session Type ID"
+                    [(ngModel)]="diagnosis.sessionTypeId"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="pi pi-user"></i
+                ></span>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Performer"
+                    [(ngModel)]="diagnosis.performer"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="fa fa-sticky-note"></i
+                ></span>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Notes"
+                    [(ngModel)]="diagnosis.notes"
+                />
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+<p-fieldset legend="Symptoms">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon backgroundColor"
+                    ><i class="fa fa-user-md"></i
+                ></span>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Symptom Name"
+                    [(ngModel)]="diagnosis.symptomName"
+                />
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-8"></div>
+    <div class="ui-g-12 ui-md-2">
+        <button
+            pButton
+            type="button"
+            label="Discard"
+            (click)="reset()"
+            style="margin-bottom: 10px;"
+            class="ui-button-danger ui-button-raised"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-2">
+        <button
+            pButton
+            type="button"
+            label="Save"
+            (click)="save()"
+            style="margin-bottom: 10px;"
+            class="ui-button-icon-primary ui-button-raised"
+        ></button>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>
