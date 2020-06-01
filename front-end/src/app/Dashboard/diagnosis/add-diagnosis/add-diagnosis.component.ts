@@ -33,7 +33,7 @@ export class AddDiagnosisComponent implements OnInit {
                       " " +
                       selectedPatient.lastName,
             },
-            { label: "Add Diagnosis" },
+            { label: "Diagnosis" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
     }
