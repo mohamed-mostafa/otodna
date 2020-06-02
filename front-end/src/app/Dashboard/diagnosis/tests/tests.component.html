@@ -1,1 +1,68 @@
-<p>tests works!</p>
+<p-toast></p-toast>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-3">
+        <button
+            #btn
+            type="button"
+            pButton
+            icon="pi pi-bars"
+            label="Add Test"
+            (click)="menu.toggle($event)"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-9"></div>
+</div>
+<p-slideMenu
+    #menu
+    [model]="testMenu"
+    [popup]="true"
+    [viewportHeight]="330"
+    [style]="{ width: '600px' }"
+    [menuWidth]="600"
+></p-slideMenu>
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <p-table
+                #dt
+                [columns]="cols"
+                styleClass="ui-table-cars"
+                [value]="tests"
+                [paginator]="showPagination"
+                [resizableColumns]="true"
+                [responsive]="true"
+                [rows]="10"
+                dataKey="vin"
+                selectionMode="single"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.field"
+                            [ngSwitch]="col.field"
+                            [ngStyle]="{ width: col.width }"
+                        >
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr *ngIf="!showPagination">
+                        <h3>No Data Found</h3>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Test Type </span>
+                            {{ rowData.testType }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>
