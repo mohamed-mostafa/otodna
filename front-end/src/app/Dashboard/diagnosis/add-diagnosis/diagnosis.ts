@@ -6,5 +6,5 @@ export class Diagnosis {
     sessionTypeId: number;
     performer: string;
     notes: string;
-    symptomName: string;
+    symptoms: [];
 }
