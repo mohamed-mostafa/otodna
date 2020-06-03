@@ -1,3 +1,4 @@
+import { Acoustic } from "./acoustic";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -14,10 +15,17 @@ export class TestsComponent implements OnInit {
     cols: any[];
     tests: any[] = [];
     test: Test = new Test();
+    acoustic: Acoustic = new Acoustic();
+    acousticTympanogram = [];
+    acousticFrequency = [];
+    acousticReflex = [];
     items: MenuItem[];
     testMenu: MenuItem[];
+    selectedEvent;
+    dialogName = "";
+    frequencyTable = [];
     home: MenuItem;
-    displayBasic: boolean;
+    displayAcoustic: boolean;
     showPagination = false;
     constructor(
         private messageService: MessageService,
@@ -40,6 +48,46 @@ export class TestsComponent implements OnInit {
         ];
         this.cols = [{ field: "testType", header: "Test Type" }];
         this.home = { icon: "fa fa-stethoscope" };
+        this.acousticTympanogram = [
+            {
+                name: "Type A",
+            },
+            {
+                name: "Type B",
+            },
+            {
+                name: "Type C",
+            },
+            {
+                name: "Type AS",
+            },
+            {
+                name: "Type AD",
+            },
+        ];
+        this.acousticFrequency = [
+            {
+                name: "500",
+            },
+            {
+                name: "1000",
+            },
+            {
+                name: "2000",
+            },
+            {
+                name: "4000",
+            },
+        ];
+        this.acousticReflex = [
+            {
+                name: "Yes",
+            },
+            {
+                name: "NR",
+            },
+        ];
+        this.frequencyTable = ["500", "1000", "2000", "4000"];
         this.testMenu = [
             {
                 label: "Diagnosis [E01]",
@@ -86,8 +134,9 @@ export class TestsComponent implements OnInit {
                                                     "Acoustic Impedance Tests [E01.370.382.375.050]",
                                                 icon: "fa fa-stethoscope",
                                                 command: (event) => {
-                                                    this.save(event);
+                                                    this.openAcoustic(event);
                                                 },
+                                                styleClass: "menuCss",
                                             },
                                             {
                                                 label:
@@ -128,6 +177,8 @@ export class TestsComponent implements OnInit {
                                                             "Audiometry, Pure-Tone [E01.370.382.375.060.055]",
                                                         icon:
                                                             "fa fa-stethoscope",
+                                                        // styleClass: "menuCss",
+
                                                         items: [
                                                             {
                                                                 label:
@@ -146,12 +197,13 @@ export class TestsComponent implements OnInit {
                                                     },
                                                     {
                                                         label:
-                                                            "Audiometry, Speech [E01.370.382.375.060.060] ",
+                                                            "Audiometry, Speech [E01.370.382.375.060.060]",
                                                         icon:
                                                             "fa fa-stethoscope",
                                                         command: (event) => {
                                                             this.save(event);
                                                         },
+                                                        // styleClass: "menuCss",
                                                     },
                                                     {
                                                         label:
@@ -305,16 +357,13 @@ export class TestsComponent implements OnInit {
             },
         ];
     }
-    showDialog() {
-        this.displayBasic = true;
-    }
+
     save(event) {
         this.test.testType = event.item.label;
         this.spinner.show();
         setTimeout(() => {
             this.tests.push(this.test);
             this.showPagination = true;
-            this.displayBasic = false;
             this.test = new Test();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
@@ -327,5 +376,25 @@ export class TestsComponent implements OnInit {
             detail: message,
             life: 1000,
         });
+    }
+    openAcoustic(event) {
+        this.dialogName = event.item.label;
+        this.selectedEvent = event;
+        this.displayAcoustic = true;
+    }
+    cancelAcousticDialog() {
+        this.displayAcoustic = false;
+        this.acoustic = new Acoustic();
+    }
+    saveAcousticDialog() {
+        this.spinner.show();
+        setTimeout(() => {
+            console.log(this.acoustic);
+
+            this.acoustic = new Acoustic();
+            this.displayAcoustic = false;
+            this.spinner.hide();
+        }, 2000);
+        this.save(this.selectedEvent);
     }
 }

@@ -94,17 +94,17 @@
 </p-fieldset>
 <p-fieldset legend="Symptoms">
     <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-12">
-            <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon backgroundColor"
-                    ><i class="fa fa-user-md"></i
-                ></span>
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Symptom Name"
-                    [(ngModel)]="diagnosis.symptomName"
-                />
+        <div class="ui-g-12 ui-md-6" *ngFor="let sym of symptomsArray">
+            <div class="p-grid" style="margin-bottom: 5px;">
+                <div class="p-col-12">
+                    <p-checkbox
+                        name="group1"
+                        [value]="sym"
+                        [label]="sym"
+                        [(ngModel)]="diagnosis.symptoms"
+                        [inputId]="sym"
+                    ></p-checkbox>
+                </div>
             </div>
         </div>
     </div>

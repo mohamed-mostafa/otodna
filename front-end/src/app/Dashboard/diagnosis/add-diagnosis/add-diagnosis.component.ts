@@ -14,6 +14,7 @@ export class AddDiagnosisComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     diagnosis: Diagnosis = new Diagnosis();
+    symptomsArray: string[] = [];
 
     constructor(
         private messageService: MessageService,
@@ -36,6 +37,18 @@ export class AddDiagnosisComponent implements OnInit {
             { label: "Diagnosis" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
+        this.symptomsArray = [
+            "Earache",
+            "Fever",
+            "Fluid draining from the ear",
+            "Headache",
+            "Loss of balance",
+            "Loss of hearing",
+            "Nausea and vomiting ",
+            "Pus-filled or bloody drainage from the ear",
+            "Redness and swelling of the outer ear",
+            "Vertigo",
+        ];
     }
     reset() {
         this.diagnosis = new Diagnosis();
@@ -45,6 +58,8 @@ export class AddDiagnosisComponent implements OnInit {
             if (callback === "valid") {
                 this.spinner.show();
                 setTimeout(() => {
+                    console.log(this.diagnosis);
+
                     this.spinner.hide();
                     this.reset();
                     this.showMessage(
@@ -115,14 +130,15 @@ export class AddDiagnosisComponent implements OnInit {
             this.showMessage("error", "Validation Error", "Notes is required");
             return false;
         }
-        if (!this.diagnosis.symptomName) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Symptom Name is required"
-            );
-            return false;
-        } else {
+        // if (!this.diagnosis.symptomName) {
+        //     this.showMessage(
+        //         "error",
+        //         "Validation Error",
+        //         "Symptom Name is required"
+        //     );
+        //     return false;
+        // }
+        else {
             callback("valid");
         }
     }
