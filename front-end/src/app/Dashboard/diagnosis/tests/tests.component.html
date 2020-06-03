@@ -132,25 +132,42 @@
                     <th>Freq</th>
                     <th *ngFor="let freq of frequencyTable">{{ freq }}</th>
                 </tr>
+
                 <tr>
                     <th>Right</th>
-                    <th *ngFor="let freq of frequencyTable">
+                    <th
+                        *ngFor="
+                            let freq of rightVal;
+                            let i = index;
+                            trackBy: customTrackBy
+                        "
+                    >
                         <p-dropdown
                             [options]="acousticReflex"
                             placeholder="Y/N"
                             optionLabel="name"
                             [showClear]="true"
+                            name="right-{{ i }}"
+                            [(ngModel)]="rightVal[i]"
                         ></p-dropdown>
                     </th>
                 </tr>
                 <tr>
                     <th>Left</th>
-                    <th *ngFor="let freq of frequencyTable">
+                    <th
+                        *ngFor="
+                            let freq of leftVal;
+                            let i = index;
+                            trackBy: customTrackBy
+                        "
+                    >
                         <p-dropdown
                             [options]="acousticReflex"
                             placeholder="Y/N"
                             optionLabel="name"
                             [showClear]="true"
+                            name="left-{{ i }}"
+                            [(ngModel)]="leftVal[i]"
                         ></p-dropdown>
                     </th>
                 </tr>

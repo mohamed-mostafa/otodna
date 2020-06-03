@@ -27,6 +27,8 @@ export class TestsComponent implements OnInit {
     home: MenuItem;
     displayAcoustic: boolean;
     showPagination = false;
+    rightVal = ["", "", "", ""];
+    leftVal = ["", "", "", ""];
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -88,6 +90,7 @@ export class TestsComponent implements OnInit {
             },
         ];
         this.frequencyTable = ["500", "1000", "2000", "4000"];
+
         this.testMenu = [
             {
                 label: "Diagnosis [E01]",
@@ -382,6 +385,9 @@ export class TestsComponent implements OnInit {
         this.selectedEvent = event;
         this.displayAcoustic = true;
     }
+    customTrackBy(index: number, obj: any): any {
+        return index;
+    }
     cancelAcousticDialog() {
         this.displayAcoustic = false;
         this.acoustic = new Acoustic();
@@ -389,8 +395,9 @@ export class TestsComponent implements OnInit {
     saveAcousticDialog() {
         this.spinner.show();
         setTimeout(() => {
+            this.acoustic.rightAcousticReflex = this.rightVal;
+            this.acoustic.leftAcousticReflex = this.leftVal;
             console.log(this.acoustic);
-
             this.acoustic = new Acoustic();
             this.displayAcoustic = false;
             this.spinner.hide();

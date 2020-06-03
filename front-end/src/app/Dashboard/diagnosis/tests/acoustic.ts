@@ -9,6 +9,6 @@ export class Acoustic {
     rightEarCanalVolume: number;
     leftEarCanalVolume: number;
     freqAcousticReflex: number;
-    rightAcousticReflex: [];
-    leftAcousticReflex: string;
+    rightAcousticReflex: string[];
+    leftAcousticReflex: string[];
 }
