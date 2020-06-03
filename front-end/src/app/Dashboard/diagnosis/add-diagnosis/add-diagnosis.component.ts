@@ -15,24 +15,24 @@ export class AddDiagnosisComponent implements OnInit {
     home: MenuItem;
     diagnosis: Diagnosis = new Diagnosis();
     symptomsArray: string[] = [];
-
+    selectedPatient;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
 
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
         this.items = [
             { label: "Patients" },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
+                label: this.selectedPatient.username
+                    ? this.selectedPatient.username
+                    : this.selectedPatient.firstName +
                       " " +
-                      selectedPatient.lastName,
+                      this.selectedPatient.lastName,
             },
             { label: "Diagnosis" },
         ];
@@ -49,6 +49,21 @@ export class AddDiagnosisComponent implements OnInit {
             "Redness and swelling of the outer ear",
             "Vertigo",
         ];
+        this.loadData();
+    }
+    loadData() {
+        this.diagnosis.date = new Date();
+        this.diagnosis.createdAt = new Date();
+        this.diagnosis.createdBy = this.selectedPatient.username
+            ? this.selectedPatient.username
+            : this.selectedPatient.firstName +
+              " " +
+              this.selectedPatient.lastName;
+        this.diagnosis.performer = this.selectedPatient.username
+            ? this.selectedPatient.username
+            : this.selectedPatient.firstName +
+              " " +
+              this.selectedPatient.lastName;
     }
     reset() {
         this.diagnosis = new Diagnosis();
@@ -58,10 +73,9 @@ export class AddDiagnosisComponent implements OnInit {
             if (callback === "valid") {
                 this.spinner.show();
                 setTimeout(() => {
-                    console.log(this.diagnosis);
-
                     this.spinner.hide();
                     this.reset();
+                    this.loadData();
                     this.showMessage(
                         "success",
                         "Saved",
@@ -110,14 +124,6 @@ export class AddDiagnosisComponent implements OnInit {
             );
             return false;
         }
-        if (!this.diagnosis.sessionTypeId) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Session Type is required"
-            );
-            return false;
-        }
         if (!this.diagnosis.performer) {
             this.showMessage(
                 "error",
@@ -125,20 +131,7 @@ export class AddDiagnosisComponent implements OnInit {
                 "Performer is required"
             );
             return false;
-        }
-        if (!this.diagnosis.notes) {
-            this.showMessage("error", "Validation Error", "Notes is required");
-            return false;
-        }
-        // if (!this.diagnosis.symptomName) {
-        //     this.showMessage(
-        //         "error",
-        //         "Validation Error",
-        //         "Symptom Name is required"
-        //     );
-        //     return false;
-        // }
-        else {
+        } else {
             callback("valid");
         }
     }
