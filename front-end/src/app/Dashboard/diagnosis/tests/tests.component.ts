@@ -26,9 +26,10 @@ export class TestsComponent implements OnInit {
     frequencyTable = [];
     home: MenuItem;
     displayAcoustic: boolean;
-    showPagination = false;
     rightVal = ["", "", "", ""];
     leftVal = ["", "", "", ""];
+    showTableFlag = false;
+
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -359,15 +360,21 @@ export class TestsComponent implements OnInit {
                 icon: "pi pi-fw pi-times",
             },
         ];
+        this.showTable();
     }
-
+    showTable() {
+        if (this.tests.length > 0) {
+            this.showTableFlag = true;
+        }
+    }
     save(event) {
         this.test.testType = event.item.label;
         this.spinner.show();
         setTimeout(() => {
             this.tests.push(this.test);
-            this.showPagination = true;
+
             this.test = new Test();
+            this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         }, 2000);

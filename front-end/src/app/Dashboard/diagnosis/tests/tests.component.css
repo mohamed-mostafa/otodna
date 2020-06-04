@@ -2,3 +2,7 @@
     background-color: #81d4fa !important;
     text-decoration: underline !important;
 }
+.centerClass {
+    text-align: center;
+    margin-top: 12%;
+}
