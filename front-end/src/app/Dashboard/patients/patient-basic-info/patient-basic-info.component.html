@@ -3,7 +3,8 @@
 <p-fieldset legend="Personal Information">
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-3">
-            <div class="ui-inputgroup">
+            <label for="fileID">File ID</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-id-card"></i
                 ></span>
@@ -11,6 +12,7 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="fileID"
                     placeholder="File Id"
                     [disabled]="true"
                     [(ngModel)]="patient.fileId"
@@ -18,7 +20,8 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-3">
-            <div class="ui-inputgroup">
+            <label for="first">First Name</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-user"></i
                 ></span>
@@ -26,13 +29,15 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="first"
                     placeholder="First Name"
                     [(ngModel)]="patient.firstName"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-3">
-            <div class="ui-inputgroup">
+            <label for="middle">Middle Name</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-user"></i
                 ></span>
@@ -40,13 +45,15 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="middle"
                     placeholder="Middle Name"
                     [(ngModel)]="patient.middleName"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-3">
-            <div class="ui-inputgroup">
+            <label for="last">Last Name</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-user"></i
                 ></span>
@@ -54,32 +61,37 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="last"
                     placeholder="Last Name"
                     [(ngModel)]="patient.lastName"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="email">Email</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-envelope"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="email"
                     placeholder="Email"
                     [(ngModel)]="patient.email"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="phone">Phone</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-phone"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="phone"
                     pKeyFilter="int"
                     placeholder="Phone"
                     [(ngModel)]="patient.phone"
@@ -87,39 +99,52 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <p-calendar
-                [readonlyInput]="true"
-                placeholder="Date Of Birth"
-                [showIcon]="true"
-                [(ngModel)]="patient.dateOfBirth"
-                [monthNavigator]="true"
-                [yearNavigator]="true"
-                yearRange="1950:2020"
-            ></p-calendar>
+            <label for="date">Date Of Birth</label>
+            <div class="labelMarginTop">
+                <p-calendar
+                    [readonlyInput]="true"
+                    placeholder="Date Of Birth"
+                    [showIcon]="true"
+                    id="date"
+                    [(ngModel)]="patient.dateOfBirth"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1950:2020"
+                ></p-calendar>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <p-dropdown
-                [options]="gender"
-                placeholder="Select Gender"
-                optionLabel="name"
-                [showClear]="true"
-                [(ngModel)]="patient.gender"
-            ></p-dropdown>
+            <label for="gender">Gender</label>
+            <div class="labelMarginTop">
+                <p-dropdown
+                    [options]="gender"
+                    placeholder="Select Gender"
+                    optionLabel="name"
+                    id="gender"
+                    [showClear]="true"
+                    [(ngModel)]="patient.gender"
+                ></p-dropdown>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <p-autoComplete
-                id="acSimple"
-                [(ngModel)]="patient.country"
-                [suggestions]="filteredCountries"
-                (completeMethod)="filterCountry($event)"
-                field="name"
-                placeholder="Country"
-                [size]="30"
-                [minLength]="1"
-            ></p-autoComplete>
+            <label for="country">Country</label>
+            <div class="labelMarginTop">
+                <p-autoComplete
+                    id="acSimple"
+                    [(ngModel)]="patient.country"
+                    [suggestions]="filteredCountries"
+                    (completeMethod)="filterCountry($event)"
+                    field="name"
+                    id="country"
+                    placeholder="Country"
+                    [size]="30"
+                    [minLength]="1"
+                ></p-autoComplete>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="city">City</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-building"></i
                 ></span>
@@ -127,13 +152,15 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="city"
                     placeholder="City"
                     [(ngModel)]="patient.city"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-12">
-            <div class="ui-inputgroup">
+            <label for="address">Address</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-map-marker"></i
                 ></span>
@@ -141,6 +168,7 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="address"
                     placeholder="Address"
                     [(ngModel)]="patient.address"
                 />
@@ -151,7 +179,8 @@
 <p-fieldset legend="Medical Information">
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="blood">Blood Type</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-user-md"></i
                 ></span>
@@ -159,19 +188,22 @@
                     type="text"
                     pKeyFilter="alphanum"
                     pInputText
+                    id="blood"
                     placeholder="Blood Type"
                     [(ngModel)]="patient.bloodType"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="contact">Emergency Contact</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-phone"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="contact"
                     pKeyFilter="int"
                     placeholder="Emergency Contact"
                     [(ngModel)]="patient.emergencyContact"
@@ -179,13 +211,15 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="ePhone">Emergency Phone</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-phone"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="ePhone"
                     pKeyFilter="int"
                     placeholder="Emergency Phone"
                     [(ngModel)]="patient.emergencyPhone"
