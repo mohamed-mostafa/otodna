@@ -18,8 +18,8 @@ export class VitalComponent implements OnInit {
     recordType = [];
     recordValue = [];
     displayBasic: boolean;
-    showPagination = false;
     vital: Vital = new Vital();
+    showTableFlag = false;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -94,6 +94,12 @@ export class VitalComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.vitals.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -108,9 +114,9 @@ export class VitalComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.vitals.push(this.vital);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.vital = new Vital();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

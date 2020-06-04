@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-<div class="ui-g ui-fluid">
+<div class="ui-g ui-fluid" *ngIf="showTableFlag">
     <div class="ui-g-12 ui-md-3">
         <button
             #btn
@@ -12,6 +12,17 @@
         ></button>
     </div>
     <div class="ui-g-12 ui-md-9"></div>
+</div>
+<div class="centerClass" *ngIf="!showTableFlag">
+    <h3>Click Add Test To Add A New Test</h3>
+    <button
+        #btn
+        type="button"
+        pButton
+        icon="pi pi-bars"
+        label="Add Test"
+        (click)="menu.toggle($event)"
+    ></button>
 </div>
 <p-slideMenu
     #menu
@@ -192,7 +203,7 @@
         ></button>
     </p-footer>
 </p-dialog>
-<div class="ui-g ui-fluid">
+<div class="ui-g ui-fluid" *ngIf="showTableFlag">
     <div class="ui-g-12">
         <div class="card card-w-title">
             <p-table
@@ -200,7 +211,7 @@
                 [columns]="cols"
                 styleClass="ui-table-cars"
                 [value]="tests"
-                [paginator]="showPagination"
+                [paginator]="true"
                 [resizableColumns]="true"
                 [responsive]="true"
                 [rows]="10"
@@ -218,9 +229,6 @@
                             {{ col.header }}
                             <p-sortIcon [field]="col.field"></p-sortIcon>
                         </th>
-                    </tr>
-                    <tr *ngIf="!showPagination">
-                        <h3>No Data Found</h3>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">

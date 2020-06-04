@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { Acoustic } from "./acoustic";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
@@ -26,11 +27,13 @@ export class TestsComponent implements OnInit {
     frequencyTable = [];
     home: MenuItem;
     displayAcoustic: boolean;
-    showPagination = false;
     rightVal = ["", "", "", ""];
     leftVal = ["", "", "", ""];
+    showTableFlag = false;
+
     constructor(
         private messageService: MessageService,
+        private router: Router,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -45,6 +48,9 @@ export class TestsComponent implements OnInit {
                     : selectedPatient.firstName +
                       " " +
                       selectedPatient.lastName,
+                command: (event) => {
+                    this.goToPatientPage(event);
+                },
             },
             { label: "Diagnosis" },
         ];
@@ -359,15 +365,21 @@ export class TestsComponent implements OnInit {
                 icon: "pi pi-fw pi-times",
             },
         ];
+        this.showTable();
     }
-
+    showTable() {
+        if (this.tests.length > 0) {
+            this.showTableFlag = true;
+        }
+    }
     save(event) {
         this.test.testType = event.item.label;
         this.spinner.show();
         setTimeout(() => {
             this.tests.push(this.test);
-            this.showPagination = true;
+
             this.test = new Test();
+            this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         }, 2000);
@@ -403,5 +415,12 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         }, 2000);
         this.save(this.selectedEvent);
+    }
+    goToPatientPage(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/patient"]);
+            });
     }
 }

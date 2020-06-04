@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 
@@ -9,7 +10,7 @@ import { Component, OnInit } from "@angular/core";
 export class AddTreatmentComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
-    constructor() {}
+    constructor(private router: Router) {}
 
     ngOnInit(): void {
         let selectedPatient = JSON.parse(
@@ -23,9 +24,19 @@ export class AddTreatmentComponent implements OnInit {
                     : selectedPatient.firstName +
                       " " +
                       selectedPatient.lastName,
+                command: (event) => {
+                    this.goToPatientPage(event);
+                },
             },
             { label: "Add Treatment" },
         ];
         this.home = { icon: "fa fa-user-md" };
+    }
+    goToPatientPage(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/patient"]);
+            });
     }
 }

@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Diagnosis } from "./diagnosis";
@@ -18,6 +19,7 @@ export class AddDiagnosisComponent implements OnInit {
     selectedPatient;
     constructor(
         private messageService: MessageService,
+        private router: Router,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -33,6 +35,9 @@ export class AddDiagnosisComponent implements OnInit {
                     : this.selectedPatient.firstName +
                       " " +
                       this.selectedPatient.lastName,
+                command: (event) => {
+                    this.goToPatientPage(event);
+                },
             },
             { label: "Diagnosis" },
         ];
@@ -134,5 +139,12 @@ export class AddDiagnosisComponent implements OnInit {
         } else {
             callback("valid");
         }
+    }
+    goToPatientPage(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/patient"]);
+            });
     }
 }

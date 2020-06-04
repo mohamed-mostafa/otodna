@@ -16,8 +16,9 @@ export class LabResultsComponent implements OnInit {
     home: MenuItem;
     labResults: any[] = [];
     displayBasic: boolean;
-    showPagination = false;
     labResult: LabResult = new LabResult();
+    showTableFlag = false;
+
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -44,6 +45,12 @@ export class LabResultsComponent implements OnInit {
             { field: "comments", header: "Comments" },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.labResults.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -58,9 +65,9 @@ export class LabResultsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.labResults.push(this.labResult);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.labResult = new LabResult();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

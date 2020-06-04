@@ -18,10 +18,10 @@ export class AllergiesComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showPagination = false;
     allergy: Allergies = new Allergies();
     allergyType = [];
     severity = [];
+    showTableFlag = false;
     allergiesStatus = [];
     constructor(
         private messageService: MessageService,
@@ -97,6 +97,12 @@ export class AllergiesComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.allergies.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -111,9 +117,9 @@ export class AllergiesComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.allergies.push(this.allergy);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.allergy = new Allergies();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

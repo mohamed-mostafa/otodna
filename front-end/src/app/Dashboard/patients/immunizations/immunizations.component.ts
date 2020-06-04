@@ -17,8 +17,9 @@ export class ImmunizationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showPagination = false;
     immunization: Immunizations = new Immunizations();
+    showTableFlag = false;
+
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -59,6 +60,12 @@ export class ImmunizationsComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.immunizations.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -73,9 +80,9 @@ export class ImmunizationsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.immunizations.push(this.immunization);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.immunization = new Immunizations();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

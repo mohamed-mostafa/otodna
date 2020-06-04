@@ -78,11 +78,6 @@ export class AppMenuComponent implements OnInit {
             ];
             this.otherMenu = [
                 {
-                    label: "DASHBOARD",
-                    icon: "fa fa-fw fa-dashboard",
-                    routerLink: ["/dashboard"],
-                },
-                {
                     label: "Basic Info",
                     icon: "fa fa-fw fa-stethoscope",
                     routerLink: ["addDiagnosis"],
@@ -107,11 +102,6 @@ export class AppMenuComponent implements OnInit {
             this.routesArray = ["addTreatment"];
             this.otherMenu = [
                 {
-                    label: "DASHBOARD",
-                    icon: "fa fa-fw fa-dashboard",
-                    routerLink: ["/dashboard"],
-                },
-                {
                     label: "Treatment",
                     icon: "fa fa-fw fa-info",
                     routerLink: ["addTreatment"],
@@ -120,11 +110,6 @@ export class AppMenuComponent implements OnInit {
         } else if (this.router.url === "/dashboard/addFollowup") {
             this.routesArray = ["addFollowup"];
             this.otherMenu = [
-                {
-                    label: "DASHBOARD",
-                    icon: "fa fa-fw fa-dashboard",
-                    routerLink: ["/dashboard"],
-                },
                 {
                     label: "Followup",
                     icon: "fa fa-fw fa-info",
@@ -152,11 +137,6 @@ export class AppMenuComponent implements OnInit {
             }
 
             this.otherMenu = [
-                {
-                    label: "DASHBOARD",
-                    icon: "fa fa-fw fa-dashboard",
-                    routerLink: ["/dashboard"],
-                },
                 {
                     label: "Basic Information",
                     icon: "fa fa-fw fa-info",
