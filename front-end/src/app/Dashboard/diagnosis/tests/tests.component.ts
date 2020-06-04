@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { Acoustic } from "./acoustic";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
@@ -32,6 +33,7 @@ export class TestsComponent implements OnInit {
 
     constructor(
         private messageService: MessageService,
+        private router: Router,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -46,6 +48,9 @@ export class TestsComponent implements OnInit {
                     : selectedPatient.firstName +
                       " " +
                       selectedPatient.lastName,
+                command: (event) => {
+                    this.goToPatientPage(event);
+                },
             },
             { label: "Diagnosis" },
         ];
@@ -410,5 +415,12 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         }, 2000);
         this.save(this.selectedEvent);
+    }
+    goToPatientPage(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard/patient"]);
+            });
     }
 }
