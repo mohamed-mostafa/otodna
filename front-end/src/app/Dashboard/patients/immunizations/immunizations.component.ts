@@ -17,7 +17,6 @@ export class ImmunizationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showPagination = false;
     immunization: Immunizations = new Immunizations();
     showTableFlag = false;
 
@@ -81,7 +80,6 @@ export class ImmunizationsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.immunizations.push(this.immunization);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.immunization = new Immunizations();
                     this.showTable();

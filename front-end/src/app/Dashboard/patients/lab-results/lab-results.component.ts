@@ -16,7 +16,6 @@ export class LabResultsComponent implements OnInit {
     home: MenuItem;
     labResults: any[] = [];
     displayBasic: boolean;
-    showPagination = false;
     labResult: LabResult = new LabResult();
     showTableFlag = false;
 
@@ -66,7 +65,6 @@ export class LabResultsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.labResults.push(this.labResult);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.labResult = new LabResult();
                     this.showTable();

@@ -17,7 +17,6 @@ export class MedicationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showPagination = false;
     showTableFlag = false;
     medication: Medication = new Medication();
     constructor(
@@ -82,7 +81,6 @@ export class MedicationsComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.medications.push(this.medication);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.medication = new Medication();
                     this.showTable();

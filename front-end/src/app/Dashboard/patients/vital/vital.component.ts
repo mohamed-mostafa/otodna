@@ -18,7 +18,6 @@ export class VitalComponent implements OnInit {
     recordType = [];
     recordValue = [];
     displayBasic: boolean;
-    showPagination = false;
     vital: Vital = new Vital();
     showTableFlag = false;
     constructor(
@@ -115,7 +114,6 @@ export class VitalComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.vitals.push(this.vital);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.vital = new Vital();
                     this.showTable();
