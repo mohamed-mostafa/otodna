@@ -1,3 +1,4 @@
+import { PatientCountryService } from "../services/countryService";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -17,11 +18,13 @@ export class PatientBasicInfoComponent implements OnInit {
     patient: Patient = new Patient();
     items: MenuItem[];
     home: MenuItem;
+    filteredCountries: any[];
     hideDiscard = false;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
-        private router: Router
+        private router: Router,
+        private countryService: PatientCountryService
     ) {}
 
     ngOnInit(): void {
@@ -93,14 +96,6 @@ export class PatientBasicInfoComponent implements OnInit {
         });
     }
     validatePatient(callback) {
-        if (!this.patient.fileId) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "File id is required"
-            );
-            return false;
-        }
         if (!this.patient.firstName) {
             this.showMessage(
                 "error",
@@ -109,31 +104,11 @@ export class PatientBasicInfoComponent implements OnInit {
             );
             return false;
         }
-        if (!this.patient.middleName) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Middle name is required"
-            );
-            return false;
-        }
         if (!this.patient.lastName) {
             this.showMessage(
                 "error",
                 "Validation Error",
                 "Last Name is required"
-            );
-            return false;
-        }
-        if (!this.patient.email) {
-            this.showMessage("error", "Validation Error", "email is required");
-            return false;
-        }
-        if (!this.validateMail(this.patient.email)) {
-            this.showMessage(
-                "warn",
-                "Invalid Mail",
-                "email is not a valid mail"
             );
             return false;
         }
@@ -160,49 +135,9 @@ export class PatientBasicInfoComponent implements OnInit {
                 "Country is required"
             );
             return false;
-        }
-        if (!this.patient.city) {
-            this.showMessage("error", "Validation Error", "City is required");
-            return false;
-        }
-        if (!this.patient.address) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Address is required"
-            );
-            return false;
-        }
-        if (!this.patient.bloodType) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Blood type is required"
-            );
-            return false;
-        }
-        if (!this.patient.emergencyContact) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Emergency contact is required"
-            );
-            return false;
-        }
-        if (!this.patient.emergencyPhone) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Emergency phone is required"
-            );
-            return false;
         } else {
             callback("valid");
         }
-    }
-    validateMail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
     }
     addDiagnosis() {
         this.router
@@ -224,5 +159,23 @@ export class PatientBasicInfoComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard/addFollowup"]);
             });
+    }
+    filterCountry(event) {
+        const query = event.query;
+        this.countryService.getCountries().then((countries) => {
+            this.filteredCountries = this.searchCountry(query, countries);
+        });
+    }
+    searchCountry(query, countries: any[]): any[] {
+        // in a real application, make a request to a remote url with the query and return filtered results,
+        // for demo we filter at client side
+        const filtered: any[] = [];
+        for (const item of countries) {
+            const country = item;
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(country);
+            }
+        }
+        return filtered;
     }
 }

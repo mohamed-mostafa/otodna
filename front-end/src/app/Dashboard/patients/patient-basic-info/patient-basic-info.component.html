@@ -12,6 +12,7 @@
                     pKeyFilter="alphanum"
                     pInputText
                     placeholder="File Id"
+                    [disabled]="true"
                     [(ngModel)]="patient.fileId"
                 />
             </div>
@@ -106,18 +107,16 @@
             ></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon backgroundColor"
-                    ><i class="pi pi-globe"></i
-                ></span>
-                <input
-                    type="text"
-                    pKeyFilter="alphanum"
-                    pInputText
-                    placeholder="Country"
-                    [(ngModel)]="patient.country"
-                />
-            </div>
+            <p-autoComplete
+                id="acSimple"
+                [(ngModel)]="patient.country"
+                [suggestions]="filteredCountries"
+                (completeMethod)="filterCountry($event)"
+                field="name"
+                placeholder="Country"
+                [size]="30"
+                [minLength]="1"
+            ></p-autoComplete>
         </div>
         <div class="ui-g-12 ui-md-4">
             <div class="ui-inputgroup">

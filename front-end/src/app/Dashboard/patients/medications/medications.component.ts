@@ -18,6 +18,7 @@ export class MedicationsComponent implements OnInit {
     home: MenuItem;
     displayBasic: boolean;
     showPagination = false;
+    showTableFlag = false;
     medication: Medication = new Medication();
     constructor(
         private messageService: MessageService,
@@ -61,6 +62,12 @@ export class MedicationsComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.medications.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -78,6 +85,7 @@ export class MedicationsComponent implements OnInit {
                     this.showPagination = true;
                     this.displayBasic = false;
                     this.medication = new Medication();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

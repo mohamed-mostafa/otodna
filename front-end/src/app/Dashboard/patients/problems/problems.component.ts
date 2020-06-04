@@ -19,6 +19,7 @@ export class ProblemsComponent implements OnInit {
     displayBasic: boolean;
     showPagination = false;
     problem: Problem = new Problem();
+    showTableFlag = false;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -55,6 +56,12 @@ export class ProblemsComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.problems.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -72,6 +79,7 @@ export class ProblemsComponent implements OnInit {
                     this.showPagination = true;
                     this.displayBasic = false;
                     this.problem = new Problem();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

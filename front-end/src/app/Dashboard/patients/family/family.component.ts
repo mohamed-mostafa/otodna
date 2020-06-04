@@ -16,7 +16,7 @@ export class FamilyComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showPagination = false;
+    showTableFlag = false;
     family: Family = new Family();
     constructor(
         private messageService: MessageService,
@@ -41,6 +41,12 @@ export class FamilyComponent implements OnInit {
             { field: "relation", header: "Relation" },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.showTable();
+    }
+    showTable() {
+        if (this.families.length > 0) {
+            this.showTableFlag = true;
+        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -55,9 +61,9 @@ export class FamilyComponent implements OnInit {
                 this.spinner.show();
                 setTimeout(() => {
                     this.families.push(this.family);
-                    this.showPagination = true;
                     this.displayBasic = false;
                     this.family = new Family();
+                    this.showTable();
                     this.showMessage(
                         "success",
                         "Saved",

@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-<div class="ui-g ui-fluid">
+<div class="ui-g ui-fluid" *ngIf="showTableFlag">
     <div class="ui-g-12 ui-md-9"></div>
     <div class="ui-g-12 ui-md-3">
         <button
@@ -11,6 +11,16 @@
             label="Add Allergy"
         ></button>
     </div>
+</div>
+<div class="centerClass" *ngIf="!showTableFlag">
+    <h3>Click Add Allergy To Add A New Allergy</h3>
+    <button
+        type="button"
+        (click)="showDialog()"
+        pButton
+        icon="pi pi-external-link"
+        label="Add Allergy"
+    ></button>
 </div>
 <p-dialog
     header="Add Allergy"
@@ -108,7 +118,7 @@
         ></button>
     </p-footer>
 </p-dialog>
-<div class="ui-g ui-fluid">
+<div class="ui-g ui-fluid" *ngIf="showTableFlag">
     <div class="ui-g-12">
         <div class="card card-w-title">
             <p-table
@@ -134,9 +144,6 @@
                             {{ col.header }}
                             <p-sortIcon [field]="col.field"></p-sortIcon>
                         </th>
-                    </tr>
-                    <tr *ngIf="!showPagination">
-                        <h3>No Data Found</h3>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
