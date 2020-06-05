@@ -3,37 +3,45 @@
 <p-fieldset legend="Patient Session">
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="displayName">Display Name</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-user"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="displayName"
                     placeholder="Display Name"
                     [(ngModel)]="diagnosis.displayName"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <p-calendar
-                [readonlyInput]="true"
-                placeholder="Date"
-                [showIcon]="true"
-                [(ngModel)]="diagnosis.date"
-                [monthNavigator]="true"
-                [yearNavigator]="true"
-                yearRange="1950:2020"
-            ></p-calendar>
+            <label for="date">Date</label>
+            <div class="labelMarginTop">
+                <p-calendar
+                    [readonlyInput]="true"
+                    placeholder="Date"
+                    [showIcon]="true"
+                    id="date"
+                    [(ngModel)]="diagnosis.date"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1950:2020"
+                ></p-calendar>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <div class="ui-inputgroup">
+            <label for="createdBy">Created By</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-user"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="createdBy"
                     placeholder="Created By"
                     [disabled]="true"
                     [(ngModel)]="diagnosis.createdBy"
@@ -41,39 +49,49 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <p-calendar
-                [readonlyInput]="true"
-                placeholder="Created At"
-                [showIcon]="true"
-                [disabled]="true"
-                [(ngModel)]="diagnosis.createdAt"
-                [monthNavigator]="true"
-                [yearNavigator]="true"
-                yearRange="1950:2020"
-            ></p-calendar>
+            <label for="createdAt">Created At</label>
+            <div class="labelMarginTop">
+                <p-calendar
+                    [readonlyInput]="true"
+                    placeholder="Created At"
+                    [showIcon]="true"
+                    id="createdAt"
+                    [disabled]="true"
+                    [(ngModel)]="diagnosis.createdAt"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1950:2020"
+                ></p-calendar>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="performer">Performer</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-user"></i
                 ></span>
                 <input
                     type="text"
                     pInputText
+                    id="performer"
                     placeholder="Performer"
                     [(ngModel)]="diagnosis.performer"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-12">
-            <textarea
-                [rows]="5"
-                [cols]="30"
-                pInputTextarea
-                autoResize="autoResize"
-                placeholder="Notes"
-                [(ngModel)]="diagnosis.notes"
-            ></textarea>
+            <label for="notes">Notes</label>
+            <div class="labelMarginTop">
+                <textarea
+                    [rows]="5"
+                    [cols]="30"
+                    id="notes"
+                    pInputTextarea
+                    autoResize="autoResize"
+                    placeholder="Notes"
+                    [(ngModel)]="diagnosis.notes"
+                ></textarea>
+            </div>
         </div>
     </div>
 </p-fieldset>
