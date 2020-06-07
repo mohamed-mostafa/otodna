@@ -260,7 +260,82 @@
                 </div>
             </div>
         </p-fieldset>
-        <p-fieldset legend="References"> </p-fieldset>
+        <p-fieldset legend="References">
+            <div class="ui-g-12 ui-md-3">
+                <label for="Tympanogram">Tympanogram</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        id="Tympanogram"
+                        placeholder="Type A"
+                        [readOnly]="true"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="Compliance">Compliance</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        id="Compliance"
+                        pKeyFilter="int"
+                        placeholder="10"
+                        [readOnly]="true"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="peak">Peak pressuer</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        id="peak"
+                        pKeyFilter="int"
+                        placeholder="13"
+                        [readOnly]="true"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="ear">Ear Canal Volume</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        id="ear"
+                        pKeyFilter="int"
+                        placeholder="17"
+                        [readOnly]="true"
+                    />
+                </div>
+            </div>
+            <p-table>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Freq</th>
+                        <th *ngFor="let freq of frequencyTable">{{ freq }}</th>
+                    </tr>
+
+                    <tr>
+                        <th>Right</th>
+                        <th>Yes</th>
+                        <th>Yes</th>
+                        <th>Yes</th>
+                        <th>Yes</th>
+                    </tr>
+                    <tr>
+                        <th>Left</th>
+                        <th>Yes</th>
+                        <th>Yes</th>
+                        <th>Yes</th>
+                        <th>Yes</th>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-fieldset>
     </div>
     <p-footer>
         <button
