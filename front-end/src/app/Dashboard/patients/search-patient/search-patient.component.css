@@ -1,31 +1,44 @@
 .marginRight {
     margin-right: 10px;
 }
+
 .marginTop {
     margin-top: 5px;
 }
+
 .displayInline {
     display: inline;
 }
+
 .sampleSearch {
     float: right;
     margin-top: 10px;
 }
+
 .dataMarinTop {
     margin-top: 20px;
 }
+
 .textCenter {
     text-align: center;
 }
+
 .backgroundColor {
     background-color: #d8efe9 !important;
 }
+
 .iconStyle {
     color: #61b5a1;
     background-color: white;
     padding: 15px;
     border-radius: 50px;
 }
+
 .titleMarginTop {
     margin-top: 10px;
+}
+
+.titleFont {
+    font-size: 18px;
+    font-weight: bold;
 }
