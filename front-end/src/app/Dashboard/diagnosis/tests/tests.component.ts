@@ -1,3 +1,4 @@
+import { Equipment } from "./equipment";
 import { Router } from "@angular/router";
 import { Acoustic } from "./acoustic";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -16,12 +17,16 @@ export class TestsComponent implements OnInit {
     cols: any[];
     tests: any[] = [];
     test: Test = new Test();
+    equipmentsCols: any[];
+    equipments: any[] = [];
+    equipment: Equipment = new Equipment();
     acoustic: Acoustic = new Acoustic();
     acousticTympanogram = [];
     acousticFrequency = [];
     acousticReflex = [];
     items: MenuItem[];
     testMenu: MenuItem[];
+    equipmentMenu: MenuItem[];
     selectedEvent;
     dialogName = "";
     frequencyTable = [];
@@ -365,6 +370,75 @@ export class TestsComponent implements OnInit {
                 icon: "pi pi-fw pi-times",
             },
         ];
+        this.equipmentsCols = [
+            { field: "equipmentType", header: "Equipment Type" },
+        ];
+        this.equipmentMenu = [
+            {
+                label: "Equipment and Supplies [E07]",
+                icon: "fa fa-stethoscope",
+                items: [
+                    {
+                        label: "Diagnostic Equipment [E07.230]",
+                        icon: "fa fa-stethoscope",
+                        items: [
+                            {
+                                label: "Otoscopes [E07.230.550]",
+                                icon: "fa fa-stethoscope",
+                                command: (event) => {
+                                    this.saveEquipment(event);
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        label: "Prostheses and Implants [E07.695]",
+                        icon: "fa fa-stethoscope",
+                        items: [
+                            {
+                                label:
+                                    "Auditory Brain Stem Implants [E07.695.075]",
+                                icon: "fa fa-stethoscope",
+                                command: (event) => {
+                                    this.saveEquipment(event);
+                                },
+                            },
+                            {
+                                label: "Cochlear Implants [E07.695.150]",
+                                icon: "fa fa-stethoscope",
+                                command: (event) => {
+                                    this.saveEquipment(event);
+                                },
+                            },
+                            {
+                                label: "Ossicular Prosthesis [E07.695.550]",
+                                icon: "fa fa-stethoscope",
+                                command: (event) => {
+                                    this.saveEquipment(event);
+                                },
+                            },
+                            {
+                                label: "Bone conduction implant",
+                                icon: "fa fa-stethoscope",
+                                command: (event) => {
+                                    this.saveEquipment(event);
+                                },
+                            },
+                        ],
+                    },
+                    { separator: true },
+                    {
+                        label: "Quit",
+                        icon: "pi pi-fw pi-times",
+                    },
+                ],
+            },
+            { separator: true },
+            {
+                label: "Quit",
+                icon: "pi pi-fw pi-times",
+            },
+        ];
         this.showTable();
     }
     showTable() {
@@ -415,6 +489,17 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         }, 2000);
         this.save(this.selectedEvent);
+    }
+    saveEquipment(event) {
+        this.equipment.equipmentType = event.item.label;
+        this.spinner.show();
+        setTimeout(() => {
+            this.equipments.push(this.equipment);
+            this.equipment = new Equipment();
+            this.showTable();
+            this.showMessage("success", "Saved", "Data saved successfully");
+            this.spinner.hide();
+        }, 2000);
     }
     goToPatientPage(event) {
         this.router
