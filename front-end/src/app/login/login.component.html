@@ -1,10 +1,7 @@
 <div class="body"></div>
 <div class="login-body">
     <div class="login-topbar">
-        <img
-            src="assets/layout/images/image.png"
-            alt="olympia-layout"
-        />
+        <img src="assets/layout/images/image.png" alt="olympia-layout" />
     </div>
     <div class="login-panel">
         <h1>SIGN IN TO OTODNA</h1>
@@ -38,6 +35,16 @@
         </button>
 
         <div class="separator"></div>
+        <button
+            type="button"
+            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only color"
+            style="float: right;"
+        >
+            <i class="fa fa-fw fa-user-plus"></i>
+            <span class="ui-button-text ui-c" (click)="register()"
+                >Register</span
+            >
+        </button>
     </div>
 </div>
 <ngx-spinner></ngx-spinner>

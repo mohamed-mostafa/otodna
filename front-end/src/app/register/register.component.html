@@ -1,0 +1,83 @@
+<p-toast></p-toast>
+<div class="body"></div>
+<div class="login-body">
+    <div class="login-topbar">
+        <img src="assets/layout/images/image.png" alt="Otodna-layout" />
+    </div>
+    <div class="login-panel">
+        <h1>Create An Account</h1>
+        <p>Welcome, please use the form to sign-up.</p>
+        <div class="ui-inputgroup inputMargin">
+            <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+                type="text"
+                pInputText
+                placeholder="Username"
+                class="inputFullWidth"
+                [(ngModel)]="user.username"
+            />
+        </div>
+        <div class="ui-inputgroup inputMargin">
+            <span class="ui-inputgroup-addon"
+                ><i class="fa fa-envelope"></i
+            ></span>
+            <input
+                type="text"
+                pInputText
+                placeholder="Email"
+                class="inputFullWidth"
+                [(ngModel)]="user.email"
+            />
+        </div>
+
+        <div class="ui-inputgroup inputMargin">
+            <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
+            <input
+                type="password"
+                pInputText
+                placeholder="password"
+                class="inputFullWidth"
+                [(ngModel)]="user.password"
+            />
+        </div>
+        <div class="ui-inputgroup inputMargin">
+            <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
+            <input
+                type="password"
+                pInputText
+                placeholder="Confirm Password"
+                class="inputFullWidth"
+                [(ngModel)]="user.confirmPassword"
+            />
+        </div>
+        <div class="inputMargin">
+            <select name="roles" id="role" [(ngModel)]="user.role">
+                <option [ngValue]="" selected>Select Role</option>
+                <option *ngFor="let r of role" [ngValue]="r.name">{{
+                    r.name
+                }}</option>
+            </select>
+        </div>
+
+        <button
+            type="button"
+            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only color"
+        >
+            <i class="fa fa-fw fa-user-plus"></i>
+            <span class="ui-button-text ui-c" (click)="register()"
+                >Register</span
+            >
+        </button>
+        <button
+            type="button"
+            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only color"
+            style="float: right;"
+        >
+            <span class="ui-button-text ui-c" (click)="goToLogin()"
+                >Already Have An Account</span
+            >
+        </button>
+        <div class="separator"></div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>

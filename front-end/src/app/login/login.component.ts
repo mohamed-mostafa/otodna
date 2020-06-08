@@ -31,7 +31,11 @@ export class LoginComponent implements OnInit {
             this.callSwal("UnAuthorized!", "You are not authorized.", "error");
         }
     }
-
+    register() {
+        this.ngZone.run(() => {
+            this.router.navigate(["register"]);
+        });
+    }
     callSwal(title, text, icon) {
         return swal({ title, text, icon, timer: 1000, buttons: [false] });
     }
