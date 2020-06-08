@@ -1,0 +1,21 @@
+# install loopback CLI (should be loopback4)
+npm i -g @loopback/cli
+
+# create a new app
+lb4 app
+
+npm install --save loopback-connector-mysql
+
+lb4 datasource patientsdb
+
+npm run build
+
+lb4 discover --schema=otodna
+
+lb4 repository
+
+lb4 controller
+
+
+// for BFF
+npm install loopback-connector-rest --save
