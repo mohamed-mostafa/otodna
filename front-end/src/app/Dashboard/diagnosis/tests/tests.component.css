@@ -11,3 +11,13 @@
 .labelMarginTop {
     margin-top: 7px;
 }
+
+.equipmentCenterClass {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.FullWidth {
+    width: 100%;
+}

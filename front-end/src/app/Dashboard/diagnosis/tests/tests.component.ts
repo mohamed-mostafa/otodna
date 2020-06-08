@@ -35,7 +35,7 @@ export class TestsComponent implements OnInit {
     rightVal = ["", "", "", ""];
     leftVal = ["", "", "", ""];
     showTableFlag = false;
-
+    showEquipmentTable = false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -440,10 +440,16 @@ export class TestsComponent implements OnInit {
             },
         ];
         this.showTable();
+        this.showEquipmentsTable();
     }
     showTable() {
         if (this.tests.length > 0) {
             this.showTableFlag = true;
+        }
+    }
+    showEquipmentsTable() {
+        if (this.equipments.length > 0) {
+            this.showEquipmentTable = true;
         }
     }
     save(event) {
@@ -496,7 +502,7 @@ export class TestsComponent implements OnInit {
         setTimeout(() => {
             this.equipments.push(this.equipment);
             this.equipment = new Equipment();
-            this.showTable();
+            this.showEquipmentsTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         }, 2000);
