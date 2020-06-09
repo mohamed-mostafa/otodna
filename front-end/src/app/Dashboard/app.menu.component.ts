@@ -43,7 +43,14 @@ export class AppMenuComponent implements OnInit {
             {
                 label: "TEAMS",
                 icon: "fa fa-fw fa-user-md",
-                items: [],
+                routerLink: ["/dashboard/myTeams"],
+                items: [
+                    {
+                        label: "My Teams",
+                        icon: "fa fa-fw fa-users",
+                        routerLink: ["myTeams"],
+                    },
+                ],
             },
             {
                 label: "SETTINGS",

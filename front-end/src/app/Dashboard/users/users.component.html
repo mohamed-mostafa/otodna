@@ -1,1 +1,110 @@
-<p>users works!</p>
+<p-toast></p-toast>
+<h3>Welcome To Users Page</h3>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <p-table
+                #dt
+                [columns]="cols"
+                styleClass="ui-table-cars"
+                [value]="users"
+                [paginator]="true"
+                [resizableColumns]="true"
+                [responsive]="true"
+                [rows]="10"
+                dataKey="vin"
+                selectionMode="single"
+                [(selection)]="selectedUser"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.field"
+                            [ngSwitch]="col.field"
+                            [ngStyle]="{ width: col.width }"
+                        >
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <th style="width: 8em; text-align: center;">
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-cog"
+                            ></button>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Username </span>
+                            {{ rowData.username }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Email </span>
+                            {{ rowData.email }}
+                        </td>
+                        <td>
+                            <button
+                                pButton
+                                type="button"
+                                class="ui-button-success"
+                                icon="pi pi-pencil"
+                                (click)="editUser(rowData)"
+                            ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<p-dialog
+    header="Edit User"
+    [(visible)]="displayBasic"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-6">
+            <div class="ui-inputgroup">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Username"
+                    [(ngModel)]="user.username"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <div class="ui-inputgroup">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Email"
+                    [(ngModel)]="user.email"
+                />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="cancel()"
+            label="Cancel"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="save()"
+            label="Save"
+        ></button>
+    </p-footer>
+</p-dialog>
+<ngx-spinner></ngx-spinner>
