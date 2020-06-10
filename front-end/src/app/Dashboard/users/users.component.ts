@@ -1,3 +1,4 @@
+import { InviteUser } from "./inviteUser";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
@@ -13,8 +14,11 @@ export class UsersComponent implements OnInit {
     cols: any[];
     users: any[];
     user: User = new User();
+    inviteUser: InviteUser = new InviteUser();
     selectedUser;
+    roles: any[];
     displayBasic: boolean;
+    displayInviteUserDialog: boolean;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService
@@ -38,6 +42,12 @@ export class UsersComponent implements OnInit {
             { username: "Eslam Ashref", email: "elslam@gmail.com" },
             { username: "Omnia Mohamed", email: "omnia@gmail.com" },
             { username: "Yones Salah", email: "yones@gmail.com" },
+        ];
+        this.roles = [
+            { name: "Consultant" },
+            { name: "Doctor" },
+            { name: "Nurse" },
+            { name: "Admin" },
         ];
     }
     editUser(selected) {
@@ -63,5 +73,59 @@ export class UsersComponent implements OnInit {
             detail: message,
             life: 1000,
         });
+    }
+    showInviteUserDialog() {
+        this.displayInviteUserDialog = true;
+    }
+    saveInviteUserDialog() {
+        this.validateInviteUserDialog((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                setTimeout(() => {
+                    this.displayInviteUserDialog = false;
+                    this.inviteUser = new InviteUser();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Invitation sent successfully"
+                    );
+                    this.spinner.hide();
+                }, 2000);
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    validateInviteUserDialog(callback) {
+        if (!this.inviteUser.fullName) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Full name is required"
+            );
+            return false;
+        }
+        if (!this.inviteUser.email) {
+            this.showMessage("error", "Validation Error", "Email is required");
+            return false;
+        }
+        if (!this.validateMail(this.inviteUser.email)) {
+            this.showMessage(
+                "warn",
+                "Invalid Mail",
+                "email is not a valid mail"
+            );
+            return false;
+        }
+        if (!this.inviteUser.role) {
+            this.showMessage("error", "Validation Error", "Role is required");
+            return false;
+        } else {
+            callback("valid");
+        }
+    }
+    validateMail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 }
