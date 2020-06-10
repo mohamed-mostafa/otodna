@@ -197,7 +197,7 @@ export class UserController {
   @get('/verifyToken/{token}', {
     responses: {
       '200': {
-        description: 'A boolean representing whether the token is valid or not',
+        description: 'An object representing the logged in user, including the access token',
         content: {
           'application/json': {
             schema: getModelSchemaRef(LoggedInUser),
@@ -250,6 +250,8 @@ export class UserController {
     );
       // create the new user
     newUser.password = password;
+    newUser.approved = false;
+    newUser.userTypeId = 1; // regular user
     let savedUser = await this.userRepository.create(newUser);
     delete savedUser.password;
     return savedUser;
