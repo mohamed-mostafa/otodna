@@ -25,7 +25,6 @@ import { service, inject } from '@loopback/core';
 import {validateCredentials} from '../services/validator.service';
 import {PasswordHasher} from '../services/hash.password.bcryptjs';
 import { PasswordHasherBindings, TokenServiceBindings } from '../keys';
-import { securityId } from '@loopback/security';
 
 
 export class UserController {

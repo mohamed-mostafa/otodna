@@ -1,9 +1,14 @@
-import {Entity, model, property, hasOne, belongsTo} from '@loopback/repository';
+import {Entity, model, property, hasOne, belongsTo, hasMany} from '@loopback/repository';
 import {Role} from './role.model';
 import {UserType} from './user-type.model';
+import {TeamMember} from './team-member.model';
 
-@model({settings: {idInjection: false, mysql: {schema: 'otodna-users', table: 'user'},
-hiddenProperties: ['password']
+@model({settings: {
+  idInjection: false, mysql: {schema: 'otodna-users', table: 'user'},
+  // scope: {
+  //   include: ["userType", "role"]
+  // },
+  hiddenProperties: ['password']
 }})
 export class User extends Entity {
   @property({
@@ -63,11 +68,12 @@ export class User extends Entity {
   })
   username: string;
 
-  @belongsTo(() => Role, {name: "role"})
+  @belongsTo(() => Role, {name: "role", keyFrom: "role_id", keyTo: "id"})
   role_id: number;
 
-  @belongsTo(() => UserType, {name: "userType"})
+  @belongsTo(() => UserType, {name: "userType", keyFrom: "user_type_id", keyTo: "id"})
   user_type_id: number;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data
