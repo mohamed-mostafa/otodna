@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-3">
         <button
@@ -94,7 +95,7 @@
                             {{ col.header }}
                             <p-sortIcon [field]="col.field"></p-sortIcon>
                         </th>
-                        <th style="width: 8em; text-align: center;">
+                        <th style="width: 10em; text-align: center;">
                             <button
                                 pButton
                                 type="button"
@@ -107,19 +108,60 @@
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Username </span>
-                            {{ rowData.username }}
+                            <a
+                                href="javascript:void(0)"
+                                (click)="editUser(rowData)"
+                                >{{ rowData.username }}</a
+                            >
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Full Name </span>
+                            {{ rowData.fullName }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Email </span>
                             {{ rowData.email }}
                         </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Status </span>
+                            {{ rowData.status }}
+                        </td>
                         <td>
                             <button
+                                *ngIf="rowData.status === 'Pending'"
                                 pButton
                                 type="button"
+                                style="margin: 5px;"
                                 class="ui-button-success"
-                                icon="pi pi-pencil"
-                                (click)="editUser(rowData)"
+                                label="Approve"
+                                (click)="approveUser(rowData)"
+                            ></button>
+                            <button
+                                *ngIf="rowData.status === 'Pending'"
+                                pButton
+                                type="button"
+                                style="margin: 5px;"
+                                class="ui-button-danger"
+                                label="Reject"
+                                (click)="rejectUser(rowData)"
+                            ></button>
+                            <button
+                                *ngIf="rowData.status === 'Active'"
+                                pButton
+                                type="button"
+                                style="margin: 5px;"
+                                class="ui-button-warning"
+                                label="De Activate"
+                                (click)="deActivateUser(rowData)"
+                            ></button>
+                            <button
+                                *ngIf="rowData.status === 'InActive'"
+                                pButton
+                                type="button"
+                                style="margin: 5px;"
+                                class="ui-button-info"
+                                label="Activate"
+                                (click)="activateUser(rowData)"
                             ></button>
                         </td>
                     </tr>
@@ -136,22 +178,54 @@
 >
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="username">Username</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
+                    id="username"
                     placeholder="Username"
+                    readonly="true"
                     [(ngModel)]="user.username"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="fullName">FullName</label>
+            <div class="ui-inputgroup labelMarginTop">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="FullName"
+                    readonly="true"
+                    id="fullName"
+                    [(ngModel)]="user.fullName"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <label for="email">Email</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
                     placeholder="Email"
+                    readonly="true"
+                    id="email"
                     [(ngModel)]="user.email"
+                />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <label for="status">Status</label>
+            <div class="ui-inputgroup labelMarginTop">
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Status"
+                    readonly="true"
+                    id="status"
+                    [(ngModel)]="user.status"
                 />
             </div>
         </div>
@@ -162,15 +236,8 @@
             pButton
             icon="pi pi-times"
             (click)="cancel()"
-            label="Cancel"
-            class="ui-button-secondary"
-        ></button>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-check"
-            (click)="save()"
-            label="Save"
+            label="Ok"
+            class="ui-button-icon-primary"
         ></button>
     </p-footer>
 </p-dialog>
