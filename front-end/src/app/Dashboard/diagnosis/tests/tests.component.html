@@ -44,50 +44,62 @@
 >
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-6">
-            <p-dropdown
-                [options]="acousticTympanogram"
-                placeholder="Select Tympanogram"
-                optionLabel="name"
-                [showClear]="true"
-                [(ngModel)]="acoustic.tympanogram"
-            ></p-dropdown>
+            <label for="tympanogram">Tympanogram</label>
+            <div class="labelMarginTop">
+                <p-dropdown
+                    [options]="acousticTympanogram"
+                    placeholder="Select Tympanogram"
+                    optionLabel="name"
+                    [showClear]="true"
+                    id="tympanogram"
+                    [(ngModel)]="acoustic.tympanogram"
+                ></p-dropdown>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-3">
-            <div class="ui-inputgroup">
+            <label for="rightTympanogram">Right Tympanogram</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
+                    id="rightTympanogram"
                     placeholder="Right"
                     [(ngModel)]="acoustic.rightTympanogram"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-3">
-            <div class="ui-inputgroup">
+            <label for="leftTympanogram">Left Tympanogram</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
+                    id="leftTympanogram"
                     placeholder="Left"
                     [(ngModel)]="acoustic.leftTympanogram"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="rightCompliance">Right Compliance</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
                     pKeyFilter="int"
+                    id="rightCompliance"
                     placeholder="Right Compliance"
                     [(ngModel)]="acoustic.rightCompliance"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="leftCompliance">Left Compliance</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
+                    id="leftCompliance"
                     pKeyFilter="int"
                     placeholder="Left Compliance"
                     [(ngModel)]="acoustic.leftCompliance"
@@ -95,10 +107,12 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="rightPeakPressuer">Right Peak Pressuer</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
+                    id="rightPeakPressuer"
                     pKeyFilter="int"
                     placeholder="Right Peak Pressuer"
                     [(ngModel)]="acoustic.rightPeakPressuer"
@@ -106,10 +120,12 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="leftPeakPressuer">Left Peak Pressuer</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
+                    id="leftPeakPressuer"
                     pKeyFilter="int"
                     placeholder="Left Peak Pressuer"
                     [(ngModel)]="acoustic.leftPeakPressuer"
@@ -117,22 +133,26 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="rightEarCanalVolume">Right Ear Canal Volume</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
                     pKeyFilter="int"
+                    id="rightEarCanalVolume"
                     placeholder="Right Ear Canal Volume"
                     [(ngModel)]="acoustic.rightEarCanalVolume"
                 />
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
+            <label for="leftEarCanalVolume">Left Ear Canal Volume</label>
+            <div class="ui-inputgroup labelMarginTop">
                 <input
                     type="text"
                     pInputText
                     pKeyFilter="int"
+                    id="leftEarCanalVolume"
                     placeholder="Left Ear Canal Volume"
                     [(ngModel)]="acoustic.leftEarCanalVolume"
                 />
