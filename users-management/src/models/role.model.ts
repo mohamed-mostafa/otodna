@@ -1,6 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {idInjection: false, mysql: {schema: 'otodna-users', table: 'role'}}})
+@model({settings: {idInjection: false,
+   mysql: {schema: 'otodna-users', table: 'role'}}})
 export class Role extends Entity {
   @property({
     type: 'number',

@@ -1,5 +1,7 @@
 import {Model, model, property} from '@loopback/repository';
 import {UserProfile, securityId} from '@loopback/security';
+import { UserType } from '.';
+import { Role } from './role.model';
 
 @model({settings: {strict: false}})
 export class LoggedInUser implements UserProfile {
@@ -35,6 +37,16 @@ export class LoggedInUser implements UserProfile {
     required: true,
   })
   token?: string;
+
+  @property({
+    type: "Object"
+  })
+  role?: Role;
+
+  @property({
+    type: "Object"
+  })
+  type?: UserType;
 
   // Define well-known properties here
 

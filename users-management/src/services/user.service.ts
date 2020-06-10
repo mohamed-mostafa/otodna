@@ -22,10 +22,10 @@ export class OtodnaUserService implements UserService<User, Credentials> {
   ) {}
 
   async verifyCredentials(credentials: Credentials): Promise<User> {
-    const invalidCredentialsError = 'Invalid username or password.';
+    const invalidCredentialsError = 'Incorrect username or password.';
 
     const foundUser = await this.userRepository.findOne({
-      where: {username: credentials.username},
+      where: {username: credentials.username}, include: [{relation: "userType"}, {relation: "role"}],
     });
     if (!foundUser) {
       throw new HttpErrors.Unauthorized(invalidCredentialsError);
@@ -49,7 +49,9 @@ export class OtodnaUserService implements UserService<User, Credentials> {
       id: user.id,
       name: user.username,
       email: user.emailAddress,
-      fullName: user.fullName
+      fullName: user.fullName,
+      role: user.role,
+      type: user.userType
     };
 
     return userProfile;

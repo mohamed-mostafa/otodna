@@ -6,3 +6,4 @@ export * from './team-member.model';
 export * from './user.model';
 export * from './credentials.model';
 export * from './logged-in-user.model';
+export * from './user-type.model';

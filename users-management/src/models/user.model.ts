@@ -1,6 +1,10 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasOne, belongsTo} from '@loopback/repository';
+import {Role} from './role.model';
+import {UserType} from './user-type.model';
 
-@model({settings: {idInjection: false, mysql: {schema: 'otodna-users', table: 'user'}}})
+@model({settings: {idInjection: false, mysql: {schema: 'otodna-users', table: 'user'},
+hiddenProperties: ['password']
+}})
 export class User extends Entity {
   @property({
     type: 'boolean',
@@ -36,6 +40,7 @@ export class User extends Entity {
 
   @property({
     type: 'number',
+    required: false,
     precision: 10,
     scale: 0,
     id: 1,
@@ -50,15 +55,6 @@ export class User extends Entity {
     mysql: {columnName: 'password', dataType: 'varchar', dataLength: 256, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   password: string;
-
-  @property({
-    type: 'number',
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'role_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
-  })
-  roleId?: number;
-
   @property({
     type: 'string',
     required: true,
@@ -67,6 +63,11 @@ export class User extends Entity {
   })
   username: string;
 
+  @belongsTo(() => Role, {name: "role"})
+  role_id: number;
+
+  @belongsTo(() => UserType, {name: "userType"})
+  user_type_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
