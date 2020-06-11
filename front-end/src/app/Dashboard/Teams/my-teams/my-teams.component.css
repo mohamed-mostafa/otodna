@@ -13,3 +13,13 @@
     background-color: #89d6c4;
     color: black;
 }
+.btnStyle {
+    float: right;
+    text-decoration: underline;
+}
+.iconStyle {
+    color: red;
+}
+.bold {
+    font-weight: bold;
+}

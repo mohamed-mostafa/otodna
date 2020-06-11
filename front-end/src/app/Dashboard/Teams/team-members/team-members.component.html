@@ -2,62 +2,7 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12"><h2 class="centerHeader">Team Info</h2></div>
-    <div class="ui-g-12 ui-md-4">
-        <div class="ui-inputgroup">
-            <button
-                pButton
-                [disabled]="true"
-                class="btnColor"
-                type="button"
-                label="Name"
-            ></button>
-            <input
-                type="text"
-                pInputText
-                readonly="true"
-                placeholder="Keyword"
-                value="{{ selectedTeam.name }}"
-            />
-        </div>
-    </div>
-    <div class="ui-g-12 ui-md-4">
-        <div class="ui-inputgroup">
-            <button
-                pButton
-                [disabled]="true"
-                class="btnColor"
-                type="button"
-                label="Owner"
-            ></button>
-            <input
-                type="text"
-                pInputText
-                readonly="true"
-                placeholder="Keyword"
-                value="{{ selectedTeam.owner }}"
-            />
-        </div>
-    </div>
-    <div class="ui-g-12 ui-md-4">
-        <div class="ui-inputgroup">
-            <button
-                pButton
-                [disabled]="true"
-                class="btnColor"
-                type="button"
-                label="Department"
-            ></button>
-            <input
-                type="text"
-                pInputText
-                readonly="true"
-                value="{{ selectedTeam.department }}"
-                placeholder="Keyword"
-            />
-        </div>
-    </div>
-    <div class="ui-g-12"><h2 class="centerHeader">Members Info</h2></div>
+    <div class="ui-g-12"><h2 class="centerHeader">Team Members</h2></div>
     <div class="ui-g-6" *ngFor="let m of members">
         <p-card
             class="centerHeader"
@@ -67,33 +12,24 @@
         >
             <div>
                 <div class="ui-g-12 ui-md-6">
-                    <div class="ui-inputgroup">
-                        <button
-                            pButton
-                            [disabled]="true"
-                            type="button"
-                            class="btnColor"
-                            label="Role"
-                        ></button>
-                        <input
-                            type="text"
-                            class="centerHeader"
-                            pInputText
-                            placeholder="Role"
-                            readonly="true"
-                            [(ngModel)]="m.role"
-                        />
-                    </div>
+                    <img
+                        src="assets/layout/images/doctor.png"
+                        height="65px"
+                        width="150px"
+                        style="border-radius: 15px;"
+                    />
                 </div>
-                <div class="ui-g-12 ui-md-6">
-                    <button
-                        type="button"
-                        pButton
-                        icon="pi pi-times"
+                <div class="ui-g-12 ui-md-5 bold marginTop">
+                    {{ m.role }}
+                </div>
+                <div class="ui-g-2 ui-md-1 marginTop">
+                    <a
+                        href="javascript:void(0)"
+                        class="iconStyle"
                         (click)="deleteMember(m)"
-                        label="Delete Member"
-                        class="ui-button-danger"
-                    ></button>
+                    >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </p-card>
@@ -103,7 +39,7 @@
             <p-card
                 class="centerHeader"
                 [style]="{ height: '115px' }"
-                header="Add New Member"
+                header="Click Add New Member To Add A New Member"
             >
                 <button
                     type="button"
@@ -151,7 +87,7 @@
             pButton
             icon="pi pi-check"
             (click)="saveMember()"
-            label="Save"
+            label="Add"
         ></button>
     </p-footer>
 </p-dialog>

@@ -5,68 +5,35 @@
     <div class="ui-g-6" *ngFor="let t of teams">
         <p-card
             class="centerHeader"
-            [style]="{ height: '160px' }"
+            [style]="{ height: '110px' }"
             styleClass="ui-card-shadow"
             header="{{ t.name }}"
         >
             <div>
-                <div class="ui-g-12 ui-md-6">
-                    <div class="ui-inputgroup">
-                        <button
-                            pButton
-                            [disabled]="true"
-                            type="button"
-                            class="btnColor"
-                            label="Owner"
-                        ></button>
-                        <input
-                            type="text"
-                            class="centerHeader"
-                            pInputText
-                            placeholder="Owner"
-                            readonly="true"
-                            [(ngModel)]="t.owner"
-                        />
-                    </div>
+                <div class="ui-g-12 ui-md-6 bold">
+                    {{ t.owner }}
                 </div>
-                <div class="ui-g-12 ui-md-6">
-                    <div class="ui-inputgroup">
-                        <button
-                            pButton
-                            [disabled]="true"
-                            class="btnColor"
-                            type="button"
-                            label="Department"
-                        ></button>
-                        <input
-                            type="text"
-                            pInputText
-                            class="centerHeader"
-                            placeholder="Department"
-                            readonly="true"
-                            [(ngModel)]="t.department"
-                        />
-                    </div>
+                <div class="ui-g-5 ui-md-5 bold">
+                    {{ t.department }}
                 </div>
-                <div class="ui-g-12 ui-md-6">
-                    <button
-                        type="button"
-                        pButton
-                        icon="pi pi-check"
-                        (click)="openTeamMember(t)"
-                        label="Open Team"
-                        class="ui-button-info"
-                    ></button>
-                </div>
-                <div class="ui-g-12 ui-md-6">
-                    <button
-                        type="button"
-                        pButton
-                        icon="pi pi-times"
+                <div class="ui-g-2 ui-md-1">
+                    <a
+                        href="javascript:void(0)"
+                        class="iconStyle"
                         (click)="deleteTeam(t)"
-                        label="Delete Team"
-                        class="ui-button-danger"
-                    ></button>
+                    >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div class="ui-g-5 ui-md-12">
+                    <a
+                        href="javascript:void(0)"
+                        class="btnStyle"
+                        (click)="openTeamMember(t)"
+                    >
+                        Open Team</a
+                    >
                 </div>
             </div>
         </p-card>
@@ -75,10 +42,9 @@
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader"
-                [style]="{ height: '160px' }"
-                header="Add New Team"
+                [style]="{ height: '110px' }"
+                header="Click Add New Team To Add A New Team"
             >
-                <h3>Click Add New Team To Add A New Team</h3>
                 <button
                     type="button"
                     pButton
@@ -145,7 +111,7 @@
             pButton
             icon="pi pi-check"
             (click)="saveTeam()"
-            label="Save"
+            label="Add"
         ></button>
     </p-footer>
 </p-dialog>
