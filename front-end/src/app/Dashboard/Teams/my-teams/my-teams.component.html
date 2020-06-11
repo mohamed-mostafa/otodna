@@ -1,172 +1,150 @@
 <p-toast></p-toast>
-<h3>Welcome To My Teams Page</h3>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid">
-    <div class="ui-g-5"></div>
-    <div class="ui-g-2"><h2>My Teams</h2></div>
-    <div class="ui-g-5"></div>
-    <div class="ui-g-6">
-        <p-card header="Alaa Team">
+    <div class="ui-g-12"><h2 class="centerHeader">My Teams</h2></div>
+    <div class="ui-g-6" *ngFor="let t of teams">
+        <p-card
+            class="centerHeader"
+            [style]="{ height: '160px' }"
+            styleClass="ui-card-shadow"
+            header="{{ t.name }}"
+        >
             <div>
-                <button
-                    type="button"
-                    pButton
-                    icon="fa fa-users"
-                    (click)="showMembers()"
-                    label="Show Members"
-                    class="ui-button-primary"
-                ></button>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-inputgroup">
+                        <button
+                            pButton
+                            [disabled]="true"
+                            type="button"
+                            class="btnColor"
+                            label="Owner"
+                        ></button>
+                        <input
+                            type="text"
+                            class="centerHeader"
+                            pInputText
+                            placeholder="Owner"
+                            readonly="true"
+                            [(ngModel)]="t.owner"
+                        />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-inputgroup">
+                        <button
+                            pButton
+                            [disabled]="true"
+                            class="btnColor"
+                            type="button"
+                            label="Department"
+                        ></button>
+                        <input
+                            type="text"
+                            pInputText
+                            class="centerHeader"
+                            placeholder="Department"
+                            readonly="true"
+                            [(ngModel)]="t.department"
+                        />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <button
+                        type="button"
+                        pButton
+                        icon="pi pi-check"
+                        (click)="openTeamMember(t)"
+                        label="Open Team"
+                        class="ui-button-info"
+                    ></button>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <button
+                        type="button"
+                        pButton
+                        icon="pi pi-times"
+                        (click)="deleteTeam(t)"
+                        label="Delete Team"
+                        class="ui-button-danger"
+                    ></button>
+                </div>
             </div>
         </p-card>
     </div>
     <div class="ui-g-6">
-        <p-card header="Mostafa Team">
-            <div>
+        <div style="border-style: dotted;">
+            <p-card
+                class="centerHeader"
+                [style]="{ height: '160px' }"
+                header="Add New Team"
+            >
+                <h3>Click Add New Team To Add A New Team</h3>
                 <button
                     type="button"
                     pButton
-                    icon="fa fa-users"
-                    (click)="showMembers()"
-                    label="Show Members"
+                    icon="fa fa-user-plus"
+                    (click)="openTeamDialog()"
+                    label="Add New Team"
                     class="ui-button-primary"
                 ></button>
-            </div>
-        </p-card>
-    </div>
-
-    <div class="ui-g-12" *ngIf="showTable">
-        <div class="ui-g-3">
-            <button
-                pButton
-                type="button"
-                class="ui-button-success"
-                icon="pi pi-pencil"
-                label="Add New Member"
-                (click)="addMember()"
-            ></button>
-        </div>
-        <div class="ui-g-9"></div>
-        <div class="ui-g-12">
-            <div class="card card-w-title">
-                <p-table
-                    #dt
-                    [columns]="cols"
-                    styleClass="ui-table-cars"
-                    [value]="members"
-                    [paginator]="true"
-                    [resizableColumns]="true"
-                    [responsive]="true"
-                    [rows]="10"
-                    dataKey="vin"
-                    selectionMode="single"
-                    [(selection)]="selectedUser"
-                >
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th
-                                *ngFor="let col of columns"
-                                [pSortableColumn]="col.field"
-                                [ngSwitch]="col.field"
-                                [ngStyle]="{ width: col.width }"
-                            >
-                                {{ col.header }}
-                                <p-sortIcon [field]="col.field"></p-sortIcon>
-                            </th>
-                            <th style="width: 8em; text-align: center;">
-                                <button
-                                    pButton
-                                    type="button"
-                                    icon="pi pi-cog"
-                                ></button>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template
-                        pTemplate="body"
-                        let-rowData
-                        let-columns="columns"
-                    >
-                        <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                            <td class="ui-resizable-column">
-                                <span class="ui-column-title">Username </span>
-                                {{ rowData.username }}
-                            </td>
-                            <td class="ui-resizable-column">
-                                <span class="ui-column-title">Email </span>
-                                {{ rowData.email }}
-                            </td>
-                            <td>
-                                <button
-                                    pButton
-                                    type="button"
-                                    class="ui-button-info"
-                                    style="margin: 5px;"
-                                    label="Show"
-                                    icon="fa fa-user"
-                                    (click)="editMember(rowData)"
-                                ></button>
-                                <button
-                                    pButton
-                                    type="button"
-                                    style="margin: 5px;"
-                                    class="ui-button-danger"
-                                    icon="pi pi-times"
-                                    label="Delete"
-                                    (click)="deleteMember(rowData)"
-                                ></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+            </p-card>
         </div>
     </div>
 </div>
 <p-dialog
-    header="User"
-    [(visible)]="displayBasic"
-    [style]="{ width: '50vw' }"
+    header="Add New Team"
+    [(visible)]="displayTeamDialog"
+    [style]="{ width: '35vw' }"
     [baseZIndex]="10000"
+    [maximizable]="true"
 >
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Username"
-                    [(ngModel)]="member.username"
-                    [readonly]="readonly"
-                />
+    <p-card [style]="{ height: '200px' }">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <div class="ui-inputgroup">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Team Name"
+                        [(ngModel)]="team.name"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+                <div class="ui-inputgroup">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Team Owner"
+                        [(ngModel)]="team.owner"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+                <p-dropdown
+                    [options]="departments"
+                    [(ngModel)]="team.department"
+                    placeholder="Select A Department"
+                    optionLabel="name"
+                    [showClear]="true"
+                ></p-dropdown>
             </div>
         </div>
-        <div class="ui-g-12 ui-md-6">
-            <div class="ui-inputgroup">
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Email"
-                    [(ngModel)]="member.email"
-                    [readonly]="readonly"
-                />
-            </div>
-        </div>
-    </div>
+    </p-card>
     <p-footer>
         <button
             type="button"
             pButton
             icon="pi pi-times"
-            (click)="cancel()"
-            label="Cancel"
+            (click)="displayTeamDialog = false"
+            label="No"
             class="ui-button-secondary"
         ></button>
         <button
-            *ngIf="displaySave"
             type="button"
             pButton
             icon="pi pi-check"
-            (click)="save()"
+            (click)="saveTeam()"
             label="Save"
         ></button>
     </p-footer>

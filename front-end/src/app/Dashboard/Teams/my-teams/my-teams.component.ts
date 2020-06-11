@@ -1,7 +1,9 @@
+import { Router } from "@angular/router";
+import { Team } from "./team";
 import { Member } from "./member";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgZone } from "@angular/core";
 
 @Component({
     selector: "app-my-teams",
@@ -10,67 +12,45 @@ import { Component, OnInit } from "@angular/core";
     providers: [MessageService, ConfirmationService],
 })
 export class MyTeamsComponent implements OnInit {
-    cols: any[];
-    members: any[];
+    departments: any[];
+    teams: any[];
     member: Member = new Member();
-    selectedUser;
-    showTable = false;
-    displayBasic: boolean;
-    displaySave = false;
+    team: Team = new Team();
+    displayTeamDialog: boolean;
     readonly = true;
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
+        private router: Router,
+        private ngZone: NgZone,
         private spinner: NgxSpinnerService
     ) {}
 
     ngOnInit(): void {
-        this.cols = [
-            { field: "username", header: "Username" },
-            { field: "email", header: "Email" },
+        this.teams = [
+            {
+                name: "Dr.Alaa Team",
+                owner: "Alaa Darwish",
+                department: "Speech",
+            },
+            {
+                name: "Dr.Mostafa Team",
+                owner: "Mohamed Mostafa",
+                department: "Otology",
+            },
+            {
+                name: "Dr.Ahmed Team",
+                owner: "Ahmed Abdallah",
+                department: "Audiology",
+            },
         ];
-        this.members = [
-            { username: "Alaa Darwish", email: "alaa@gmail.com" },
-            { username: "Ahmed Mahmoud", email: "ahmed@gmail.com" },
-            { username: "Maha Ahmed", email: "maha@gmail.com" },
-            { username: "Mohamed Mostafa", email: "mostafa@gmail.com" },
-            { username: "Amr Hassan", email: "amr@gmail.com" },
-            { username: "Aya Ali", email: "aya@gmail.com" },
-            { username: "Mariem Mahmoud", email: "mariem@gmail.com" },
-            { username: "Toka Ahmed", email: "toka@gmail.com" },
-            { username: "Hatem Mohamed", email: "hatem@gmail.com" },
-            { username: "Eslam Ashref", email: "elslam@gmail.com" },
-            { username: "Omnia Mohamed", email: "omnia@gmail.com" },
-            { username: "Yones Salah", email: "yones@gmail.com" },
+        this.departments = [
+            { name: "Otology" },
+            { name: "Audiology" },
+            { name: "Speech" },
         ];
     }
-    showMembers() {
-        this.showTable = true;
-    }
-    editMember(selected) {
-        this.member = selected;
-        this.readonly = true;
-        this.displaySave = false;
-        this.displayBasic = true;
-    }
-    addMember() {
-        this.readonly = false;
-        this.displaySave = true;
-        this.member = new Member();
-        this.displayBasic = true;
-    }
-    save() {
-        this.spinner.show();
-        setTimeout(() => {
-            this.displayBasic = false;
-            this.members.push(this.member);
-            this.showMessage("success", "Saved", "Data saved successfully");
-            this.spinner.hide();
-        }, 2000);
-    }
-    cancel() {
-        this.displayBasic = false;
-    }
+
     showMessage(type, title, message) {
         this.messageService.add({
             severity: type,
@@ -79,18 +59,77 @@ export class MyTeamsComponent implements OnInit {
             life: 1000,
         });
     }
-    deleteMember(selected) {
+    saveTeam() {
+        this.validateTeamDialog((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                setTimeout(() => {
+                    let departmentName: any = this.team.department;
+                    this.team.department = departmentName.name;
+                    this.displayTeamDialog = false;
+                    this.teams.push(this.team);
+                    this.team = new Team();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
+                    this.spinner.hide();
+                }, 2000);
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    openTeamDialog() {
+        this.displayTeamDialog = true;
+    }
+    validateTeamDialog(callback) {
+        if (!this.team.name) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Team name is required"
+            );
+            return false;
+        }
+        if (!this.team.owner) {
+            this.showMessage("error", "Validation Error", "Owner is required");
+            return false;
+        }
+        if (!this.team.department) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Department is required"
+            );
+            return false;
+        } else {
+            callback("valid");
+        }
+    }
+    deleteTeam(selected) {
         this.confirmationService.confirm({
-            message: "Do you want to delete this record?",
-            header: "Delete Confirmation",
+            message: "Do you want to delete this team?",
+            header: "Delete Team Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                this.members = this.members.filter((item) => item !== selected);
-                this.showMessage("info", "Confirmed", "Record deleted");
+                this.teams = this.teams.filter((item) => item !== selected);
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Team has been deleted"
+                );
             },
             reject: () => {
                 this.showMessage("info", "Rejected", "You have rejected");
             },
+        });
+    }
+    openTeamMember(selected) {
+        localStorage.setItem("selectedTeam", JSON.stringify(selected));
+        this.ngZone.run(() => {
+            this.router.navigate(["/dashboard/teamMembers"]);
         });
     }
 }

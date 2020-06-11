@@ -1,3 +1,4 @@
+import { TeamMembersComponent } from "./Teams/team-members/team-members.component";
 import { MyTeamsComponent } from "./Teams/my-teams/my-teams.component";
 import { AddFollowupComponent } from "./followup/add-followup/add-followup.component";
 import { AddTreatmentComponent } from "./treatment/add-treatment/add-treatment.component";
@@ -46,6 +47,7 @@ export const routes: Routes = [
             { path: "dashboard", component: DashboardDemoComponent },
             { path: "users", component: UsersComponent },
             { path: "myTeams", component: MyTeamsComponent },
+            { path: "teamMembers", component: TeamMembersComponent },
             { path: "sample", component: SampleDemoComponent },
             { path: "forms", component: FormsDemoComponent },
             { path: "data", component: DataDemoComponent },
@@ -115,6 +117,7 @@ export const COMPONENTS = [
     PathologyComponent,
     CandidacyComponent,
     MyTeamsComponent,
+    TeamMembersComponent,
 ];
 @NgModule({
     exports: [RouterModule],

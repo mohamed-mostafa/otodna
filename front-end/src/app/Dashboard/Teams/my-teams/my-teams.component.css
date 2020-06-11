@@ -1,0 +1,15 @@
+.centerHeader {
+    text-align: center;
+}
+.labelMarginTop {
+    margin-top: 7px;
+}
+.labelStyle {
+    margin-top: 5px;
+    margin-right: 5px;
+    float: left;
+}
+.btnColor {
+    background-color: #89d6c4;
+    color: black;
+}

@@ -1,0 +1,158 @@
+<p-toast></p-toast>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12"><h2 class="centerHeader">Team Info</h2></div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <button
+                pButton
+                [disabled]="true"
+                class="btnColor"
+                type="button"
+                label="Name"
+            ></button>
+            <input
+                type="text"
+                pInputText
+                readonly="true"
+                placeholder="Keyword"
+                value="{{ selectedTeam.name }}"
+            />
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <button
+                pButton
+                [disabled]="true"
+                class="btnColor"
+                type="button"
+                label="Owner"
+            ></button>
+            <input
+                type="text"
+                pInputText
+                readonly="true"
+                placeholder="Keyword"
+                value="{{ selectedTeam.owner }}"
+            />
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <button
+                pButton
+                [disabled]="true"
+                class="btnColor"
+                type="button"
+                label="Department"
+            ></button>
+            <input
+                type="text"
+                pInputText
+                readonly="true"
+                value="{{ selectedTeam.department }}"
+                placeholder="Keyword"
+            />
+        </div>
+    </div>
+    <div class="ui-g-12"><h2 class="centerHeader">Members Info</h2></div>
+    <div class="ui-g-6" *ngFor="let m of members">
+        <p-card
+            class="centerHeader"
+            [style]="{ height: '120px' }"
+            styleClass="ui-card-shadow"
+            header="{{ m.name }}"
+        >
+            <div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-inputgroup">
+                        <button
+                            pButton
+                            [disabled]="true"
+                            type="button"
+                            class="btnColor"
+                            label="Role"
+                        ></button>
+                        <input
+                            type="text"
+                            class="centerHeader"
+                            pInputText
+                            placeholder="Role"
+                            readonly="true"
+                            [(ngModel)]="m.role"
+                        />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <button
+                        type="button"
+                        pButton
+                        icon="pi pi-times"
+                        (click)="deleteMember(m)"
+                        label="Delete Member"
+                        class="ui-button-danger"
+                    ></button>
+                </div>
+            </div>
+        </p-card>
+    </div>
+    <div class="ui-g-6">
+        <div style="border-style: dotted;">
+            <p-card
+                class="centerHeader"
+                [style]="{ height: '115px' }"
+                header="Add New Member"
+            >
+                <button
+                    type="button"
+                    pButton
+                    icon="fa fa-user-plus"
+                    (click)="openMemberDialog()"
+                    label="Add New Member"
+                    class="ui-button-primary"
+                ></button>
+            </p-card>
+        </div>
+    </div>
+</div>
+<p-dialog
+    header="Add New Team"
+    [(visible)]="displayMemberDialog"
+    [style]="{ width: '35vw' }"
+    [baseZIndex]="10000"
+    [maximizable]="true"
+>
+    <p-card [style]="{ height: '150px' }">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <p-dropdown
+                    [options]="users"
+                    [(ngModel)]="member"
+                    placeholder="Select A User"
+                    optionLabel="name"
+                    [showClear]="true"
+                ></p-dropdown>
+            </div>
+        </div>
+    </p-card>
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="displayMemberDialog = false"
+            label="No"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="saveMember()"
+            label="Save"
+        ></button>
+    </p-footer>
+</p-dialog>
+<ngx-spinner></ngx-spinner>
