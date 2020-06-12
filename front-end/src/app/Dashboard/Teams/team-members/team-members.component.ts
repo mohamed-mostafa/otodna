@@ -36,7 +36,7 @@ export class TeamMembersComponent implements OnInit {
                     this.goToMyTeamsPage(event);
                 },
             },
-            { label: "Team Members" },
+            { label: this.selectedTeam.name },
         ];
         this.home = { icon: "fa fa-users" };
         this.members = [

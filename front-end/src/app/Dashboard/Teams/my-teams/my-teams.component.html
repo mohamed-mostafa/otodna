@@ -4,10 +4,11 @@
     <div class="ui-g-12"><h2 class="centerHeader">My Teams</h2></div>
     <div class="ui-g-6" *ngFor="let t of teams">
         <p-card
-            class="centerHeader"
+            class="centerHeader pointerCursor"
             [style]="{ height: '110px' }"
             styleClass="ui-card-shadow"
             header="{{ t.name }}"
+            (click)="openTeamMember(t)"
         >
             <div>
                 <div class="ui-g-12 ui-md-6 bold">
@@ -21,19 +22,10 @@
                         href="javascript:void(0)"
                         class="iconStyle"
                         (click)="deleteTeam(t)"
+                        title="Remove"
                     >
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </a>
-                </div>
-
-                <div class="ui-g-5 ui-md-12">
-                    <a
-                        href="javascript:void(0)"
-                        class="btnStyle"
-                        (click)="openTeamMember(t)"
-                    >
-                        Open Team</a
-                    >
                 </div>
             </div>
         </p-card>
@@ -41,18 +33,14 @@
     <div class="ui-g-6">
         <div style="border-style: dotted;">
             <p-card
-                class="centerHeader"
+                class="centerHeader pointerCursor"
                 [style]="{ height: '110px' }"
-                header="Click Add New Team To Add A New Team"
+                (click)="openTeamDialog()"
             >
-                <button
-                    type="button"
-                    pButton
-                    icon="fa fa-user-plus"
-                    (click)="openTeamDialog()"
-                    label="Add New Team"
-                    class="ui-button-primary"
-                ></button>
+                <h3 style="margin-top:30px;">
+                    <i class="fa fa-plus" aira-hidden="true" style="margin:5px;"></i>
+                     New Team
+                </h3>
             </p-card>
         </div>
     </div>

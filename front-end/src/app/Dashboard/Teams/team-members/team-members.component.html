@@ -3,7 +3,7 @@
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12"><h2 class="centerHeader">Team Members</h2></div>
-    <div class="ui-g-6" *ngFor="let m of members">
+    <div class="ui-g-3" *ngFor="let m of members">
         <p-card
             class="centerHeader"
             [style]="{ height: '120px' }"
@@ -11,15 +11,14 @@
             header="{{ m.name }}"
         >
             <div>
-                <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-12 ui-md-4">
                     <img
                         src="assets/layout/images/doctor.png"
-                        height="65px"
-                        width="150px"
+                        height="50px" width="50px"
                         style="border-radius: 15px;"
                     />
                 </div>
-                <div class="ui-g-12 ui-md-5 bold marginTop">
+                <div class="ui-g-12 ui-md-7 bold marginTop">
                     {{ m.role }}
                 </div>
                 <div class="ui-g-2 ui-md-1 marginTop">
@@ -28,33 +27,28 @@
                         class="iconStyle"
                         (click)="deleteMember(m)"
                     >
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
                     </a>
                 </div>
             </div>
         </p-card>
     </div>
-    <div class="ui-g-6">
+    <div class="ui-g-3">
         <div style="border-style: dotted;">
             <p-card
-                class="centerHeader"
-                [style]="{ height: '115px' }"
-                header="Click Add New Member To Add A New Member"
-            >
-                <button
-                    type="button"
-                    pButton
-                    icon="fa fa-user-plus"
-                    (click)="openMemberDialog()"
-                    label="Add New Member"
-                    class="ui-button-primary"
-                ></button>
+                class="centerHeader pointerCursor"
+                [style]="{ height: '115px'}"
+                (click)="openMemberDialog()">
+                <h3 style="margin-top:30px;">
+                    <i class="fa fa-plus" aira-hidden="true" style="margin:5px;"></i>
+                     Add Member
+                </h3>
             </p-card>
         </div>
     </div>
 </div>
 <p-dialog
-    header="Add New Team"
+    header="Add Team Member"
     [(visible)]="displayMemberDialog"
     [style]="{ width: '35vw' }"
     [baseZIndex]="10000"

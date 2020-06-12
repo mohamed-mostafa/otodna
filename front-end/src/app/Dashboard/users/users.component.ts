@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
             {
                 username: "Ahmed Mahmoud",
                 fullName: "Ahmed Abdallah Mahmoud",
-                status: "InActive",
+                status: "Inactive",
                 email: "ahmed@gmail.com",
             },
             {
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
             {
                 username: "Amr Hassan",
                 fullName: "Amr Hassan Ali",
-                status: "InActive",
+                status: "Inactive",
                 email: "amr@gmail.com",
             },
             {
@@ -72,7 +72,7 @@ export class UsersComponent implements OnInit {
             {
                 username: "Mariem Mahmoud",
                 fullName: "Mariem Mahmoud Mohamed",
-                status: "InActive",
+                status: "Inactive",
                 email: "mariem@gmail.com",
             },
             {
@@ -102,7 +102,7 @@ export class UsersComponent implements OnInit {
             {
                 username: "Yones Salah",
                 fullName: "Yones Salah Zaki",
-                status: "InActive",
+                status: "Inactive",
                 email: "yones@gmail.com",
             },
         ];
@@ -239,7 +239,7 @@ export class UsersComponent implements OnInit {
             header: "DeActivation Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                selected.status = "InActive";
+                selected.status = "Inactive";
                 this.showMessage("success", "Confirmed", "User deActivated");
             },
             reject: () => {
