@@ -18,16 +18,15 @@ import {
 } from '@loopback/rest';
 import {Department} from '../models';
 import {DepartmentRepository} from '../repositories';
-import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
-import { authenticate } from '@loopback/authentication';
+import {OPERATION_SECURITY_SPEC} from '../utils/security.spec';
+import {authenticate} from '@loopback/authentication';
 
-@authenticate('jwt')
+// @authenticate('jwt')
 export class DepartmentController {
   constructor(
     @repository(DepartmentRepository)
-    public departmentRepository : DepartmentRepository,
+    public departmentRepository: DepartmentRepository,
   ) {}
-
 
   @get('/departments/count', {
     security: OPERATION_SECURITY_SPEC,

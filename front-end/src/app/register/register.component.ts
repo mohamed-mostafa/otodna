@@ -1,5 +1,6 @@
+import { UserService } from "./../user.service";
+import { User } from "./../user";
 import { MessageService } from "primeng/api";
-import { User } from "./user";
 import { Router } from "@angular/router";
 import { Component, OnInit, NgZone } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -11,34 +12,52 @@ import { NgxSpinnerService } from "ngx-spinner";
     providers: [MessageService],
 })
 export class RegisterComponent implements OnInit {
+    confirmPassword;
     user: User = new User();
-    role = [];
+    roles = [];
     constructor(
         private router: Router,
         private ngZone: NgZone,
+        private userService: UserService,
         private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
 
     ngOnInit(): void {
-        this.user.role = "Select Role";
-        this.role = [
-            { name: "Consultant" },
-            { name: "Admin" },
-            { name: "Doctor" },
-        ];
+        this.user.role_id = "Select Role";
+        this.getAllRoles();
     }
     register() {
         this.validateUser((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    this.spinner.hide();
-                    this.user = new User();
-                    this.ngZone.run(() => {
-                        this.router.navigate(["login"]);
-                    });
-                }, 2000);
+                this.userService.register(this.user).subscribe(
+                    (result) => {
+                        this.user = new User();
+                        this.spinner.hide();
+                        this.ngZone.run(() => {
+                            this.router.navigate(["login"]);
+                        });
+                    },
+                    (err) => {
+                        const { message, code, statusCode } = err.error.error;
+                        if (code === "ER_DUP_ENTRY" && statusCode === "422") {
+                            this.spinner.hide();
+                            this.showMessage(
+                                "warn",
+                                "Duplicated!",
+                                "Username already saved in DB"
+                            );
+                        } else {
+                            this.spinner.hide();
+                            this.showMessage(
+                                "error",
+                                "Error!",
+                                "Please try again"
+                            );
+                        }
+                    }
+                );
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -56,6 +75,14 @@ export class RegisterComponent implements OnInit {
         });
     }
     validateUser(callback) {
+        if (!this.user.fullName) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "FullName is required"
+            );
+            return false;
+        }
         if (!this.user.username) {
             this.showMessage(
                 "error",
@@ -64,11 +91,11 @@ export class RegisterComponent implements OnInit {
             );
             return false;
         }
-        if (!this.user.email) {
+        if (!this.user.emailAddress) {
             this.showMessage("error", "Validation Error", "Email is required");
             return false;
         }
-        if (!this.validateMail(this.user.email)) {
+        if (!this.validateMail(this.user.emailAddress)) {
             this.showMessage(
                 "warn",
                 "Invalid Mail",
@@ -84,7 +111,15 @@ export class RegisterComponent implements OnInit {
             );
             return false;
         }
-        if (!this.user.confirmPassword) {
+        if (this.user.password.length < 8) {
+            this.showMessage(
+                "warn",
+                "Validation Error",
+                "password must be minimum 8 characters"
+            );
+            return false;
+        }
+        if (!this.confirmPassword) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -92,7 +127,7 @@ export class RegisterComponent implements OnInit {
             );
             return false;
         }
-        if (this.user.password !== this.user.confirmPassword) {
+        if (this.user.password !== this.confirmPassword) {
             this.showMessage(
                 "warn",
                 "Not Equal",
@@ -100,7 +135,7 @@ export class RegisterComponent implements OnInit {
             );
             return false;
         }
-        if (!this.user.role || this.user.role === "Select Role") {
+        if (!this.user.role_id || this.user.role_id === "Select Role") {
             this.showMessage("error", "Validation Error", "Role is required");
             return false;
         } else {
@@ -110,5 +145,12 @@ export class RegisterComponent implements OnInit {
     validateMail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
+    }
+    getAllRoles() {
+        this.spinner.show();
+        this.userService.getAllRoles().subscribe((result) => {
+            this.roles = result;
+            this.spinner.hide();
+        });
     }
 }

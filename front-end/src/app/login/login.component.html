@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="body"></div>
 <div class="login-body">
     <div class="login-topbar">
@@ -11,7 +12,7 @@
             <input
                 type="text"
                 autocomplete="off"
-                [(ngModel)]="username"
+                [(ngModel)]="user.username"
                 id="username"
                 class="ui-inputtext ui-widget"
             />
@@ -21,7 +22,7 @@
             <input
                 type="password"
                 autocomplete="off"
-                [(ngModel)]="password"
+                [(ngModel)]="user.password"
                 id="password"
                 class="ui-inputtext ui-widget"
             />

@@ -1,7 +1,4 @@
-import {
-  repository,
-  Where,
-} from '@loopback/repository';
+import {repository, Where} from '@loopback/repository';
 import {
   post,
   param,
@@ -12,18 +9,17 @@ import {
 } from '@loopback/rest';
 import {User, Credentials, LoggedInUser} from '../models';
 import {UserRepository} from '../repositories';
-import { TokenService } from '@loopback/authentication';
-import { OtodnaUserService } from '../services/user.service';
-import { service, inject } from '@loopback/core';
+import {TokenService} from '@loopback/authentication';
+import {OtodnaUserService} from '../services/user.service';
+import {service, inject} from '@loopback/core';
 import {validateCredentials} from '../services/validator.service';
 import {PasswordHasher} from '../services/hash.password.bcryptjs';
-import { PasswordHasherBindings, TokenServiceBindings } from '../keys';
-
+import {PasswordHasherBindings, TokenServiceBindings} from '../keys';
 
 export class AuthenticationController {
   constructor(
     @repository(UserRepository)
-    public userRepository : UserRepository,
+    public userRepository: UserRepository,
     @service(OtodnaUserService)
     public userService: OtodnaUserService,
     @inject(TokenServiceBindings.TOKEN_SERVICE)
@@ -35,7 +31,8 @@ export class AuthenticationController {
   @get('/verifyToken/{token}', {
     responses: {
       '200': {
-        description: 'An object representing the logged in user, including the access token',
+        description:
+          'An object representing the logged in user, including the access token',
         content: {
           'application/json': {
             schema: getModelSchemaRef(LoggedInUser),
@@ -47,7 +44,7 @@ export class AuthenticationController {
   async verifyToken(
     @param.path.string('token') token: string,
   ): Promise<LoggedInUser> {
-      return this.tokenService.verifyToken(token);
+    return this.tokenService.verifyToken(token);
   }
 
   @post('/users/signup', {
@@ -83,13 +80,11 @@ export class AuthenticationController {
     validateCredentials(credentials);
 
     // encrypt the password
-    const password = await this.passwordHasher.hashPassword(
-      newUser.password,
-    );
-      // create the new user
+    const password = await this.passwordHasher.hashPassword(newUser.password);
+    // create the new user
     newUser.password = password;
     newUser.approved = false;
-    newUser.userTypeId = 1; // regular user
+    // newUser.userTypeId = 1; // regular user
     let savedUser = await this.userRepository.create(newUser);
     delete savedUser.password;
     return savedUser;
@@ -101,7 +96,7 @@ export class AuthenticationController {
         description: 'Token',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(LoggedInUser)
+            schema: getModelSchemaRef(LoggedInUser),
           },
         },
       },
@@ -114,7 +109,8 @@ export class AuthenticationController {
       content: {
         'application/json': {schema: getModelSchemaRef(Credentials)},
       },
-    }) credentials: Credentials,
+    })
+    credentials: Credentials,
   ): Promise<LoggedInUser> {
     // ensure the user exists, and the password is correct
     const user = await this.userService.verifyCredentials(credentials);

@@ -9,7 +9,7 @@ import { DashboardComponent } from "./dashboard.component";
 export class AppTopBarComponent {
     username;
     constructor(public app: DashboardComponent, private router: Router) {
-        if (localStorage.getItem("username") === null) {
+        if (localStorage.getItem("user") === null) {
             this.router.navigate(["login"]);
         } else {
             this.username = localStorage.getItem("username");
@@ -17,7 +17,7 @@ export class AppTopBarComponent {
     }
 
     logout() {
-        localStorage.removeItem("username");
+        localStorage.removeItem("user");
         this.router.navigate(["login"]);
     }
 }

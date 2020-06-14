@@ -21,7 +21,7 @@ import {RoleRepository} from '../repositories';
 import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
 import { authenticate } from '@loopback/authentication';
 
-@authenticate('jwt')
+// @authenticate('jwt')
 export class RoleController {
   constructor(
     @repository(RoleRepository)

@@ -12,6 +12,16 @@
             <input
                 type="text"
                 pInputText
+                placeholder="FullName"
+                class="inputFullWidth"
+                [(ngModel)]="user.fullName"
+            />
+        </div>
+        <div class="ui-inputgroup inputMargin">
+            <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+                type="text"
+                pInputText
                 placeholder="Username"
                 class="inputFullWidth"
                 [(ngModel)]="user.username"
@@ -26,7 +36,7 @@
                 pInputText
                 placeholder="Email"
                 class="inputFullWidth"
-                [(ngModel)]="user.email"
+                [(ngModel)]="user.emailAddress"
             />
         </div>
 
@@ -47,13 +57,13 @@
                 pInputText
                 placeholder="Confirm Password"
                 class="inputFullWidth"
-                [(ngModel)]="user.confirmPassword"
+                [(ngModel)]="confirmPassword"
             />
         </div>
         <div class="inputMargin">
-            <select name="roles" id="role" [(ngModel)]="user.role">
+            <select name="roles" id="role" [(ngModel)]="user.role_id">
                 <option [ngValue]="" selected>Select Role</option>
-                <option *ngFor="let r of role" [ngValue]="r.name">{{
+                <option *ngFor="let r of roles" [ngValue]="r.id">{{
                     r.name
                 }}</option>
             </select>

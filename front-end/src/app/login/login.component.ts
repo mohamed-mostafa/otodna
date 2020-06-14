@@ -1,3 +1,6 @@
+import { MessageService } from "primeng/api";
+import { UserService } from "./../user.service";
+import { User } from "./../user";
 import { Router } from "@angular/router";
 import { Component, OnInit, NgZone } from "@angular/core";
 import swal from "sweetalert";
@@ -6,29 +9,70 @@ import { NgxSpinnerService } from "ngx-spinner";
     selector: "app-login",
     templateUrl: "./login.component.html",
     styleUrls: ["./login.component.scss"],
+    providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
     username;
     password;
+    user: User = new User();
     constructor(
         private router: Router,
         private ngZone: NgZone,
+        private userService: UserService,
+        private messageService: MessageService,
         private spinner: NgxSpinnerService
     ) {}
 
     ngOnInit(): void {}
     login() {
-        if (this.username === "Admin" && this.password === "Admin") {
-            this.spinner.show();
-            setTimeout(() => {
-                this.spinner.hide();
-                localStorage.setItem("username", this.username);
-                this.ngZone.run(() => {
-                    this.router.navigate(["dashboard"]);
-                });
-            }, 2000);
+        this.validateUser((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                this.userService.login(this.user).subscribe(
+                    (result) => {
+                        if (result) {
+                            localStorage.setItem(
+                                "user",
+                                JSON.stringify(result)
+                            );
+                            this.spinner.hide();
+                            this.ngZone.run(() => {
+                                this.router.navigate(["dashboard"]);
+                            });
+                        }
+                    },
+                    (err) => {
+                        this.spinner.hide();
+                        this.callSwal(
+                            "UnAuthorized!",
+                            "Incorrect username or password.",
+                            "error"
+                        );
+                    }
+                );
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    validateUser(callback) {
+        if (!this.user.username) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Username is required"
+            );
+            return false;
+        }
+        if (!this.user.password) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Password is required"
+            );
+            return false;
         } else {
-            this.callSwal("UnAuthorized!", "You are not authorized.", "error");
+            callback("valid");
         }
     }
     register() {
@@ -38,5 +82,13 @@ export class LoginComponent implements OnInit {
     }
     callSwal(title, text, icon) {
         return swal({ title, text, icon, timer: 1000, buttons: [false] });
+    }
+    showMessage(type, title, message) {
+        this.messageService.add({
+            severity: type,
+            summary: title,
+            detail: message,
+            life: 1000,
+        });
     }
 }
