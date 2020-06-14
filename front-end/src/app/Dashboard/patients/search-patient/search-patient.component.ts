@@ -26,7 +26,8 @@ export class SearchPatientComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.username = localStorage.getItem("username");
+        let selectedUser = JSON.parse(localStorage.getItem("user"));
+        this.username = selectedUser.name;
         this.teamService.getTeams().then((teams) => (this.teams = teams));
 
         this.cols = [

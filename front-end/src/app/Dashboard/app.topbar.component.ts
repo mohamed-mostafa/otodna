@@ -12,7 +12,8 @@ export class AppTopBarComponent {
         if (localStorage.getItem("user") === null) {
             this.router.navigate(["login"]);
         } else {
-            this.username = localStorage.getItem("username");
+            let selectedUser = JSON.parse(localStorage.getItem("user"));
+            this.username = selectedUser.name;
         }
     }
 
