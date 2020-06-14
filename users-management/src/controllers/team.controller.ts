@@ -18,7 +18,10 @@ import {
 } from '@loopback/rest';
 import {Team, User, TeamMember} from '../models';
 import {TeamRepository, UserRepository, TeamMemberRepository, DepartmentRepository} from '../repositories';
+import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class TeamController {
   constructor(
     @repository(TeamRepository)
@@ -30,6 +33,7 @@ export class TeamController {
   ) {}
 
   @post('/teams', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Team model instance',
@@ -54,6 +58,7 @@ export class TeamController {
   }
 
   @get('/teams/count', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Team model count',
@@ -68,6 +73,7 @@ export class TeamController {
   }
 
   @get('/teams', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Array of Team model instances',
@@ -89,6 +95,7 @@ export class TeamController {
   }
 
   @patch('/teams', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Team PATCH success count',
@@ -111,6 +118,7 @@ export class TeamController {
   }
 
   @get('/teams/{id}', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Team model instance',
@@ -130,6 +138,7 @@ export class TeamController {
   }
 
   @patch('/teams/{id}', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '204': {
         description: 'Team PATCH success',
@@ -151,6 +160,7 @@ export class TeamController {
   }
 
   @put('/teams/{id}', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '204': {
         description: 'Team PUT success',
@@ -165,6 +175,7 @@ export class TeamController {
   }
 
   @del('/teams/{id}', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '204': {
         description: 'Team DELETE success',
@@ -176,6 +187,7 @@ export class TeamController {
   }
 
   @post('/teams/{id}/member', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'TeamMember model instance',
@@ -203,6 +215,7 @@ export class TeamController {
   }
 
   @get('/teams/{id}/members', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'User model instances',

@@ -18,7 +18,10 @@ import {
 } from '@loopback/rest';
 import {UserType} from '../models';
 import {UserTypeRepository} from '../repositories';
+import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class UserTypeController {
   constructor(
     @repository(UserTypeRepository)
@@ -26,6 +29,7 @@ export class UserTypeController {
   ) {}
 
  @get('/user-types/count', {
+  security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'UserType model count',
@@ -40,6 +44,7 @@ export class UserTypeController {
   }
 
   @get('/user-types', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Array of UserType model instances',

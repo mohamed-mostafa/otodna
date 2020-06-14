@@ -18,7 +18,10 @@ import {
 } from '@loopback/rest';
 import {Department} from '../models';
 import {DepartmentRepository} from '../repositories';
+import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class DepartmentController {
   constructor(
     @repository(DepartmentRepository)
@@ -27,6 +30,7 @@ export class DepartmentController {
 
 
   @get('/departments/count', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Department model count',
@@ -41,6 +45,7 @@ export class DepartmentController {
   }
 
   @get('/departments', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Array of Department model instances',

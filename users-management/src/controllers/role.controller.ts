@@ -18,7 +18,10 @@ import {
 } from '@loopback/rest';
 import {Role} from '../models';
 import {RoleRepository} from '../repositories';
+import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class RoleController {
   constructor(
     @repository(RoleRepository)
@@ -27,6 +30,7 @@ export class RoleController {
 
 
   @get('/roles/count', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Role model count',
@@ -41,6 +45,7 @@ export class RoleController {
   }
 
   @get('/roles', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Array of Role model instances',
