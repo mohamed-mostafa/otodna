@@ -31,6 +31,8 @@ export class RegisterComponent implements OnInit {
         this.validateUser((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
+                this.user.active = true;
+                this.user.approved = false;
                 this.userService.register(this.user).subscribe(
                     (result) => {
                         this.user = new User();

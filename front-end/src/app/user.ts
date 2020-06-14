@@ -6,8 +6,4 @@ export class User {
     role_id: string;
     active: boolean;
     approved: boolean;
-    constructor() {
-        this.active = true;
-        this.approved = false;
-    }
 }
