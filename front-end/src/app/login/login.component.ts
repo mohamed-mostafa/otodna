@@ -43,12 +43,9 @@ export class LoginComponent implements OnInit {
                         }
                     },
                     (err) => {
+                        const { message, name } = err.error.error;
                         this.spinner.hide();
-                        this.showMessage(
-                            "error",
-                            "UnAuthorized!",
-                            "Incorrect username or password."
-                        );
+                        this.showMessage("error", name, message);
                     }
                 );
             } else {
