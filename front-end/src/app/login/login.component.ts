@@ -3,7 +3,6 @@ import { UserService } from "./../user.service";
 import { User } from "./../user";
 import { Router } from "@angular/router";
 import { Component, OnInit, NgZone } from "@angular/core";
-import swal from "sweetalert";
 import { NgxSpinnerService } from "ngx-spinner";
 @Component({
     selector: "app-login",
@@ -45,10 +44,10 @@ export class LoginComponent implements OnInit {
                     },
                     (err) => {
                         this.spinner.hide();
-                        this.callSwal(
+                        this.showMessage(
+                            "error",
                             "UnAuthorized!",
-                            "Incorrect username or password.",
-                            "error"
+                            "Incorrect username or password."
                         );
                     }
                 );
@@ -81,9 +80,6 @@ export class LoginComponent implements OnInit {
         this.ngZone.run(() => {
             this.router.navigate(["register"]);
         });
-    }
-    callSwal(title, text, icon) {
-        return swal({ title, text, icon, timer: 1000, buttons: [false] });
     }
     showMessage(type, title, message) {
         this.messageService.add({
