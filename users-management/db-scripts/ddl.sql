@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS `team`;
 CREATE TABLE `team` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `active` tinyint NOT NULL DEFAULT '1',
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
   `owner_id` int NOT NULL,
   `department_id` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -154,8 +154,8 @@ CREATE TABLE `user` (
   `password` varchar(256) NOT NULL,
   `full_name` varchar(90) NOT NULL,
   `email_address` varchar(45) NOT NULL,
-  `active` char(1) NOT NULL DEFAULT '1',
-  `approved` char(1) NOT NULL DEFAULT '0',
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
+  `approved` TINYINT(1) NOT NULL DEFAULT 0,
   `role_id` int NOT NULL DEFAULT '1',
   `user_type_id` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),

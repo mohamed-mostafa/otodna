@@ -23,6 +23,8 @@ export class OtodnaUserService implements UserService<User, Credentials> {
 
   async verifyCredentials(credentials: Credentials): Promise<User> {
     const invalidCredentialsError = 'Incorrect username or password.';
+    const suspendedUserError = 'User is suspended. Contact the system administrator.';
+    const pendinApprovalUserError = 'User is pending approval. Contact the system administrator.';
 
     const foundUser = await this.userRepository.findOne({
       where: {username: credentials.username}, include: [{relation: "userType"}, {relation: "role"}],
@@ -38,6 +40,14 @@ export class OtodnaUserService implements UserService<User, Credentials> {
 
     if (!passwordMatched) {
       throw new HttpErrors.Unauthorized(invalidCredentialsError);
+    }
+
+    if (!foundUser.active) {
+      throw new HttpErrors.Unauthorized(suspendedUserError);
+    }
+
+    if (!foundUser.approved) {
+      throw new HttpErrors.Unauthorized(pendinApprovalUserError);
     }
 
     return foundUser;
