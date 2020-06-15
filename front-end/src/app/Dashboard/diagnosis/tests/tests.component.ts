@@ -469,7 +469,7 @@ export class TestsComponent implements OnInit {
             severity: type,
             summary: title,
             detail: message,
-            life: 1000,
+            life: 3000,
         });
     }
     openAcoustic(event) {

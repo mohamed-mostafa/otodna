@@ -198,7 +198,7 @@ export class CandidacyComponent implements OnInit {
             severity: type,
             summary: title,
             detail: message,
-            life: 1000,
+            life: 3000,
         });
     }
     customTrackBy(index: number, obj: any): any {

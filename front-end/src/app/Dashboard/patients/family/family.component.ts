@@ -81,7 +81,7 @@ export class FamilyComponent implements OnInit {
             severity: type,
             summary: title,
             detail: message,
-            life: 1000,
+            life: 3000,
         });
     }
     validateFamily(callback) {

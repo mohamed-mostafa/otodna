@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
             severity: type,
             summary: title,
             detail: message,
-            life: 1000,
+            life: 3000,
         });
     }
 }
