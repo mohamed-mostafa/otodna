@@ -1,3 +1,4 @@
+import { SuccessfullyRegisteredComponent } from "./successfully-registered/successfully-registered.component";
 import { RegisterComponent } from "./register/register.component";
 import { PathResolveService } from "./not-found/path-resolve.service";
 import { NotFoundComponent } from "./not-found/not-found.component";
@@ -9,6 +10,10 @@ const routes: Routes = [
     { path: "", redirectTo: "login", pathMatch: "full" },
     { path: "login", component: LoginComponent },
     { path: "register", component: RegisterComponent },
+    {
+        path: "successfullyRegistered",
+        component: SuccessfullyRegisteredComponent,
+    },
     {
         path: "dashboard",
         loadChildren: () =>
@@ -25,6 +30,7 @@ export const BasicComponents = [
     LoginComponent,
     RegisterComponent,
     NotFoundComponent,
+    SuccessfullyRegisteredComponent,
 ];
 @NgModule({
     imports: [

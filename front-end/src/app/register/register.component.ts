@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
                         this.user = new User();
                         this.spinner.hide();
                         this.ngZone.run(() => {
-                            this.router.navigate(["login"]);
+                            this.router.navigate(["successfullyRegistered"]);
                         });
                     },
                     (err) => {
