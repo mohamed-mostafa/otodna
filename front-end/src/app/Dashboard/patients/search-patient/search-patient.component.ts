@@ -18,7 +18,8 @@ export class SearchPatientComponent implements OnInit {
     selectedTeam: Team;
     colors: SelectItem[];
     brands: SelectItem[];
-    username;
+    fullName;
+    job;
     constructor(
         private teamService: TeamsService,
         private spinner: NgxSpinnerService,
@@ -27,7 +28,12 @@ export class SearchPatientComponent implements OnInit {
 
     ngOnInit(): void {
         let selectedUser = JSON.parse(localStorage.getItem("user"));
-        this.username = selectedUser.name;
+        this.fullName = selectedUser.fullName;
+        this.job =
+            selectedUser.role.name === "None"
+                ? selectedUser.type.name
+                : selectedUser.role.name;
+
         this.teamService.getTeams().then((teams) => (this.teams = teams));
 
         this.cols = [
