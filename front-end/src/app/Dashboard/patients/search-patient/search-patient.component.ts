@@ -20,6 +20,7 @@ export class SearchPatientComponent implements OnInit {
     brands: SelectItem[];
     fullName;
     job;
+    welcomeTime;
     constructor(
         private teamService: TeamsService,
         private spinner: NgxSpinnerService,
@@ -27,6 +28,16 @@ export class SearchPatientComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        var today = new Date();
+        var curHr = today.getHours();
+
+        if (curHr < 12) {
+            this.welcomeTime = "Good Morning";
+        } else if (curHr < 18) {
+            this.welcomeTime = "Good Afternoon";
+        } else {
+            this.welcomeTime = "Good Evening";
+        }
         let selectedUser = JSON.parse(localStorage.getItem("user"));
         this.fullName = selectedUser.fullName;
         this.job =
