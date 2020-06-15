@@ -35,7 +35,7 @@
     .login-panel {
         border-top: 4px solid #a0d8cb;
         padding: 0 70px 20px 70px;
-        height: 400px;
+        height: 330px;
         width: 560px;
         position: fixed;
         left: 50%;
@@ -119,4 +119,6 @@
 .registerStyle {
     float: right;
     text-decoration: underline;
+    display: inline;
+    padding-top: 30px;
 }
