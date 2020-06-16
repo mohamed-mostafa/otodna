@@ -51,8 +51,18 @@ export class UsersComponent implements OnInit {
             this.spinner.hide();
         });
     }
+    checkStatus(selected) {
+        if (selected.approved === true && selected.active === true) {
+            return "Active";
+        } else if (selected.approved === true && selected.active === false) {
+            return "Inactive";
+        } else {
+            return "Pending";
+        }
+    }
     editUser(selected) {
         this.user = selected;
+        this.user.status = this.checkStatus(selected);
         this.displayBasic = true;
     }
     save() {

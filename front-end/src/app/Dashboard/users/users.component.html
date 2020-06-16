@@ -127,23 +127,7 @@
                         </td>
                         <td class="ui-resizable-column center">
                             <span class="ui-column-title">Status </span>
-                            <p
-                                *ngIf="
-                                    rowData.approved === true &&
-                                    rowData.active === true
-                                "
-                            >
-                                Active
-                            </p>
-                            <p
-                                *ngIf="
-                                    rowData.approved === true &&
-                                    rowData.active === false
-                                "
-                            >
-                                Inactive
-                            </p>
-                            <p *ngIf="rowData.approved === false">Pending</p>
+                            <p>{{ checkStatus(rowData) }}</p>
                         </td>
                         <td class="center">
                             <a
@@ -234,7 +218,7 @@
                     placeholder="Email"
                     readonly="true"
                     id="email"
-                    [(ngModel)]="user.email"
+                    [(ngModel)]="user.emailAddress"
                 />
             </div>
         </div>
