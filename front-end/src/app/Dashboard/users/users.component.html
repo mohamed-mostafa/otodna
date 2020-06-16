@@ -123,15 +123,15 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Email </span>
-                            {{ rowData.email }}
+                            {{ rowData.emailAddress }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Status </span>
-                            {{ rowData.status }}
+                            {{ rowData.approved }}
                         </td>
                         <td>
                             <button
-                                *ngIf="rowData.status === 'Pending'"
+                                *ngIf="rowData.approved === false"
                                 pButton
                                 type="button"
                                 style="margin: 5px;"
@@ -140,7 +140,7 @@
                                 (click)="approveUser(rowData)"
                             ></button>
                             <button
-                                *ngIf="rowData.status === 'Pending'"
+                                *ngIf="rowData.approved === false"
                                 pButton
                                 type="button"
                                 style="margin: 5px;"
@@ -149,7 +149,7 @@
                                 (click)="rejectUser(rowData)"
                             ></button>
                             <button
-                                *ngIf="rowData.status === 'Active'"
+                                *ngIf="rowData.approved === true"
                                 pButton
                                 type="button"
                                 style="margin: 5px;"
@@ -158,7 +158,7 @@
                                 (click)="deActivateUser(rowData)"
                             ></button>
                             <button
-                                *ngIf="rowData.status === 'Inactive'"
+                                *ngIf="rowData.approved === 'Inactive'"
                                 pButton
                                 type="button"
                                 style="margin: 5px;"

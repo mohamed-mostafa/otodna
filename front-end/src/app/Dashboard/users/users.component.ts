@@ -3,6 +3,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { User } from "./user";
+import { PublicServiceService } from "../public-service.service";
 
 @Component({
     selector: "app-users",
@@ -22,6 +23,7 @@ export class UsersComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
+        private publicService: PublicServiceService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -32,86 +34,21 @@ export class UsersComponent implements OnInit {
             { field: "email", header: "Email" },
             { field: "status", header: "Status" },
         ];
-        this.users = [
-            {
-                username: "Alaa Darwish",
-                fullName: "Alaa El Dain Darwish",
-                status: "Active",
-                email: "alaa@gmail.com",
-            },
-            {
-                username: "Ahmed Mahmoud",
-                fullName: "Ahmed Abdallah Mahmoud",
-                status: "Inactive",
-                email: "ahmed@gmail.com",
-            },
-            {
-                username: "Maha Ahmed",
-                fullName: "Maha Sobhy Ahmed",
-                status: "Pending",
-                email: "maha@gmail.com",
-            },
-            {
-                username: "Mohamed Mostafa",
-                fullName: "Mohamed Mostafa Mahmoud",
-                status: "Active",
-                email: "mostafa@gmail.com",
-            },
-            {
-                username: "Amr Hassan",
-                fullName: "Amr Hassan Ali",
-                status: "Inactive",
-                email: "amr@gmail.com",
-            },
-            {
-                username: "Aya Ali",
-                fullName: "Aya Ahmed Ali",
-                status: "Pending",
-                email: "aya@gmail.com",
-            },
-            {
-                username: "Mariem Mahmoud",
-                fullName: "Mariem Mahmoud Mohamed",
-                status: "Inactive",
-                email: "mariem@gmail.com",
-            },
-            {
-                username: "Toka Ahmed",
-                fullName: "Toka Ahmed Ali",
-                status: "Active",
-                email: "toka@gmail.com",
-            },
-            {
-                username: "Hatem Mohamed",
-                fullName: "Hatem Mohamed Alaa",
-                status: "Active",
-                email: "hatem@gmail.com",
-            },
-            {
-                username: "Eslam Ashref",
-                fullName: "Eslam Ashref Salah",
-                status: "Pending",
-                email: "elslam@gmail.com",
-            },
-            {
-                username: "Omnia Mohamed",
-                fullName: "Omina Ahmed Moahmed",
-                status: "Pending",
-                email: "omnia@gmail.com",
-            },
-            {
-                username: "Yones Salah",
-                fullName: "Yones Salah Zaki",
-                status: "Inactive",
-                email: "yones@gmail.com",
-            },
-        ];
+
         this.roles = [
             { name: "Consultant" },
             { name: "Doctor" },
             { name: "Nurse" },
             { name: "Admin" },
         ];
+        this.getAllUsers();
+    }
+    getAllUsers() {
+        this.spinner.show();
+        this.publicService.getAllData("users").subscribe((result) => {
+            this.users = result;
+            this.spinner.hide();
+        });
     }
     editUser(selected) {
         this.user = selected;

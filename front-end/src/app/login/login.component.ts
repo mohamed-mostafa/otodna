@@ -29,8 +29,6 @@ export class LoginComponent implements OnInit {
                 this.spinner.show();
                 this.userService.login(this.user).subscribe(
                     (result) => {
-                        console.log(result);
-
                         if (result) {
                             localStorage.setItem(
                                 "user",
