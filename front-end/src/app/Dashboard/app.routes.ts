@@ -1,3 +1,4 @@
+import { AuthGuard } from "./../Auth/auth.guard";
 import { TeamMembersComponent } from "./Teams/team-members/team-members.component";
 import { MyTeamsComponent } from "./Teams/my-teams/my-teams.component";
 import { AddFollowupComponent } from "./followup/add-followup/add-followup.component";
@@ -42,6 +43,7 @@ export const routes: Routes = [
     {
         path: "",
         component: DashboardComponent,
+        canActivate: [AuthGuard],
         children: [
             { path: "", component: SearchPatientComponent },
             { path: "dashboard", component: DashboardDemoComponent },

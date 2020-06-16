@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit {
     roles: any[];
     displayBasic: boolean;
     displayInviteUserDialog: boolean;
+    apiLink = "users";
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
@@ -45,7 +46,7 @@ export class UsersComponent implements OnInit {
     }
     getAllUsers() {
         this.spinner.show();
-        this.publicService.getAllData("users").subscribe((result) => {
+        this.publicService.getAllData(this.apiLink).subscribe((result) => {
             this.users = result;
             this.spinner.hide();
         });
@@ -134,7 +135,14 @@ export class UsersComponent implements OnInit {
             header: "Approve Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                selected.status = "Active";
+                this.spinner.show();
+                selected.approved = true;
+                this.publicService
+                    .updateData(selected, this.apiLink)
+                    .subscribe((c) => {
+                        this.spinner.hide();
+                        this.getAllUsers();
+                    });
                 this.showMessage("success", "Confirmed", "User Approvved");
             },
             reject: () => {
@@ -148,7 +156,14 @@ export class UsersComponent implements OnInit {
             header: "Rejection Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                this.users = this.users.filter((item) => item !== selected);
+                this.spinner.show();
+                this.publicService
+                    .deleteData(selected.id, this.apiLink)
+                    .subscribe(() => {
+                        this.spinner.hide();
+                        this.getAllUsers();
+                    });
+                this.getAllUsers();
                 this.showMessage("success", "Confirmed", "User Rejected");
             },
             reject: () => {
@@ -162,7 +177,14 @@ export class UsersComponent implements OnInit {
             header: "Activation Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                selected.status = "Active";
+                this.spinner.show();
+                selected.active = true;
+                this.publicService
+                    .updateData(selected, this.apiLink)
+                    .subscribe((c) => {
+                        this.spinner.hide();
+                        this.getAllUsers();
+                    });
                 this.showMessage("success", "Confirmed", "User Activated");
             },
             reject: () => {
@@ -176,7 +198,14 @@ export class UsersComponent implements OnInit {
             header: "DeActivation Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                selected.status = "Inactive";
+                this.spinner.show();
+                selected.active = false;
+                this.publicService
+                    .updateData(selected, this.apiLink)
+                    .subscribe((c) => {
+                        this.spinner.hide();
+                        this.getAllUsers();
+                    });
                 this.showMessage("success", "Confirmed", "User deActivated");
             },
             reject: () => {

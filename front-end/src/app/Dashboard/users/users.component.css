@@ -1,3 +1,19 @@
 .labelMarginTop {
     margin-top: 7px;
 }
+.btnStyle {
+    text-decoration: underline;
+}
+.rejectBtn {
+    color: red;
+    margin-left: 5px;
+}
+.activateColor {
+    color: #29b6f6;
+}
+.deActivateBtn {
+    color: #e65100;
+}
+.center {
+    text-align: center;
+}

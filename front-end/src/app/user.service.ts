@@ -10,9 +10,6 @@ import { Observable } from "rxjs";
 export class UserService {
     apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) {}
-    login(user: User): Observable<any> {
-        return this.http.post<User>(`${this.apiUrl}/users/login`, user);
-    }
     register(user: User): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/users/signup`, user);
     }

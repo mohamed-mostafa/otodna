@@ -1,9 +1,12 @@
+import { AuthenticationService } from "./../Auth/auth.service";
 import { MessageService } from "primeng/api";
 import { UserService } from "./../user.service";
 import { User } from "./../user";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit, NgZone } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
+import { first } from "rxjs/operators";
+
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
@@ -18,34 +21,37 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private ngZone: NgZone,
         private userService: UserService,
+        private route: ActivatedRoute,
+        private authenticationService: AuthenticationService,
         private messageService: MessageService,
         private spinner: NgxSpinnerService
-    ) {}
+    ) {
+        // redirect to home if already logged in
+        if (this.authenticationService.currentUserValue) {
+            this.router.navigate(["dashboard"]);
+        }
+    }
 
     ngOnInit(): void {}
     login() {
         this.validateUser((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                this.userService.login(this.user).subscribe(
-                    (result) => {
-                        if (result) {
-                            localStorage.setItem(
-                                "user",
-                                JSON.stringify(result)
-                            );
+                this.authenticationService
+                    .login(this.user)
+                    .pipe(first())
+                    .subscribe(
+                        (data) => {
                             this.spinner.hide();
-                            this.ngZone.run(() => {
-                                this.router.navigate(["dashboard"]);
-                            });
+                            this.router.navigate(["dashboard"]);
+                        },
+                        (err) => {
+                            this.spinner.hide();
+                            const { message, name } = err.error.error;
+
+                            this.showMessage("error", name, message);
                         }
-                    },
-                    (err) => {
-                        const { message, name } = err.error.error;
-                        this.spinner.hide();
-                        this.showMessage("error", name, message);
-                    }
-                );
+                    );
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }

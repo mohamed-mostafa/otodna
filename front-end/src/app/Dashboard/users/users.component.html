@@ -109,7 +109,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td class="ui-resizable-column">
+                        <td class="ui-resizable-column center">
                             <span class="ui-column-title">Username </span>
                             <a
                                 href="javascript:void(0)"
@@ -117,55 +117,73 @@
                                 >{{ rowData.username }}</a
                             >
                         </td>
-                        <td class="ui-resizable-column">
+                        <td class="ui-resizable-column center">
                             <span class="ui-column-title">Full Name </span>
                             {{ rowData.fullName }}
                         </td>
-                        <td class="ui-resizable-column">
+                        <td class="ui-resizable-column center">
                             <span class="ui-column-title">Email </span>
                             {{ rowData.emailAddress }}
                         </td>
-                        <td class="ui-resizable-column">
+                        <td class="ui-resizable-column center">
                             <span class="ui-column-title">Status </span>
-                            {{ rowData.approved }}
+                            <p
+                                *ngIf="
+                                    rowData.approved === true &&
+                                    rowData.active === true
+                                "
+                            >
+                                Active
+                            </p>
+                            <p
+                                *ngIf="
+                                    rowData.approved === true &&
+                                    rowData.active === false
+                                "
+                            >
+                                Inactive
+                            </p>
+                            <p *ngIf="rowData.approved === false">Pending</p>
                         </td>
-                        <td>
-                            <button
+                        <td class="center">
+                            <a
                                 *ngIf="rowData.approved === false"
-                                pButton
-                                type="button"
-                                style="margin: 5px;"
-                                class="ui-button-success"
-                                label="Approve"
+                                href="javascript:void(0)"
+                                class="btnStyle"
                                 (click)="approveUser(rowData)"
-                            ></button>
-                            <button
+                            >
+                                Approve</a
+                            >
+                            <a
                                 *ngIf="rowData.approved === false"
-                                pButton
-                                type="button"
-                                style="margin: 5px;"
-                                class="ui-button-danger"
-                                label="Reject"
+                                href="javascript:void(0)"
+                                class="btnStyle rejectBtn"
                                 (click)="rejectUser(rowData)"
-                            ></button>
-                            <button
-                                *ngIf="rowData.approved === true"
-                                pButton
-                                type="button"
-                                style="margin: 5px;"
-                                class="ui-button-warning"
-                                label="Deactivate"
+                            >
+                                Reject</a
+                            >
+                            <a
+                                *ngIf="
+                                    rowData.approved === true &&
+                                    rowData.active === true
+                                "
+                                href="javascript:void(0)"
+                                class="btnStyle deActivateBtn"
                                 (click)="deActivateUser(rowData)"
-                            ></button>
-                            <button
-                                *ngIf="rowData.approved === 'Inactive'"
-                                pButton
-                                type="button"
-                                style="margin: 5px;"
-                                class="ui-button-info"
-                                label="Activate"
+                            >
+                                Deactivate</a
+                            >
+                            <a
+                                *ngIf="
+                                    rowData.approved === true &&
+                                    rowData.active === false
+                                "
+                                href="javascript:void(0)"
+                                class="btnStyle activateColor"
                                 (click)="activateUser(rowData)"
-                            ></button>
+                            >
+                                Activate</a
+                            >
                         </td>
                     </tr>
                 </ng-template>

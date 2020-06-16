@@ -1,3 +1,4 @@
+import { AuthenticationService } from "./../Auth/auth.service";
 import { Router } from "@angular/router";
 import { Component } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
@@ -9,7 +10,11 @@ import { DashboardComponent } from "./dashboard.component";
 export class AppTopBarComponent {
     fullName;
     job;
-    constructor(public app: DashboardComponent, private router: Router) {
+    constructor(
+        public app: DashboardComponent,
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) {
         if (localStorage.getItem("user") === null) {
             this.router.navigate(["login"]);
         } else {
@@ -23,7 +28,7 @@ export class AppTopBarComponent {
     }
 
     logout() {
-        localStorage.removeItem("user");
+        this.authenticationService.logout();
         this.router.navigate(["login"]);
     }
 }
