@@ -6,7 +6,7 @@
         <p-card
             class="centerHeader pointerCursor"
             [style]="{ height: '110px' }"
-            styleClass="ui-card-shadow"
+            styleClass="ui-card-shadow cardBorderRadius"
             header="{{ t.name }} Team"
         >
             <p-header>
@@ -16,7 +16,7 @@
                     (click)="deleteTeam(t)"
                     title="Remove"
                 >
-                    <i class="fa fa-2x fa-times-circle" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </p-header>
             <div (click)="openTeamMember(t)">
