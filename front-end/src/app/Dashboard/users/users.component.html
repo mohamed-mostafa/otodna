@@ -235,6 +235,24 @@
                 />
             </div>
         </div>
+        <div class="ui-g-12 ui-md-6">
+            <p-dropdown
+                [options]="roles"
+                [(ngModel)]="role"
+                placeholder="Select A Role"
+                optionLabel="name"
+                [showClear]="true"
+            ></p-dropdown>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <p-dropdown
+                [options]="userTypes"
+                [(ngModel)]="userType"
+                placeholder="Select A user Type"
+                optionLabel="name"
+                [showClear]="true"
+            ></p-dropdown>
+        </div>
     </div>
     <p-footer>
         <button
@@ -242,7 +260,15 @@
             pButton
             icon="pi pi-times"
             (click)="cancel()"
-            label="Ok"
+            label="Cancel"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="saveEditUser()"
+            label="Save"
             class="ui-button-icon-primary"
         ></button>
     </p-footer>

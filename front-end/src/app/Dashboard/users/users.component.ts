@@ -18,6 +18,9 @@ export class UsersComponent implements OnInit {
     inviteUser: InviteUser = new InviteUser();
     selectedUser;
     roles: any[];
+    role;
+    userTypes: any[];
+    userType;
     displayBasic: boolean;
     displayInviteUserDialog: boolean;
     apiLink = "users";
@@ -35,13 +38,8 @@ export class UsersComponent implements OnInit {
             { field: "email", header: "Email" },
             { field: "status", header: "Status" },
         ];
-
-        this.roles = [
-            { name: "Consultant" },
-            { name: "Doctor" },
-            { name: "Nurse" },
-            { name: "Admin" },
-        ];
+        this.getAllRoles();
+        this.getAllUserTypes();
         this.getAllUsers();
     }
     getAllUsers() {
@@ -62,8 +60,39 @@ export class UsersComponent implements OnInit {
     }
     editUser(selected) {
         this.user = selected;
+        this.role = this.roles.find(function (r) {
+            return r.id === selected.role_id;
+        });
+        this.userType = this.userTypes.find(function (type) {
+            return type.id === selected.user_type_id;
+        });
         this.user.status = this.checkStatus(selected);
         this.displayBasic = true;
+    }
+    saveEditUser() {
+        if (!this.role) {
+            this.showMessage("error", "Validation Error", "Role is required");
+            return false;
+        }
+        if (!this.userType) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "User Type is required"
+            );
+            return false;
+        }
+        this.user.role_id = this.role.id;
+        this.user.user_type_id = this.userType.id;
+        delete this.user.status;
+        this.publicService
+            .updateData(this.user, this.apiLink)
+            .subscribe((c) => {
+                this.spinner.hide();
+                this.getAllUsers();
+                this.displayBasic = false;
+            });
+        this.showMessage("success", "Confirmed", "User Updated Successfully");
     }
     save() {
         this.spinner.show();
@@ -221,6 +250,20 @@ export class UsersComponent implements OnInit {
             reject: () => {
                 this.showMessage("info", "Rejected", "You have rejected");
             },
+        });
+    }
+    getAllRoles() {
+        this.spinner.show();
+        this.publicService.getAllData("roles").subscribe((result) => {
+            this.roles = result;
+            this.spinner.hide();
+        });
+    }
+    getAllUserTypes() {
+        this.spinner.show();
+        this.publicService.getAllData("user-types").subscribe((result) => {
+            this.userTypes = result;
+            this.spinner.hide();
         });
     }
 }
