@@ -19,6 +19,7 @@
 }
 .iconStyle {
     color: red;
+    float: right;
 }
 .bold {
     font-weight: bold;

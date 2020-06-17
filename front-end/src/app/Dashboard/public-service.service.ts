@@ -19,4 +19,7 @@ export class PublicServiceService {
     updateData(data, link): Observable<void> {
         return this.http.patch<void>(`${this.apiUrl}/${link}/${data.id}`, data);
     }
+    createData(data, link): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/${link}/`, data);
+    }
 }

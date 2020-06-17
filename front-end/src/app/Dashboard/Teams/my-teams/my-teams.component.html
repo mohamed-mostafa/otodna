@@ -7,25 +7,24 @@
             class="centerHeader pointerCursor"
             [style]="{ height: '110px' }"
             styleClass="ui-card-shadow"
-            header="{{ t.name }}"
-            (click)="openTeamMember(t)"
+            header="{{ t.name }} Team"
         >
-            <div>
+            <p-header>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteTeam(t)"
+                    title="Remove"
+                >
+                    <i class="fa fa-2x fa-times-circle" aria-hidden="true"></i>
+                </a>
+            </p-header>
+            <div (click)="openTeamMember(t)">
                 <div class="ui-g-12 ui-md-6 bold">
-                    {{ t.owner }}
+                    {{ getUserById(t.ownerId) }}
                 </div>
-                <div class="ui-g-5 ui-md-5 bold">
-                    {{ t.department }}
-                </div>
-                <div class="ui-g-2 ui-md-1">
-                    <a
-                        href="javascript:void(0)"
-                        class="iconStyle"
-                        (click)="deleteTeam(t)"
-                        title="Remove"
-                    >
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </a>
+                <div class="ui-g-5 ui-md-6 bold">
+                    {{ getDepartmentById(t.departmentId) }}
                 </div>
             </div>
         </p-card>
@@ -37,9 +36,13 @@
                 [style]="{ height: '110px' }"
                 (click)="openTeamDialog()"
             >
-                <h3 style="margin-top:30px;">
-                    <i class="fa fa-plus" aira-hidden="true" style="margin:5px;"></i>
-                     New Team
+                <h3 style="margin-top: 30px;">
+                    <i
+                        class="fa fa-plus"
+                        aira-hidden="true"
+                        style="margin: 5px;"
+                    ></i>
+                    New Team
                 </h3>
             </p-card>
         </div>
@@ -71,6 +74,7 @@
                         pInputText
                         placeholder="Team Owner"
                         [(ngModel)]="team.owner"
+                        readonly="true"
                     />
                 </div>
             </div>

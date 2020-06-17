@@ -1,6 +1,6 @@
+import { PublicServiceService } from "./../../public-service.service";
 import { Router } from "@angular/router";
 import { Team } from "./team";
-import { Member } from "./member";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, NgZone } from "@angular/core";
@@ -14,43 +14,60 @@ import { Component, OnInit, NgZone } from "@angular/core";
 export class MyTeamsComponent implements OnInit {
     departments: any[];
     teams: any[];
-    member: Member = new Member();
+    users: any[];
     team: Team = new Team();
     displayTeamDialog: boolean;
     readonly = true;
+    apiLink = "teams";
+    loggedInUser;
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
         private router: Router,
         private ngZone: NgZone,
+        private publicService: PublicServiceService,
         private spinner: NgxSpinnerService
     ) {}
 
     ngOnInit(): void {
-        this.teams = [
-            {
-                name: "Dr.Alaa Team",
-                owner: "Alaa Darwish",
-                department: "Speech",
-            },
-            {
-                name: "Dr.Mostafa Team",
-                owner: "Mohamed Mostafa",
-                department: "Otology",
-            },
-            {
-                name: "Dr.Ahmed Team",
-                owner: "Ahmed Abdallah",
-                department: "Audiology",
-            },
-        ];
-        this.departments = [
-            { name: "Otology" },
-            { name: "Audiology" },
-            { name: "Speech" },
-        ];
+        this.loggedInUser = JSON.parse(localStorage.getItem("user"));
+        this.team.ownerId = this.loggedInUser.id;
+        this.team.owner = this.loggedInUser.fullName;
+        this.getAllUsers();
+        this.getAllDepartments();
+        this.getAllTeams();
     }
-
+    getAllTeams() {
+        this.spinner.show();
+        this.publicService.getAllData(this.apiLink).subscribe((result) => {
+            this.teams = result;
+            this.spinner.hide();
+        });
+    }
+    getAllDepartments() {
+        this.spinner.show();
+        this.publicService.getAllData("departments").subscribe((result) => {
+            this.departments = result;
+            this.spinner.hide();
+        });
+    }
+    getDepartmentById(id) {
+        const result = this.departments.find(
+            (department) => department.id === id
+        );
+        return result.name;
+    }
+    getAllUsers() {
+        this.spinner.show();
+        this.publicService.getAllData("users").subscribe((result) => {
+            this.users = result;
+            this.spinner.hide();
+        });
+    }
+    getUserById(id) {
+        const result = this.users.find((user) => user.id === id);
+        return result.fullName;
+    }
     showMessage(type, title, message) {
         this.messageService.add({
             severity: type,
@@ -63,23 +80,31 @@ export class MyTeamsComponent implements OnInit {
         this.validateTeamDialog((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    let departmentName: any = this.team.department;
-                    this.team.department = departmentName.name;
-                    this.displayTeamDialog = false;
-                    this.teams.push(this.team);
-                    this.team = new Team();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.team.departmentId = this.team.department.id;
+                delete this.team.owner;
+                delete this.team.department;
+                this.publicService
+                    .createData(this.team, this.apiLink)
+                    .subscribe((u) => {
+                        this.reset();
+                        this.getAllTeams();
+                        this.displayTeamDialog = false;
+                        this.spinner.hide();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
         });
+    }
+    reset() {
+        this.team = new Team();
+        this.team.ownerId = this.loggedInUser.id;
+        this.team.owner = this.loggedInUser.fullName;
     }
     openTeamDialog() {
         this.displayTeamDialog = true;
@@ -114,7 +139,13 @@ export class MyTeamsComponent implements OnInit {
             header: "Delete Team Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                this.teams = this.teams.filter((item) => item !== selected);
+                this.spinner.show();
+                this.publicService
+                    .deleteData(selected.id, this.apiLink)
+                    .subscribe(() => {
+                        this.spinner.hide();
+                        this.getAllTeams();
+                    });
                 this.showMessage(
                     "success",
                     "Confirmed",
