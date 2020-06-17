@@ -22,4 +22,9 @@ export class PublicServiceService {
     createData(data, link): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${link}/`, data);
     }
+    getFilteredData(link, name, value): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${link}?filter[where][${name}][eq]=${value}`
+        );
+    }
 }
