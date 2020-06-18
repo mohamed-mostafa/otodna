@@ -191,7 +191,7 @@ export class TeamController {
     responses: {
       '200': {
         description: 'TeamMember model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Number)}},
+        content: {'application/json': {schema: getModelSchemaRef(TeamMember)}},
       },
     },
   })
@@ -205,8 +205,9 @@ export class TeamController {
         },
       },
     })
-    @param.path.number("id") teamId: number,
     teamMemberUserId: number,
+    @param.path.number("id")
+    teamId: number,
   ): Promise<TeamMember> {
     let newTeamMember: TeamMember = new TeamMember();
     newTeamMember.teamId = teamId;

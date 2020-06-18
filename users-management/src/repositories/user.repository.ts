@@ -32,7 +32,7 @@ export class UserRepository extends DefaultCrudRepository<
   async findUsersByTeamId(id: number): Promise<User[]> {
     let teamMembers: TeamMember[] = await this.teamMemberRepository.find({where: {teamId: id}});
     if (!teamMembers) return [];
-    return this.find({where: {id: {inq: teamMembers.map(teamMember => teamMember.id)}}, fields: {password: false}, include: [{relation: "userType"}, {relation: "role"}]});;
+    return this.find({where: {id: {inq: teamMembers.map(teamMember => teamMember.userId)}}, fields: {password: false}, include: [{relation: "userType"}, {relation: "role"}]});;
     // return this.dataSource.execute("SELECT u.* FROM user u JOIN team_member tm ON U.id = tm.user_id JOIN team t ON t.id = tm.team_id WHERE tm.team_id = ?", [id])
   }
 }
