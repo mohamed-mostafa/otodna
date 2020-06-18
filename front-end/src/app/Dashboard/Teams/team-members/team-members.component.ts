@@ -1,3 +1,4 @@
+import { PublicServiceService } from "./../../public-service.service";
 import { Member } from "./member";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
@@ -17,12 +18,14 @@ export class TeamMembersComponent implements OnInit {
     home: MenuItem;
     members: any[];
     users: any[];
+    apiLink = "members";
     selectedTeam;
     displayMemberDialog: boolean;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private confirmationService: ConfirmationService,
+        private publicService: PublicServiceService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -39,54 +42,27 @@ export class TeamMembersComponent implements OnInit {
             { label: this.selectedTeam.name },
         ];
         this.home = { icon: "fa fa-users" };
-        this.members = [
-            {
-                name: "Alaa Darwish",
-                role: "Doctor",
-            },
-            {
-                name: "Mohamed Mostafa",
-                role: "Consultant",
-            },
-            {
-                name: "Aya Mahmoud",
-                role: "Nurse",
-            },
-        ];
-        this.users = [
-            {
-                name: "Ali Mahmoud",
-                role: "Doctor",
-            },
-            {
-                name: "Ahmed Saleh",
-                role: "Doctor",
-            },
-            {
-                name: "Mariem Ali",
-                role: "Nurse",
-            },
-            {
-                name: "Esraa Ahmed",
-                role: "Nurse",
-            },
-            {
-                name: "Eslam Zaki",
-                role: "Consultant",
-            },
-            {
-                name: "Ahlam Salah",
-                role: "Doctor",
-            },
-            {
-                name: "Osama Mohamed",
-                role: "Doctor",
-            },
-            {
-                name: "Layla Radwan",
-                role: "Nurse",
-            },
-        ];
+
+        this.getAllMembers();
+        this.getAllUsers();
+    }
+    getAllMembers() {
+        this.spinner.show();
+        this.publicService
+            .getAllData(`teams/${this.selectedTeam.id}/members`)
+            .subscribe((result) => {
+                this.members = result;
+                console.log(this.members);
+
+                this.spinner.hide();
+            });
+    }
+    getAllUsers() {
+        this.spinner.show();
+        this.publicService.getAllData("users").subscribe((result) => {
+            this.users = result;
+            this.spinner.hide();
+        });
     }
     goToMyTeamsPage(event) {
         this.router
@@ -127,25 +103,33 @@ export class TeamMembersComponent implements OnInit {
     saveMember() {
         this.validateMemberDialog((callback) => {
             if (callback === "valid") {
-                this.spinner.show();
-                setTimeout(() => {
-                    this.displayMemberDialog = false;
-                    this.members.push(this.member);
-                    this.member = new Member();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.member.user_id = this.member.member.id;
+                console.log(this.member.user_id);
+                console.log(this.selectedTeam.id);
+
+                this.publicService
+                    .createData(
+                        this.member.user_id,
+                        `teams/${this.selectedTeam.id}/member`
+                    )
+                    .subscribe((u) => {
+                        this.member = new Member();
+                        this.getAllMembers();
+                        this.displayMemberDialog = false;
+                        this.spinner.hide();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
         });
     }
     validateMemberDialog(callback) {
-        if (!this.member.name) {
+        if (!this.member.member) {
             this.showMessage(
                 "error",
                 "Validation Error",

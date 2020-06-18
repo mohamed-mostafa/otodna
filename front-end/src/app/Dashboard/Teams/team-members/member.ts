@@ -1,4 +1,4 @@
 export class Member {
-    name: string;
-    role: string;
+    member: any;
+    user_id: string;
 }

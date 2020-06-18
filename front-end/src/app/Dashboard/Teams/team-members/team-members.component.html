@@ -8,18 +8,19 @@
             class="centerHeader"
             [style]="{ height: '120px' }"
             styleClass="ui-card-shadow"
-            header="{{ m.name }}"
+            header="{{ m.fullName }}"
         >
             <div>
                 <div class="ui-g-12 ui-md-4">
                     <img
                         src="assets/layout/images/doctor.png"
-                        height="50px" width="50px"
+                        height="50px"
+                        width="50px"
                         style="border-radius: 15px;"
                     />
                 </div>
                 <div class="ui-g-12 ui-md-7 bold marginTop">
-                    {{ m.role }}
+                    {{ m.role.name }}
                 </div>
                 <div class="ui-g-2 ui-md-1 marginTop">
                     <a
@@ -27,7 +28,11 @@
                         class="iconStyle"
                         (click)="deleteMember(m)"
                     >
-                        <i class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
+                        <i
+                            class="fa fa-trash-o"
+                            aria-hidden="true"
+                            title="Remove"
+                        ></i>
                     </a>
                 </div>
             </div>
@@ -37,11 +42,16 @@
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '115px'}"
-                (click)="openMemberDialog()">
-                <h3 style="margin-top:30px;">
-                    <i class="fa fa-plus" aira-hidden="true" style="margin:5px;"></i>
-                     Add Member
+                [style]="{ height: '115px' }"
+                (click)="openMemberDialog()"
+            >
+                <h3 style="margin-top: 30px;">
+                    <i
+                        class="fa fa-plus"
+                        aira-hidden="true"
+                        style="margin: 5px;"
+                    ></i>
+                    Add Member
                 </h3>
             </p-card>
         </div>
@@ -59,9 +69,9 @@
             <div class="ui-g-12 ui-md-12">
                 <p-dropdown
                     [options]="users"
-                    [(ngModel)]="member"
+                    [(ngModel)]="member.member"
                     placeholder="Select A User"
-                    optionLabel="name"
+                    optionLabel="fullName"
                     [showClear]="true"
                 ></p-dropdown>
             </div>
