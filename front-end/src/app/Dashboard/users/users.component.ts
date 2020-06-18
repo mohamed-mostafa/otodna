@@ -3,7 +3,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { User } from "./user";
-import { PublicServiceService } from "../public-service.service";
+import { UsersService } from "../services/users.service";
+import { RolesService } from "../services/roles.service";
 
 @Component({
     selector: "app-users",
@@ -23,11 +24,11 @@ export class UsersComponent implements OnInit {
     userType;
     displayBasic: boolean;
     displayInviteUserDialog: boolean;
-    apiLink = "users";
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private publicService: PublicServiceService,
+        private usersService: UsersService,
+        private rolesService: RolesService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -44,7 +45,7 @@ export class UsersComponent implements OnInit {
     }
     getAllUsers() {
         this.spinner.show();
-        this.publicService.getAllData(this.apiLink).subscribe((result) => {
+        this.usersService.getAllUsers().subscribe((result) => {
             this.users = result;
             this.spinner.hide();
         });
@@ -85,13 +86,11 @@ export class UsersComponent implements OnInit {
         this.user.role_id = this.role.id;
         this.user.user_type_id = this.userType.id;
         delete this.user.status;
-        this.publicService
-            .updateData(this.user, this.apiLink)
-            .subscribe((c) => {
-                this.spinner.hide();
-                this.getAllUsers();
-                this.displayBasic = false;
-            });
+        this.usersService.updateUser(this.user).subscribe((c) => {
+            this.spinner.hide();
+            this.getAllUsers();
+            this.displayBasic = false;
+        });
         this.showMessage("success", "Confirmed", "User Updated Successfully");
     }
     save() {
@@ -176,12 +175,10 @@ export class UsersComponent implements OnInit {
             accept: () => {
                 this.spinner.show();
                 selected.approved = true;
-                this.publicService
-                    .updateData(selected, this.apiLink)
-                    .subscribe((c) => {
-                        this.spinner.hide();
-                        this.getAllUsers();
-                    });
+                this.usersService.updateUser(selected).subscribe((c) => {
+                    this.spinner.hide();
+                    this.getAllUsers();
+                });
                 this.showMessage("success", "Confirmed", "User Approvved");
             },
             reject: () => {
@@ -196,12 +193,10 @@ export class UsersComponent implements OnInit {
             icon: "pi pi-info-circle",
             accept: () => {
                 this.spinner.show();
-                this.publicService
-                    .deleteData(selected.id, this.apiLink)
-                    .subscribe(() => {
-                        this.spinner.hide();
-                        this.getAllUsers();
-                    });
+                this.usersService.deleteUser(selected.id).subscribe(() => {
+                    this.spinner.hide();
+                    this.getAllUsers();
+                });
                 this.getAllUsers();
                 this.showMessage("success", "Confirmed", "User Rejected");
             },
@@ -218,12 +213,10 @@ export class UsersComponent implements OnInit {
             accept: () => {
                 this.spinner.show();
                 selected.active = true;
-                this.publicService
-                    .updateData(selected, this.apiLink)
-                    .subscribe((c) => {
-                        this.spinner.hide();
-                        this.getAllUsers();
-                    });
+                this.usersService.updateUser(selected).subscribe((c) => {
+                    this.spinner.hide();
+                    this.getAllUsers();
+                });
                 this.showMessage("success", "Confirmed", "User Activated");
             },
             reject: () => {
@@ -239,12 +232,10 @@ export class UsersComponent implements OnInit {
             accept: () => {
                 this.spinner.show();
                 selected.active = false;
-                this.publicService
-                    .updateData(selected, this.apiLink)
-                    .subscribe((c) => {
-                        this.spinner.hide();
-                        this.getAllUsers();
-                    });
+                this.usersService.updateUser(selected).subscribe((c) => {
+                    this.spinner.hide();
+                    this.getAllUsers();
+                });
                 this.showMessage("success", "Confirmed", "User deActivated");
             },
             reject: () => {
@@ -254,14 +245,14 @@ export class UsersComponent implements OnInit {
     }
     getAllRoles() {
         this.spinner.show();
-        this.publicService.getAllData("roles").subscribe((result) => {
+        this.rolesService.getAllRoles().subscribe((result) => {
             this.roles = result;
             this.spinner.hide();
         });
     }
     getAllUserTypes() {
         this.spinner.show();
-        this.publicService.getAllData("user-types").subscribe((result) => {
+        this.usersService.getAllUserTypes().subscribe((result) => {
             this.userTypes = result;
             this.spinner.hide();
         });

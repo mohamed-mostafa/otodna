@@ -1,9 +1,10 @@
-import { PublicServiceService } from "./../../public-service.service";
 import { Router } from "@angular/router";
 import { Team } from "./team";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, NgZone } from "@angular/core";
+import { TeamsService } from "../../services/teams.service";
+import { DepartmentsService } from "../../services/departments.service";
 
 @Component({
     selector: "app-my-teams",
@@ -24,7 +25,8 @@ export class MyTeamsComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private router: Router,
         private ngZone: NgZone,
-        private publicService: PublicServiceService,
+        private teamsService: TeamsService,
+        private departmentsService: DepartmentsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -38,8 +40,8 @@ export class MyTeamsComponent implements OnInit {
     }
     getMyTeams() {
         this.spinner.show();
-        this.publicService
-            .getFilteredData(this.apiLink, "ownerId", this.team.ownerId)
+        this.teamsService
+            .getFilteredTeam("ownerId", this.team.ownerId)
             .subscribe((result) => {
                 this.teams = result;
                 this.spinner.hide();
@@ -47,7 +49,7 @@ export class MyTeamsComponent implements OnInit {
     }
     getAllDepartments() {
         this.spinner.show();
-        this.publicService.getAllData("departments").subscribe((result) => {
+        this.departmentsService.getAllDepartments().subscribe((result) => {
             this.departments = result;
             this.spinner.hide();
         });
@@ -74,19 +76,17 @@ export class MyTeamsComponent implements OnInit {
                 this.team.departmentId = this.team.department.id;
                 delete this.team.owner;
                 delete this.team.department;
-                this.publicService
-                    .createData(this.team, this.apiLink)
-                    .subscribe((u) => {
-                        this.reset();
-                        this.getMyTeams();
-                        this.displayTeamDialog = false;
-                        this.spinner.hide();
-                        this.showMessage(
-                            "success",
-                            "Saved",
-                            "Data saved successfully"
-                        );
-                    });
+                this.teamsService.createTeam(this.team).subscribe((u) => {
+                    this.reset();
+                    this.getMyTeams();
+                    this.displayTeamDialog = false;
+                    this.spinner.hide();
+                    this.showMessage(
+                        "success",
+                        "Saved",
+                        "Data saved successfully"
+                    );
+                });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -131,12 +131,10 @@ export class MyTeamsComponent implements OnInit {
             icon: "pi pi-info-circle",
             accept: () => {
                 this.spinner.show();
-                this.publicService
-                    .deleteData(selected.id, this.apiLink)
-                    .subscribe(() => {
-                        this.spinner.hide();
-                        this.getMyTeams();
-                    });
+                this.teamsService.deleteTeam(selected.id).subscribe(() => {
+                    this.spinner.hide();
+                    this.getMyTeams();
+                });
                 this.showMessage(
                     "success",
                     "Confirmed",

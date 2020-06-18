@@ -1,10 +1,11 @@
-import { PublicServiceService } from "./../../public-service.service";
 import { Member } from "./member";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
+import { TeamsService } from "../../services/teams.service";
+import { UsersService } from "../../services/users.service";
 
 @Component({
     selector: "app-team-members",
@@ -25,7 +26,8 @@ export class TeamMembersComponent implements OnInit {
         private messageService: MessageService,
         private router: Router,
         private confirmationService: ConfirmationService,
-        private publicService: PublicServiceService,
+        private teamsService: TeamsService,
+        private usersService: UsersService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -48,18 +50,16 @@ export class TeamMembersComponent implements OnInit {
     }
     getAllMembers() {
         this.spinner.show();
-        this.publicService
-            .getAllData(`teams/${this.selectedTeam.id}/members`)
+        this.teamsService
+            .getTeamMembers(this.selectedTeam.id)
             .subscribe((result) => {
                 this.members = result;
-                console.log(this.members);
-
                 this.spinner.hide();
             });
     }
     getAllUsers() {
         this.spinner.show();
-        this.publicService.getAllData("users").subscribe((result) => {
+        this.usersService.getAllUsers().subscribe((result) => {
             this.users = result;
             this.spinner.hide();
         });
@@ -104,14 +104,8 @@ export class TeamMembersComponent implements OnInit {
         this.validateMemberDialog((callback) => {
             if (callback === "valid") {
                 this.member.user_id = this.member.member.id;
-                console.log(this.member.user_id);
-                console.log(this.selectedTeam.id);
-
-                this.publicService
-                    .createData(
-                        this.member.user_id,
-                        `teams/${this.selectedTeam.id}/member`
-                    )
+                this.teamsService
+                    .createTeamMember(this.selectedTeam.id, this.member.user_id)
                     .subscribe((u) => {
                         this.member = new Member();
                         this.getAllMembers();

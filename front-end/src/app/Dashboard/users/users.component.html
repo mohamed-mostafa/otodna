@@ -236,22 +236,30 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <p-dropdown
-                [options]="roles"
-                [(ngModel)]="role"
-                placeholder="Select A Role"
-                optionLabel="name"
-                [showClear]="true"
-            ></p-dropdown>
+            <label for="role">Role</label>
+            <div class="labelMarginTop">
+                <p-dropdown
+                    [options]="roles"
+                    [(ngModel)]="role"
+                    placeholder="Select A Role"
+                    optionLabel="name"
+                    id="role"
+                    [showClear]="true"
+                ></p-dropdown>
+            </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-            <p-dropdown
-                [options]="userTypes"
-                [(ngModel)]="userType"
-                placeholder="Select A user Type"
-                optionLabel="name"
-                [showClear]="true"
-            ></p-dropdown>
+            <label for="userType">User Type</label>
+            <div class="labelMarginTop">
+                <p-dropdown
+                    [options]="userTypes"
+                    [(ngModel)]="userType"
+                    placeholder="Select A user Type"
+                    optionLabel="name"
+                    id="userType"
+                    [showClear]="true"
+                ></p-dropdown>
+            </div>
         </div>
     </div>
     <p-footer>
