@@ -17,19 +17,24 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {Team, User, TeamMember} from '../models';
-import {TeamRepository, UserRepository, TeamMemberRepository, DepartmentRepository} from '../repositories';
-import { OPERATION_SECURITY_SPEC } from '../utils/security.spec';
-import { authenticate } from '@loopback/authentication';
+import {
+  TeamRepository,
+  UserRepository,
+  TeamMemberRepository,
+  DepartmentRepository,
+} from '../repositories';
+import {OPERATION_SECURITY_SPEC} from '../utils/security.spec';
+import {authenticate} from '@loopback/authentication';
 
 @authenticate('jwt')
 export class TeamController {
   constructor(
     @repository(TeamRepository)
-    public teamRepository : TeamRepository,
+    public teamRepository: TeamRepository,
     @repository(UserRepository)
-    public userRepository : UserRepository,
+    public userRepository: UserRepository,
     @repository(TeamMemberRepository)
-    public teamMemberRepository : TeamMemberRepository,
+    public teamMemberRepository: TeamMemberRepository,
   ) {}
 
   @post('/teams', {
@@ -66,9 +71,7 @@ export class TeamController {
       },
     },
   })
-  async count(
-    @param.where(Team) where?: Where<Team>,
-  ): Promise<Count> {
+  async count(@param.where(Team) where?: Where<Team>): Promise<Count> {
     return this.teamRepository.count(where);
   }
 
@@ -88,9 +91,7 @@ export class TeamController {
       },
     },
   })
-  async find(
-    @param.filter(Team) filter?: Filter<Team>,
-  ): Promise<Team[]> {
+  async find(@param.filter(Team) filter?: Filter<Team>): Promise<Team[]> {
     return this.teamRepository.find(filter);
   }
 
@@ -132,7 +133,7 @@ export class TeamController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Team, {exclude: 'where'}) filter?: FilterExcludingWhere<Team>
+    @param.filter(Team, {exclude: 'where'}) filter?: FilterExcludingWhere<Team>,
   ): Promise<Team> {
     return this.teamRepository.findById(id, filter);
   }
@@ -206,7 +207,7 @@ export class TeamController {
       },
     })
     teamMemberUserId: number,
-    @param.path.number("id")
+    @param.path.number('id')
     teamId: number,
   ): Promise<TeamMember> {
     let newTeamMember: TeamMember = new TeamMember();
@@ -235,5 +236,19 @@ export class TeamController {
     @param.path.number('id') id: number,
   ): Promise<User[]> {
     return this.userRepository.findUsersByTeamId(id);
+  }
+  @del('/member/{teamId}/{userId}', {
+    security: OPERATION_SECURITY_SPEC,
+    responses: {
+      '204': {
+        description: 'Member DELETE success',
+      },
+    },
+  })
+  async findMemberAndDelete(
+    @param.path.number('teamId') teamId: number,
+    @param.path.number('userId') userId: number,
+  ): Promise<void> {
+    await this.teamMemberRepository.findMemberAndDelete(teamId, userId);
   }
 }

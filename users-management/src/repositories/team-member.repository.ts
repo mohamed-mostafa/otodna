@@ -8,9 +8,13 @@ export class TeamMemberRepository extends DefaultCrudRepository<
   typeof TeamMember.prototype.id,
   TeamMemberRelations
 > {
-  constructor(
-    @inject('datasources.oltp_ds') dataSource: OltpDsDataSource,
-  ) {
+  constructor(@inject('datasources.oltp_ds') dataSource: OltpDsDataSource) {
     super(TeamMember, dataSource);
+  }
+  async findMemberAndDelete(teamId: number, userId: number): Promise<void> {
+    let teamMember = await super.find({
+      where: {teamId, userId},
+    });
+    return super.deleteById(teamMember[0].id);
   }
 }

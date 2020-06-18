@@ -77,7 +77,13 @@ export class TeamMembersComponent implements OnInit {
             header: "Delete Member Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
-                this.members = this.members.filter((item) => item !== selected);
+                this.spinner.show();
+                this.teamsService
+                    .deleteTeamMember(this.selectedTeam.id, selected.id)
+                    .subscribe(() => {
+                        this.spinner.hide();
+                        this.getAllMembers();
+                    });
                 this.showMessage(
                     "success",
                     "Confirmed",

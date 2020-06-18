@@ -44,4 +44,9 @@ export class TeamsService {
             data
         );
     }
+    deleteTeamMember(teamId, userId): Observable<void> {
+        return this.http.delete<void>(
+            `${this.apiUrl}/${this.memberLink}/${teamId}/${userId}`
+        );
+    }
 }
