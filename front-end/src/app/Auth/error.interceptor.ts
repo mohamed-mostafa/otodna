@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
 import {
@@ -10,11 +11,13 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { AuthenticationService } from "./auth.service";
+import swal from "sweetalert";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private authenticationService: AuthenticationService,
+        private spinner: NgxSpinnerService,
         private router: Router
     ) {}
 
@@ -30,11 +33,29 @@ export class ErrorInterceptor implements HttpInterceptor {
                     if (this.router.url !== "/login") {
                         location.reload(true);
                     }
+                } else if (err.status === 500) {
+                    this.spinner.hide();
+                    this.callSwal(
+                        "Internal server error",
+                        "Server is down,Please try again later",
+                        "error"
+                    );
+                    console.log("Internal Server Error");
+                } else {
+                    this.spinner.hide();
+                    this.callSwal(
+                        "Connection Error",
+                        "Please check your connection and try again",
+                        "error"
+                    );
+                    console.log("All Other Errors");
                 }
-
                 // const error = err.error.message || err.statusText;
                 return throwError(err);
             })
         );
+    }
+    callSwal(title, text, icon) {
+        return swal({ title, text, icon });
     }
 }
