@@ -65,7 +65,7 @@ export class TeamMembersComponent implements OnInit {
     }
     getAllUsers() {
         this.spinner.show();
-        this.usersService.getAllUsers().subscribe((result) => {
+        this.usersService.getAllUsersExceptConsultants().subscribe((result) => {
             this.users = result;
             this.spinner.hide();
         });

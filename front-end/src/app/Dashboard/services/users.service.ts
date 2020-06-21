@@ -24,6 +24,11 @@ export class UsersService {
             user
         );
     }
+    getAllUsersExceptConsultants(): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.usersLink}?filter[where][role_id][neq]=2`
+        );
+    }
     createUser(user): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.usersLink}/`, user);
     }
