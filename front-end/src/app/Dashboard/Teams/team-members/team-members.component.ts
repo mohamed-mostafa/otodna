@@ -45,8 +45,13 @@ export class TeamMembersComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-users" };
 
-        this.getAllMembers();
         this.getAllUsers();
+        this.getAllMembers();
+    }
+    checkAddedMember() {
+        this.members.forEach((member) => {
+            this.users = this.users.filter((user) => user.id !== member.id);
+        });
     }
     getAllMembers() {
         this.spinner.show();
@@ -54,6 +59,7 @@ export class TeamMembersComponent implements OnInit {
             .getTeamMembers(this.selectedTeam.id)
             .subscribe((result) => {
                 this.members = result;
+                this.checkAddedMember();
                 this.spinner.hide();
             });
     }

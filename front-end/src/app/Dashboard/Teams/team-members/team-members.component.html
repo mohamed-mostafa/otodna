@@ -10,6 +10,16 @@
             styleClass="ui-card-shadow"
             header="{{ m.fullName }}"
         >
+            <p-header>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteMember(m)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-header>
             <div>
                 <div class="ui-g-12 ui-md-4">
                     <img
@@ -19,21 +29,8 @@
                         style="border-radius: 15px;"
                     />
                 </div>
-                <div class="ui-g-12 ui-md-7 bold marginTop">
+                <div class="ui-g-12 ui-md-8 bold marginTop">
                     {{ m.role.name }}
-                </div>
-                <div class="ui-g-2 ui-md-1 marginTop">
-                    <a
-                        href="javascript:void(0)"
-                        class="iconStyle"
-                        (click)="deleteMember(m)"
-                    >
-                        <i
-                            class="fa fa-trash-o"
-                            aria-hidden="true"
-                            title="Remove"
-                        ></i>
-                    </a>
                 </div>
             </div>
         </p-card>
