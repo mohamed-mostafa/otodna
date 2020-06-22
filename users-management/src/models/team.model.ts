@@ -91,7 +91,7 @@ export class Team extends Entity {
     type: 'date',
     required: true,
     mysql: {
-      columnName: 'creationDate',
+      columnName: 'creation_date',
       dataType: 'date',
       dataLength: null,
       dataPrecision: null,

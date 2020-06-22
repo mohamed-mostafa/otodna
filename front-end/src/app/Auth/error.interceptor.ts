@@ -37,7 +37,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.spinner.hide();
                     this.callSwal(
                         "Internal server error",
-                        "Server is down,Please try again later",
+                        "An error occured while processing your request. Please Contact the system administrator.",
+                        "error"
+                    );
+                    console.log("Internal Server Error");
+                }
+                else if (err.status === 403) {
+                    this.spinner.hide();
+                    this.callSwal(
+                        "Unauthorized",
+                        "You are not authorized to perform this operation.",
                         "error"
                     );
                     console.log("Internal Server Error");

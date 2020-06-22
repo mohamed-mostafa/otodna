@@ -104,7 +104,7 @@ CREATE TABLE `team` (
   `active` TINYINT(1) NOT NULL DEFAULT 1,
   `owner_id` int NOT NULL,
   `department_id` int NOT NULL,
-  `creationDate` date,
+  `creation_date` date,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
