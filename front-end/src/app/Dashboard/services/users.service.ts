@@ -24,9 +24,9 @@ export class UsersService {
             user
         );
     }
-    getAllUsersExceptConsultants(): Observable<any> {
+    getAllApprovedUsersExceptConsultants(): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.usersLink}?filter[where][role_id][neq]=2`
+            `${this.apiUrl}/${this.usersLink}?filter[where][and][0][role_id][neq]=2&filter[where][and][1][approved][eq]=1`
         );
     }
     createUser(user): Observable<void> {
