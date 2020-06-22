@@ -5,3 +5,4 @@ export * from './team.controller';
 export * from './department.controller';
 export * from './role.controller';
 export * from './authentication.controller';
+export * from './team-team-member.controller';

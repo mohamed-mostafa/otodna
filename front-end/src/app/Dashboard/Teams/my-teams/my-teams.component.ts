@@ -19,6 +19,7 @@ export class MyTeamsComponent implements OnInit {
     displayTeamDialog: boolean;
     readonly = true;
     apiLink = "teams";
+    membersCount;
     loggedInUser;
     constructor(
         private messageService: MessageService,
@@ -34,7 +35,6 @@ export class MyTeamsComponent implements OnInit {
         this.loggedInUser = JSON.parse(localStorage.getItem("user"));
         this.team.ownerId = this.loggedInUser.id;
         this.team.owner = this.loggedInUser.fullName;
-
         this.getAllDepartments();
         this.getMyTeams();
     }
@@ -44,6 +44,13 @@ export class MyTeamsComponent implements OnInit {
             .getFilteredTeam("ownerId", this.team.ownerId)
             .subscribe((result) => {
                 this.teams = result;
+                result.forEach((team) => {
+                    this.teamsService
+                        .getTeamMembersByTeamId(team.id)
+                        .subscribe((res) => {
+                            team.membersCount = res.length;
+                        });
+                });
                 this.spinner.hide();
             });
     }

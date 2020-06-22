@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {TeamMember} from './team-member.model';
 
 @model({
   settings: {
@@ -100,6 +101,8 @@ export class Team extends Entity {
   })
   creationDate: string;
 
+  @hasMany(() => TeamMember)
+  teamMembers: TeamMember[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

@@ -11,6 +11,7 @@ export class TeamsService {
     teamsLink = "teams";
     membersLink = "members";
     memberLink = "member";
+    teamMembersLink = "team-members";
     constructor(private http: HttpClient) {}
 
     getAllTeams(): Observable<any> {
@@ -47,6 +48,11 @@ export class TeamsService {
     deleteTeamMember(teamId, userId): Observable<void> {
         return this.http.delete<void>(
             `${this.apiUrl}/${this.memberLink}/${teamId}/${userId}`
+        );
+    }
+    getTeamMembersByTeamId(teamId) {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.teamsLink}/${teamId}/${this.teamMembersLink}`
         );
     }
 }
