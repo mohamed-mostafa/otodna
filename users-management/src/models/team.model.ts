@@ -1,12 +1,24 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {idInjection: false, mysql: {schema: 'otodna-users', table: 'team'}}})
+@model({
+  settings: {
+    idInjection: false,
+    mysql: {schema: 'otodna-users', table: 'team'},
+  },
+})
 export class Team extends Entity {
   @property({
     type: 'boolean',
     required: true,
     length: 1,
-    mysql: {columnName: 'active', dataType: 'char', dataLength: 1, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'active',
+      dataType: 'char',
+      dataLength: 1,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   active: boolean;
 
@@ -15,7 +27,14 @@ export class Team extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'department_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'department_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   departmentId: number;
 
@@ -25,7 +44,14 @@ export class Team extends Entity {
     precision: 10,
     scale: 0,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   id: number;
 
@@ -33,7 +59,14 @@ export class Team extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'name', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   name: string;
 
@@ -42,9 +75,30 @@ export class Team extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'owner_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'owner_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   ownerId: number;
+
+  @property({
+    type: 'date',
+    required: true,
+    mysql: {
+      columnName: 'creationDate',
+      dataType: 'date',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
+  })
+  creationDate: string;
 
   // Define well-known properties here
 

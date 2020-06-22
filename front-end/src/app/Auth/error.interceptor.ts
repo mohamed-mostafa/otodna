@@ -41,15 +41,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                         "error"
                     );
                     console.log("Internal Server Error");
-                } else {
-                    this.spinner.hide();
-                    this.callSwal(
-                        "Connection Error",
-                        "Please check your connection and try again",
-                        "error"
-                    );
-                    console.log("All Other Errors");
                 }
+                // else {
+                //     this.spinner.hide();
+                //     this.callSwal(
+                //         "Connection Error",
+                //         "Please check your connection and try again",
+                //         "error"
+                //     );
+                //     console.log("All Other Errors");
+                // }
                 // const error = err.error.message || err.statusText;
                 return throwError(err);
             })

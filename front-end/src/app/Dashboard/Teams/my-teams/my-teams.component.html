@@ -21,7 +21,7 @@
             </p-header>
             <div (click)="openTeamMember(t)">
                 <div class="ui-g-12 ui-md-6 bold">
-                    {{ team.owner }}
+                    Since {{ team.creationDate | date }}
                 </div>
                 <div class="ui-g-5 ui-md-6 bold">
                     {{ getDepartmentById(t.departmentId) }}

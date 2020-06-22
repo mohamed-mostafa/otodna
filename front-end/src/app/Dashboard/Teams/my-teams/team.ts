@@ -5,7 +5,9 @@ export class Team {
     ownerId: string;
     department: any;
     departmentId: string;
+    creationDate: Date;
     constructor() {
         this.active = true;
+        this.creationDate = new Date();
     }
 }

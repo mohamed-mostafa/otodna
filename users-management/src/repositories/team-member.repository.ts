@@ -12,10 +12,10 @@ export class TeamMemberRepository extends DefaultCrudRepository<
     super(TeamMember, dataSource);
   }
   async findMemberAndDelete(teamId: number, userId: number): Promise<any> {
-    let teamMember = await super.find({
-      where: {teamId, userId},
-    });
-    return super.deleteById(teamMember[0].id);
-    // return super.deleteAll({where: {teamId, userId}});
+    // let teamMember = await super.find({
+    //   where: {teamId, userId},
+    // });
+    // return super.deleteById(teamMember[0].id);
+    return super.deleteAll({teamId, userId});
   }
 }
