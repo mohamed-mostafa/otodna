@@ -88,7 +88,7 @@ export class TeamMembersComponent implements OnInit {
                     .deleteTeamMember(this.selectedTeam.id, selected.id)
                     .subscribe(() => {
                         this.spinner.hide();
-                        this.getAllMembers();
+                        this.ngOnInit();
                     });
                 this.showMessage(
                     "success",
