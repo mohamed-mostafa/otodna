@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { PatientCountryService } from "../services/countryService";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
@@ -20,21 +21,27 @@ export class PatientBasicInfoComponent implements OnInit {
     home: MenuItem;
     filteredCountries: any[];
     hideDiscard = false;
+    genderType;
+    selectedCountry;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
         private router: Router,
-        private countryService: PatientCountryService
+        private countryService: PatientCountryService,
+        private patientService: PatientService
     ) {}
 
     ngOnInit(): void {
         let selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        let LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        this.patient.createdBy = LoggedInUser.fullName;
+        this.patient.lastModifiedBy = LoggedInUser.fullName;
         if (selectedPatient) {
-            this.patient.fileId = selectedPatient.id
+            this.patient.id = selectedPatient.id
                 ? selectedPatient.id
-                : selectedPatient.fileId;
+                : selectedPatient.id;
             this.patient.firstName = selectedPatient.username
                 ? selectedPatient.username
                 : selectedPatient.firstName;
@@ -52,36 +59,60 @@ export class PatientBasicInfoComponent implements OnInit {
         } else {
             this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         }
-        this.gender = [{ name: "Male" }, { name: "Female" }];
+        this.gender = [
+            { name: "Male", code: "M" },
+            { name: "Female", code: "F" },
+        ];
         this.home = { icon: "fa fa-user-md" };
     }
     reset() {
         this.patient = new Patient();
+        this.genderType = {};
+        this.selectedCountry = {};
     }
     save() {
         this.validatePatient((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                localStorage.setItem(
-                    "selectedPatient",
-                    JSON.stringify(this.patient)
+                this.patient.gender = this.genderType.code;
+                this.patient.country = this.selectedCountry.name;
+                const {
+                    bloodType,
+                    emergencyContact,
+                    emergencyPhone,
+                    ...patient
+                } = this.patient;
+                const patientMedicalInfo = (({
+                    bloodType,
+                    emergencyContact,
+                    emergencyPhone,
+                }) => ({ bloodType, emergencyContact, emergencyPhone }))(
+                    this.patient
                 );
-                this.router
-                    .navigateByUrl("/RefreshComponent", {
-                        skipLocationChange: true,
-                    })
-                    .then(() => {
-                        this.router.navigate(["/dashboard/patient"]);
-                    });
-                setTimeout(() => {
-                    this.spinner.hide();
+                let newPatient = {
+                    patient,
+                    patientMedicalInfo,
+                };
+                this.patientService.createPatient(newPatient).subscribe((u) => {
+                    localStorage.setItem(
+                        "selectedPatient",
+                        JSON.stringify(this.patient)
+                    );
+                    this.router
+                        .navigateByUrl("/RefreshComponent", {
+                            skipLocationChange: true,
+                        })
+                        .then(() => {
+                            this.router.navigate(["/dashboard/patient"]);
+                        });
                     this.reset();
+                    this.spinner.hide();
                     this.showMessage(
                         "success",
                         "Saved",
                         "Data saved successfully"
                     );
-                }, 2000);
+                });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -112,8 +143,8 @@ export class PatientBasicInfoComponent implements OnInit {
             );
             return false;
         }
-        if (!this.patient.phone) {
-            this.showMessage("error", "Validation Error", "Phone is required");
+        if (!this.patient.mobile) {
+            this.showMessage("error", "Validation Error", "Mobile is required");
             return false;
         }
         if (!this.patient.dateOfBirth) {
@@ -124,11 +155,11 @@ export class PatientBasicInfoComponent implements OnInit {
             );
             return false;
         }
-        if (!this.patient.gender) {
+        if (!this.genderType) {
             this.showMessage("error", "Validation Error", "Gender is required");
             return false;
         }
-        if (!this.patient.country) {
+        if (!this.selectedCountry) {
             this.showMessage(
                 "error",
                 "Validation Error",

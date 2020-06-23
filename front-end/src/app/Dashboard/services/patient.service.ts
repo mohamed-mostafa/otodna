@@ -1,0 +1,37 @@
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
+import { Observable } from "rxjs";
+
+@Injectable({
+    providedIn: "root",
+})
+export class PatientService {
+    apiUrl = environment.patientApiUrl;
+    link = "patients";
+    constructor(private http: HttpClient) {}
+
+    getAllPatients(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}`);
+    }
+    deletePatient(id: String): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${this.link}/${id}`);
+    }
+    updatePatient(patient): Observable<void> {
+        return this.http.patch<void>(
+            `${this.apiUrl}/${this.link}/${patient.id}`,
+            patient
+        );
+    }
+    createPatient(patient): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/${this.link}/patientWithMedicalInfo`,
+            patient
+        );
+    }
+    getFilteredPatient(name, value): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}?filter[where][${name}][eq]=${value}`
+        );
+    }
+}

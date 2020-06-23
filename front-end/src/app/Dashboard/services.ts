@@ -1,3 +1,4 @@
+import { PatientService } from './services/patient.service';
 import { UsersService } from "./services/users.service";
 import { TeamsService } from "./services/teams.service";
 import { PatientCountryService } from "./patients/services/countryService";
@@ -24,4 +25,5 @@ export const SERVICES = [
     RolesService,
     TeamsService,
     UsersService,
+    PatientService
 ];

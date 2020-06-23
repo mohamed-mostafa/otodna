@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     hostUrl: "http://localhost:4200",
-    apiUrl: "http://localhost:3000",
+    userApiUrl: "http://localhost:3000",
+    patientApiUrl: "http://localhost:2999",
 };
 
 /*

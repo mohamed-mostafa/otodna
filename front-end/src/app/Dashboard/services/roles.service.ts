@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
     providedIn: "root",
 })
 export class RolesService {
-    apiUrl = environment.apiUrl;
+    apiUrl = environment.userApiUrl;
     link = "roles";
 
     constructor(private http: HttpClient) {}
