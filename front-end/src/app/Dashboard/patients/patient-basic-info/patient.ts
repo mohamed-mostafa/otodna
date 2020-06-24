@@ -1,16 +1,26 @@
 export class Patient {
-    fileId: string;
+    id: string;
     firstName: string;
     middleName: string;
     lastName: string;
     email: string;
-    phone: number;
+    mobile: number;
     dateOfBirth: Date;
     gender: string;
     country: string;
     city: string;
     address: string;
+    teamId: number;
+    createdBy: string;
+    createdAt: Date;
+    lastModifiedBy: string;
+    lastModifiedAt: Date;
     bloodType: string;
     emergencyContact: number;
     emergencyPhone: number;
+    constructor() {
+        this.teamId = 1;
+        this.createdAt = new Date();
+        this.lastModifiedAt = new Date();
+    }
 }

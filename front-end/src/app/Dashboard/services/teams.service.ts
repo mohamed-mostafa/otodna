@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
     providedIn: "root",
 })
 export class TeamsService {
-    apiUrl = environment.apiUrl;
+    apiUrl = environment.userApiUrl;
     teamsLink = "teams";
     membersLink = "members";
     memberLink = "member";

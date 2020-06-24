@@ -24,7 +24,7 @@ export class AuthenticationService {
 
     login(user: User) {
         return this.http
-            .post<any>(`${environment.apiUrl}/users/login`, user)
+            .post<any>(`${environment.userApiUrl}/users/login`, user)
             .pipe(
                 map((user) => {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes

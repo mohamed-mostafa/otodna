@@ -10,12 +10,11 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="fileID"
-                    placeholder="File Id"
+                    placeholder="ID"
                     [disabled]="true"
-                    [(ngModel)]="patient.fileId"
+                    [(ngModel)]="patient.id"
                 />
             </div>
         </div>
@@ -27,7 +26,6 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="first"
                     placeholder="First Name"
@@ -43,7 +41,6 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="middle"
                     placeholder="Middle Name"
@@ -59,7 +56,6 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="last"
                     placeholder="Last Name"
@@ -83,7 +79,7 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <label for="phone">Phone</label>
+            <label for="phone">Mobile</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="fa fa-phone"></i
@@ -93,8 +89,8 @@
                     pInputText
                     id="phone"
                     pKeyFilter="int"
-                    placeholder="Phone"
-                    [(ngModel)]="patient.phone"
+                    placeholder="Mobile"
+                    [(ngModel)]="patient.mobile"
                 />
             </div>
         </div>
@@ -122,7 +118,7 @@
                     optionLabel="name"
                     id="gender"
                     [showClear]="true"
-                    [(ngModel)]="patient.gender"
+                    [(ngModel)]="genderType"
                 ></p-dropdown>
             </div>
         </div>
@@ -131,7 +127,7 @@
             <div class="labelMarginTop">
                 <p-autoComplete
                     id="acSimple"
-                    [(ngModel)]="patient.country"
+                    [(ngModel)]="selectedCountry"
                     [suggestions]="filteredCountries"
                     (completeMethod)="filterCountry($event)"
                     field="name"
@@ -150,7 +146,6 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="city"
                     placeholder="City"
@@ -166,7 +161,6 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="address"
                     placeholder="Address"
@@ -186,7 +180,6 @@
                 ></span>
                 <input
                     type="text"
-                    pKeyFilter="alphanum"
                     pInputText
                     id="blood"
                     placeholder="Blood Type"

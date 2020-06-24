@@ -2,16 +2,26 @@ import {Entity, model, property, hasOne} from '@loopback/repository';
 import {PatientMedicalInfo} from './patient-medical-info.model';
 
 @model({
-  settings: {idInjection: false, mysql: {schema: 'otodna-patients', table: 'patient'}}
+  settings: {
+    idInjection: false,
+    mysql: {schema: 'otodna-patients', table: 'patient'},
+  },
 })
 export class Patient extends Entity {
   @property({
     type: 'number',
-    required: true,
+    required: false,
     precision: 10,
     scale: 0,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   id: number;
 
@@ -19,14 +29,28 @@ export class Patient extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'first_name', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'first_name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   firstName: string;
 
   @property({
     type: 'string',
     length: 45,
-    mysql: {columnName: 'middle_name', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {
+      columnName: 'middle_name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
   })
   middleName?: string;
 
@@ -34,14 +58,28 @@ export class Patient extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'last_name', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'last_name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   lastName: string;
 
   @property({
     type: 'string',
     length: 45,
-    mysql: {columnName: 'email', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {
+      columnName: 'email',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
   })
   email?: string;
 
@@ -49,14 +87,28 @@ export class Patient extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'mobile', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'mobile',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   mobile: string;
 
   @property({
     type: 'date',
     required: true,
-    mysql: {columnName: 'date_of_birth', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'date_of_birth',
+      dataType: 'date',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   dateOfBirth: string;
 
@@ -64,28 +116,56 @@ export class Patient extends Entity {
     type: 'string',
     required: true,
     length: 1,
-    mysql: {columnName: 'gender', dataType: 'char', dataLength: 1, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'gender',
+      dataType: 'char',
+      dataLength: 1,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   gender: string;
 
   @property({
     type: 'string',
     length: 45,
-    mysql: {columnName: 'country', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {
+      columnName: 'country',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
   })
   country?: string;
 
   @property({
     type: 'string',
     length: 45,
-    mysql: {columnName: 'city', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {
+      columnName: 'city',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
   })
   city?: string;
 
   @property({
     type: 'string',
     length: 45,
-    mysql: {columnName: 'address', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {
+      columnName: 'address',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
   })
   address?: string;
 
@@ -94,7 +174,14 @@ export class Patient extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'team_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'team_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   teamId: number;
 
@@ -102,14 +189,28 @@ export class Patient extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'created_by', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'created_by',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   createdBy: string;
 
   @property({
     type: 'date',
     required: true,
-    mysql: {columnName: 'created_at', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'created_at',
+      dataType: 'date',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   createdAt: string;
 
@@ -117,14 +218,28 @@ export class Patient extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'last_modified_by', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'last_modified_by',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   lastModifiedBy: string;
 
   @property({
     type: 'date',
     required: true,
-    mysql: {columnName: 'last_modified_at', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'last_modified_at',
+      dataType: 'date',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   lastModifiedAt: string;
 

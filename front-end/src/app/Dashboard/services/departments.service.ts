@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
     providedIn: "root",
 })
 export class DepartmentsService {
-    apiUrl = environment.apiUrl;
+    apiUrl = environment.userApiUrl;
     link = "departments";
 
     constructor(private http: HttpClient) {}
