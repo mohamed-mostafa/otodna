@@ -10,6 +10,8 @@ import {TokenService} from '@loopback/authentication';
 import {UserProfile, securityId} from '@loopback/security';
 import {TokenServiceBindings} from '../keys';
 import { LoggedInUser } from '../models';
+import { repository } from '@loopback/repository';
+import { UserRepository } from '../repositories';
 
 const jwt = require('jsonwebtoken');
 const signAsync = promisify(jwt.sign);
@@ -21,6 +23,8 @@ export class JWTService implements TokenService {
     private jwtSecret: string,
     @inject(TokenServiceBindings.TOKEN_EXPIRES_IN)
     private jwtExpiresIn: string,
+    @repository(UserRepository)
+    protected userRepository: UserRepository
   ) {}
 
   async verifyToken(token: string): Promise<LoggedInUser> {
@@ -43,7 +47,8 @@ export class JWTService implements TokenService {
           name: decodedToken.name,
           email: decodedToken.email,
           fullName: decodedToken.fullName,
-          token: token
+          token: token,
+          teams: await this.userRepository.getTeamMembershipsOfUser(decodedToken.id) // get the teams of the user to enrich the user profile.
         },
       );
     } catch (error) {

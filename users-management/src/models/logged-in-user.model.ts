@@ -1,6 +1,6 @@
 import {Model, model, property} from '@loopback/repository';
 import {UserProfile, securityId} from '@loopback/security';
-import { UserType } from '.';
+import { UserType, Team } from '.';
 import { Role } from './role.model';
 
 @model({settings: {strict: false}})
@@ -48,6 +48,9 @@ export class LoggedInUser implements UserProfile {
   })
   type?: UserType;
 
+  @property.array(Team)
+  teams?: Team[];
+  
   // Define well-known properties here
 
   // Indexer property to allow additional data

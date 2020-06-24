@@ -118,6 +118,10 @@ export class AuthenticationController {
     // convert a User object into a UserProfile object (reduced set of properties)
     const userProfile = this.userService.convertToUserProfile(user);
 
+    // get the teams of the user to enrich the user profile.
+    // Couldn't do it inside 'convertToUserProfile' because this function is part of the auth. framework of loopback (implemented from the parent UserService) and is defined as a synchoronous function
+    userProfile.teams = await this.userRepository.getTeamMembershipsOfUser(user.id);
+
     // create a JSON Web Token based on the user profile
     const token = await this.tokenService.generateToken(userProfile);
     const loggedInUser: LoggedInUser = userProfile;
