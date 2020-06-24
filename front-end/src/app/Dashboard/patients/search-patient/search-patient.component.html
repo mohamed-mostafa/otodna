@@ -104,7 +104,12 @@
             <div class="ui-g form-group">
                 <div class="ui-g-12 ui-md-10">
                     <div class="ui-inputgroup">
-                        <input type="text" pInputText placeholder="Keyword" />
+                        <input
+                            type="text"
+                            pInputText
+                            placeholder="Patient Name"
+                            [(ngModel)]="basicSearch"
+                        />
                         <button
                             pButton
                             type="button"
@@ -141,16 +146,22 @@
                             type="text"
                             pKeyFilter="alphanum"
                             pInputText
-                            placeholder="Patient Name"
+                            [(ngModel)]="advancedSearch.firstName"
+                            placeholder="First Name"
                         />
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-2">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon backgroundColor"
-                            ><i class="fa fa-envelope"></i
+                            ><i class="pi pi-user"></i
                         ></span>
-                        <input type="text" pInputText placeholder="Email" />
+                        <input
+                            type="text"
+                            pInputText
+                            placeholder="Last Name"
+                            [(ngModel)]="advancedSearch.lastName"
+                        />
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-2">
@@ -162,16 +173,21 @@
                             type="text"
                             pInputText
                             pKeyFilter="int"
-                            placeholder="Phone"
+                            [(ngModel)]="advancedSearch.mobile"
+                            placeholder="Mobile"
                         />
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-3">
                     <p-calendar
-                        selectionMode="range"
                         [readonlyInput]="true"
-                        placeholder="Last Modified"
+                        placeholder="Last Modified At"
                         [showIcon]="true"
+                        id="date"
+                        [(ngModel)]="advancedSearch.lastModifiedAt"
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        yearRange="1950:2020"
                     ></p-calendar>
                 </div>
                 <div class="ui-g-12 ui-md-2 marginTop">
@@ -187,7 +203,6 @@
                         pButton
                         type="button"
                         label="Search"
-                        (click)="search()"
                         style="margin-bottom: 10px;"
                         class="ui-button-icon-primary ui-button-raised"
                     ></button>
@@ -201,14 +216,13 @@
                 #dt
                 [columns]="cols"
                 styleClass="ui-table-cars"
-                [value]="teams"
+                [value]="patients"
                 [paginator]="true"
                 [resizableColumns]="true"
                 [responsive]="true"
                 [rows]="10"
                 dataKey="vin"
                 selectionMode="single"
-                [(selection)]="selectedTeam"
             >
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -234,25 +248,27 @@
                             <a
                                 href="javascript:void(0)"
                                 (click)="editPatient(rowData)"
-                                >{{ rowData.username }}</a
+                                >{{ rowData.firstName }}
+                                {{ rowData.lastName }}</a
                             >
                         </td>
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Phone </span>
-                            {{ rowData.phone }}
+                            <span class="ui-column-title">Mobile </span>
+                            {{ rowData.mobile }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title"
-                                >Last Action Date </span
-                            >{{ rowData.lastActionDate }}
+                                >Last Modified At </span
+                            >{{ rowData.lastModifiedAt | date }}
                         </td>
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Last Action </span
-                            >{{ rowData.lastAction }}
+                            <span class="ui-column-title"
+                                >Last Modified By </span
+                            >{{ rowData.lastModifiedBy }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Team </span
-                            >{{ rowData.team }}
+                            >{{ rowData.teamName }}
                         </td>
                     </tr>
                 </ng-template>
