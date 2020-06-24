@@ -17,6 +17,9 @@ export class TeamsService {
     getAllTeams(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${this.teamsLink}`);
     }
+    getTeamById(id: String): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.teamsLink}/${id}`);
+    }
     deleteTeam(id: String): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${this.teamsLink}/${id}`);
     }

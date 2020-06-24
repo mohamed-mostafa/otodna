@@ -32,6 +32,10 @@ export class PatientBasicInfoComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.gender = [
+            { name: "Male", code: "M" },
+            { name: "Female", code: "F" },
+        ];
         let selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
@@ -39,12 +43,12 @@ export class PatientBasicInfoComponent implements OnInit {
         this.patient.createdBy = LoggedInUser.fullName;
         this.patient.lastModifiedBy = LoggedInUser.fullName;
         if (selectedPatient) {
-            this.patient.id = selectedPatient.id
-                ? selectedPatient.id
-                : selectedPatient.id;
-            this.patient.firstName = selectedPatient.username
-                ? selectedPatient.username
-                : selectedPatient.firstName;
+            this.patient = selectedPatient;
+            this.genderType = this.gender.find(
+                (g) => g.code === selectedPatient.gender
+            );
+            this.selectedCountry = { name: selectedPatient.country };
+            this.patient.dateOfBirth = new Date(selectedPatient.dateOfBirth);
             this.items = [
                 { label: "Patients" },
                 {
@@ -59,10 +63,6 @@ export class PatientBasicInfoComponent implements OnInit {
         } else {
             this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         }
-        this.gender = [
-            { name: "Male", code: "M" },
-            { name: "Female", code: "F" },
-        ];
         this.home = { icon: "fa fa-user-md" };
     }
     reset() {
@@ -82,37 +82,69 @@ export class PatientBasicInfoComponent implements OnInit {
                     emergencyPhone,
                     ...patient
                 } = this.patient;
-                const patientMedicalInfo = (({
-                    bloodType,
-                    emergencyContact,
-                    emergencyPhone,
-                }) => ({ bloodType, emergencyContact, emergencyPhone }))(
-                    this.patient
-                );
-                let newPatient = {
-                    patient,
-                    patientMedicalInfo,
-                };
-                this.patientService.createPatient(newPatient).subscribe((u) => {
-                    localStorage.setItem(
-                        "selectedPatient",
-                        JSON.stringify(this.patient)
-                    );
-                    this.router
-                        .navigateByUrl("/RefreshComponent", {
-                            skipLocationChange: true,
-                        })
-                        .then(() => {
-                            this.router.navigate(["/dashboard/patient"]);
+                if (this.patient.id) {
+                    patient.lastModifiedAt = new Date();
+                    this.patientService
+                        .updatePatient(patient)
+                        .subscribe((p) => {
+                            localStorage.setItem(
+                                "selectedPatient",
+                                JSON.stringify(this.patient)
+                            );
+                            this.router
+                                .navigateByUrl("/RefreshComponent", {
+                                    skipLocationChange: true,
+                                })
+                                .then(() => {
+                                    this.router.navigate([
+                                        "/dashboard/patient",
+                                    ]);
+                                });
+                            this.spinner.hide();
                         });
-                    this.reset();
-                    this.spinner.hide();
                     this.showMessage(
                         "success",
-                        "Saved",
-                        "Data saved successfully"
+                        "Confirmed",
+                        "patient Updated Successfully"
                     );
-                });
+                } else {
+                    const patientMedicalInfo = (({
+                        bloodType,
+                        emergencyContact,
+                        emergencyPhone,
+                    }) => ({ bloodType, emergencyContact, emergencyPhone }))(
+                        this.patient
+                    );
+                    let newPatient = {
+                        patient,
+                        patientMedicalInfo,
+                    };
+                    this.patientService
+                        .createPatient(newPatient)
+                        .subscribe((u: any) => {
+                            this.patient.id = u.patient.id;
+                            localStorage.setItem(
+                                "selectedPatient",
+                                JSON.stringify(this.patient)
+                            );
+                            this.router
+                                .navigateByUrl("/RefreshComponent", {
+                                    skipLocationChange: true,
+                                })
+                                .then(() => {
+                                    this.router.navigate([
+                                        "/dashboard/patient",
+                                    ]);
+                                });
+                            this.reset();
+                            this.spinner.hide();
+                            this.showMessage(
+                                "success",
+                                "Saved",
+                                "Data saved successfully"
+                            );
+                        });
+                }
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }

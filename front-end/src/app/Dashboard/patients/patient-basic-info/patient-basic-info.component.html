@@ -126,7 +126,6 @@
             <label for="country">Country</label>
             <div class="labelMarginTop">
                 <p-autoComplete
-                    id="acSimple"
                     [(ngModel)]="selectedCountry"
                     [suggestions]="filteredCountries"
                     (completeMethod)="filterCountry($event)"
