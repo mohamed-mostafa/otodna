@@ -91,13 +91,14 @@ export class SearchPatientComponent implements OnInit {
             this.advancedSearch.firstName ||
             this.advancedSearch.lastName ||
             this.advancedSearch.mobile ||
-            this.advancedSearch.lastModifiedAt
+            this.advancedSearch.email
         ) {
             this.spinner.show();
             this.patientService
                 .searchAdvanced(this.advancedSearch)
                 .subscribe((result) => {
                     this.patients = result;
+                    this.advancedSearch = new AdvancedSearch();
                     this.spinner.hide();
                 });
         } else {

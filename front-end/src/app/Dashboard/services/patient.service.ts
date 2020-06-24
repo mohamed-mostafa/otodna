@@ -41,7 +41,7 @@ export class PatientService {
     }
     searchAdvanced(data): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.link}?filter[where][or][0][firstName][regexp]=/${data.firstName}/i&filter[where][or][1][lastName][regexp]=/${data.lastName}/i&filter[where][or][2][mobile][regexp]=/${data.mobile}/&filter[where][or][3][lastModifiedAt][regexp]=/${data.lastModifiedAt}/`
+            `${this.apiUrl}/${this.link}?filter[where][or][0][firstName][regexp]=/${data.firstName}/i&filter[where][or][1][lastName][regexp]=/${data.lastName}/i&filter[where][or][2][mobile][regexp]=/${data.mobile}/&filter[where][or][3][email][regexp]=/${data.email}/i`
         );
     }
 }

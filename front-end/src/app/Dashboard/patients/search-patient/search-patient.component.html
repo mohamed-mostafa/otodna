@@ -179,16 +179,17 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-3">
-                    <p-calendar
-                        [readonlyInput]="true"
-                        placeholder="Last Modified At"
-                        [showIcon]="true"
-                        id="date"
-                        [(ngModel)]="advancedSearch.lastModifiedAt"
-                        [monthNavigator]="true"
-                        [yearNavigator]="true"
-                        yearRange="1950:2020"
-                    ></p-calendar>
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon backgroundColor"
+                            ><i class="fa fa-envelope"></i
+                        ></span>
+                        <input
+                            type="text"
+                            pInputText
+                            [(ngModel)]="advancedSearch.email"
+                            placeholder="Email"
+                        />
+                    </div>
                 </div>
                 <div class="ui-g-12 ui-md-2 marginTop">
                     <p-checkbox
@@ -203,6 +204,7 @@
                         pButton
                         type="button"
                         label="Search"
+                        (click)="searchAdvanced()"
                         style="margin-bottom: 10px;"
                         class="ui-button-icon-primary ui-button-raised"
                     ></button>
