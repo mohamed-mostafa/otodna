@@ -15,6 +15,7 @@ import { Patient } from "./patient";
 })
 export class PatientBasicInfoComponent implements OnInit {
     gender = [];
+    teams = [];
     editMode = false;
     patient: Patient = new Patient();
     items: MenuItem[];
@@ -23,6 +24,8 @@ export class PatientBasicInfoComponent implements OnInit {
     hideDiscard = false;
     genderType;
     selectedCountry;
+    selectedTeam;
+    showTeams = false;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
@@ -40,6 +43,14 @@ export class PatientBasicInfoComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         let LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 1) {
+            this.teams = LoggedInUser.teams;
+            this.showTeams = true;
+        } else if (LoggedInUser.teams.length === 1) {
+            this.patient.teamId = LoggedInUser.teams[0].id;
+        } else {
+            this.patient.teamId = 0;
+        }
         this.patient.createdBy = LoggedInUser.fullName;
         this.patient.lastModifiedBy = LoggedInUser.fullName;
         if (selectedPatient) {
@@ -47,19 +58,22 @@ export class PatientBasicInfoComponent implements OnInit {
             this.genderType = this.gender.find(
                 (g) => g.code === selectedPatient.gender
             );
+            this.selectedTeam = this.teams.find(
+                (t) => t.id === selectedPatient.teamId
+            );
             this.selectedCountry = { name: selectedPatient.country };
             this.patient.dateOfBirth = new Date(selectedPatient.dateOfBirth);
             this.items = [
                 { label: "Patients" },
                 {
-                    label: selectedPatient.username
-                        ? selectedPatient.username
-                        : selectedPatient.firstName +
-                          " " +
-                          selectedPatient.lastName,
+                    label:
+                        selectedPatient.firstName +
+                        " " +
+                        selectedPatient.lastName,
                 },
             ];
             this.hideDiscard = true;
+            this.getPatientMedicalInfoById(this.patient.id);
         } else {
             this.items = [{ label: "Patients" }, { label: "Create Patient" }];
         }
@@ -73,6 +87,19 @@ export class PatientBasicInfoComponent implements OnInit {
     save() {
         this.validatePatient((callback) => {
             if (callback === "valid") {
+                if (this.showTeams) {
+                    if (!this.selectedTeam) {
+                        this.showMessage(
+                            "error",
+                            "Validation Error",
+                            "Please select a team"
+                        );
+                        return false;
+                    }
+                }
+                if (this.selectedTeam) {
+                    this.patient.teamId = this.selectedTeam.id;
+                }
                 this.spinner.show();
                 this.patient.gender = this.genderType.code;
                 this.patient.country = this.selectedCountry.name;
@@ -136,7 +163,7 @@ export class PatientBasicInfoComponent implements OnInit {
                                         "/dashboard/patient",
                                     ]);
                                 });
-                            this.reset();
+                            // this.reset();
                             this.spinner.hide();
                             this.showMessage(
                                 "success",
@@ -240,5 +267,18 @@ export class PatientBasicInfoComponent implements OnInit {
             }
         }
         return filtered;
+    }
+    getPatientMedicalInfoById(patientId) {
+        this.spinner.show();
+        this.patientService
+            .getPatientMedicalInfoById(patientId)
+            .subscribe((result) => {
+                if (result) {
+                    this.patient.bloodType = result.bloodType;
+                    this.patient.emergencyContact = result.emergencyContact;
+                    this.patient.emergencyPhone = result.emergencyPhone;
+                }
+                this.spinner.hide();
+            });
     }
 }

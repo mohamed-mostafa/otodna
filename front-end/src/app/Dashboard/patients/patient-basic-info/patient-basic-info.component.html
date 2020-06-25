@@ -152,7 +152,7 @@
                 />
             </div>
         </div>
-        <div class="ui-g-12 ui-md-12">
+        <div class="ui-g-12 ui-md-10">
             <label for="address">Address</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
@@ -165,6 +165,19 @@
                     placeholder="Address"
                     [(ngModel)]="patient.address"
                 />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-2" *ngIf="showTeams">
+            <label for="team">Teams</label>
+            <div class="labelMarginTop">
+                <p-dropdown
+                    [options]="teams"
+                    placeholder="Select Team"
+                    optionLabel="name"
+                    id="team"
+                    [showClear]="true"
+                    [(ngModel)]="selectedTeam"
+                ></p-dropdown>
             </div>
         </div>
     </div>

@@ -16,6 +16,7 @@ lb4 repository
 
 lb4 controller
 
+lb4 relation
 
 // for BFF
 npm install loopback-connector-rest --save

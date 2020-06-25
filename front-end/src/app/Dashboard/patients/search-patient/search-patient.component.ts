@@ -110,9 +110,15 @@ export class SearchPatientComponent implements OnInit {
         this.patientService.getAllPatients().subscribe((result) => {
             this.patients = result;
             result.forEach((team) => {
-                this.teamService.getTeamById(team.teamId).subscribe((res) => {
-                    team.teamName = res.name;
-                });
+                if (team.teamId === 0) {
+                    team.teamName = "No Team";
+                } else {
+                    this.teamService
+                        .getTeamById(team.teamId)
+                        .subscribe((res) => {
+                            team.teamName = res.name;
+                        });
+                }
             });
             this.spinner.hide();
         });

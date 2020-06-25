@@ -245,6 +245,9 @@ export class Patient extends Entity {
 
   @hasOne(() => PatientMedicalInfo)
   patientMedicalInfo: PatientMedicalInfo;
+
+  @hasOne(() => PatientMedicalInfo)
+  patientBasicInfo: PatientMedicalInfo;
   // Define well-known properties here
 
   // Indexer property to allow additional data

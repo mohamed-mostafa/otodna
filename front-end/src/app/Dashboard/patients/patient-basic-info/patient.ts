@@ -19,7 +19,6 @@ export class Patient {
     emergencyContact: number;
     emergencyPhone: number;
     constructor() {
-        this.teamId = 1;
         this.createdAt = new Date();
         this.lastModifiedAt = new Date();
     }

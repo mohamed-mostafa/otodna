@@ -14,12 +14,15 @@ export class PatientRepository extends DefaultTransactionalRepository <
     @inject('datasources.oltp_ds') dataSource: OltpDsDataSource, @repository.getter('PatientMedicalInfoRepository') protected patientMedicalInfoRepositoryGetter: Getter<PatientMedicalInfoRepository>,
   ) {
     super(Patient, dataSource);
+    this.patientBasicInfo = this.createHasOneRepositoryFactoryFor('patientBasicInfo', patientMedicalInfoRepositoryGetter);
+    this.registerInclusionResolver('patientBasicInfo', this.patientBasicInfo.inclusionResolver);
     this.patientMedicalInfo = this.createHasOneRepositoryFactoryFor('patientMedicalInfo', patientMedicalInfoRepositoryGetter);
     this.registerInclusionResolver('patientMedicalInfo', this.patientMedicalInfo.inclusionResolver);
   }
 
   public readonly patientMedicalInfo: HasOneRepositoryFactory<PatientMedicalInfo, typeof Patient.prototype.id>;
-  
+
+  public readonly patientBasicInfo: HasOneRepositoryFactory<PatientMedicalInfo, typeof Patient.prototype.id>;
   @repository(PatientMedicalInfoRepository)
   private patientMedicalInfoRepository: PatientMedicalInfoRepository;
 
