@@ -109,14 +109,33 @@ export class PatientBasicInfoComponent implements OnInit {
                     emergencyPhone,
                     ...patient
                 } = this.patient;
+                const patientMedicalInfo = (({
+                    bloodType,
+                    emergencyContact,
+                    emergencyPhone,
+                }) => ({ bloodType, emergencyContact, emergencyPhone }))(
+                    this.patient
+                );
+                let newPatient = {
+                    patient,
+                    patientMedicalInfo,
+                };
                 if (this.patient.id) {
                     patient.lastModifiedAt = new Date();
                     this.patientService
-                        .updatePatient(patient)
+                        .updatePatientWithMedicalInfo(
+                            this.patient.id,
+                            newPatient
+                        )
                         .subscribe((p) => {
                             localStorage.setItem(
                                 "selectedPatient",
                                 JSON.stringify(this.patient)
+                            );
+                            this.showMessage(
+                                "success",
+                                "Confirmed",
+                                "patient Updated Successfully"
                             );
                             this.router
                                 .navigateByUrl("/RefreshComponent", {
@@ -129,23 +148,7 @@ export class PatientBasicInfoComponent implements OnInit {
                                 });
                             this.spinner.hide();
                         });
-                    this.showMessage(
-                        "success",
-                        "Confirmed",
-                        "patient Updated Successfully"
-                    );
                 } else {
-                    const patientMedicalInfo = (({
-                        bloodType,
-                        emergencyContact,
-                        emergencyPhone,
-                    }) => ({ bloodType, emergencyContact, emergencyPhone }))(
-                        this.patient
-                    );
-                    let newPatient = {
-                        patient,
-                        patientMedicalInfo,
-                    };
                     this.patientService
                         .createPatient(newPatient)
                         .subscribe((u: any) => {

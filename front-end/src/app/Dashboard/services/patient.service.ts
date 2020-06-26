@@ -49,4 +49,10 @@ export class PatientService {
             `${this.apiUrl}/${this.link}/${id}/patient-medical-info`
         );
     }
+    updatePatientWithMedicalInfo(id, patient): Observable<void> {
+        return this.http.put<void>(
+            `${this.apiUrl}/${this.link}/patientWithMedicalInfo/${id}`,
+            patient
+        );
+    }
 }

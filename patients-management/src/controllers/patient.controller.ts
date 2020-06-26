@@ -18,12 +18,12 @@ import {
 } from '@loopback/rest';
 import {Patient} from '../models';
 import {PatientRepository} from '../repositories';
-import { PatientAndMedicalInfo } from '../models/patient-and-medical-info.model';
+import {PatientAndMedicalInfo} from '../models/patient-and-medical-info.model';
 
 export class PatientController {
   constructor(
     @repository(PatientRepository)
-    public patientRepository : PatientRepository,
+    public patientRepository: PatientRepository,
   ) {}
 
   @post('/patients', {
@@ -54,7 +54,11 @@ export class PatientController {
     responses: {
       '200': {
         description: 'Patient model instance',
-        content: {'application/json': {schema: getModelSchemaRef(PatientAndMedicalInfo)}},
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientAndMedicalInfo),
+          },
+        },
       },
     },
   })
@@ -72,7 +76,38 @@ export class PatientController {
   ): Promise<PatientAndMedicalInfo> {
     return this.patientRepository.createWithMedicalInfo(patientWithMedicalInfo);
   }
-  
+
+  @put('/patients/patientWithMedicalInfo/{id}', {
+    responses: {
+      '200': {
+        description: 'Patient model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientAndMedicalInfo),
+          },
+        },
+      },
+    },
+  })
+  async updateWithMedicalInfo(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(PatientAndMedicalInfo, {
+            title: 'NewPatientWithMedicalInfo',
+          }),
+        },
+      },
+    })
+    patientWithMedicalInfo: PatientAndMedicalInfo,
+    @param.path.number('id')
+    id: number,
+  ): Promise<PatientAndMedicalInfo> {
+    return this.patientRepository.updateWithMedicalInfo(
+      id,
+      patientWithMedicalInfo,
+    );
+  }
 
   @get('/patients/count', {
     responses: {
@@ -82,9 +117,7 @@ export class PatientController {
       },
     },
   })
-  async count(
-    @param.where(Patient) where?: Where<Patient>,
-  ): Promise<Count> {
+  async count(@param.where(Patient) where?: Where<Patient>): Promise<Count> {
     return this.patientRepository.count(where);
   }
 
@@ -145,7 +178,8 @@ export class PatientController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Patient, {exclude: 'where'}) filter?: FilterExcludingWhere<Patient>
+    @param.filter(Patient, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Patient>,
   ): Promise<Patient> {
     return this.patientRepository.findById(id, filter);
   }
