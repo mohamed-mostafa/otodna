@@ -102,6 +102,9 @@ export class SearchPatientComponent implements OnInit {
                 delete this.advancedSearch[element];
             }
         });
+        if (this.advancedSearch.dateOfBirth === null) {
+            delete this.advancedSearch.dateOfBirth;
+        }
         this.patientService
             .searchAdvanced(this.advancedSearch)
             .subscribe((result) => {
