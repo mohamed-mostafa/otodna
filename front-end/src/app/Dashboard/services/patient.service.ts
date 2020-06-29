@@ -39,8 +39,17 @@ export class PatientService {
             `${this.apiUrl}/${this.link}?filter[where][or][0][firstName][regexp]=/${data}/i&filter[where][or][1][lastName][regexp]=/${data}/i`
         );
     }
+    searchSimple(data): Observable<any> {
+        return this.http.post<any>(
+            `${this.apiUrl}/${this.link}/simpleSearch`,
+            data
+        );
+    }
     searchAdvanced(data): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/${this.link}/search`, data);
+        return this.http.post<any>(
+            `${this.apiUrl}/${this.link}/advancedSearch`,
+            data
+        );
     }
     getPatientMedicalInfoById(id: String): Observable<any> {
         return this.http.get<any>(

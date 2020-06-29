@@ -67,15 +67,14 @@ export class SearchPatientComponent implements OnInit {
         this.show = !this.show;
         this.show2 = !this.show2;
     }
-    search() {
+    searchSimple() {
         if (this.basicSearch) {
             this.spinner.show();
-            this.patientService
-                .searchPatient(this.basicSearch)
-                .subscribe((result) => {
-                    this.patients = result;
-                    this.spinner.hide();
-                });
+            let array = this.basicSearch.split(" ");
+            this.patientService.searchSimple(array).subscribe((result) => {
+                this.patients = result;
+                this.spinner.hide();
+            });
         } else {
             this.getALlPatients();
         }

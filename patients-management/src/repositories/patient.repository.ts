@@ -148,4 +148,30 @@ export class PatientRepository extends DefaultTransactionalRepository<
     filter.where = obj;
     return super.find(filter);
   }
+  public async simpleSearch(data: Array<String>): Promise<Patient> {
+    const filter: Filter<Patient> = {};
+    let obj: any = {};
+    const array: any = [];
+    for (const element of data) {
+      obj = {
+        or: [
+          {firstName: {like: `%${element}%`}},
+          {lastName: {like: `%${element}%`}},
+          {mobile: {like: `%${element}%`}},
+          {email: {like: `%${element}%`}},
+        ],
+      };
+      filter.where = obj;
+      const res = await super.find(filter);
+      array.push(res);
+    }
+    const merged: any = [].concat.apply([], array);
+    const uniqueValues = merged.reduce((unique: any, o: any) => {
+      if (!unique.some((object: any) => object.id === o.id)) {
+        unique.push(o);
+      }
+      return unique;
+    }, []);
+    return uniqueValues;
+  }
 }

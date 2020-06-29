@@ -143,7 +143,7 @@ export class PatientController {
     return this.patientRepository.find(filter);
   }
 
-  @post('/patients/search', {
+  @post('/patients/advancedSearch', {
     responses: {
       '200': {
         description: 'Array of Patient model instances',
@@ -163,7 +163,24 @@ export class PatientController {
   ): Promise<PatientSearch> {
     return this.patientRepository.advancedSearch(data);
   }
-
+  @post('/patients/simpleSearch', {
+    responses: {
+      '200': {
+        description: 'Array of Patient model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Patient),
+            },
+          },
+        },
+      },
+    },
+  })
+  async simpleSearch(@requestBody() data: Array<String>): Promise<any> {
+    return this.patientRepository.simpleSearch(data);
+  }
   @patch('/patients', {
     responses: {
       '200': {
