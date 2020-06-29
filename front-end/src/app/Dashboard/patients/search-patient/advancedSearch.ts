@@ -3,5 +3,5 @@ export class AdvancedSearch {
     lastName: string;
     mobile: number;
     email: string;
-    allTeams: boolean;
+    dateOfBirth: Date;
 }

@@ -1,15 +1,17 @@
+import { element } from "protractor";
 import { AdvancedSearch } from "./advancedSearch";
 import { TeamsService } from "./../../services/teams.service";
 import { PatientService } from "./../../services/patient.service";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
-import { SelectItem } from "primeng/api";
+import { SelectItem, MessageService } from "primeng/api";
 
 @Component({
     selector: "app-search-patient",
     templateUrl: "./search-patient.component.html",
     styleUrls: ["./search-patient.component.css"],
+    providers: [MessageService],
 })
 export class SearchPatientComponent implements OnInit {
     show = false;
@@ -27,6 +29,7 @@ export class SearchPatientComponent implements OnInit {
         private teamService: TeamsService,
         private spinner: NgxSpinnerService,
         private patientService: PatientService,
+        private messageService: MessageService,
         private router: Router
     ) {}
 
@@ -87,40 +90,60 @@ export class SearchPatientComponent implements OnInit {
             });
     }
     searchAdvanced() {
-        if (
-            this.advancedSearch.firstName ||
-            this.advancedSearch.lastName ||
-            this.advancedSearch.mobile ||
-            this.advancedSearch.email
-        ) {
-            this.spinner.show();
-            this.patientService
-                .searchAdvanced(this.advancedSearch)
-                .subscribe((result) => {
-                    this.patients = result;
-                    this.advancedSearch = new AdvancedSearch();
-                    this.spinner.hide();
-                });
-        } else {
-            this.getALlPatients();
-        }
+        this.spinner.show();
+        let advanced = [
+            "firstName",
+            "lastName",
+            "mobile",
+            "email",
+            "dateOfBirth",
+        ];
+        advanced.forEach((element) => {
+            if (this.advancedSearch[element] === "") {
+                delete this.advancedSearch[element];
+            }
+        });
+        this.patientService
+            .searchAdvanced(this.advancedSearch)
+            .subscribe((result) => {
+                this.patients = result;
+                this.spinner.hide();
+            });
     }
     getALlPatients() {
         this.spinner.show();
-        this.patientService.getAllPatients().subscribe((result) => {
-            this.patients = result;
-            result.forEach((team) => {
-                if (team.teamId === 0) {
-                    team.teamName = "No Team";
-                } else {
-                    this.teamService
-                        .getTeamById(team.teamId)
-                        .subscribe((res) => {
-                            team.teamName = res.name;
-                        });
-                }
-            });
-            this.spinner.hide();
+        this.patientService.getAllPatients().subscribe(
+            (result) => {
+                this.patients = result;
+                result.forEach((team) => {
+                    if (team.teamId === 0) {
+                        team.teamName = "No Team";
+                    } else {
+                        this.teamService
+                            .getTeamById(team.teamId)
+                            .subscribe((res) => {
+                                team.teamName = res.name;
+                            });
+                    }
+                });
+                this.spinner.hide();
+            },
+            (error) => {
+                this.spinner.hide();
+                this.showMessage(
+                    "error",
+                    "Internal server error",
+                    "An error occured while processing your request. Please Contact the system administrator."
+                );
+            }
+        );
+    }
+    showMessage(type, title, message) {
+        this.messageService.add({
+            severity: type,
+            summary: title,
+            detail: message,
+            life: 3000,
         });
     }
 }

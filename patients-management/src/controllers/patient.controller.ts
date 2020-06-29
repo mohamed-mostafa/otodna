@@ -1,3 +1,4 @@
+import {PatientSearch} from './../models/patient-search.model';
 import {
   Count,
   CountSchema,
@@ -140,6 +141,27 @@ export class PatientController {
     @param.filter(Patient) filter?: Filter<Patient>,
   ): Promise<Patient[]> {
     return this.patientRepository.find(filter);
+  }
+
+  @post('/patients/search', {
+    responses: {
+      '200': {
+        description: 'Array of Patient model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Patient),
+            },
+          },
+        },
+      },
+    },
+  })
+  async advancedSearch(
+    @requestBody() data: PatientSearch,
+  ): Promise<PatientSearch> {
+    return this.patientRepository.advancedSearch(data);
   }
 
   @patch('/patients', {

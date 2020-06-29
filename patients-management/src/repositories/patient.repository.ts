@@ -1,3 +1,4 @@
+import {PatientSearch} from './../models/patient-search.model';
 import {
   repository,
   HasOneRepositoryFactory,
@@ -111,8 +112,40 @@ export class PatientRepository extends DefaultTransactionalRepository<
   }
 
   public getWithMedicalInfo(id: number): Promise<Patient> {
-    let filter: Filter<Patient> = {};
+    const filter: Filter<Patient> = {};
     filter.include = [{relation: 'patientMedicalInfo'}];
     return super.findById(id, filter);
+  }
+
+  public async advancedSearch(data: PatientSearch): Promise<any> {
+    const filter: Filter<Patient> = {};
+    const obj: any = {};
+    const {firstName, lastName, mobile, email} = data;
+    let {dateOfBirth} = data;
+    if (firstName) {
+      obj.firstName = {like: `%${firstName}%`};
+    }
+    if (lastName) {
+      obj.lastName = {like: `%${lastName}%`};
+    }
+    if (mobile) {
+      obj.mobile = {like: `%${mobile}%`};
+    }
+    if (email) {
+      obj.email = {like: `%${email}%`};
+    }
+    if (dateOfBirth) {
+      const fullYear = new Date(dateOfBirth).getFullYear();
+      const month = String(new Date(dateOfBirth).getMonth() + 1).padStart(
+        2,
+        '0',
+      );
+      const day = String(new Date(dateOfBirth).getDate()).padStart(2, '0');
+      const date = `${fullYear}-${month}-${day}`;
+      dateOfBirth = date;
+      obj.dateOfBirth = dateOfBirth;
+    }
+    filter.where = obj;
+    return super.find(filter);
   }
 }

@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="layout-dashboard">
     <div class="ui-g">
         <div class="ui-g-12 ui-md-3">
@@ -178,7 +179,7 @@
                         />
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-3">
+                <div class="ui-g-12 ui-md-2">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon backgroundColor"
                             ><i class="fa fa-envelope"></i
@@ -191,13 +192,19 @@
                         />
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-2 marginTop">
-                    <p-checkbox
-                        name="group1"
-                        value="allTeams"
-                        label="All Teams"
-                        inputId="ny"
-                    ></p-checkbox>
+                <div class="ui-g-12 ui-md-3 marginTop">
+                    <div class="labelMarginTop">
+                        <p-calendar
+                            [readonlyInput]="true"
+                            placeholder="Date Of Birth"
+                            [showIcon]="true"
+                            id="date"
+                            [(ngModel)]="advancedSearch.dateOfBirth"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            yearRange="1950:2020"
+                        ></p-calendar>
+                    </div>
                 </div>
                 <div class="ui-g-12 ui-md-1">
                     <button
