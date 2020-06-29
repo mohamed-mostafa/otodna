@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { SelectItem, MessageService } from "primeng/api";
+import { async } from "@angular/core/testing";
 
 @Component({
     selector: "app-search-patient",
@@ -71,10 +72,12 @@ export class SearchPatientComponent implements OnInit {
         if (this.basicSearch) {
             this.spinner.show();
             let array = this.basicSearch.split(" ");
-            this.patientService.searchSimple(array).subscribe((result) => {
-                this.patients = result;
-                this.spinner.hide();
-            });
+            this.patientService
+                .searchSimple(array)
+                .subscribe(async (result) => {
+                    this.patients = await this.getPatientsTeam(result);
+                    this.spinner.hide();
+                });
         } else {
             this.getALlPatients();
         }
@@ -107,27 +110,28 @@ export class SearchPatientComponent implements OnInit {
         }
         this.patientService
             .searchAdvanced(this.advancedSearch)
-            .subscribe((result) => {
-                this.patients = result;
+            .subscribe(async (result) => {
+                this.patients = await this.getPatientsTeam(result);
                 this.spinner.hide();
             });
+    }
+    getPatientsTeam(patients) {
+        patients.forEach((team) => {
+            if (team.teamId === 0) {
+                team.teamName = "No Team";
+            } else {
+                this.teamService.getTeamById(team.teamId).subscribe((res) => {
+                    team.teamName = res.name;
+                });
+            }
+        });
+        return patients;
     }
     getALlPatients() {
         this.spinner.show();
         this.patientService.getAllPatients().subscribe(
-            (result) => {
-                this.patients = result;
-                result.forEach((team) => {
-                    if (team.teamId === 0) {
-                        team.teamName = "No Team";
-                    } else {
-                        this.teamService
-                            .getTeamById(team.teamId)
-                            .subscribe((res) => {
-                                team.teamName = res.name;
-                            });
-                    }
-                });
+            async (result) => {
+                this.patients = await this.getPatientsTeam(result);
                 this.spinner.hide();
             },
             (error) => {
