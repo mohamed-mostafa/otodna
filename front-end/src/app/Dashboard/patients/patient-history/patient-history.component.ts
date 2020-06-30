@@ -19,7 +19,12 @@ export class PatientHistoryComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.items = [
-            { label: "Patients" },
+            {
+                label: "Patients",
+                command: (event) => {
+                    this.goToDashboard(event);
+                },
+            },
             {
                 label: selectedPatient.username
                     ? selectedPatient.username
@@ -49,6 +54,13 @@ export class PatientHistoryComponent implements OnInit {
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
                 this.router.navigate(["/dashboard/addFollowup"]);
+            });
+    }
+    goToDashboard(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard"]);
             });
     }
 }

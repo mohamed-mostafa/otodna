@@ -64,7 +64,12 @@ export class PatientBasicInfoComponent implements OnInit {
             this.selectedCountry = { name: selectedPatient.country };
             this.patient.dateOfBirth = new Date(selectedPatient.dateOfBirth);
             this.items = [
-                { label: "Patients" },
+                {
+                    label: "Patients",
+                    command: (event) => {
+                        this.goToDashboard(event);
+                    },
+                },
                 {
                     label:
                         selectedPatient.firstName +
@@ -75,7 +80,15 @@ export class PatientBasicInfoComponent implements OnInit {
             this.hideDiscard = true;
             this.getPatientMedicalInfoById(this.patient.id);
         } else {
-            this.items = [{ label: "Patients" }, { label: "Create Patient" }];
+            this.items = [
+                {
+                    label: "Patients",
+                    command: (event) => {
+                        this.goToDashboard(event);
+                    },
+                },
+                { label: "Create Patient" },
+            ];
         }
         this.home = { icon: "fa fa-user-md" };
     }
@@ -282,6 +295,13 @@ export class PatientBasicInfoComponent implements OnInit {
                     this.patient.emergencyPhone = result.emergencyPhone;
                 }
                 this.spinner.hide();
+            });
+    }
+    goToDashboard(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard"]);
             });
     }
 }

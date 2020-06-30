@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -21,6 +22,7 @@ export class MedicationsComponent implements OnInit {
     medication: Medication = new Medication();
     constructor(
         private messageService: MessageService,
+        private router: Router,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -28,7 +30,12 @@ export class MedicationsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.items = [
-            { label: "Patients" },
+            {
+                label: "Patients",
+                command: (event) => {
+                    this.goToDashboard(event);
+                },
+            },
             {
                 label: selectedPatient.username
                     ? selectedPatient.username
@@ -147,5 +154,12 @@ export class MedicationsComponent implements OnInit {
         } else {
             callback("valid");
         }
+    }
+    goToDashboard(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard"]);
+            });
     }
 }
