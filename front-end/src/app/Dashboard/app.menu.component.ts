@@ -6,6 +6,7 @@ import { DashboardComponent } from "./dashboard.component";
 @Component({
     selector: "app-menu",
     templateUrl: "./app.menu.component.html",
+    styleUrls: ["./app.menu.component.css"],
 })
 export class AppMenuComponent implements OnInit {
     model: any[];
@@ -17,6 +18,10 @@ export class AppMenuComponent implements OnInit {
     constructor(public app: DashboardComponent, private router: Router) {}
 
     ngOnInit() {
+        let selectedUser = JSON.parse(localStorage.getItem("user"));
+        console.log(selectedUser);
+        console.log(selectedUser.type.name);
+        console.log(selectedUser.role.name);
         this.model = [
             {
                 label: "PATIENTS",
@@ -44,6 +49,7 @@ export class AppMenuComponent implements OnInit {
                 label: "TEAMS",
                 icon: "fa fa-fw fa-user-md",
                 routerLink: ["/dashboard/myTeams"],
+                // disabled: true,
                 items: [
                     {
                         label: "My Teams",
@@ -126,7 +132,6 @@ export class AppMenuComponent implements OnInit {
         } else {
             this.routesArray = [
                 "patient",
-                "editPatient",
                 "family",
                 "vital",
                 "allergies",
@@ -140,64 +145,102 @@ export class AppMenuComponent implements OnInit {
                 localStorage.getItem("selectedPatient")
             );
             if (!selectedPatient) {
-                this.disabledMenuItem = true;
+                this.otherMenu = [
+                    {
+                        label: "Basic Information",
+                        icon: "fa fa-fw fa-info",
+                        routerLink: ["patient"],
+                    },
+                    {
+                        label: "Family",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Vital",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Allergies",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Lab Results",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Immunizations",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Medications",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Problems",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Patient History",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                ];
+            } else {
+                this.otherMenu = [
+                    {
+                        label: "Basic Information",
+                        icon: "fa fa-fw fa-info",
+                        routerLink: ["patient"],
+                    },
+                    {
+                        label: "Family",
+                        icon: "fa fa-fw fa-users",
+                        routerLink: ["family"],
+                    },
+                    {
+                        label: "Vital",
+                        icon: "fa fa-fw fa-star",
+                        routerLink: ["vital"],
+                    },
+                    {
+                        label: "Allergies",
+                        icon: "fa fa-fw fa-user-md",
+                        routerLink: ["allergies"],
+                    },
+                    {
+                        label: "Lab Results",
+                        icon: "fa fa-fw fa-flask",
+                        routerLink: ["labResults"],
+                    },
+                    {
+                        label: "Immunizations",
+                        icon: "fa fa-fw fa-medkit",
+                        routerLink: ["immunizations"],
+                    },
+                    {
+                        label: "Medications",
+                        icon: "fa fa-fw fa-heartbeat",
+                        routerLink: ["medications"],
+                    },
+                    {
+                        label: "Problems",
+                        icon: "fa fa-fw fa-exclamation-triangle",
+                        routerLink: ["problems"],
+                    },
+                    {
+                        label: "Patient History",
+                        icon: "fa fa-fw fa-history",
+                        routerLink: ["patientHistory"],
+                    },
+                ];
             }
-
-            this.otherMenu = [
-                {
-                    label: "Basic Information",
-                    icon: "fa fa-fw fa-info",
-                    routerLink: ["patient"],
-                },
-                {
-                    label: "Family",
-                    icon: "fa fa-fw fa-users",
-                    routerLink: ["family"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Vital",
-                    icon: "fa fa-fw fa-star",
-                    routerLink: ["vital"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Allergies",
-                    icon: "fa fa-fw fa-user-md",
-                    routerLink: ["allergies"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Lab Results",
-                    icon: "fa fa-fw fa-flask",
-                    routerLink: ["labResults"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Immunizations",
-                    icon: "fa fa-fw fa-medkit",
-                    routerLink: ["immunizations"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Medications",
-                    icon: "fa fa-fw fa-heartbeat",
-                    routerLink: ["medications"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Problems",
-                    icon: "fa fa-fw fa-exclamation-triangle",
-                    routerLink: ["problems"],
-                    disabled: this.disabledMenuItem,
-                },
-                {
-                    label: "Patient History",
-                    icon: "fa fa-fw fa-history",
-                    routerLink: ["patientHistory"],
-                    disabled: this.disabledMenuItem,
-                },
-            ];
             this.otherMenu = this.otherMenu.filter(
                 (item) => item.disabled !== true
             );
