@@ -45,7 +45,8 @@ export const routes: Routes = [
         component: DashboardComponent,
         canActivate: [AuthGuard],
         children: [
-            { path: "", component: SearchPatientComponent },
+            { path: "search", component: SearchPatientComponent },
+            { path: "", redirectTo: "search", pathMatch: "full" },
             { path: "dashboard", component: DashboardDemoComponent },
             { path: "users", component: UsersComponent },
             { path: "myTeams", component: MyTeamsComponent },

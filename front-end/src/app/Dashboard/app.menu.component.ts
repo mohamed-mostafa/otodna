@@ -26,12 +26,12 @@ export class AppMenuComponent implements OnInit {
             {
                 label: "PATIENTS",
                 icon: "fa fa-fw fa-users",
-                routerLink: ["/dashboard"],
+                routerLink: ["/dashboard/search"],
                 items: [
                     {
                         label: "Search",
                         icon: "fa fa-fw fa-search",
-                        routerLink: ["/dashboard"],
+                        routerLink: ["/dashboard/search"],
                     },
                     {
                         label: "New Patient",
