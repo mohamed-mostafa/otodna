@@ -19,58 +19,161 @@ export class AppMenuComponent implements OnInit {
 
     ngOnInit() {
         let selectedUser = JSON.parse(localStorage.getItem("user"));
-        console.log(selectedUser);
-        console.log(selectedUser.type.name);
-        console.log(selectedUser.role.name);
-        this.model = [
-            {
-                label: "PATIENTS",
-                icon: "fa fa-fw fa-users",
-                routerLink: ["/dashboard/search"],
-                items: [
-                    {
-                        label: "Search",
-                        icon: "fa fa-fw fa-search",
-                        routerLink: ["/dashboard/search"],
-                    },
-                    {
-                        label: "New Patient",
-                        icon: "fa fa-fw fa-plus-circle",
-                        routerLink: ["patient"],
-                    },
-                ],
-            },
-            {
-                label: "REPORTS",
-                icon: "fa fa-fw fa-area-chart",
-                items: [],
-            },
-            {
-                label: "TEAMS",
-                icon: "fa fa-fw fa-user-md",
-                routerLink: ["/dashboard/myTeams"],
-                // disabled: true,
-                items: [
-                    {
-                        label: "My Teams",
-                        icon: "fa fa-fw fa-users",
-                        routerLink: ["myTeams"],
-                    },
-                ],
-            },
-            {
-                label: "SETTINGS",
-                icon: "fa fa-fw fa-cogs",
-                routerLink: ["/dashboard/users"],
-                items: [
-                    {
-                        label: "Users",
-                        icon: "fa fa-fw fa-users",
-                        routerLink: ["users"],
-                    },
-                ],
-            },
-        ];
+        if (
+            selectedUser.type.name === "Super User" &&
+            selectedUser.role.name === "Consultant"
+        ) {
+            this.model = [
+                {
+                    label: "PATIENTS",
+                    icon: "fa fa-fw fa-users",
+                    routerLink: ["/dashboard/search"],
+                    items: [
+                        {
+                            label: "Search",
+                            icon: "fa fa-fw fa-search",
+                            routerLink: ["/dashboard/search"],
+                        },
+                        {
+                            label: "New Patient",
+                            icon: "fa fa-fw fa-plus-circle",
+                            routerLink: ["patient"],
+                        },
+                    ],
+                },
+                {
+                    label: "REPORTS",
+                    icon: "fa fa-fw fa-area-chart",
+                    items: [],
+                },
+                {
+                    label: "TEAMS",
+                    icon: "fa fa-fw fa-user-md",
+                    routerLink: ["/dashboard/myTeams"],
+                    // disabled: true,
+                    items: [
+                        {
+                            label: "My Teams",
+                            icon: "fa fa-fw fa-users",
+                            routerLink: ["myTeams"],
+                        },
+                    ],
+                },
+                {
+                    label: "SETTINGS",
+                    icon: "fa fa-fw fa-cogs",
+                    routerLink: ["/dashboard/users"],
+                    items: [
+                        {
+                            label: "Users",
+                            icon: "fa fa-fw fa-users",
+                            routerLink: ["users"],
+                        },
+                    ],
+                },
+            ];
+        } else if (selectedUser.type.name === "Super User") {
+            this.model = [
+                {
+                    label: "PATIENTS",
+                    icon: "fa fa-fw fa-users",
+                    routerLink: ["/dashboard/search"],
+                    items: [
+                        {
+                            label: "Search",
+                            icon: "fa fa-fw fa-search",
+                            routerLink: ["/dashboard/search"],
+                        },
+                        {
+                            label: "New Patient",
+                            icon: "fa fa-fw fa-plus-circle",
+                            routerLink: ["patient"],
+                        },
+                    ],
+                },
+                {
+                    label: "REPORTS",
+                    icon: "fa fa-fw fa-area-chart",
+                    items: [],
+                },
+                {
+                    label: "SETTINGS",
+                    icon: "fa fa-fw fa-cogs",
+                    routerLink: ["/dashboard/users"],
+                    items: [
+                        {
+                            label: "Users",
+                            icon: "fa fa-fw fa-users",
+                            routerLink: ["users"],
+                        },
+                    ],
+                },
+            ];
+        } else if (selectedUser.role.name === "Consultant") {
+            this.model = [
+                {
+                    label: "PATIENTS",
+                    icon: "fa fa-fw fa-users",
+                    routerLink: ["/dashboard/search"],
+                    items: [
+                        {
+                            label: "Search",
+                            icon: "fa fa-fw fa-search",
+                            routerLink: ["/dashboard/search"],
+                        },
+                        {
+                            label: "New Patient",
+                            icon: "fa fa-fw fa-plus-circle",
+                            routerLink: ["patient"],
+                        },
+                    ],
+                },
+                {
+                    label: "REPORTS",
+                    icon: "fa fa-fw fa-area-chart",
+                    items: [],
+                },
+                {
+                    label: "TEAMS",
+                    icon: "fa fa-fw fa-user-md",
+                    routerLink: ["/dashboard/myTeams"],
+                    // disabled: true,
+                    items: [
+                        {
+                            label: "My Teams",
+                            icon: "fa fa-fw fa-users",
+                            routerLink: ["myTeams"],
+                        },
+                    ],
+                },
+            ];
+        } else {
+            this.model = [
+                {
+                    label: "PATIENTS",
+                    icon: "fa fa-fw fa-users",
+                    routerLink: ["/dashboard/search"],
+                    items: [
+                        {
+                            label: "Search",
+                            icon: "fa fa-fw fa-search",
+                            routerLink: ["/dashboard/search"],
+                        },
+                        {
+                            label: "New Patient",
+                            icon: "fa fa-fw fa-plus-circle",
+                            routerLink: ["patient"],
+                        },
+                    ],
+                },
+                {
+                    label: "REPORTS",
+                    icon: "fa fa-fw fa-area-chart",
+                    items: [],
+                },
+            ];
+        }
+
         this.setMenuData();
     }
     setMenuData() {
