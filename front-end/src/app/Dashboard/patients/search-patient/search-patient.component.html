@@ -12,19 +12,21 @@
         <div class="ui-g-12 ui-md-9 intro-box-detail-container">
             <div class="intro-box">
                 <div class="intro-box-name">New Patients This Month</div>
-                <div class="intro-box-detail textCenter">15</div>
+                <div class="intro-box-detail textCenter">
+                    {{ patientsLength }}
+                </div>
             </div>
             <div class="intro-box">
                 <div class="intro-box-name">Diagnosis This Month</div>
-                <div class="intro-box-detail textCenter">10</div>
+                <div class="intro-box-detail textCenter">0</div>
             </div>
             <div class="intro-box">
                 <div class="intro-box-name">Treatments This Month</div>
-                <div class="intro-box-detail textCenter">20</div>
+                <div class="intro-box-detail textCenter">0</div>
             </div>
             <div class="intro-box">
                 <div class="intro-box-name">Followups This Month</div>
-                <div class="intro-box-detail textCenter">30</div>
+                <div class="intro-box-detail textCenter">0</div>
             </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-xl-12">
@@ -43,7 +45,9 @@
                             New Patients
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">15</div>
+                    <div class="overview-box-details marginRight">
+                        {{ patientsLength }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,7 +64,7 @@
                             Diagnosis
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">10</div>
+                    <div class="overview-box-details marginRight">0</div>
                 </div>
             </div>
         </div>
@@ -75,7 +79,7 @@
                             Treatments
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">20</div>
+                    <div class="overview-box-details marginRight">0</div>
                 </div>
             </div>
         </div>
@@ -92,7 +96,7 @@
                             Follow Up
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">30</div>
+                    <div class="overview-box-details marginRight">0</div>
                 </div>
             </div>
         </div>

@@ -24,6 +24,7 @@ export class SearchPatientComponent implements OnInit {
     job;
     welcomeTime;
     patients;
+    patientsLength;
     basicSearch;
     advancedSearch: AdvancedSearch = new AdvancedSearch();
     constructor(
@@ -131,6 +132,7 @@ export class SearchPatientComponent implements OnInit {
         this.spinner.show();
         this.patientService.getAllPatients().subscribe(
             async (result) => {
+                this.patientsLength = result.length;
                 this.patients = await this.getPatientsTeam(result);
                 this.spinner.hide();
             },
