@@ -97,6 +97,16 @@ export class PatientBasicInfoComponent implements OnInit {
         this.genderType = {};
         this.selectedCountry = {};
     }
+    discard() {
+        this.reset();
+        this.router
+            .navigateByUrl("/RefreshComponent", {
+                skipLocationChange: true,
+            })
+            .then(() => {
+                this.router.navigate(["/dashboard"]);
+            });
+    }
     save() {
         this.validatePatient((callback) => {
             if (callback === "valid") {
