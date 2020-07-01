@@ -182,83 +182,85 @@
     [baseZIndex]="10000"
     [maximizable]="true"
 >
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6">
-            <label for="username">Username</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    id="username"
-                    placeholder="Username"
-                    readonly="true"
-                    [(ngModel)]="user.username"
-                />
+    <div style="height: 250px;">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-6">
+                <label for="username">Username</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        id="username"
+                        placeholder="Username"
+                        readonly="true"
+                        [(ngModel)]="user.username"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="fullName">FullName</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="FullName"
-                    readonly="true"
-                    id="fullName"
-                    [(ngModel)]="user.fullName"
-                />
+            <div class="ui-g-12 ui-md-6">
+                <label for="fullName">FullName</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="FullName"
+                        readonly="true"
+                        id="fullName"
+                        [(ngModel)]="user.fullName"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="email">Email</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Email"
-                    readonly="true"
-                    id="email"
-                    [(ngModel)]="user.emailAddress"
-                />
+            <div class="ui-g-12 ui-md-6">
+                <label for="email">Email</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Email"
+                        readonly="true"
+                        id="email"
+                        [(ngModel)]="user.emailAddress"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="status">Status</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Status"
-                    readonly="true"
-                    id="status"
-                    [(ngModel)]="user.status"
-                />
+            <div class="ui-g-12 ui-md-6">
+                <label for="status">Status</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Status"
+                        readonly="true"
+                        id="status"
+                        [(ngModel)]="user.status"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="role">Role</label>
-            <div class="labelMarginTop">
-                <p-dropdown
-                    [options]="roles"
-                    [(ngModel)]="role"
-                    placeholder="Select A Role"
-                    optionLabel="name"
-                    id="role"
-                    [showClear]="true"
-                ></p-dropdown>
+            <div class="ui-g-12 ui-md-6">
+                <label for="role">Role</label>
+                <div class="labelMarginTop">
+                    <p-dropdown
+                        [options]="roles"
+                        [(ngModel)]="role"
+                        placeholder="Select A Role"
+                        optionLabel="name"
+                        id="role"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="userType">User Type</label>
-            <div class="labelMarginTop">
-                <p-dropdown
-                    [options]="userTypes"
-                    [(ngModel)]="userType"
-                    placeholder="Select A user Type"
-                    optionLabel="name"
-                    id="userType"
-                    [showClear]="true"
-                ></p-dropdown>
+            <div class="ui-g-12 ui-md-6">
+                <label for="userType">User Type</label>
+                <div class="labelMarginTop">
+                    <p-dropdown
+                        [options]="userTypes"
+                        [(ngModel)]="userType"
+                        placeholder="Select A user Type"
+                        optionLabel="name"
+                        id="userType"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
             </div>
         </div>
     </div>
