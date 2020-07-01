@@ -177,7 +177,7 @@ export class AppMenuComponent implements OnInit {
         this.setMenuData();
     }
     setMenuData() {
-        if (this.router.url === "/dashboard") {
+        if (this.router.url === "/dashboard/search") {
             localStorage.removeItem("selectedPatient");
         }
         if (
