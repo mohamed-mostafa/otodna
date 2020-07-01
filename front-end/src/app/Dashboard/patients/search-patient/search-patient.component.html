@@ -13,7 +13,7 @@
             <div class="intro-box">
                 <div class="intro-box-name">New Patients This Month</div>
                 <div class="intro-box-detail textCenter">
-                    {{ patientsLength }}
+                    {{ patientsLength ? patientsLength : 0 }}
                 </div>
             </div>
             <div class="intro-box">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="overview-box-details marginRight">
-                        {{ patientsLength }}
+                        {{ patientsLength ? patientsLength : 0 }}
                     </div>
                 </div>
             </div>
