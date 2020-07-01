@@ -60,12 +60,14 @@
     [baseZIndex]="10000"
     [maximizable]="true"
 >
-    <p-card [style]="{ height: '200px' }">
+    <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12">
-                <div class="ui-inputgroup">
+                <label for="name">Team Name</label>
+                <div class="ui-inputgroup labelMarginTop">
                     <input
                         type="text"
+                        id="name"
                         pInputText
                         placeholder="Team Name"
                         [(ngModel)]="team.name"
@@ -73,7 +75,8 @@
                 </div>
             </div>
             <div class="ui-g-12 ui-md-12">
-                <div class="ui-inputgroup">
+                <label for="name">Team Owner</label>
+                <div class="ui-inputgroup labelMarginTop">
                     <input
                         type="text"
                         pInputText
@@ -84,13 +87,16 @@
                 </div>
             </div>
             <div class="ui-g-12 ui-md-12">
-                <p-dropdown
-                    [options]="departments"
-                    [(ngModel)]="team.department"
-                    placeholder="Select A Department"
-                    optionLabel="name"
-                    [showClear]="true"
-                ></p-dropdown>
+                <label for="name">Team Department</label>
+                <div class="labelMarginTop">
+                    <p-dropdown
+                        [options]="departments"
+                        [(ngModel)]="team.department"
+                        placeholder="Select A Department"
+                        optionLabel="name"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
             </div>
         </div>
     </p-card>
