@@ -15,6 +15,8 @@ import { Family } from "./family";
 export class FamilyComponent implements OnInit {
     cols: any[];
     families: any[] = [];
+    relations: any[] = [];
+    familyMemberRelation;
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
@@ -52,6 +54,7 @@ export class FamilyComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-user-md" };
         this.getALlFamilies();
+        this.getAllPatientMemberRelationType();
         this.showTable();
     }
     showTable() {
@@ -64,10 +67,33 @@ export class FamilyComponent implements OnInit {
         this.familyService
             .getAllFamilies(this.family.patientId)
             .subscribe(async (result) => {
-                this.families = result;
+                this.families = await this.getPatientMemberRelationTypeById(
+                    result
+                );
                 this.showTable();
                 this.spinner.hide();
             });
+    }
+    getAllPatientMemberRelationType() {
+        this.spinner.show();
+        this.familyService
+            .getAllPatientMemberRelationType()
+            .subscribe(async (result) => {
+                this.relations = result;
+                this.spinner.hide();
+            });
+    }
+    getPatientMemberRelationTypeById(families) {
+        families.forEach((fam) => {
+            this.familyService
+                .getPatientMemberRelationTypeById(
+                    fam.familyMemberRelationTypeId
+                )
+                .subscribe((res) => {
+                    fam.relationName = res.name;
+                });
+        });
+        return families;
     }
     showDialog() {
         this.displayBasic = true;
@@ -76,9 +102,15 @@ export class FamilyComponent implements OnInit {
         this.displayBasic = false;
         this.family = new Family();
     }
+    reset() {
+        this.family = new Family();
+        this.family.patientId = this.selectedPatient.id;
+        this.familyMemberRelation = "";
+    }
     save() {
         this.validateFamily((callback) => {
             if (callback === "valid") {
+                this.family.familyMemberRelationTypeId = this.familyMemberRelation.id;
                 this.spinner.show();
                 this.familyService
                     .createFamilyMember(this.family)
@@ -86,6 +118,7 @@ export class FamilyComponent implements OnInit {
                         this.displayBasic = false;
                         this.spinner.hide();
                         this.getALlFamilies();
+                        this.reset();
                         this.showMessage(
                             "success",
                             "Saved",
@@ -114,7 +147,7 @@ export class FamilyComponent implements OnInit {
             );
             return false;
         }
-        if (!this.family.familyMemberRelationTypeId) {
+        if (!this.familyMemberRelation) {
             this.showMessage(
                 "error",
                 "Validation Error",

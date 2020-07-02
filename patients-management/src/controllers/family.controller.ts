@@ -1,3 +1,5 @@
+import {FamilyMemberRelationTypeRepository} from './../repositories/family-member-relation-type.repository';
+import {FamilyMemberRelationType} from './../models/family-member-relation-type.model';
 import {
   Count,
   CountSchema,
@@ -22,14 +24,18 @@ import {PatientFamilyMemberRepository} from '../repositories';
 export class FamilyController {
   constructor(
     @repository(PatientFamilyMemberRepository)
-    public patientFamilyMemberRepository : PatientFamilyMemberRepository,
+    public patientFamilyMemberRepository: PatientFamilyMemberRepository,
+    @repository(FamilyMemberRelationTypeRepository)
+    public familyMemberRelationTypeRepository: FamilyMemberRelationTypeRepository,
   ) {}
 
   @post('/patientFamilyMembers', {
     responses: {
       '200': {
         description: 'PatientFamilyMember model instance',
-        content: {'application/json': {schema: getModelSchemaRef(PatientFamilyMember)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(PatientFamilyMember)},
+        },
       },
     },
   })
@@ -62,7 +68,29 @@ export class FamilyController {
   ): Promise<Count> {
     return this.patientFamilyMemberRepository.count(where);
   }
-
+  @get('/patientMemberRelationType', {
+    responses: {
+      '200': {
+        description: 'Array of PatientMemberRelationType model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(FamilyMemberRelationType, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findRelationType(
+    @param.filter(FamilyMemberRelationType)
+    filter?: Filter<FamilyMemberRelationType>,
+  ): Promise<FamilyMemberRelationType[]> {
+    return this.familyMemberRelationTypeRepository.find(filter);
+  }
   @get('/patientFamilyMembers', {
     responses: {
       '200': {
@@ -71,7 +99,9 @@ export class FamilyController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(PatientFamilyMember, {includeRelations: true}),
+              items: getModelSchemaRef(PatientFamilyMember, {
+                includeRelations: true,
+              }),
             },
           },
         },
@@ -103,7 +133,32 @@ export class FamilyController {
     patientFamilyMember: PatientFamilyMember,
     @param.where(PatientFamilyMember) where?: Where<PatientFamilyMember>,
   ): Promise<Count> {
-    return this.patientFamilyMemberRepository.updateAll(patientFamilyMember, where);
+    return this.patientFamilyMemberRepository.updateAll(
+      patientFamilyMember,
+      where,
+    );
+  }
+
+  @get('/patientMemberRelationType/{id}', {
+    responses: {
+      '200': {
+        description: 'FamilyMemberRelationType model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(FamilyMemberRelationType, {
+              includeRelations: true,
+            }),
+          },
+        },
+      },
+    },
+  })
+  async findRelationById(
+    @param.path.number('id') id: number,
+    @param.filter(FamilyMemberRelationType, {exclude: 'where'})
+    filter?: FilterExcludingWhere<FamilyMemberRelationType>,
+  ): Promise<FamilyMemberRelationType> {
+    return this.familyMemberRelationTypeRepository.findById(id, filter);
   }
 
   @get('/patientFamilyMembers/{id}', {
@@ -112,7 +167,9 @@ export class FamilyController {
         description: 'PatientFamilyMember model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(PatientFamilyMember, {includeRelations: true}),
+            schema: getModelSchemaRef(PatientFamilyMember, {
+              includeRelations: true,
+            }),
           },
         },
       },
@@ -120,7 +177,8 @@ export class FamilyController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(PatientFamilyMember, {exclude: 'where'}) filter?: FilterExcludingWhere<PatientFamilyMember>
+    @param.filter(PatientFamilyMember, {exclude: 'where'})
+    filter?: FilterExcludingWhere<PatientFamilyMember>,
   ): Promise<PatientFamilyMember> {
     return this.patientFamilyMemberRepository.findById(id, filter);
   }
@@ -143,7 +201,10 @@ export class FamilyController {
     })
     patientFamilyMember: PatientFamilyMember,
   ): Promise<void> {
-    await this.patientFamilyMemberRepository.updateById(id, patientFamilyMember);
+    await this.patientFamilyMemberRepository.updateById(
+      id,
+      patientFamilyMember,
+    );
   }
 
   @put('/patientFamilyMembers/{id}', {
@@ -157,7 +218,10 @@ export class FamilyController {
     @param.path.number('id') id: number,
     @requestBody() patientFamilyMember: PatientFamilyMember,
   ): Promise<void> {
-    await this.patientFamilyMemberRepository.replaceById(id, patientFamilyMember);
+    await this.patientFamilyMemberRepository.replaceById(
+      id,
+      patientFamilyMember,
+    );
   }
 
   @del('/patientFamilyMembers/{id}', {

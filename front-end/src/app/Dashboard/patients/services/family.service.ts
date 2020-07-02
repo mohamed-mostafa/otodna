@@ -27,4 +27,12 @@ export class FamilyService {
     createFamilyMember(family): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, family);
     }
+    getAllPatientMemberRelationType(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/patientMemberRelationType`);
+    }
+    getPatientMemberRelationTypeById(id: String): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/patientMemberRelationType/${id}`
+        );
+    }
 }
