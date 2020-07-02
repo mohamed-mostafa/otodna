@@ -9,6 +9,7 @@ export class FamilyService {
     apiUrl = environment.patientApiUrl;
     link = "/patientFamilyMembers";
     constructor(private http: HttpClient) {}
+
     getAllFamilies(patientId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.link}?filter[where][patientId][eq]=${patientId}`

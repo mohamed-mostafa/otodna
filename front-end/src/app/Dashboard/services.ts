@@ -1,3 +1,9 @@
+import { ProblemsService } from "./patients/services/problems.service";
+import { MedicationsService } from "./patients/services/medications.service";
+import { LabResultsService } from "./patients/services/lab-results.service";
+import { ImmunizationsService } from "./patients/services/immunizations.service";
+import { AllergiesService } from "./patients/services/allergies.service";
+import { VitalService } from "./patients/services/vital.service";
 import { FamilyService } from "./patients/services/family.service";
 import { PatientService } from "./patients/services/patient.service";
 import { UsersService } from "./services/users.service";
@@ -28,4 +34,10 @@ export const SERVICES = [
     UsersService,
     PatientService,
     FamilyService,
+    VitalService,
+    AllergiesService,
+    ImmunizationsService,
+    LabResultsService,
+    MedicationsService,
+    ProblemsService,
 ];

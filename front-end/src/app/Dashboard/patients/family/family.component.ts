@@ -31,6 +31,7 @@ export class FamilyComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.family.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -61,7 +62,7 @@ export class FamilyComponent implements OnInit {
     getALlFamilies() {
         this.spinner.show();
         this.familyService
-            .getAllFamilies(this.selectedPatient.id)
+            .getAllFamilies(this.family.patientId)
             .subscribe(async (result) => {
                 this.families = result;
                 this.showTable();
@@ -79,18 +80,18 @@ export class FamilyComponent implements OnInit {
         this.validateFamily((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    this.families.push(this.family);
-                    this.displayBasic = false;
-                    this.family = new Family();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.familyService
+                    .createFamilyMember(this.family)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlFamilies();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
