@@ -33,7 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     if (this.router.url !== "/login") {
                         location.reload(true);
                     }
-                } else if (err.status === 500) {
+                } else if (err.status === 500 || err.status === 0) {
                     this.spinner.hide();
                     this.callSwal(
                         "Internal server error",
@@ -41,8 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         "error"
                     );
                     console.log("Internal Server Error");
-                }
-                else if (err.status === 403) {
+                } else if (err.status === 403) {
                     this.spinner.hide();
                     this.callSwal(
                         "Unauthorized",
