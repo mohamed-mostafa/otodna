@@ -1,4 +1,4 @@
-import { PatientService } from "./../../services/patient.service";
+import { PatientService } from "../services/patient.service";
 import { PatientCountryService } from "../services/countryService";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";

@@ -1,7 +1,7 @@
 import { element } from "protractor";
 import { AdvancedSearch } from "./advancedSearch";
 import { TeamsService } from "./../../services/teams.service";
-import { PatientService } from "./../../services/patient.service";
+import { PatientService } from "../services/patient.service";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";

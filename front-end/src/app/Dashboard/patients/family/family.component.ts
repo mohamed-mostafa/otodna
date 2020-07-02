@@ -1,3 +1,4 @@
+import { FamilyService } from "./../services/family.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -19,13 +20,15 @@ export class FamilyComponent implements OnInit {
     displayBasic: boolean;
     showTableFlag = false;
     family: Family = new Family();
+    selectedPatient;
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private familyService: FamilyService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
         this.items = [
@@ -36,11 +39,10 @@ export class FamilyComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.cols = [
@@ -48,12 +50,23 @@ export class FamilyComponent implements OnInit {
             { field: "relation", header: "Relation" },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.getALlFamilies();
         this.showTable();
     }
     showTable() {
         if (this.families.length > 0) {
             this.showTableFlag = true;
         }
+    }
+    getALlFamilies() {
+        this.spinner.show();
+        this.familyService
+            .getAllFamilies(this.selectedPatient.id)
+            .subscribe(async (result) => {
+                this.families = result;
+                this.showTable();
+                this.spinner.hide();
+            });
     }
     showDialog() {
         this.displayBasic = true;
@@ -100,11 +113,11 @@ export class FamilyComponent implements OnInit {
             );
             return false;
         }
-        if (!this.family.relation) {
+        if (!this.family.familyMemberRelationTypeId) {
             this.showMessage(
                 "error",
                 "Validation Error",
-                "relation is required"
+                "Family Member Relation Type is required"
             );
             return false;
         } else {

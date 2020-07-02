@@ -47,8 +47,9 @@
                 <input
                     type="text"
                     pInputText
+                    pKeyFilter="int"
                     placeholder="Relation"
-                    [(ngModel)]="family.relation"
+                    [(ngModel)]="family.familyMemberRelationTypeId"
                 />
             </div>
         </div>
@@ -109,7 +110,7 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Relation </span>
-                            {{ rowData.relation }}
+                            {{ rowData.familyMemberRelationTypeId }}
                         </td>
                     </tr>
                 </ng-template>
