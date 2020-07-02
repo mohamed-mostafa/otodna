@@ -1,7 +1,7 @@
 export class Vital {
-    recordType: string;
-    recordValue: string;
-    recordValueType: string;
+    vitalRecordTypeId: number;
+    vitalRecordValue: number;
     notedDate: Date;
-    comments: string;
+    comment: string;
+    patientId: number;
 }

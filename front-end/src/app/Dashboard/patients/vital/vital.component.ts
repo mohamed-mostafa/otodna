@@ -1,3 +1,4 @@
+import { VitalService } from "./../services/vital.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -24,12 +25,14 @@ export class VitalComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private vitalService: VitalService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
         let selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.vital.patientId = selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -38,11 +41,8 @@ export class VitalComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    selectedPatient.firstName + " " + selectedPatient.lastName,
             },
         ];
         this.cols = [
@@ -102,6 +102,7 @@ export class VitalComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
+        this.getALlVitals();
     }
     showTable() {
         if (this.vitals.length > 0) {
@@ -119,18 +120,18 @@ export class VitalComponent implements OnInit {
         this.validateVital((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    this.vitals.push(this.vital);
-                    this.displayBasic = false;
-                    this.vital = new Vital();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.vitalService
+                    .createVital(this.vital)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlVitals();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -145,7 +146,7 @@ export class VitalComponent implements OnInit {
         });
     }
     validateVital(callback) {
-        if (!this.vital.recordType) {
+        if (!this.vital.vitalRecordTypeId) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -153,19 +154,11 @@ export class VitalComponent implements OnInit {
             );
             return false;
         }
-        if (!this.vital.recordValue) {
+        if (!this.vital.vitalRecordValue) {
             this.showMessage(
                 "error",
                 "Validation Error",
                 "Record value is required"
-            );
-            return false;
-        }
-        if (!this.vital.recordValueType) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Record value type is required"
             );
             return false;
         }
@@ -177,7 +170,7 @@ export class VitalComponent implements OnInit {
             );
             return false;
         }
-        if (!this.vital.comments) {
+        if (!this.vital.comment) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -193,6 +186,16 @@ export class VitalComponent implements OnInit {
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
                 this.router.navigate(["/dashboard"]);
+            });
+    }
+    getALlVitals() {
+        this.spinner.show();
+        this.vitalService
+            .getAllVitals(this.vital.patientId)
+            .subscribe(async (result) => {
+                this.vitals = result;
+                this.showTable();
+                this.spinner.hide();
             });
     }
 }

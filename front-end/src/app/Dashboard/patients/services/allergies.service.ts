@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class AllergiesService {
     apiUrl = environment.patientApiUrl;
-    link = "/patientAllergies";
+    link = "patientAllergies";
     constructor(private http: HttpClient) {}
 
     getAllAllergies(patientId): Observable<any> {

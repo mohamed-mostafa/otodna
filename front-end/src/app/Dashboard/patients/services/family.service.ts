@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class FamilyService {
     apiUrl = environment.patientApiUrl;
-    link = "/patientFamilyMembers";
+    link = "patientFamilyMembers";
     constructor(private http: HttpClient) {}
 
     getAllFamilies(patientId): Observable<any> {

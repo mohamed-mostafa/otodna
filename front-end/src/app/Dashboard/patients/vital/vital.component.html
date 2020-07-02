@@ -25,7 +25,7 @@
 <p-dialog
     header="Add Vital"
     [(visible)]="displayBasic"
-    [style]="{ width: '50vw' }"
+    [style]="{ width: '60vw' }"
     [baseZIndex]="10000"
     [maximizable]="true"
     [draggable]="false"
@@ -33,36 +33,36 @@
 >
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-6">
-                <p-dropdown
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <input
+                        type="number"
+                        pInputText
+                        pKeyFilter="int"
+                        placeholder="Record type"
+                        [(ngModel)]="vital.vitalRecordTypeId"
+                    />
+                </div>
+                <!-- <p-dropdown
                     [options]="recordType"
                     placeholder="Select Record Type"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="vital.recordType"
-                ></p-dropdown>
+                    [(ngModel)]="vital.vitalRecordTypeId"
+                ></p-dropdown> -->
             </div>
-            <div class="ui-g-12 ui-md-6">
+            <div class="ui-g-12 ui-md-3">
                 <div class="ui-inputgroup">
                     <input
-                        type="text"
+                        type="number"
                         pInputText
                         pKeyFilter="int"
                         placeholder="Record Value"
-                        [(ngModel)]="vital.recordValue"
+                        [(ngModel)]="vital.vitalRecordValue"
                     />
                 </div>
             </div>
-            <div class="ui-g-12 ui-md-6">
-                <p-dropdown
-                    [options]="recordValue"
-                    placeholder="Select Record Value Type"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [(ngModel)]="vital.recordValueType"
-                ></p-dropdown>
-            </div>
-            <div class="ui-g-12 ui-md-6">
+            <div class="ui-g-12 ui-md-5">
                 <p-calendar
                     [readonlyInput]="true"
                     placeholder="Noted Date"
@@ -77,8 +77,8 @@
                     [cols]="30"
                     pInputTextarea
                     autoResize="autoResize"
-                    placeholder="Comments"
-                    [(ngModel)]="vital.comments"
+                    placeholder="Comment"
+                    [(ngModel)]="vital.comment"
                 ></textarea>
             </div>
         </div>
@@ -133,19 +133,19 @@
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Record Type </span
-                            >{{ rowData.recordType.name }}
+                            >{{ rowData.vitalRecordTypeId }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Record Value </span
-                            >{{ rowData.recordValue }}
+                            >{{ rowData.vitalRecordValue }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Noted Date </span
                             >{{ rowData.notedDate | date }}
                         </td>
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Comments </span
-                            >{{ rowData.comments }}
+                            <span class="ui-column-title">Comment </span
+                            >{{ rowData.comment }}
                         </td>
                     </tr>
                 </ng-template>
