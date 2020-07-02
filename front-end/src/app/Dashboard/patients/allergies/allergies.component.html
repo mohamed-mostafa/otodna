@@ -34,13 +34,22 @@
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-4">
-                <p-dropdown
+                <!-- <p-dropdown
                     [options]="allergyType"
                     placeholder="Select Allergy Type"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="allergy.allergyType"
-                ></p-dropdown>
+                    [(ngModel)]="allergy.allergyTypeId"
+                ></p-dropdown> -->
+                <div class="ui-inputgroup">
+                    <input
+                        type="number"
+                        pInputText
+                        pKeyFilter="int"
+                        placeholder="Allergy Type"
+                        [(ngModel)]="allergy.allergyTypeId"
+                    />
+                </div>
             </div>
             <div class="ui-g-12 ui-md-4">
                 <div class="ui-inputgroup">
@@ -63,22 +72,36 @@
                 </div>
             </div>
             <div class="ui-g-12 ui-md-3">
-                <p-dropdown
+                <!-- <p-dropdown
                     [options]="severity"
                     placeholder="Select Severity"
                     optionLabel="name"
                     [showClear]="true"
                     [(ngModel)]="allergy.severity"
-                ></p-dropdown>
+                ></p-dropdown> -->
+                <input
+                    type="number"
+                    pInputText
+                    pKeyFilter="int"
+                    placeholder="Allergy Severity"
+                    [(ngModel)]="allergy.allergySeverityId"
+                />
             </div>
             <div class="ui-g-12 ui-md-3">
-                <p-dropdown
+                <!-- <p-dropdown
                     [options]="allergiesStatus"
                     placeholder="Select Status"
                     optionLabel="name"
                     [showClear]="true"
                     [(ngModel)]="allergy.status"
-                ></p-dropdown>
+                ></p-dropdown> -->
+                <input
+                    type="number"
+                    pInputText
+                    pKeyFilter="int"
+                    placeholder="Allergy Status"
+                    [(ngModel)]="allergy.allergyStatusId"
+                />
             </div>
             <div class="ui-g-12 ui-md-6">
                 <p-calendar
@@ -96,7 +119,7 @@
                     pInputTextarea
                     autoResize="autoResize"
                     placeholder="Comments"
-                    [(ngModel)]="allergy.comments"
+                    [(ngModel)]="allergy.comment"
                 ></textarea>
             </div>
         </div>
@@ -151,7 +174,7 @@
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Allergy Type </span
-                            >{{ rowData.allergyType.name }}
+                            >{{ rowData.allergyTypeId }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Substance </span
@@ -163,11 +186,11 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Severity </span
-                            >{{ rowData.severity.name }}
+                            >{{ rowData.allergySeverityId }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Status </span
-                            >{{ rowData.status.name }}
+                            >{{ rowData.allergyStatusId }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Noted Date </span
@@ -175,7 +198,7 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Comments </span
-                            >{{ rowData.comments }}
+                            >{{ rowData.comment }}
                         </td>
                     </tr>
                 </ng-template>

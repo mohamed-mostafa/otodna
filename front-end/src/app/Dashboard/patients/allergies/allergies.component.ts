@@ -1,3 +1,4 @@
+import { AllergiesService } from "./../services/allergies.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -27,12 +28,14 @@ export class AllergiesComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private allergiesService: AllergiesService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
         let selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.allergy.patientId = selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -41,11 +44,8 @@ export class AllergiesComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    selectedPatient.firstName + " " + selectedPatient.lastName,
             },
         ];
 
@@ -105,6 +105,7 @@ export class AllergiesComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
+        this.getALlAllergies();
     }
     showTable() {
         if (this.allergies.length > 0) {
@@ -122,18 +123,19 @@ export class AllergiesComponent implements OnInit {
         this.validateAllergy((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    this.allergies.push(this.allergy);
-                    this.displayBasic = false;
-                    this.allergy = new Allergies();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.spinner.show();
+                this.allergiesService
+                    .createAllergy(this.allergy)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlAllergies();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -148,7 +150,7 @@ export class AllergiesComponent implements OnInit {
         });
     }
     validateAllergy(callback) {
-        if (!this.allergy.allergyType) {
+        if (!this.allergy.allergyTypeId) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -172,7 +174,7 @@ export class AllergiesComponent implements OnInit {
             );
             return false;
         }
-        if (!this.allergy.severity) {
+        if (!this.allergy.allergySeverityId) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -180,7 +182,7 @@ export class AllergiesComponent implements OnInit {
             );
             return false;
         }
-        if (!this.allergy.status) {
+        if (!this.allergy.allergyStatusId) {
             this.showMessage("error", "Validation Error", "Status is required");
             return false;
         }
@@ -189,14 +191,6 @@ export class AllergiesComponent implements OnInit {
                 "error",
                 "Validation Error",
                 "Noted date is required"
-            );
-            return false;
-        }
-        if (!this.allergy.comments) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Comments is required"
             );
             return false;
         } else {
@@ -208,6 +202,16 @@ export class AllergiesComponent implements OnInit {
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
                 this.router.navigate(["/dashboard"]);
+            });
+    }
+    getALlAllergies() {
+        this.spinner.show();
+        this.allergiesService
+            .getAllAllergies(this.allergy.patientId)
+            .subscribe(async (result) => {
+                this.allergies = result;
+                this.showTable();
+                this.spinner.hide();
             });
     }
 }

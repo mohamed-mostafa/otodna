@@ -169,14 +169,6 @@ export class VitalComponent implements OnInit {
                 "Noted date is required"
             );
             return false;
-        }
-        if (!this.vital.comment) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Comments is required"
-            );
-            return false;
         } else {
             callback("valid");
         }

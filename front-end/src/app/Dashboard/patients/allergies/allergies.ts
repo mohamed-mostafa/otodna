@@ -1,9 +1,10 @@
 export class Allergies {
-    allergyType: string;
+    allergyTypeId: number;
     substance: string;
     reaction: string;
-    severity: string;
-    status: string;
+    allergySeverityId: number;
+    allergyStatusId: number;
     notedDate: Date;
-    comments: string;
+    comment: string;
+    patientId: number;
 }
