@@ -1,7 +1,8 @@
 export class Immunizations {
     vaccineName: string;
-    status: string;
-    provider: string;
+    immunizationStatusId: number;
+    // provider: string;
     notedDate: Date;
     comments: string;
+    patientId: number;
 }

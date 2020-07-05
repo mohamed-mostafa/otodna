@@ -1,3 +1,4 @@
+import { ImmunizationsService } from "./../services/immunizations.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -20,16 +21,19 @@ export class ImmunizationsComponent implements OnInit {
     displayBasic: boolean;
     immunization: Immunizations = new Immunizations();
     showTableFlag = false;
-
+    selectedPatient;
+    status;
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private immunizationsService: ImmunizationsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.immunization.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -38,36 +42,23 @@ export class ImmunizationsComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.cols = [
             { field: "vaccineName", header: "Vaccine Name" },
             { field: "status", header: "Status" },
-            { field: "provider", header: "Provider" },
+            // { field: "provider", header: "Provider" },
             { field: "notedDate", header: "Noted Date" },
-            { field: "comments", header: "Comments" },
-        ];
-        this.immunizationsStatus = [
-            {
-                name: "Active",
-            },
-            {
-                name: "Inactive",
-            },
-            {
-                name: "Pending",
-            },
-            {
-                name: "Completed",
-            },
+            { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
+        this.getALlImmunizations();
+        this.getImmunizationStatuses();
     }
     showTable() {
         if (this.immunizations.length > 0) {
@@ -81,22 +72,29 @@ export class ImmunizationsComponent implements OnInit {
         this.displayBasic = false;
         this.immunization = new Immunizations();
     }
+    reset() {
+        this.immunization = new Immunizations();
+        this.immunization.patientId = this.selectedPatient.id;
+        this.status = "";
+    }
     save() {
         this.validateImmunization((callback) => {
             if (callback === "valid") {
+                this.immunization.immunizationStatusId = this.status.id;
                 this.spinner.show();
-                setTimeout(() => {
-                    this.immunizations.push(this.immunization);
-                    this.displayBasic = false;
-                    this.immunization = new Immunizations();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.immunizationsService
+                    .createImmunization(this.immunization)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlImmunizations();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -119,16 +117,8 @@ export class ImmunizationsComponent implements OnInit {
             );
             return false;
         }
-        if (!this.immunization.status) {
+        if (!this.status) {
             this.showMessage("error", "Validation Error", "Status is required");
-            return false;
-        }
-        if (!this.immunization.provider) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Provider is required"
-            );
             return false;
         }
         if (!this.immunization.notedDate) {
@@ -136,14 +126,6 @@ export class ImmunizationsComponent implements OnInit {
                 "error",
                 "Validation Error",
                 "Noted date is required"
-            );
-            return false;
-        }
-        if (!this.immunization.comments) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Comments is required"
             );
             return false;
         } else {
@@ -156,5 +138,36 @@ export class ImmunizationsComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    getALlImmunizations() {
+        this.spinner.show();
+        this.immunizationsService
+            .getAllImmunizations(this.immunization.patientId)
+            .subscribe(async (result) => {
+                this.immunizations = await this.getImmunizationStatusById(
+                    result
+                );
+                this.showTable();
+                this.spinner.hide();
+            });
+    }
+    getImmunizationStatuses() {
+        this.spinner.show();
+        this.immunizationsService
+            .getImmunizationsStatuses()
+            .subscribe(async (result) => {
+                this.immunizationsStatus = result;
+                this.spinner.hide();
+            });
+    }
+    getImmunizationStatusById(immunizations) {
+        immunizations.forEach((imm) => {
+            this.immunizationsService
+                .getImmunizationsStatusById(imm.immunizationStatusId)
+                .subscribe((res) => {
+                    imm.statusName = res.name;
+                });
+        });
+        return immunizations;
     }
 }

@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class ImmunizationsService {
     apiUrl = environment.patientApiUrl;
-    link = "patientImmunizations";
+    link = "patientImmunization";
     constructor(private http: HttpClient) {}
 
     getAllImmunizations(patientId): Observable<any> {
@@ -30,5 +30,11 @@ export class ImmunizationsService {
             `${this.apiUrl}/${this.link}`,
             immunization
         );
+    }
+    getImmunizationsStatuses(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses`);
+    }
+    getImmunizationsStatusById(id: String): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses/${id}`);
     }
 }
