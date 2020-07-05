@@ -34,22 +34,13 @@
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-4">
-                <div class="ui-inputgroup">
-                    <input
-                        type="number"
-                        pInputText
-                        pKeyFilter="int"
-                        placeholder="Record type"
-                        [(ngModel)]="vital.vitalRecordTypeId"
-                    />
-                </div>
-                <!-- <p-dropdown
-                    [options]="recordType"
+                <p-dropdown
+                    [options]="recordTypes"
                     placeholder="Select Record Type"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="vital.vitalRecordTypeId"
-                ></p-dropdown> -->
+                    [(ngModel)]="recordType"
+                ></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-3">
                 <div class="ui-inputgroup">
@@ -133,7 +124,11 @@
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Record Type </span
-                            >{{ rowData.vitalRecordTypeId }}
+                            >{{ rowData.vitalName }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Record Value </span
+                            >{{ rowData.vitalUnit }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Record Value </span

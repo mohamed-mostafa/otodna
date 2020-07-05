@@ -17,11 +17,12 @@ export class VitalComponent implements OnInit {
     vitals: any[] = [];
     items: MenuItem[];
     home: MenuItem;
-    recordType = [];
-    recordValue = [];
+    recordTypes = [];
     displayBasic: boolean;
     vital: Vital = new Vital();
+    recordType;
     showTableFlag = false;
+    selectedPatient;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -29,10 +30,10 @@ export class VitalComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        this.vital.patientId = selectedPatient.id;
+        this.vital.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -42,67 +43,22 @@ export class VitalComponent implements OnInit {
             },
             {
                 label:
-                    selectedPatient.firstName + " " + selectedPatient.lastName,
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.cols = [
             { field: "recordType", header: "Record Type" },
+            { field: "recordUnit", header: "Record Unit" },
             { field: "recordValue", header: "Record Value" },
             { field: "notedDate", header: "Noted Date" },
             { field: "comments", header: "Comments" },
         ];
-        this.recordType = [
-            {
-                name: "Body Tempreture",
-            },
-            {
-                name: "Blood pressure",
-            },
-            {
-                name: "Heart Rate",
-            },
-            {
-                name: "Height",
-            },
-            {
-                name: "Respiration rate",
-            },
-            {
-                name: "Weight",
-            },
-            {
-                name: "Oxygen saturation",
-            },
-        ];
-        this.recordValue = [
-            {
-                name: "Value* °C",
-            },
-            {
-                name: "BP Systolic * mmHg",
-            },
-            {
-                name: "BP Diastolic * mmHg",
-            },
-            {
-                name: "Value * bpm",
-            },
-            {
-                name: "Value*cm",
-            },
-            {
-                name: "Value * breaths/m",
-            },
-            {
-                name: "Value*kg",
-            },
-            {
-                name: "Value * Percent",
-            },
-        ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
         this.getALlVitals();
+        this.getAllVitalRecordTypes();
     }
     showTable() {
         if (this.vitals.length > 0) {
@@ -119,6 +75,7 @@ export class VitalComponent implements OnInit {
     save() {
         this.validateVital((callback) => {
             if (callback === "valid") {
+                this.vital.vitalRecordTypeId = this.recordType.id;
                 this.spinner.show();
                 this.vitalService
                     .createVital(this.vital)
@@ -126,6 +83,7 @@ export class VitalComponent implements OnInit {
                         this.displayBasic = false;
                         this.spinner.hide();
                         this.getALlVitals();
+                        this.reset();
                         this.showMessage(
                             "success",
                             "Saved",
@@ -146,7 +104,7 @@ export class VitalComponent implements OnInit {
         });
     }
     validateVital(callback) {
-        if (!this.vital.vitalRecordTypeId) {
+        if (!this.recordType) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -180,14 +138,37 @@ export class VitalComponent implements OnInit {
                 this.router.navigate(["/dashboard"]);
             });
     }
+    reset() {
+        this.vital = new Vital();
+        this.vital.patientId = this.selectedPatient.id;
+        this.recordType = "";
+    }
     getALlVitals() {
         this.spinner.show();
         this.vitalService
             .getAllVitals(this.vital.patientId)
             .subscribe(async (result) => {
-                this.vitals = result;
+                this.vitals = await this.getVitalRecordTypeById(result);
                 this.showTable();
                 this.spinner.hide();
             });
+    }
+    getAllVitalRecordTypes() {
+        this.spinner.show();
+        this.vitalService.getAllVitalRecordTypes().subscribe(async (result) => {
+            this.recordTypes = result;
+            this.spinner.hide();
+        });
+    }
+    getVitalRecordTypeById(vitals) {
+        vitals.forEach((v) => {
+            this.vitalService
+                .getVitalRecordTypeById(v.vitalRecordTypeId)
+                .subscribe((res) => {
+                    v.vitalName = res.name;
+                    v.vitalUnit = res.unit;
+                });
+        });
+        return vitals;
     }
 }

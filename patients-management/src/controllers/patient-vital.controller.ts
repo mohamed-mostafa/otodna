@@ -1,3 +1,5 @@
+import {VitalRecordType} from './../models/vital-record-type.model';
+import {VitalRecordTypeRepository} from './../repositories/vital-record-type.repository';
 import {
   Count,
   CountSchema,
@@ -22,14 +24,18 @@ import {PatientVitalRecordRepository} from '../repositories';
 export class PatientVitalController {
   constructor(
     @repository(PatientVitalRecordRepository)
-    public patientVitalRecordRepository : PatientVitalRecordRepository,
+    public patientVitalRecordRepository: PatientVitalRecordRepository,
+    @repository(VitalRecordTypeRepository)
+    public vitalRecordTypeRepository: VitalRecordTypeRepository,
   ) {}
 
   @post('/patientVital', {
     responses: {
       '200': {
         description: 'PatientVitalRecord model instance',
-        content: {'application/json': {schema: getModelSchemaRef(PatientVitalRecord)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(PatientVitalRecord)},
+        },
       },
     },
   })
@@ -71,7 +77,9 @@ export class PatientVitalController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(PatientVitalRecord, {includeRelations: true}),
+              items: getModelSchemaRef(PatientVitalRecord, {
+                includeRelations: true,
+              }),
             },
           },
         },
@@ -82,6 +90,29 @@ export class PatientVitalController {
     @param.filter(PatientVitalRecord) filter?: Filter<PatientVitalRecord>,
   ): Promise<PatientVitalRecord[]> {
     return this.patientVitalRecordRepository.find(filter);
+  }
+
+  @get('/patientVital/recordTypes', {
+    responses: {
+      '200': {
+        description: 'Array of PatientVitalRecord model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(VitalRecordType, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findVitalRecordType(
+    @param.filter(VitalRecordType) filter?: Filter<VitalRecordType>,
+  ): Promise<VitalRecordType[]> {
+    return this.vitalRecordTypeRepository.find(filter);
   }
 
   @patch('/patientVital', {
@@ -103,7 +134,32 @@ export class PatientVitalController {
     patientVitalRecord: PatientVitalRecord,
     @param.where(PatientVitalRecord) where?: Where<PatientVitalRecord>,
   ): Promise<Count> {
-    return this.patientVitalRecordRepository.updateAll(patientVitalRecord, where);
+    return this.patientVitalRecordRepository.updateAll(
+      patientVitalRecord,
+      where,
+    );
+  }
+
+  @get('/patientVital/recordTypes/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientVitalRecord model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(VitalRecordType, {
+              includeRelations: true,
+            }),
+          },
+        },
+      },
+    },
+  })
+  async findVitalRecordTypeById(
+    @param.path.number('id') id: number,
+    @param.filter(VitalRecordType, {exclude: 'where'})
+    filter?: FilterExcludingWhere<VitalRecordType>,
+  ): Promise<VitalRecordType> {
+    return this.vitalRecordTypeRepository.findById(id, filter);
   }
 
   @get('/patientVital/{id}', {
@@ -112,7 +168,9 @@ export class PatientVitalController {
         description: 'PatientVitalRecord model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(PatientVitalRecord, {includeRelations: true}),
+            schema: getModelSchemaRef(PatientVitalRecord, {
+              includeRelations: true,
+            }),
           },
         },
       },
@@ -120,7 +178,8 @@ export class PatientVitalController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(PatientVitalRecord, {exclude: 'where'}) filter?: FilterExcludingWhere<PatientVitalRecord>
+    @param.filter(PatientVitalRecord, {exclude: 'where'})
+    filter?: FilterExcludingWhere<PatientVitalRecord>,
   ): Promise<PatientVitalRecord> {
     return this.patientVitalRecordRepository.findById(id, filter);
   }

@@ -28,4 +28,12 @@ export class VitalService {
     createVital(vital): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, vital);
     }
+    getAllVitalRecordTypes(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/recordTypes`);
+    }
+    getVitalRecordTypeById(id: String): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/recordTypes/${id}`
+        );
+    }
 }
