@@ -1,3 +1,9 @@
+import {AllergyStatus} from './../models/allergy-status.model';
+import {AllergySeverity} from './../models/allergy-severity.model';
+import {AllergyType} from './../models/allergy-type.model';
+import {AllergyStatusRepository} from '../repositories/allergy-status.repository';
+import {AllergySeverityRepository} from '../repositories/allergy-severity.repository';
+import {AllergyTypeRepository} from '../repositories/allergy-type.repository';
 import {
   Count,
   CountSchema,
@@ -22,14 +28,22 @@ import {PatientAllergyRepository} from '../repositories';
 export class AllergiesController {
   constructor(
     @repository(PatientAllergyRepository)
-    public patientAllergyRepository : PatientAllergyRepository,
+    public patientAllergyRepository: PatientAllergyRepository,
+    @repository(AllergyTypeRepository)
+    public allergyTypeRepository: AllergyTypeRepository,
+    @repository(AllergySeverityRepository)
+    public allergySeverityRepository: AllergySeverityRepository,
+    @repository(AllergyStatusRepository)
+    public allergyStatusRepository: AllergyStatusRepository,
   ) {}
 
   @post('/patientAllergies', {
     responses: {
       '200': {
         description: 'PatientAllergy model instance',
-        content: {'application/json': {schema: getModelSchemaRef(PatientAllergy)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(PatientAllergy)},
+        },
       },
     },
   })
@@ -71,7 +85,9 @@ export class AllergiesController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(PatientAllergy, {includeRelations: true}),
+              items: getModelSchemaRef(PatientAllergy, {
+                includeRelations: true,
+              }),
             },
           },
         },
@@ -82,6 +98,72 @@ export class AllergiesController {
     @param.filter(PatientAllergy) filter?: Filter<PatientAllergy>,
   ): Promise<PatientAllergy[]> {
     return this.patientAllergyRepository.find(filter);
+  }
+  @get('/patientAllergies/types', {
+    responses: {
+      '200': {
+        description: 'Array of PatientAllergy model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(AllergyType, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findAllergyTypes(
+    @param.filter(AllergyType) filter?: Filter<AllergyType>,
+  ): Promise<AllergyType[]> {
+    return this.allergyTypeRepository.find(filter);
+  }
+  @get('/patientAllergies/severity', {
+    responses: {
+      '200': {
+        description: 'Array of PatientAllergy model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(AllergySeverity, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findAllergySeverity(
+    @param.filter(AllergySeverity) filter?: Filter<AllergySeverity>,
+  ): Promise<AllergySeverity[]> {
+    return this.allergySeverityRepository.find(filter);
+  }
+  @get('/patientAllergies/status', {
+    responses: {
+      '200': {
+        description: 'Array of PatientAllergy model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(AllergyStatus, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findAllergyStatus(
+    @param.filter(AllergyStatus) filter?: Filter<AllergyStatus>,
+  ): Promise<AllergyStatus[]> {
+    return this.allergyStatusRepository.find(filter);
   }
 
   @patch('/patientAllergies', {
@@ -120,7 +202,8 @@ export class AllergiesController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(PatientAllergy, {exclude: 'where'}) filter?: FilterExcludingWhere<PatientAllergy>
+    @param.filter(PatientAllergy, {exclude: 'where'})
+    filter?: FilterExcludingWhere<PatientAllergy>,
   ): Promise<PatientAllergy> {
     return this.patientAllergyRepository.findById(id, filter);
   }
