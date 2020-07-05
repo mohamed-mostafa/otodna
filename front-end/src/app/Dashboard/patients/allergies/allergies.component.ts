@@ -26,6 +26,7 @@ export class AllergiesComponent implements OnInit {
     allergyStatuses = [];
     status;
     showTableFlag = false;
+    selectedPatient;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -33,10 +34,10 @@ export class AllergiesComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        this.allergy.patientId = selectedPatient.id;
+        this.allergy.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -46,7 +47,9 @@ export class AllergiesComponent implements OnInit {
             },
             {
                 label:
-                    selectedPatient.firstName + " " + selectedPatient.lastName,
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
 
@@ -78,6 +81,13 @@ export class AllergiesComponent implements OnInit {
         this.displayBasic = false;
         this.allergy = new Allergies();
     }
+    reset() {
+        this.allergy = new Allergies();
+        this.allergy.patientId = this.selectedPatient.id;
+        this.type = "";
+        this.severity = "";
+        this.status = "";
+    }
     save() {
         this.validateAllergy((callback) => {
             if (callback === "valid") {
@@ -91,6 +101,7 @@ export class AllergiesComponent implements OnInit {
                         this.displayBasic = false;
                         this.spinner.hide();
                         this.getALlAllergies();
+                        this.reset();
                         this.showMessage(
                             "success",
                             "Saved",
