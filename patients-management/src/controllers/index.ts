@@ -6,3 +6,5 @@ export * from './patient-vital.controller';
 export * from './allergies.controller';
 export * from './patient-lab-results.controller';
 export * from './patient-immunization.controller';
+export * from './patient-medication.controller';
+export * from './patient-problem.controller';

@@ -1,8 +1,10 @@
 export class Medication {
     medication: string;
-    date: Date;
+    startDate: Date;
+    endDate: Date;
     quantity: number;
-    status: string;
+    medicationStatusId: number;
     notedDate: Date;
-    comments: string;
+    comment: string;
+    patientId: number;
 }

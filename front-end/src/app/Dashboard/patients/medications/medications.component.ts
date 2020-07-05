@@ -1,3 +1,4 @@
+import { MedicationsService } from "./../services/medications.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -14,21 +15,26 @@ import { Medication } from "./medication";
 export class MedicationsComponent implements OnInit {
     cols: any[];
     medications: any[] = [];
-    status = [];
+    statuses = [];
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
     showTableFlag = false;
     medication: Medication = new Medication();
+    selectedPatient;
+    status;
+    date;
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private medicationsService: MedicationsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.medication.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -37,11 +43,10 @@ export class MedicationsComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.cols = [
@@ -51,24 +56,12 @@ export class MedicationsComponent implements OnInit {
             { field: "quantity", header: "Quantity" },
             { field: "status", header: "Status" },
             { field: "notedDate", header: "Noted Date" },
-            { field: "comments", header: "Comments" },
-        ];
-        this.status = [
-            {
-                name: "Active",
-            },
-            {
-                name: "On hold",
-            },
-            {
-                name: "Prior history",
-            },
-            {
-                name: "No longer active",
-            },
+            { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
+        this.getALlMedications();
+        this.getMedicationStatuses();
     }
     showTable() {
         if (this.medications.length > 0) {
@@ -82,22 +75,32 @@ export class MedicationsComponent implements OnInit {
         this.displayBasic = false;
         this.medication = new Medication();
     }
+    reset() {
+        this.medication = new Medication();
+        this.medication.patientId = this.selectedPatient.id;
+        this.status = "";
+        this.date = "";
+    }
     save() {
         this.validateMedication((callback) => {
             if (callback === "valid") {
+                this.medication.medicationStatusId = this.status.id;
+                this.medication.startDate = this.date[0];
+                this.medication.endDate = this.date[1];
                 this.spinner.show();
-                setTimeout(() => {
-                    this.medications.push(this.medication);
-                    this.displayBasic = false;
-                    this.medication = new Medication();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.medicationsService
+                    .createMedication(this.medication)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlMedications();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -120,8 +123,20 @@ export class MedicationsComponent implements OnInit {
             );
             return false;
         }
-        if (!this.medication.date) {
-            this.showMessage("error", "Validation Error", "Date is required");
+        if (!this.date) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Start Date is required"
+            );
+            return false;
+        }
+        if (!this.date[1] || this.date[1] === null) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "End Date is required"
+            );
             return false;
         }
         if (!this.medication.quantity) {
@@ -132,7 +147,7 @@ export class MedicationsComponent implements OnInit {
             );
             return false;
         }
-        if (!this.medication.status) {
+        if (!this.status) {
             this.showMessage("error", "Validation Error", "Status is required");
             return false;
         }
@@ -141,14 +156,6 @@ export class MedicationsComponent implements OnInit {
                 "error",
                 "Validation Error",
                 "Noted date is required"
-            );
-            return false;
-        }
-        if (!this.medication.comments) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Comments is required"
             );
             return false;
         } else {
@@ -161,5 +168,34 @@ export class MedicationsComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    getALlMedications() {
+        this.spinner.show();
+        this.medicationsService
+            .getAllMedications(this.medication.patientId)
+            .subscribe(async (result) => {
+                this.medications = await this.getMedicationStatusById(result);
+                this.showTable();
+                this.spinner.hide();
+            });
+    }
+    getMedicationStatuses() {
+        this.spinner.show();
+        this.medicationsService
+            .getMedicationsStatuses()
+            .subscribe(async (result) => {
+                this.statuses = result;
+                this.spinner.hide();
+            });
+    }
+    getMedicationStatusById(medications) {
+        medications.forEach((med) => {
+            this.medicationsService
+                .getMedicationsStatusById(med.medicationStatusId)
+                .subscribe((res) => {
+                    med.statusName = res.name;
+                });
+        });
+        return medications;
     }
 }

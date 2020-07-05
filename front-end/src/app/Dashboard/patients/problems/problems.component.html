@@ -33,7 +33,7 @@
 >
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-4">
+            <!-- <div class="ui-g-12 ui-md-4">
                 <div class="ui-inputgroup">
                     <input
                         type="text"
@@ -42,17 +42,17 @@
                         [(ngModel)]="problem.problem"
                     />
                 </div>
-            </div>
-            <div class="ui-g-12 ui-md-3">
+            </div> -->
+            <div class="ui-g-12 ui-md-5">
                 <p-dropdown
-                    [options]="status"
+                    [options]="statuses"
                     placeholder="Select Status"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="problem.status"
+                    [(ngModel)]="status"
                 ></p-dropdown>
             </div>
-            <div class="ui-g-12 ui-md-5">
+            <div class="ui-g-12 ui-md-7">
                 <p-calendar
                     [readonlyInput]="true"
                     placeholder="Noted Date"
@@ -68,7 +68,7 @@
                     pInputTextarea
                     autoResize="autoResize"
                     placeholder="Comments"
-                    [(ngModel)]="problem.comments"
+                    [(ngModel)]="problem.comment"
                 ></textarea>
             </div>
         </div>
@@ -121,21 +121,21 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td class="ui-resizable-column">
+                        <!-- <td class="ui-resizable-column">
                             <span class="ui-column-title">Problem </span
                             >{{ rowData.problem }}
-                        </td>
+                        </td> -->
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Status </span
-                            >{{ rowData.status.name }}
+                            >{{ rowData.statusName }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Noted Date </span
                             >{{ rowData.notedDate | date }}
                         </td>
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Comments </span
-                            >{{ rowData.comments }}
+                            <span class="ui-column-title">Comment </span
+                            >{{ rowData.comment }}
                         </td>
                     </tr>
                 </ng-template>

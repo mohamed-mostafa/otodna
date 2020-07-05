@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class MedicationsService {
     apiUrl = environment.patientApiUrl;
-    link = "patientMedications";
+    link = "patientMedication";
     constructor(private http: HttpClient) {}
 
     getAllMedications(patientId): Observable<any> {
@@ -27,5 +27,11 @@ export class MedicationsService {
     }
     createMedication(medication): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, medication);
+    }
+    getMedicationsStatuses(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses`);
+    }
+    getMedicationsStatusById(id: String): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses/${id}`);
     }
 }

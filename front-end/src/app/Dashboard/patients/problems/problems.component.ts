@@ -1,3 +1,4 @@
+import { ProblemsService } from "./../services/problems.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -16,36 +17,29 @@ export class ProblemsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     problems: any[] = [];
-    status = [];
+    statuses = [];
     displayBasic: boolean;
     problem: Problem = new Problem();
     showTableFlag = false;
+    selectedPatient;
+    status;
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private problemsService: ProblemsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
         this.cols = [
-            { field: "problem", header: "Problem" },
+            // { field: "problem", header: "Problem" },
             { field: "status", header: "Status" },
             { field: "notedDate", header: "Noted Date" },
-            { field: "comments", header: "Comments" },
+            { field: "comment", header: "Comment" },
         ];
-        this.status = [
-            {
-                name: "Active",
-            },
-            {
-                name: "Inactive",
-            },
-            {
-                name: "Resolved",
-            },
-        ];
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.problem.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -54,15 +48,16 @@ export class ProblemsComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
+        this.getALlProblems();
+        this.getProblemStatuses();
     }
     showTable() {
         if (this.problems.length > 0) {
@@ -76,22 +71,29 @@ export class ProblemsComponent implements OnInit {
         this.displayBasic = false;
         this.problem = new Problem();
     }
+    reset() {
+        this.problem = new Problem();
+        this.problem.patientId = this.selectedPatient.id;
+        this.status = "";
+    }
     save() {
         this.validateProblem((callback) => {
             if (callback === "valid") {
+                this.problem.problemStatusId = this.status.id;
                 this.spinner.show();
-                setTimeout(() => {
-                    this.problems.push(this.problem);
-                    this.displayBasic = false;
-                    this.problem = new Problem();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.problemsService
+                    .createProblem(this.problem)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlProblems();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -106,15 +108,15 @@ export class ProblemsComponent implements OnInit {
         });
     }
     validateProblem(callback) {
-        if (!this.problem.problem) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Problem is required"
-            );
-            return false;
-        }
-        if (!this.problem.status) {
+        // if (!this.problem.problem) {
+        //     this.showMessage(
+        //         "error",
+        //         "Validation Error",
+        //         "Problem is required"
+        //     );
+        //     return false;
+        // }
+        if (!this.status) {
             this.showMessage("error", "Validation Error", "Status is required");
             return false;
         }
@@ -123,14 +125,6 @@ export class ProblemsComponent implements OnInit {
                 "error",
                 "Validation Error",
                 "Noted date is required"
-            );
-            return false;
-        }
-        if (!this.problem.comments) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Comments is required"
             );
             return false;
         } else {
@@ -143,5 +137,32 @@ export class ProblemsComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    getALlProblems() {
+        this.spinner.show();
+        this.problemsService
+            .getAllProblems(this.problem.patientId)
+            .subscribe(async (result) => {
+                this.problems = await this.getProblemStatusById(result);
+                this.showTable();
+                this.spinner.hide();
+            });
+    }
+    getProblemStatuses() {
+        this.spinner.show();
+        this.problemsService.getProblemsStatuses().subscribe(async (result) => {
+            this.statuses = result;
+            this.spinner.hide();
+        });
+    }
+    getProblemStatusById(problems) {
+        problems.forEach((prob) => {
+            this.problemsService
+                .getProblemsStatusById(prob.problemStatusId)
+                .subscribe((res) => {
+                    prob.statusName = res.name;
+                });
+        });
+        return problems;
     }
 }

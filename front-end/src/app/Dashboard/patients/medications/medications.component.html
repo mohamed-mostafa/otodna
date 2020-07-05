@@ -48,7 +48,7 @@
                     selectionMode="range"
                     [readonlyInput]="true"
                     placeholder="Start , End Date"
-                    [(ngModel)]="medication.date"
+                    [(ngModel)]="date"
                     [showIcon]="true"
                     showButtonBar="true"
                 ></p-calendar>
@@ -56,7 +56,7 @@
             <div class="ui-g-12 ui-md-3">
                 <div class="ui-inputgroup">
                     <input
-                        type="text"
+                        type="number"
                         pInputText
                         pKeyFilter="int"
                         placeholder="Quantity"
@@ -66,11 +66,11 @@
             </div>
             <div class="ui-g-12 ui-md-3">
                 <p-dropdown
-                    [options]="status"
+                    [options]="statuses"
                     placeholder="Select Status"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="medication.status"
+                    [(ngModel)]="status"
                 ></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -88,8 +88,8 @@
                     [cols]="30"
                     pInputTextarea
                     autoResize="autoResize"
-                    placeholder="Comments"
-                    [(ngModel)]="medication.comments"
+                    placeholder="Comment"
+                    [(ngModel)]="medication.comment"
                 ></textarea>
             </div>
         </div>
@@ -148,11 +148,11 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Start Date </span
-                            >{{ rowData.date[0] | date }}
+                            >{{ rowData.startDate | date }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">End Date </span
-                            >{{ rowData.date[1] | date }}
+                            >{{ rowData.endDate | date }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Quantity </span
@@ -160,15 +160,15 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Status </span
-                            >{{ rowData.status.name }}
+                            >{{ rowData.statusName }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Noted Date </span
                             >{{ rowData.notedDate | date }}
                         </td>
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Comments </span
-                            >{{ rowData.comments }}
+                            <span class="ui-column-title">Comment </span
+                            >{{ rowData.comment }}
                         </td>
                     </tr>
                 </ng-template>

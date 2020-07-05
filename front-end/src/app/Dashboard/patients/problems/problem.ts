@@ -1,6 +1,7 @@
 export class Problem {
-    problem: string;
-    status: string;
+    // problem: string;
+    problemStatusId: number;
     notedDate: Date;
-    comments: string;
+    comment: string;
+    patientId: number;
 }
