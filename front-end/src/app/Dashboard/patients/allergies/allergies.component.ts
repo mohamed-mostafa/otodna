@@ -60,7 +60,7 @@ export class AllergiesComponent implements OnInit {
             { field: "severity", header: "Severity" },
             { field: "status", header: "Status" },
             { field: "notedDate", header: "Noted Date" },
-            { field: "comments", header: "Comments" },
+            { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();

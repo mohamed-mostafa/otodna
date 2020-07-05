@@ -46,7 +46,7 @@
             <div class="ui-g-12 ui-md-6">
                 <div class="ui-inputgroup">
                     <input
-                        type="text"
+                        type="number"
                         pInputText
                         pKeyFilter="int"
                         placeholder="Value"
@@ -80,7 +80,7 @@
                     pInputTextarea
                     autoResize="autoResize"
                     placeholder="Comments"
-                    [(ngModel)]="labResult.comments"
+                    [(ngModel)]="labResult.comment"
                 ></textarea>
             </div>
         </div>
@@ -150,8 +150,8 @@
                             >{{ rowData.notedDate | date }}
                         </td>
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Comments </span
-                            >{{ rowData.comments }}
+                            <span class="ui-column-title">Comment </span
+                            >{{ rowData.comment }}
                         </td>
                     </tr>
                 </ng-template>

@@ -3,5 +3,6 @@ export class LabResult {
     value: number;
     unit: string;
     notedDate: Date;
-    comments: string;
+    comment: string;
+    patientId: number;
 }

@@ -1,3 +1,4 @@
+import { LabResultsService } from "./../services/lab-results.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
@@ -19,16 +20,19 @@ export class LabResultsComponent implements OnInit {
     displayBasic: boolean;
     labResult: LabResult = new LabResult();
     showTableFlag = false;
+    selectedPatient;
 
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private labResultsService: LabResultsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.labResult.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -37,11 +41,10 @@ export class LabResultsComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.cols = [
@@ -49,10 +52,11 @@ export class LabResultsComponent implements OnInit {
             { field: "value", header: "Value" },
             { field: "unit", header: "Unit" },
             { field: "notedDate", header: "Noted Date" },
-            { field: "comments", header: "Comments" },
+            { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
+        this.getALlLabResults();
     }
     showTable() {
         if (this.labResults.length > 0) {
@@ -66,22 +70,27 @@ export class LabResultsComponent implements OnInit {
         this.displayBasic = false;
         this.labResult = new LabResult();
     }
+    reset() {
+        this.labResult = new LabResult();
+        this.labResult.patientId = this.selectedPatient.id;
+    }
     save() {
         this.validateLabResult((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    this.labResults.push(this.labResult);
-                    this.displayBasic = false;
-                    this.labResult = new LabResult();
-                    this.showTable();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                    this.spinner.hide();
-                }, 2000);
+                this.labResultsService
+                    .createLabResult(this.labResult)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlLabResults();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -119,14 +128,6 @@ export class LabResultsComponent implements OnInit {
                 "Noted date is required"
             );
             return false;
-        }
-        if (!this.labResult.comments) {
-            this.showMessage(
-                "error",
-                "Validation Error",
-                "Comments is required"
-            );
-            return false;
         } else {
             callback("valid");
         }
@@ -136,6 +137,16 @@ export class LabResultsComponent implements OnInit {
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
                 this.router.navigate(["/dashboard"]);
+            });
+    }
+    getALlLabResults() {
+        this.spinner.show();
+        this.labResultsService
+            .getAllLabResults(this.labResult.patientId)
+            .subscribe(async (result) => {
+                this.labResults = result;
+                this.showTable();
+                this.spinner.hide();
             });
     }
 }
