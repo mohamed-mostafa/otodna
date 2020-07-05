@@ -15,16 +15,17 @@ import { Allergies } from "./allergies";
 export class AllergiesComponent implements OnInit {
     cols: any[];
     allergies: any[] = [];
-    recordType = [];
-    recordValue = [];
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
     allergy: Allergies = new Allergies();
-    allergyType = [];
-    severity = [];
+    allergyTypes = [];
+    type;
+    allergySeverities = [];
+    severity;
+    allergyStatuses = [];
+    status;
     showTableFlag = false;
-    allergiesStatus = [];
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -58,54 +59,12 @@ export class AllergiesComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comments", header: "Comments" },
         ];
-        this.allergyType = [
-            {
-                name: "Unknown",
-            },
-            {
-                name: "Food",
-            },
-            {
-                name: "Enviromental",
-            },
-            {
-                name: "Medication",
-            },
-        ];
-        this.severity = [
-            {
-                name: "Mild",
-            },
-            {
-                name: "Mild to moderate",
-            },
-            {
-                name: "Moderate",
-            },
-            {
-                name: "Moderate to severe",
-            },
-            {
-                name: "Severe",
-            },
-            {
-                name: "Fatal",
-            },
-        ];
-        this.allergiesStatus = [
-            {
-                name: "Active",
-            },
-            {
-                name: "Inactive",
-            },
-            {
-                name: "Resolved",
-            },
-        ];
         this.home = { icon: "fa fa-user-md" };
         this.showTable();
         this.getALlAllergies();
+        this.getALlTypes();
+        this.getALlSeverities();
+        this.getALlStatuses();
     }
     showTable() {
         if (this.allergies.length > 0) {
@@ -122,7 +81,9 @@ export class AllergiesComponent implements OnInit {
     save() {
         this.validateAllergy((callback) => {
             if (callback === "valid") {
-                this.spinner.show();
+                this.allergy.allergyTypeId = this.type.id;
+                this.allergy.allergySeverityId = this.severity.id;
+                this.allergy.allergyStatusId = this.status.id;
                 this.spinner.show();
                 this.allergiesService
                     .createAllergy(this.allergy)
@@ -150,7 +111,7 @@ export class AllergiesComponent implements OnInit {
         });
     }
     validateAllergy(callback) {
-        if (!this.allergy.allergyTypeId) {
+        if (!this.type) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -174,7 +135,7 @@ export class AllergiesComponent implements OnInit {
             );
             return false;
         }
-        if (!this.allergy.allergySeverityId) {
+        if (!this.severity) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -182,7 +143,7 @@ export class AllergiesComponent implements OnInit {
             );
             return false;
         }
-        if (!this.allergy.allergyStatusId) {
+        if (!this.status) {
             this.showMessage("error", "Validation Error", "Status is required");
             return false;
         }
@@ -211,6 +172,31 @@ export class AllergiesComponent implements OnInit {
             .subscribe(async (result) => {
                 this.allergies = result;
                 this.showTable();
+                this.spinner.hide();
+            });
+    }
+    getALlTypes() {
+        this.spinner.show();
+        this.allergiesService.getAllAllergyTypes().subscribe(async (result) => {
+            this.allergyTypes = result;
+            this.spinner.hide();
+        });
+    }
+    getALlSeverities() {
+        this.spinner.show();
+        this.allergiesService
+            .getAllAllergySeverities()
+            .subscribe(async (result) => {
+                this.allergySeverities = result;
+                this.spinner.hide();
+            });
+    }
+    getALlStatuses() {
+        this.spinner.show();
+        this.allergiesService
+            .getAllAllergyStatuses()
+            .subscribe(async (result) => {
+                this.allergyStatuses = result;
                 this.spinner.hide();
             });
     }

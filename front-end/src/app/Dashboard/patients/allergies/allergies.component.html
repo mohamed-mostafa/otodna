@@ -25,7 +25,7 @@
 <p-dialog
     header="Add Allergy"
     [(visible)]="displayBasic"
-    [style]="{ width: '60vw' }"
+    [style]="{ width: '58vw' }"
     [baseZIndex]="10000"
     [maximizable]="true"
     [draggable]="false"
@@ -34,22 +34,13 @@
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-4">
-                <!-- <p-dropdown
-                    [options]="allergyType"
+                <p-dropdown
+                    [options]="allergyTypes"
                     placeholder="Select Allergy Type"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="allergy.allergyTypeId"
-                ></p-dropdown> -->
-                <div class="ui-inputgroup">
-                    <input
-                        type="number"
-                        pInputText
-                        pKeyFilter="int"
-                        placeholder="Allergy Type"
-                        [(ngModel)]="allergy.allergyTypeId"
-                    />
-                </div>
+                    [(ngModel)]="type"
+                ></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-4">
                 <div class="ui-inputgroup">
@@ -72,36 +63,22 @@
                 </div>
             </div>
             <div class="ui-g-12 ui-md-3">
-                <!-- <p-dropdown
-                    [options]="severity"
+                <p-dropdown
+                    [options]="allergySeverities"
                     placeholder="Select Severity"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="allergy.severity"
-                ></p-dropdown> -->
-                <input
-                    type="number"
-                    pInputText
-                    pKeyFilter="int"
-                    placeholder="Allergy Severity"
-                    [(ngModel)]="allergy.allergySeverityId"
-                />
+                    [(ngModel)]="severity"
+                ></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-3">
-                <!-- <p-dropdown
-                    [options]="allergiesStatus"
+                <p-dropdown
+                    [options]="allergyStatuses"
                     placeholder="Select Status"
                     optionLabel="name"
                     [showClear]="true"
-                    [(ngModel)]="allergy.status"
-                ></p-dropdown> -->
-                <input
-                    type="number"
-                    pInputText
-                    pKeyFilter="int"
-                    placeholder="Allergy Status"
-                    [(ngModel)]="allergy.allergyStatusId"
-                />
+                    [(ngModel)]="status"
+                ></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-6">
                 <p-calendar

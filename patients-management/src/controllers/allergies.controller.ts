@@ -121,7 +121,7 @@ export class AllergiesController {
   ): Promise<AllergyType[]> {
     return this.allergyTypeRepository.find(filter);
   }
-  @get('/patientAllergies/severity', {
+  @get('/patientAllergies/severities', {
     responses: {
       '200': {
         description: 'Array of PatientAllergy model instances',
@@ -138,12 +138,12 @@ export class AllergiesController {
       },
     },
   })
-  async findAllergySeverity(
+  async findAllergySeverities(
     @param.filter(AllergySeverity) filter?: Filter<AllergySeverity>,
   ): Promise<AllergySeverity[]> {
     return this.allergySeverityRepository.find(filter);
   }
-  @get('/patientAllergies/status', {
+  @get('/patientAllergies/statuses', {
     responses: {
       '200': {
         description: 'Array of PatientAllergy model instances',
@@ -160,7 +160,7 @@ export class AllergiesController {
       },
     },
   })
-  async findAllergyStatus(
+  async findAllergyStatuses(
     @param.filter(AllergyStatus) filter?: Filter<AllergyStatus>,
   ): Promise<AllergyStatus[]> {
     return this.allergyStatusRepository.find(filter);

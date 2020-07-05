@@ -27,4 +27,13 @@ export class AllergiesService {
     createAllergy(allergy): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, allergy);
     }
+    getAllAllergyTypes(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/types`);
+    }
+    getAllAllergySeverities(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/severities`);
+    }
+    getAllAllergyStatuses(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses`);
+    }
 }
