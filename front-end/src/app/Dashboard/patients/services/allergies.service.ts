@@ -30,10 +30,21 @@ export class AllergiesService {
     getAllAllergyTypes(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${this.link}/types`);
     }
+    getAllergyTypeById(id: String): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/types/${id}`);
+    }
     getAllAllergySeverities(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${this.link}/severities`);
     }
+    getAllergySeverityById(id: String): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/severities/${id}`
+        );
+    }
     getAllAllergyStatuses(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses`);
+    }
+    getAllergyStatusById(id: String): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${this.link}/statuses/${id}`);
     }
 }

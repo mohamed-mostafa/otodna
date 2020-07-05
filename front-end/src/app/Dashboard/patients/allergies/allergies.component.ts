@@ -170,7 +170,9 @@ export class AllergiesComponent implements OnInit {
         this.allergiesService
             .getAllAllergies(this.allergy.patientId)
             .subscribe(async (result) => {
-                this.allergies = result;
+                this.allergies = await this.getAllergyTypeById(result);
+                this.allergies = await this.getAllergySeverityById(result);
+                this.allergies = await this.getAllergyStatusById(result);
                 this.showTable();
                 this.spinner.hide();
             });
@@ -182,6 +184,16 @@ export class AllergiesComponent implements OnInit {
             this.spinner.hide();
         });
     }
+    getAllergyTypeById(allergies) {
+        allergies.forEach((all) => {
+            this.allergiesService
+                .getAllergyTypeById(all.allergyTypeId)
+                .subscribe((res) => {
+                    all.typeName = res.name;
+                });
+        });
+        return allergies;
+    }
     getALlSeverities() {
         this.spinner.show();
         this.allergiesService
@@ -191,6 +203,16 @@ export class AllergiesComponent implements OnInit {
                 this.spinner.hide();
             });
     }
+    getAllergySeverityById(allergies) {
+        allergies.forEach((all) => {
+            this.allergiesService
+                .getAllergySeverityById(all.allergySeverityId)
+                .subscribe((res) => {
+                    all.severityName = res.name;
+                });
+        });
+        return allergies;
+    }
     getALlStatuses() {
         this.spinner.show();
         this.allergiesService
@@ -199,5 +221,15 @@ export class AllergiesComponent implements OnInit {
                 this.allergyStatuses = result;
                 this.spinner.hide();
             });
+    }
+    getAllergyStatusById(allergies) {
+        allergies.forEach((all) => {
+            this.allergiesService
+                .getAllergyStatusById(all.allergyStatusId)
+                .subscribe((res) => {
+                    all.statusName = res.name;
+                });
+        });
+        return allergies;
     }
 }

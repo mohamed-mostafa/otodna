@@ -207,7 +207,65 @@ export class AllergiesController {
   ): Promise<PatientAllergy> {
     return this.patientAllergyRepository.findById(id, filter);
   }
-
+  @get('/patientAllergies/types/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientAllergy model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(AllergyType, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async findAllergyTypesById(
+    @param.path.number('id') id: number,
+    @param.filter(AllergyType, {exclude: 'where'})
+    filter?: FilterExcludingWhere<AllergyType>,
+  ): Promise<AllergyType> {
+    return this.allergyTypeRepository.findById(id, filter);
+  }
+  @get('/patientAllergies/severities/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientAllergy model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(AllergySeverity, {
+              includeRelations: true,
+            }),
+          },
+        },
+      },
+    },
+  })
+  async findAllergySeveritiesById(
+    @param.path.number('id') id: number,
+    @param.filter(AllergySeverity, {exclude: 'where'})
+    filter?: FilterExcludingWhere<AllergySeverity>,
+  ): Promise<AllergySeverity> {
+    return this.allergySeverityRepository.findById(id, filter);
+  }
+  @get('/patientAllergies/statuses/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientAllergy model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(AllergyStatus, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async findAllergyStatusesById(
+    @param.path.number('id') id: number,
+    @param.filter(AllergyStatus, {exclude: 'where'})
+    filter?: FilterExcludingWhere<AllergyStatus>,
+  ): Promise<AllergyStatus> {
+    return this.allergyStatusRepository.findById(id, filter);
+  }
   @patch('/patientAllergies/{id}', {
     responses: {
       '204': {

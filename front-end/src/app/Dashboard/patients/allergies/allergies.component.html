@@ -151,7 +151,7 @@
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Allergy Type </span
-                            >{{ rowData.allergyTypeId }}
+                            >{{ rowData.typeName }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Substance </span
@@ -163,11 +163,11 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Severity </span
-                            >{{ rowData.allergySeverityId }}
+                            >{{ rowData.severityName }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Status </span
-                            >{{ rowData.allergyStatusId }}
+                            >{{ rowData.statusName }}
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Noted Date </span
