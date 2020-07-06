@@ -94,6 +94,11 @@ export class AllergiesComponent implements OnInit {
                 this.allergy.allergyTypeId = this.type.id;
                 this.allergy.allergySeverityId = this.severity.id;
                 this.allergy.allergyStatusId = this.status.id;
+                this.allergy.notedDate = new Date(
+                    this.allergy.notedDate.setDate(
+                        this.allergy.notedDate.getDate() + 1
+                    )
+                );
                 this.spinner.show();
                 this.allergiesService
                     .createAllergy(this.allergy)
