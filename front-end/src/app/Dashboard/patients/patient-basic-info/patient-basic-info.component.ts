@@ -126,6 +126,11 @@ export class PatientBasicInfoComponent implements OnInit {
                 this.spinner.show();
                 this.patient.gender = this.genderType.code;
                 this.patient.country = this.selectedCountry.name;
+                this.patient.dateOfBirth = new Date(
+                    this.patient.dateOfBirth.setDate(
+                        this.patient.dateOfBirth.getDate() + 1
+                    )
+                );
                 const {
                     bloodType,
                     emergencyContact,
@@ -151,6 +156,11 @@ export class PatientBasicInfoComponent implements OnInit {
                             newPatient
                         )
                         .subscribe((p) => {
+                            this.patient.dateOfBirth = new Date(
+                                this.patient.dateOfBirth.setDate(
+                                    this.patient.dateOfBirth.getDate() - 1
+                                )
+                            );
                             localStorage.setItem(
                                 "selectedPatient",
                                 JSON.stringify(this.patient)
@@ -178,6 +188,11 @@ export class PatientBasicInfoComponent implements OnInit {
                         .createPatient(newPatient)
                         .subscribe((u: any) => {
                             this.patient.id = u.patient.id;
+                            this.patient.dateOfBirth = new Date(
+                                this.patient.dateOfBirth.setDate(
+                                    this.patient.dateOfBirth.getDate() - 1
+                                )
+                            );
                             localStorage.setItem(
                                 "selectedPatient",
                                 JSON.stringify(this.patient)
