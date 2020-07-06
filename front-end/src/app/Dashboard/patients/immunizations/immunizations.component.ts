@@ -81,6 +81,11 @@ export class ImmunizationsComponent implements OnInit {
         this.validateImmunization((callback) => {
             if (callback === "valid") {
                 this.immunization.immunizationStatusId = this.status.id;
+                this.immunization.notedDate = new Date(
+                    this.immunization.notedDate.setDate(
+                        this.immunization.notedDate.getDate() + 1
+                    )
+                );
                 this.spinner.show();
                 this.immunizationsService
                     .createImmunization(this.immunization)

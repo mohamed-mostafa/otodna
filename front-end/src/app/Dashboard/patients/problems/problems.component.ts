@@ -80,6 +80,11 @@ export class ProblemsComponent implements OnInit {
         this.validateProblem((callback) => {
             if (callback === "valid") {
                 this.problem.problemStatusId = this.status.id;
+                this.problem.notedDate = new Date(
+                    this.problem.notedDate.setDate(
+                        this.problem.notedDate.getDate() + 1
+                    )
+                );
                 this.spinner.show();
                 this.problemsService
                     .createProblem(this.problem)

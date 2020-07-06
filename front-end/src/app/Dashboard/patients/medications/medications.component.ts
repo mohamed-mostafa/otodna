@@ -86,7 +86,22 @@ export class MedicationsComponent implements OnInit {
             if (callback === "valid") {
                 this.medication.medicationStatusId = this.status.id;
                 this.medication.startDate = this.date[0];
+                this.medication.startDate = new Date(
+                    this.medication.startDate.setDate(
+                        this.medication.startDate.getDate() + 1
+                    )
+                );
                 this.medication.endDate = this.date[1];
+                this.medication.endDate = new Date(
+                    this.medication.endDate.setDate(
+                        this.medication.endDate.getDate() + 1
+                    )
+                );
+                this.medication.notedDate = new Date(
+                    this.medication.notedDate.setDate(
+                        this.medication.notedDate.getDate() + 1
+                    )
+                );
                 this.spinner.show();
                 this.medicationsService
                     .createMedication(this.medication)

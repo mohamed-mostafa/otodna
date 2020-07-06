@@ -77,6 +77,11 @@ export class LabResultsComponent implements OnInit {
     save() {
         this.validateLabResult((callback) => {
             if (callback === "valid") {
+                this.labResult.notedDate = new Date(
+                    this.labResult.notedDate.setDate(
+                        this.labResult.notedDate.getDate() + 1
+                    )
+                );
                 this.spinner.show();
                 this.labResultsService
                     .createLabResult(this.labResult)
