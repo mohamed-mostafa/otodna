@@ -32,6 +32,16 @@ CREATE TABLE `allergy_severity` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `allergy_severity`
+--
+
+LOCK TABLES `allergy_severity` WRITE;
+/*!40000 ALTER TABLE `allergy_severity` DISABLE KEYS */;
+INSERT INTO `allergy_severity` VALUES (1,'Mild'),(2,'Mild To Modrate'),(3,'Modrate'),(4,'Modrate To Severe'),(5,'Severe'),(6,'Fatal');
+/*!40000 ALTER TABLE `allergy_severity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `allergy_status`
 --
 
@@ -44,6 +54,16 @@ CREATE TABLE `allergy_status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `allergy_status`
+--
+
+LOCK TABLES `allergy_status` WRITE;
+/*!40000 ALTER TABLE `allergy_status` DISABLE KEYS */;
+INSERT INTO `allergy_status` VALUES (1,'Active'),(2,'Inactive'),(3,'Resolved');
+/*!40000 ALTER TABLE `allergy_status` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `allergy_type`
@@ -60,6 +80,16 @@ CREATE TABLE `allergy_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `allergy_type`
+--
+
+LOCK TABLES `allergy_type` WRITE;
+/*!40000 ALTER TABLE `allergy_type` DISABLE KEYS */;
+INSERT INTO `allergy_type` VALUES (1,'Unknown'),(2,'Food'),(3,'Enviromental'),(4,'Medication');
+/*!40000 ALTER TABLE `allergy_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `family_member_relation_type`
 --
 
@@ -73,6 +103,16 @@ CREATE TABLE `family_member_relation_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+--
+-- Dumping data for table `family_member_relation_type`
+--
+
+LOCK TABLES `family_member_relation_type` WRITE;
+/*!40000 ALTER TABLE `family_member_relation_type` DISABLE KEYS */;
+INSERT INTO `family_member_relation_type` VALUES (1,'Father'),(2,'Mother'),(3,'Brother'),(4,'Sister'),(5,'Grand Father'),(6,'Grand Mother'),(7,'Uncle');
+/*!40000 ALTER TABLE `family_member_relation_type` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 -- Table structure for table `immunization_status`
 --
@@ -88,6 +128,16 @@ CREATE TABLE `immunization_status` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `immunization_status`
+--
+
+LOCK TABLES `immunization_status` WRITE;
+/*!40000 ALTER TABLE `immunization_status` DISABLE KEYS */;
+INSERT INTO `immunization_status` VALUES (1,'Active'),(2,'Inactive'),(3,'Pending'),(4,'Completed');
+/*!40000 ALTER TABLE `immunization_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `medication_status`
 --
 
@@ -100,6 +150,16 @@ CREATE TABLE `medication_status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medication_status`
+--
+
+LOCK TABLES `medication_status` WRITE;
+/*!40000 ALTER TABLE `medication_status` DISABLE KEYS */;
+INSERT INTO `medication_status` VALUES (1,'Active'),(2,'On Hold'),(3,'Prior History'),(4,'No Longer Active');
+/*!40000 ALTER TABLE `medication_status` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `parameter_value`
@@ -364,6 +424,16 @@ CREATE TABLE `problem_status` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `problem_status`
+--
+
+LOCK TABLES `problem_status` WRITE;
+/*!40000 ALTER TABLE `problem_status` DISABLE KEYS */;
+INSERT INTO `problem_status` VALUES (1,'Active'),(2,'Inactive'),(3,'Resolved');
+/*!40000 ALTER TABLE `problem_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `session_test`
 --
 
@@ -444,6 +514,17 @@ CREATE TABLE `vital_record_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `vital_record_type` WRITE;
+/*!40000 ALTER TABLE `vital_record_type` DISABLE KEYS */;
+INSERT INTO `vital_record_type` VALUES (1,'Body Tempreture','°C'),(2,'Blood pressure','mmHg'),(3,'Heart Rate',' bpm'),(4,'Height','cm'),(5,'Respiration rate','breaths/m'),(6,'Weight','Kg'),(7,'Oxygen saturation','Percent');
+/*!40000 ALTER TABLE `vital_record_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
