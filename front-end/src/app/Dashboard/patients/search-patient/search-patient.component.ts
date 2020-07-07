@@ -64,6 +64,7 @@ export class SearchPatientComponent implements OnInit {
             { field: "team", header: "Team", width: "15%" },
         ];
         this.getALlPatients();
+        this.getPatientsCount();
     }
     showSearch() {
         this.show = !this.show;
@@ -132,7 +133,6 @@ export class SearchPatientComponent implements OnInit {
         this.spinner.show();
         this.patientService.getAllPatients().subscribe(
             async (result) => {
-                this.patientsLength = result.length;
                 this.patients = await this.getPatientsTeam(result);
                 this.spinner.hide();
             },
@@ -145,6 +145,21 @@ export class SearchPatientComponent implements OnInit {
                 );
             }
         );
+    }
+    getPatientsCount() {
+        const now = new Date();
+        const date = new Date(now.getFullYear(), now.getMonth(), 1);
+        const fullYear = new Date(date).getFullYear();
+        const month = String(new Date(date).getMonth() + 1).padStart(2, "0");
+        const day = String(new Date(date).getDate()).padStart(2, "0");
+        const fullDate = `${fullYear}-${month}-${day}`;
+
+        this.patientService
+            .getPatientsCount(fullDate)
+            .subscribe(async (result) => {
+                this.patientsLength = result.count;
+                this.spinner.hide();
+            });
     }
     showMessage(type, title, message) {
         this.messageService.add({

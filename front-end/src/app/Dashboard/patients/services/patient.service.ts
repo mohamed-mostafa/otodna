@@ -62,4 +62,9 @@ export class PatientService {
             patient
         );
     }
+    getPatientsCount(date): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/count?[where][createdAt][gte]=${date}`
+        );
+    }
 }
