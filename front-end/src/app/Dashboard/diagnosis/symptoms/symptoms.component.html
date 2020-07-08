@@ -1,0 +1,42 @@
+<p-toast></p-toast>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-fieldset legend="Symptoms">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-6" *ngFor="let sym of symptoms">
+            <div class="p-grid" style="margin-bottom: 5px;">
+                <div class="p-col-12">
+                    <p-checkbox
+                        name="group1"
+                        [value]="sym.id"
+                        [label]="sym.name"
+                        [inputId]="sym"
+                    ></p-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+<div class="ui-g ui-fluid" style="margin-top: 15px;">
+    <div class="ui-g-12 ui-md-8"></div>
+    <div class="ui-g-12 ui-md-2">
+        <button
+            pButton
+            type="button"
+            label="Discard"
+            (click)="reset()"
+            style="margin-bottom: 10px;"
+            class="ui-button-danger ui-button-raised"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-2">
+        <button
+            pButton
+            type="button"
+            label="Save"
+            (click)="save()"
+            style="margin-bottom: 10px;"
+            class="ui-button-icon-primary ui-button-raised"
+        ></button>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>

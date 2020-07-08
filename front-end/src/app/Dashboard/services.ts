@@ -18,6 +18,7 @@ import { MenuService } from "./app.menu.service";
 import { TeamsService as demoTeamService } from "./demo/service/teamService";
 import { DepartmentsService } from "./services/departments.service";
 import { RolesService } from "./services/roles.service";
+import { AddDiagnosisService } from "./diagnosis/services/add-diagnosis.service";
 
 export const SERVICES = [
     CarService,
@@ -40,4 +41,5 @@ export const SERVICES = [
     LabResultsService,
     MedicationsService,
     ProblemsService,
+    AddDiagnosisService,
 ];

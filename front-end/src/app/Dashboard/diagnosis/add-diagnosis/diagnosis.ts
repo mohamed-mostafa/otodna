@@ -7,4 +7,5 @@ export class Diagnosis {
     performer: string;
     notes: string;
     symptoms: [];
+    patientId: number;
 }

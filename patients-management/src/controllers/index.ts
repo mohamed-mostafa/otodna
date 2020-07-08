@@ -8,3 +8,4 @@ export * from './patient-lab-results.controller';
 export * from './patient-immunization.controller';
 export * from './patient-medication.controller';
 export * from './patient-problem.controller';
+export * from './patient-diagnosis-basic-info.controller';

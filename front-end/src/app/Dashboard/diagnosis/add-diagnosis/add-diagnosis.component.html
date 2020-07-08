@@ -97,23 +97,6 @@
         </div>
     </div>
 </p-fieldset>
-<p-fieldset legend="Symptoms">
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6" *ngFor="let sym of symptomsArray">
-            <div class="p-grid" style="margin-bottom: 5px;">
-                <div class="p-col-12">
-                    <p-checkbox
-                        name="group1"
-                        [value]="sym"
-                        [label]="sym"
-                        [(ngModel)]="diagnosis.symptoms"
-                        [inputId]="sym"
-                    ></p-checkbox>
-                </div>
-            </div>
-        </div>
-    </div>
-</p-fieldset>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-8"></div>
     <div class="ui-g-12 ui-md-2">
@@ -130,7 +113,7 @@
         <button
             pButton
             type="button"
-            label="Save"
+            label="Start Session"
             (click)="save()"
             style="margin-bottom: 10px;"
             class="ui-button-icon-primary ui-button-raised"

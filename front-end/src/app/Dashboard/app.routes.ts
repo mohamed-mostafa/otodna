@@ -1,3 +1,4 @@
+import { SymptomsComponent } from "./diagnosis/symptoms/symptoms.component";
 import { AuthGuard } from "./../Auth/auth.guard";
 import { TeamMembersComponent } from "./Teams/team-members/team-members.component";
 import { MyTeamsComponent } from "./Teams/my-teams/my-teams.component";
@@ -73,6 +74,7 @@ export const routes: Routes = [
             { path: "problems", component: ProblemsComponent },
             { path: "patientHistory", component: PatientHistoryComponent },
             { path: "addDiagnosis", component: AddDiagnosisComponent },
+            { path: "symptoms", component: SymptomsComponent },
             { path: "diagnosisTests", component: TestsComponent },
             { path: "diagnosisPathology", component: PathologyComponent },
             { path: "diagnosisCandidacy", component: CandidacyComponent },
@@ -121,6 +123,7 @@ export const COMPONENTS = [
     CandidacyComponent,
     MyTeamsComponent,
     TeamMembersComponent,
+    SymptomsComponent,
 ];
 @NgModule({
     exports: [RouterModule],

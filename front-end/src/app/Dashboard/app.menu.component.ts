@@ -182,12 +182,14 @@ export class AppMenuComponent implements OnInit {
         }
         if (
             this.router.url === "/dashboard/addDiagnosis" ||
+            this.router.url === "/dashboard/symptoms" ||
             this.router.url === "/dashboard/diagnosisTests" ||
             this.router.url === "/dashboard/diagnosisPathology" ||
             this.router.url === "/dashboard/diagnosisCandidacy"
         ) {
             this.routesArray = [
                 "addDiagnosis",
+                "symptoms",
                 "diagnosisTests",
                 "diagnosisPathology",
                 "diagnosisCandidacy",
@@ -197,6 +199,11 @@ export class AppMenuComponent implements OnInit {
                     label: "Basic Info",
                     icon: "fa fa-fw fa-stethoscope",
                     routerLink: ["addDiagnosis"],
+                },
+                {
+                    label: "Symptoms",
+                    icon: "fa fa-fw fa-stethoscope",
+                    routerLink: ["symptoms"],
                 },
                 {
                     label: "Tests",

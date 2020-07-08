@@ -4,6 +4,7 @@ import { MessageService } from "primeng/api";
 import { Diagnosis } from "./diagnosis";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
+import { AddDiagnosisService } from "../services/add-diagnosis.service";
 
 @Component({
     selector: "app-add-diagnosis",
@@ -15,11 +16,11 @@ export class AddDiagnosisComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     diagnosis: Diagnosis = new Diagnosis();
-    symptomsArray: string[] = [];
     selectedPatient;
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private addDiagnosisService: AddDiagnosisService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -27,8 +28,15 @@ export class AddDiagnosisComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        this.diagnosis.sessionTypeId = 0;
+        this.diagnosis.patientId = this.selectedPatient.id;
         this.items = [
-            { label: "Patients" },
+            {
+                label: "Patients",
+                command: (event) => {
+                    this.goToDashboard(event);
+                },
+            },
             {
                 label: this.selectedPatient.username
                     ? this.selectedPatient.username
@@ -42,33 +50,19 @@ export class AddDiagnosisComponent implements OnInit {
             { label: "Diagnosis" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
-        this.symptomsArray = [
-            "Earache",
-            "Fever",
-            "Fluid draining from the ear",
-            "Headache",
-            "Loss of balance",
-            "Loss of hearing",
-            "Nausea and vomiting ",
-            "Pus-filled or bloody drainage from the ear",
-            "Redness and swelling of the outer ear",
-            "Vertigo",
-        ];
         this.loadData();
     }
     loadData() {
         this.diagnosis.date = new Date();
         this.diagnosis.createdAt = new Date();
-        this.diagnosis.createdBy = this.selectedPatient.username
-            ? this.selectedPatient.username
-            : this.selectedPatient.firstName +
-              " " +
-              this.selectedPatient.lastName;
-        this.diagnosis.performer = this.selectedPatient.username
-            ? this.selectedPatient.username
-            : this.selectedPatient.firstName +
-              " " +
-              this.selectedPatient.lastName;
+        this.diagnosis.createdBy =
+            this.selectedPatient.firstName +
+            " " +
+            this.selectedPatient.lastName;
+        this.diagnosis.performer =
+            this.selectedPatient.firstName +
+            " " +
+            this.selectedPatient.lastName;
     }
     reset() {
         this.diagnosis = new Diagnosis();
@@ -77,16 +71,20 @@ export class AddDiagnosisComponent implements OnInit {
         this.validateDiagnosis((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                setTimeout(() => {
-                    this.spinner.hide();
-                    this.reset();
-                    this.loadData();
-                    this.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                }, 2000);
+                this.addDiagnosisService
+                    .createDiagnosis(this.diagnosis)
+                    .subscribe((u: any) => {
+                        this.spinner.hide();
+                        localStorage.setItem(
+                            "diagnosisBasicInfo",
+                            JSON.stringify(this.diagnosis)
+                        );
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
             }
@@ -145,6 +143,13 @@ export class AddDiagnosisComponent implements OnInit {
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
                 this.router.navigate(["/dashboard/patient"]);
+            });
+    }
+    goToDashboard(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard"]);
             });
     }
 }

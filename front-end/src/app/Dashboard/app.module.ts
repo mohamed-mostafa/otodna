@@ -9,7 +9,6 @@ import { COMPONENTS, AppRoutes } from "./app.routes";
 import { DashboardComponent } from "./dashboard.component";
 import { JwtInterceptor } from "../Auth/jwt.interceptor";
 import { ErrorInterceptor } from "../Auth/error.interceptor";
-
 @NgModule({
     imports: [
         FormsModule,
