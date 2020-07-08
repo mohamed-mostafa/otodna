@@ -30,13 +30,15 @@ export class CandidacyComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.items = [
-            { label: "Patients" },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label: "Patients",
+                command: (event) => {
+                    this.goToDashboard(event);
+                },
+            },
+            {
+                label:
+                    selectedPatient.firstName + " " + selectedPatient.lastName,
                 command: (event) => {
                     this.goToPatientPage(event);
                 },
@@ -209,6 +211,13 @@ export class CandidacyComponent implements OnInit {
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
                 this.router.navigate(["/dashboard/patient"]);
+            });
+    }
+    goToDashboard(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                this.router.navigate(["/dashboard"]);
             });
     }
 }
