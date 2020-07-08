@@ -73,7 +73,7 @@ export class PatientImmunization extends Entity {
     type: 'string',
     length: 500,
     mysql: {
-      columnName: 'comments',
+      columnName: 'comment',
       dataType: 'varchar',
       dataLength: 500,
       dataPrecision: null,
@@ -81,7 +81,7 @@ export class PatientImmunization extends Entity {
       nullable: 'Y',
     },
   })
-  comments?: string;
+  comment?: string;
 
   @property({
     type: 'number',

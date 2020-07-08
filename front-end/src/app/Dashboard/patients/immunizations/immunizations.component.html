@@ -78,7 +78,7 @@
                     pInputTextarea
                     autoResize="autoResize"
                     placeholder="Comment"
-                    [(ngModel)]="immunization.comments"
+                    [(ngModel)]="immunization.comment"
                 ></textarea>
             </div>
         </div>
@@ -145,7 +145,7 @@
                         </td>
                         <td class="ui-resizable-column">
                             <span class="ui-column-title">Comment </span
-                            >{{ rowData.comments }}
+                            >{{ rowData.comment }}
                         </td>
                     </tr>
                 </ng-template>

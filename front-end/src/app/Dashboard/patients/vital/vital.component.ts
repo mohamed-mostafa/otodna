@@ -76,11 +76,6 @@ export class VitalComponent implements OnInit {
         this.validateVital((callback) => {
             if (callback === "valid") {
                 this.vital.vitalRecordTypeId = this.recordType.id;
-                this.vital.notedDate = new Date(
-                    this.vital.notedDate.setDate(
-                        this.vital.notedDate.getDate() + 1
-                    )
-                );
                 this.spinner.show();
                 this.vitalService
                     .createVital(this.vital)

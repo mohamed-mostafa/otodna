@@ -3,6 +3,6 @@ export class Immunizations {
     immunizationStatusId: number;
     // provider: string;
     notedDate: Date;
-    comments: string;
+    comment: string;
     patientId: number;
 }

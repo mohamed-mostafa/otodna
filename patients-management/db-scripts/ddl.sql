@@ -195,16 +195,16 @@ CREATE TABLE `patient` (
   `last_name` varchar(45) NOT NULL,
   `email` varchar(45) DEFAULT NULL,
   `mobile` varchar(45) NOT NULL,
-  `date_of_birth` date NOT NULL,
+  `date_of_birth` dateTime NOT NULL,
   `gender` char(1) NOT NULL,
   `country` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
   `team_id` int NOT NULL,
   `created_by` varchar(45) NOT NULL,
-  `created_at` date NOT NULL,
+  `created_at` dateTime NOT NULL,
   `last_modified_by` varchar(45) NOT NULL,
-  `last_modified_at` date NOT NULL,
+  `last_modified_at` dateTime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -223,7 +223,7 @@ CREATE TABLE `patient_allergy` (
   `reaction` varchar(45) DEFAULT NULL,
   `allergy_severity_id` int NOT NULL,
   `allergy_status_id` int NOT NULL,
-  `noted_date` date NOT NULL,
+  `noted_date` dateTime NOT NULL,
   `comment` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -257,8 +257,8 @@ CREATE TABLE `patient_immunization` (
   `id` int NOT NULL AUTO_INCREMENT,
   `vaccine_name` varchar(45) NOT NULL,
   `immunization_status_id` int NOT NULL,
-  `noted_date` date NOT NULL,
-  `comments` varchar(500) DEFAULT NULL,
+  `noted_date` dateTime NOT NULL,
+  `comment` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
@@ -276,7 +276,7 @@ CREATE TABLE `patient_lab_result` (
   `lab_test` varchar(45) NOT NULL,
   `value` int NOT NULL,
   `unit` varchar(10) NOT NULL,
-  `noted_date` date NOT NULL,
+  `noted_date` dateTime NOT NULL,
   `comment` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -309,11 +309,11 @@ DROP TABLE IF EXISTS `patient_medication`;
 CREATE TABLE `patient_medication` (
   `id` int NOT NULL AUTO_INCREMENT,
   `medication` varchar(45) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date DEFAULT NULL,
+  `start_date` dateTime NOT NULL,
+  `end_date` dateTime DEFAULT NULL,
   `quantity` int NOT NULL,
   `medication_status_id` int NOT NULL,
-  `noted_date` date NOT NULL,
+  `noted_date` dateTime NOT NULL,
   `comment` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -330,7 +330,7 @@ DROP TABLE IF EXISTS `patient_problem`;
 CREATE TABLE `patient_problem` (
   `id` int NOT NULL AUTO_INCREMENT,
   `problem_status_id` int NOT NULL,
-  `noted_date` date NOT NULL,
+  `noted_date` dateTime NOT NULL,
   `comment` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -347,9 +347,9 @@ DROP TABLE IF EXISTS `patient_session`;
 CREATE TABLE `patient_session` (
   `id` int NOT NULL AUTO_INCREMENT,
   `display_name` varchar(45) NOT NULL,
-  `date` date NOT NULL,
+  `date` dateTime NOT NULL,
   `created_by` varchar(45) DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
+  `created_at` dateTime DEFAULT NULL,
   `session_type_id` int NOT NULL,
   `performer` varchar(45) DEFAULT NULL,
   `notes` varchar(500) DEFAULT NULL,
@@ -402,7 +402,7 @@ CREATE TABLE `patient_vital_record` (
   `id` int NOT NULL AUTO_INCREMENT,
   `vital_record_type_id` int NOT NULL,
   `vital_record_value` int NOT NULL,
-  `noted_date` date NOT NULL,
+  `noted_date` dateTime NOT NULL,
   `comment` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
   PRIMARY KEY (`id`)
