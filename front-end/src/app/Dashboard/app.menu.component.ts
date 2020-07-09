@@ -179,6 +179,7 @@ export class AppMenuComponent implements OnInit {
     setMenuData() {
         if (this.router.url === "/dashboard/search") {
             localStorage.removeItem("selectedPatient");
+            localStorage.removeItem("sessionBasicInfo");
         }
         if (
             this.router.url === "/dashboard/addDiagnosis" ||
@@ -194,33 +195,66 @@ export class AppMenuComponent implements OnInit {
                 "diagnosisPathology",
                 "diagnosisCandidacy",
             ];
-            this.otherMenu = [
-                {
-                    label: "Basic Info",
-                    icon: "fa fa-fw fa-stethoscope",
-                    routerLink: ["addDiagnosis"],
-                },
-                {
-                    label: "Symptoms",
-                    icon: "fa fa-fw fa-medkit",
-                    routerLink: ["symptoms"],
-                },
-                {
-                    label: "Tests",
-                    icon: "fa fa-fw fa-flask",
-                    routerLink: ["diagnosisTests"],
-                },
-                {
-                    label: "Pathology",
-                    icon: "fa fa-fw fa-book",
-                    routerLink: ["diagnosisPathology"],
-                },
-                {
-                    label: "Candidacy",
-                    icon: "fa fa-fw fa-stethoscope",
-                    routerLink: ["diagnosisCandidacy"],
-                },
-            ];
+            let selectedSession = JSON.parse(
+                localStorage.getItem("sessionBasicInfo")
+            );
+            if (selectedSession) {
+                this.otherMenu = [
+                    {
+                        label: "Basic Info",
+                        icon: "fa fa-fw fa-stethoscope",
+                        routerLink: ["addDiagnosis"],
+                    },
+                    {
+                        label: "Symptoms",
+                        icon: "fa fa-fw fa-medkit",
+                        routerLink: ["symptoms"],
+                    },
+                    {
+                        label: "Tests",
+                        icon: "fa fa-fw fa-flask",
+                        routerLink: ["diagnosisTests"],
+                    },
+                    {
+                        label: "Pathology",
+                        icon: "fa fa-fw fa-book",
+                        routerLink: ["diagnosisPathology"],
+                    },
+                    {
+                        label: "Candidacy",
+                        icon: "fa fa-fw fa-stethoscope",
+                        routerLink: ["diagnosisCandidacy"],
+                    },
+                ];
+            } else {
+                this.otherMenu = [
+                    {
+                        label: "Basic Info",
+                        icon: "fa fa-fw fa-stethoscope",
+                        routerLink: ["addDiagnosis"],
+                    },
+                    {
+                        label: "Symptoms",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Tests",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Pathology",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                    {
+                        label: "Candidacy",
+                        icon: "fa fa-fw fa-lock",
+                        styleClass: "menuCss",
+                    },
+                ];
+            }
         } else if (this.router.url === "/dashboard/addTreatment") {
             this.routesArray = ["addTreatment"];
             this.otherMenu = [
@@ -240,6 +274,7 @@ export class AppMenuComponent implements OnInit {
                 },
             ];
         } else {
+            localStorage.removeItem("sessionBasicInfo");
             this.routesArray = [
                 "patient",
                 "family",

@@ -1,3 +1,5 @@
+import { SymptomsService } from "./patients/diagnosis/services/symptoms.service";
+import { PatientSessionService } from "./patients/services/patient-session.service";
 import { ProblemsService } from "./patients/services/problems.service";
 import { MedicationsService } from "./patients/services/medications.service";
 import { LabResultsService } from "./patients/services/lab-results.service";
@@ -18,7 +20,6 @@ import { MenuService } from "./app.menu.service";
 import { TeamsService as demoTeamService } from "./demo/service/teamService";
 import { DepartmentsService } from "./services/departments.service";
 import { RolesService } from "./services/roles.service";
-import { AddDiagnosisService } from "./diagnosis/services/add-diagnosis.service";
 
 export const SERVICES = [
     CarService,
@@ -41,5 +42,6 @@ export const SERVICES = [
     LabResultsService,
     MedicationsService,
     ProblemsService,
-    AddDiagnosisService,
+    PatientSessionService,
+    SymptomsService,
 ];

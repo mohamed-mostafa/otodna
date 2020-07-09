@@ -1,4 +1,4 @@
-export class Diagnosis {
+export class Session {
     displayName: string;
     date: Date;
     createdBy: string;

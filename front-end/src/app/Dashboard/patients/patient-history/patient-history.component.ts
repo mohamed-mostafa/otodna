@@ -36,6 +36,7 @@ export class PatientHistoryComponent implements OnInit {
         this.home = { icon: "fa fa-user-md" };
     }
     addDiagnosis() {
+        localStorage.setItem("sessionTypeId", JSON.stringify(0));
         this.router
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
@@ -43,6 +44,7 @@ export class PatientHistoryComponent implements OnInit {
             });
     }
     addTreatment() {
+        localStorage.setItem("sessionTypeId", JSON.stringify(1));
         this.router
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
@@ -50,6 +52,7 @@ export class PatientHistoryComponent implements OnInit {
             });
     }
     addFollowup() {
+        localStorage.setItem("sessionTypeId", JSON.stringify(2));
         this.router
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {

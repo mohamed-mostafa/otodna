@@ -15,6 +15,7 @@ import { Symptom } from "./symptom";
 export class SymptomsComponent implements OnInit {
     selectedPatient;
     symptom: Symptom = new Symptom();
+    selectedSymptoms;
     items: MenuItem[];
     home: MenuItem;
     symptoms = [];
@@ -30,6 +31,10 @@ export class SymptomsComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+        let selectedSession = JSON.parse(
+            localStorage.getItem("sessionBasicInfo")
+        );
+        this.symptom.patientSessionId = selectedSession.id;
         this.items = [
             {
                 label: "Patients",
@@ -38,11 +43,10 @@ export class SymptomsComponent implements OnInit {
                 },
             },
             {
-                label: this.selectedPatient.username
-                    ? this.selectedPatient.username
-                    : this.selectedPatient.firstName +
-                      " " +
-                      this.selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
                 command: (event) => {
                     this.goToPatientPage(event);
                 },
@@ -59,7 +63,18 @@ export class SymptomsComponent implements OnInit {
             this.spinner.hide();
         });
     }
-    save() {}
+    save() {
+        let symptomArray = [];
+        this.selectedSymptoms.forEach((sys) => {
+            let obj = {
+                patientSessionId: this.symptom.patientSessionId,
+                symptomId: sys,
+                ear: "R",
+            };
+            symptomArray.push(obj);
+        });
+        console.log(symptomArray);
+    }
     reset() {}
     showMessage(type, title, message) {
         this.messageService.add({

@@ -1,26 +1,25 @@
+import { PatientSessionService } from "./../services/patient-session.service";
+import { Session } from "./session";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
-import { Diagnosis } from "./diagnosis";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
-import { AddDiagnosisService } from "../services/add-diagnosis.service";
-
 @Component({
-    selector: "app-add-diagnosis",
-    templateUrl: "./add-diagnosis.component.html",
-    styleUrls: ["./add-diagnosis.component.css"],
+    selector: "app-patient-session",
+    templateUrl: "./patient-session.component.html",
+    styleUrls: ["./patient-session.component.css"],
     providers: [MessageService],
 })
-export class AddDiagnosisComponent implements OnInit {
+export class PatientSessionComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
-    diagnosis: Diagnosis = new Diagnosis();
+    session: Session = new Session();
     selectedPatient;
     constructor(
         private messageService: MessageService,
         private router: Router,
-        private addDiagnosisService: AddDiagnosisService,
+        private patientSession: PatientSessionService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -28,8 +27,11 @@ export class AddDiagnosisComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        this.diagnosis.sessionTypeId = 0;
-        this.diagnosis.patientId = this.selectedPatient.id;
+        this.session.sessionTypeId = JSON.parse(
+            localStorage.getItem("sessionTypeId")
+        );
+
+        this.session.patientId = this.selectedPatient.id;
         this.items = [
             {
                 label: "Patients",
@@ -47,43 +49,63 @@ export class AddDiagnosisComponent implements OnInit {
                     this.goToPatientPage(event);
                 },
             },
-            { label: "Diagnosis" },
+            { label: "Basic Info" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
     }
     loadData() {
-        this.diagnosis.date = new Date();
-        this.diagnosis.createdAt = new Date();
-        this.diagnosis.createdBy =
-            this.selectedPatient.firstName +
-            " " +
-            this.selectedPatient.lastName;
-        this.diagnosis.performer =
-            this.selectedPatient.firstName +
-            " " +
-            this.selectedPatient.lastName;
+        let selectedSession = JSON.parse(
+            localStorage.getItem("sessionBasicInfo")
+        );
+        if (selectedSession) {
+            this.session = selectedSession;
+            this.session.date = new Date(selectedSession.date);
+            this.session.createdAt = new Date(selectedSession.createdAt);
+        } else {
+            this.session.date = new Date();
+            this.session.createdAt = new Date();
+            this.session.createdBy =
+                this.selectedPatient.firstName +
+                " " +
+                this.selectedPatient.lastName;
+            this.session.performer =
+                this.selectedPatient.firstName +
+                " " +
+                this.selectedPatient.lastName;
+        }
     }
     reset() {
-        this.diagnosis = new Diagnosis();
+        this.session = new Session();
     }
     save() {
-        this.validateDiagnosis((callback) => {
+        this.validateSession((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                this.addDiagnosisService
-                    .createDiagnosis(this.diagnosis)
+                this.patientSession
+                    .createSession(this.session)
                     .subscribe((u: any) => {
                         this.spinner.hide();
                         localStorage.setItem(
-                            "diagnosisBasicInfo",
-                            JSON.stringify(this.diagnosis)
+                            "sessionBasicInfo",
+                            JSON.stringify(u)
                         );
                         this.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
+                        setTimeout(() => {
+                            this.router
+                                .navigateByUrl("/RefreshComponent", {
+                                    skipLocationChange: true,
+                                })
+                                .then(() => {
+                                    this.router.navigate([
+                                        "/dashboard/addDiagnosis",
+                                    ]);
+                                });
+                        }, 1000);
                     });
             } else {
                 this.showMessage("warn", "Error", "Please try again");
@@ -98,8 +120,8 @@ export class AddDiagnosisComponent implements OnInit {
             life: 3000,
         });
     }
-    validateDiagnosis(callback) {
-        if (!this.diagnosis.displayName) {
+    validateSession(callback) {
+        if (!this.session.displayName) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -107,11 +129,11 @@ export class AddDiagnosisComponent implements OnInit {
             );
             return false;
         }
-        if (!this.diagnosis.date) {
+        if (!this.session.date) {
             this.showMessage("error", "Validation Error", "Date is required");
             return false;
         }
-        if (!this.diagnosis.createdBy) {
+        if (!this.session.createdBy) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -119,7 +141,7 @@ export class AddDiagnosisComponent implements OnInit {
             );
             return false;
         }
-        if (!this.diagnosis.createdAt) {
+        if (!this.session.createdAt) {
             this.showMessage(
                 "error",
                 "Validation Error",
@@ -127,7 +149,7 @@ export class AddDiagnosisComponent implements OnInit {
             );
             return false;
         }
-        if (!this.diagnosis.performer) {
+        if (!this.session.performer) {
             this.showMessage(
                 "error",
                 "Validation Error",

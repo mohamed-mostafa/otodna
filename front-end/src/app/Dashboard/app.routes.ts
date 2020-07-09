@@ -1,10 +1,10 @@
-import { SymptomsComponent } from "./diagnosis/symptoms/symptoms.component";
+import { PatientSessionComponent } from "./patients/patient-session/patient-session.component";
+import { SymptomsComponent } from "./patients/diagnosis/symptoms/symptoms.component";
 import { AuthGuard } from "./../Auth/auth.guard";
 import { TeamMembersComponent } from "./Teams/team-members/team-members.component";
 import { MyTeamsComponent } from "./Teams/my-teams/my-teams.component";
-import { AddFollowupComponent } from "./followup/add-followup/add-followup.component";
-import { AddTreatmentComponent } from "./treatment/add-treatment/add-treatment.component";
-import { AddDiagnosisComponent } from "./diagnosis/add-diagnosis/add-diagnosis.component";
+import { AddFollowupComponent } from "./patients/followup/add-followup/add-followup.component";
+import { AddTreatmentComponent } from "./patients/treatments/add-treatment/add-treatment.component";
 import { PatientHistoryComponent } from "./patients/patient-history/patient-history.component";
 import { ProblemsComponent } from "./patients/problems/problems.component";
 import { MedicationsComponent } from "./patients/medications/medications.component";
@@ -36,9 +36,9 @@ import { FileDemoComponent } from "./demo/view/filedemo.component";
 import { DocumentationComponent } from "./demo/view/documentation.component";
 import { SearchPatientComponent } from "./patients/search-patient/search-patient.component";
 import { UsersComponent } from "./users/users.component";
-import { TestsComponent } from "./diagnosis/tests/tests.component";
-import { PathologyComponent } from "./diagnosis/pathology/pathology.component";
-import { CandidacyComponent } from "./diagnosis/candidacy/candidacy.component";
+import { TestsComponent } from "./patients/diagnosis/tests/tests.component";
+import { PathologyComponent } from "./patients/diagnosis/pathology/pathology.component";
+import { CandidacyComponent } from "./patients/diagnosis/candidacy/candidacy.component";
 
 export const routes: Routes = [
     {
@@ -73,13 +73,13 @@ export const routes: Routes = [
             { path: "medications", component: MedicationsComponent },
             { path: "problems", component: ProblemsComponent },
             { path: "patientHistory", component: PatientHistoryComponent },
-            { path: "addDiagnosis", component: AddDiagnosisComponent },
+            { path: "addDiagnosis", component: PatientSessionComponent },
             { path: "symptoms", component: SymptomsComponent },
             { path: "diagnosisTests", component: TestsComponent },
             { path: "diagnosisPathology", component: PathologyComponent },
             { path: "diagnosisCandidacy", component: CandidacyComponent },
-            { path: "addTreatment", component: AddTreatmentComponent },
-            { path: "addFollowup", component: AddFollowupComponent },
+            { path: "addTreatment", component: PatientSessionComponent },
+            { path: "addFollowup", component: PatientSessionComponent },
         ],
     },
 ];
@@ -115,7 +115,6 @@ export const COMPONENTS = [
     MedicationsComponent,
     ProblemsComponent,
     PatientHistoryComponent,
-    AddDiagnosisComponent,
     AddTreatmentComponent,
     AddFollowupComponent,
     TestsComponent,
@@ -124,6 +123,7 @@ export const COMPONENTS = [
     MyTeamsComponent,
     TeamMembersComponent,
     SymptomsComponent,
+    PatientSessionComponent,
 ];
 @NgModule({
     exports: [RouterModule],

@@ -6,12 +6,12 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn: "root",
 })
-export class SymptomsService {
+export class PatientSessionService {
     apiUrl = environment.patientApiUrl;
-    link = "patientDiagnosisSymptoms";
+    link = "patientSession";
     constructor(private http: HttpClient) {}
 
-    getAllSymptoms(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.link}`);
+    createSession(session): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/${this.link}`, session);
     }
 }

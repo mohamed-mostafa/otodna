@@ -13,7 +13,7 @@
                     pInputText
                     id="displayName"
                     placeholder="Display Name"
-                    [(ngModel)]="diagnosis.displayName"
+                    [(ngModel)]="session.displayName"
                 />
             </div>
         </div>
@@ -25,7 +25,7 @@
                     placeholder="Date"
                     [showIcon]="true"
                     id="date"
-                    [(ngModel)]="diagnosis.date"
+                    [(ngModel)]="session.date"
                     [monthNavigator]="true"
                     [yearNavigator]="true"
                     yearRange="1950:2020"
@@ -45,7 +45,7 @@
                     id="createdBy"
                     placeholder="Created By"
                     [disabled]="true"
-                    [(ngModel)]="diagnosis.createdBy"
+                    [(ngModel)]="session.createdBy"
                 />
             </div>
         </div>
@@ -58,7 +58,7 @@
                     [showIcon]="true"
                     id="createdAt"
                     [disabled]="true"
-                    [(ngModel)]="diagnosis.createdAt"
+                    [(ngModel)]="session.createdAt"
                     [monthNavigator]="true"
                     [yearNavigator]="true"
                     yearRange="1950:2020"
@@ -77,7 +77,7 @@
                     pInputText
                     id="performer"
                     placeholder="Performer"
-                    [(ngModel)]="diagnosis.performer"
+                    [(ngModel)]="session.performer"
                 />
             </div>
         </div>
@@ -91,7 +91,7 @@
                     pInputTextarea
                     autoResize="autoResize"
                     placeholder="Notes"
-                    [(ngModel)]="diagnosis.notes"
+                    [(ngModel)]="session.notes"
                 ></textarea>
             </div>
         </div>
