@@ -77,6 +77,7 @@ export class PatientSessionComponent implements OnInit {
     }
     reset() {
         this.session = new Session();
+        this.goToPatientPage("a");
     }
     save() {
         this.validateSession((callback) => {
