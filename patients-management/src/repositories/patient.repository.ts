@@ -159,6 +159,7 @@ export class PatientRepository extends DefaultTransactionalRepository<
           {lastName: {like: `%${element}%`}},
           {mobile: {like: `%${element}%`}},
           {email: {like: `%${element}%`}},
+          {patientNumber: {like: `%${element}%`}},
         ],
       };
       filter.where = obj;
