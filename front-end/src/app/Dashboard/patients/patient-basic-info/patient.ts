@@ -1,5 +1,6 @@
 export class Patient {
     id: string;
+    patientNumber: string;
     firstName: string;
     middleName: string;
     lastName: string;

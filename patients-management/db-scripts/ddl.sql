@@ -215,6 +215,7 @@ DROP TABLE IF EXISTS `patient`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `patient` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `patient_number` varchar(45) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `middle_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) NOT NULL,

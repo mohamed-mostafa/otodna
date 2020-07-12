@@ -30,6 +30,21 @@ export class Patient extends Entity {
     required: true,
     length: 45,
     mysql: {
+      columnName: 'patient_number',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
+  })
+  patientNumber: string;
+
+  @property({
+    type: 'string',
+    required: true,
+    length: 45,
+    mysql: {
       columnName: 'first_name',
       dataType: 'varchar',
       dataLength: 45,

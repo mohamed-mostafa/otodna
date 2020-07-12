@@ -36,7 +36,7 @@
 <p-fieldset legend="Personal Information">
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-3">
-            <label for="fileID">File ID</label>
+            <label for="fileID">Patient Number</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
                     ><i class="pi pi-id-card"></i
@@ -45,9 +45,8 @@
                     type="text"
                     pInputText
                     id="fileID"
-                    placeholder="ID"
-                    [disabled]="true"
-                    [(ngModel)]="patient.id"
+                    placeholder="Patient Number"
+                    [(ngModel)]="patient.patientNumber"
                 />
             </div>
         </div>
