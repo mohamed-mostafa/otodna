@@ -1,3 +1,5 @@
+import {PatientSessionSymptom} from './../models/patient-session-symptom.model';
+import {PatientSessionSymptomRepository} from './../repositories/patient-session-symptom.repository';
 import {PatientDiagnosisSymptomsRepository} from './../repositories/patient-diagnosis-symptoms.repository';
 import {PatientDiagnosisSymptoms} from './../models/patient-diagnosis-symptoms.model';
 import {
@@ -27,6 +29,8 @@ export class PatientSessionController {
     public patientSessionRepository: PatientSessionRepository,
     @repository(PatientDiagnosisSymptomsRepository)
     public patientDiagnosisSymptomsRepository: PatientDiagnosisSymptomsRepository,
+    @repository(PatientSessionSymptomRepository)
+    public patientSessionSymptomRepository: PatientSessionSymptomRepository,
   ) {}
 
   @post('/patientSession', {
@@ -53,6 +57,24 @@ export class PatientSessionController {
     patientSession: Omit<PatientSession, 'id'>,
   ): Promise<PatientSession> {
     return this.patientSessionRepository.create(patientSession);
+  }
+
+  @post('/patientDiagnosisSymptoms', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientSessionSymptom),
+          },
+        },
+      },
+    },
+  })
+  async createDiagnosisSymptom(
+    @requestBody() data: Array<Object>,
+  ): Promise<any> {
+    return this.patientSessionSymptomRepository.createDiagnosisSymptom(data);
   }
 
   @get('/patientSession/count', {

@@ -14,4 +14,7 @@ export class SymptomsService {
     getAllSymptoms(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${this.link}`);
     }
+    createSymptoms(data): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/${this.link}`, data);
+    }
 }

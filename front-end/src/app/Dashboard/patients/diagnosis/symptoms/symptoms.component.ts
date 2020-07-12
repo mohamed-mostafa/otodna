@@ -64,16 +64,31 @@ export class SymptomsComponent implements OnInit {
         });
     }
     save() {
-        let symptomArray = [];
+        if (!this.selectedSymptoms || this.selectedSymptoms.length < 1) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Please select at least one symptom"
+            );
+            return false;
+        }
+        const symptomsArray = [];
         this.selectedSymptoms.forEach((sys) => {
             let obj = {
                 patientSessionId: this.symptom.patientSessionId,
                 symptomId: sys,
-                ear: "R",
+                ear: "L",
             };
-            symptomArray.push(obj);
+            symptomsArray.push(obj);
         });
-        console.log(symptomArray);
+        this.symptomsService
+            .createSymptoms(symptomsArray)
+            .subscribe((u: any) => {
+                this.spinner.hide();
+                this.reset();
+                this.selectedSymptoms = [];
+                this.showMessage("success", "Saved", "Data saved successfully");
+            });
     }
     reset() {}
     showMessage(type, title, message) {
