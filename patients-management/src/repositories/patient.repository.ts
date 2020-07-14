@@ -120,7 +120,7 @@ export class PatientRepository extends DefaultTransactionalRepository<
   public async advancedSearch(data: PatientSearch): Promise<any> {
     const filter: Filter<Patient> = {};
     const obj: any = {};
-    const {firstName, lastName, mobile, email} = data;
+    const {firstName, lastName, mobile, email, patientNumber} = data;
     let {dateOfBirth} = data;
     if (firstName) {
       obj.firstName = {like: `%${firstName}%`};
@@ -133,6 +133,9 @@ export class PatientRepository extends DefaultTransactionalRepository<
     }
     if (email) {
       obj.email = {like: `%${email}%`};
+    }
+    if (patientNumber) {
+      obj.patientNumber = {like: `%${patientNumber}%`};
     }
     if (dateOfBirth) {
       const fullYear = new Date(dateOfBirth).getFullYear();

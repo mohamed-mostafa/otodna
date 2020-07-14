@@ -23,6 +23,11 @@ export class PatientSearch extends Entity {
   email?: string;
 
   @property({
+    type: 'string',
+  })
+  patientNumber?: string;
+
+  @property({
     type: 'date',
   })
   dateOfBirth?: string;

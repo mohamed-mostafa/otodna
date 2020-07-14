@@ -101,6 +101,7 @@ export class SearchPatientComponent implements OnInit {
             "mobile",
             "email",
             "dateOfBirth",
+            "patientNumber",
         ];
         advanced.forEach((element) => {
             if (this.advancedSearch[element] === "") {

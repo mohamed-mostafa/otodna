@@ -4,4 +4,5 @@ export class AdvancedSearch {
     mobile: number;
     email: string;
     dateOfBirth: Date;
+    patientNumber: string;
 }
