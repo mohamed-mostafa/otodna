@@ -8,7 +8,7 @@
             pButton
             icon="pi pi-bars"
             label="Add Test"
-            (click)="menu.toggle($event)"
+            (click)="showTestDialog()"
         ></button>
     </div>
     <div class="ui-g-12 ui-md-9"></div>
@@ -21,17 +21,51 @@
         pButton
         icon="pi pi-bars"
         label="Add Test"
-        (click)="menu.toggle($event)"
+        (click)="showTestDialog()"
     ></button>
 </div>
-<p-slideMenu
-    #menu
-    [model]="testMenu"
-    [popup]="true"
-    [viewportHeight]="330"
-    [style]="{ width: '600px' }"
-    [menuWidth]="600"
-></p-slideMenu>
+<p-dialog
+    header="Add New Test"
+    [(visible)]="displayTest"
+    [style]="{ width: '60vw' }"
+    [baseZIndex]="10000"
+    [maximizable]="true"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <div style="height: 150px;">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <p-autoComplete
+                    [(ngModel)]="selectedTest"
+                    [suggestions]="filteredTests"
+                    (completeMethod)="filterTest($event)"
+                    field="name"
+                    placeholder="Test Name"
+                    [size]="30"
+                    [minLength]="1"
+                ></p-autoComplete>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="displayTest = false"
+            label="No"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="saveTest()"
+            label="Yes"
+        ></button>
+    </p-footer>
+</p-dialog>
 <p-dialog
     [header]="dialogName"
     [(visible)]="displayAcoustic"
@@ -418,8 +452,12 @@
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
                         <td class="ui-resizable-column">
-                            <span class="ui-column-title">Test Type </span>
-                            {{ rowData.testType }}
+                            <span class="ui-column-title">Test Id </span>
+                            {{ rowData.id }}
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Test Name </span>
+                            {{ rowData.name }}
                         </td>
                     </tr>
                 </ng-template>

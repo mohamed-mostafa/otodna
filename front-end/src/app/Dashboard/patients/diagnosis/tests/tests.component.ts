@@ -6,6 +6,7 @@ import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Test } from "./test";
+import { TestsService } from "../services/tests.service";
 
 @Component({
     selector: "app-tests",
@@ -25,19 +26,22 @@ export class TestsComponent implements OnInit {
     acousticFrequency = [];
     acousticReflex = [];
     items: MenuItem[];
-    testMenu: MenuItem[];
     equipmentMenu: MenuItem[];
     selectedEvent;
     dialogName = "";
     frequencyTable = [];
     home: MenuItem;
     displayAcoustic: boolean;
+    displayTest: boolean;
     rightVal = ["", "", "", ""];
     leftVal = ["", "", "", ""];
     showTableFlag = false;
     showEquipmentTable = false;
+    selectedTest;
+    filteredTests: any[];
     constructor(
         private messageService: MessageService,
+        private testService: TestsService,
         private router: Router,
         private spinner: NgxSpinnerService
     ) {}
@@ -61,7 +65,10 @@ export class TestsComponent implements OnInit {
             },
             { label: "Diagnosis" },
         ];
-        this.cols = [{ field: "testType", header: "Test Type" }];
+        this.cols = [
+            { field: "id", header: "ID", width: "10%" },
+            { field: "name", header: "Name", width: "90%" },
+        ];
         this.home = { icon: "fa fa-stethoscope" };
         this.acousticTympanogram = [
             {
@@ -104,274 +111,6 @@ export class TestsComponent implements OnInit {
         ];
         this.frequencyTable = ["500", "1000", "2000", "4000"];
 
-        this.testMenu = [
-            {
-                label: "Diagnosis [E01]",
-                icon: "fa fa-stethoscope",
-                items: [
-                    {
-                        label: "Diagnostic Techniques and Procedures [E01.370]",
-                        icon: "fa fa-stethoscope",
-                        items: [
-                            {
-                                label: "Diagnostic Imaging [E01.370.350]",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label:
-                                            "Imaging, Three-Dimensional [E01.370.350.400]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                ],
-                            },
-                            {
-                                label:
-                                    "Clinical Laboratory Techniques [E01.370.225]",
-                                icon: "fa fa-stethoscope",
-                                command: (event) => {
-                                    this.save(event);
-                                },
-                            },
-                            {
-                                label:
-                                    "Diagnostic Techniques, Otological [E01.370.382] ",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label:
-                                            "Hearing Tests [E01.370.382.375] ",
-                                        icon: "fa fa-stethoscope",
-                                        items: [
-                                            {
-                                                label:
-                                                    "Acoustic Impedance Tests [E01.370.382.375.050]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.openAcoustic(event);
-                                                },
-                                                styleClass: "menuCss",
-                                            },
-                                            {
-                                                label:
-                                                    "Audiometry [E01.370.382.375.060] ",
-                                                icon: "fa fa-stethoscope",
-                                                items: [
-                                                    {
-                                                        label:
-                                                            "Audiometry, Evoked Response [E01.370.382.375.060.050]",
-                                                        icon:
-                                                            "fa fa-stethoscope",
-                                                        items: [
-                                                            {
-                                                                label:
-                                                                    "Auditory Brainstem Response (ABR) test",
-                                                                icon:
-                                                                    "fa fa-stethoscope",
-                                                                items: [
-                                                                    {
-                                                                        label:
-                                                                            "Electrocochleography",
-                                                                        icon:
-                                                                            "fa fa-stethoscope",
-                                                                        command: (
-                                                                            event
-                                                                        ) => {
-                                                                            this.save(
-                                                                                event
-                                                                            );
-                                                                        },
-                                                                    },
-                                                                ],
-                                                            },
-                                                        ],
-                                                    },
-                                                    {
-                                                        label:
-                                                            "Audiometry, Pure-Tone [E01.370.382.375.060.055]",
-                                                        icon:
-                                                            "fa fa-stethoscope",
-                                                        // styleClass: "menuCss",
-
-                                                        items: [
-                                                            {
-                                                                label:
-                                                                    " vcc vcccccccccccfcv",
-                                                                icon:
-                                                                    "fa fa-stethoscope",
-                                                                command: (
-                                                                    event
-                                                                ) => {
-                                                                    this.save(
-                                                                        event
-                                                                    );
-                                                                },
-                                                            },
-                                                        ],
-                                                    },
-                                                    {
-                                                        label:
-                                                            "Audiometry, Speech [E01.370.382.375.060.060]",
-                                                        icon:
-                                                            "fa fa-stethoscope",
-                                                        command: (event) => {
-                                                            this.save(event);
-                                                        },
-                                                        // styleClass: "menuCss",
-                                                    },
-                                                    {
-                                                        label:
-                                                            "Psychoacoustics [E01.370.382.375.060.530]",
-                                                        icon:
-                                                            "fa fa-stethoscope",
-                                                        command: (event) => {
-                                                            this.save(event);
-                                                        },
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                label:
-                                                    "Dichotic Listening Tests [E01.370.382.375.200]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                            {
-                                                label:
-                                                    "Recruitment Detection, Audiologic [E01.370.382.375.650]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        label:
-                                            "Vestibular Function Tests [E01.370.382.900] ",
-                                        icon: "fa fa-stethoscope",
-                                        items: [
-                                            {
-                                                label:
-                                                    "Caloric Tests [E01.370.382.900.150]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                            {
-                                                label:
-                                                    "Electronystagmography [E01.370.382.900.280]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                            {
-                                                label:
-                                                    "Head Impulse Test [E01.370.382.900.640]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        label: "Otoscopy [E01.370.382.637]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                ],
-                            },
-                            {
-                                label: "Medical History Taking [E01.370.510]",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label:
-                                            "Cornell Medical Index [E01.370.510.150]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                    {
-                                        label:
-                                            "Reproductive History [E01.370.510.700]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                ],
-                            },
-                            {
-                                label: "Physical Examination [E01.370.600] ",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label: "Vital Signs [E01.370.600.875] ",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                ],
-                            },
-                            {
-                                label:
-                                    "Speech Production Measurement [E01.370.760]",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label:
-                                            "Speech Articulation Tests [E01.370.760.760]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                ],
-                            },
-                            {
-                                label: "Symptom Assessment [E01.370.872]",
-                                icon: "fa fa-stethoscope",
-                                command: (event) => {
-                                    this.save(event);
-                                },
-                            },
-                            { separator: true },
-                            {
-                                label: "Quit",
-                            },
-                        ],
-                    },
-                    {
-                        label: "Prognosis [E01.789]",
-                        icon: "fa fa-stethoscope",
-                        command: (event) => {
-                            this.save(event);
-                        },
-                    },
-                    { separator: true },
-                    {
-                        label: "Quit",
-                    },
-                ],
-            },
-            { separator: true },
-            {
-                label: "Quit",
-                icon: "pi pi-fw pi-times",
-            },
-        ];
         this.equipmentsCols = [
             { field: "equipmentType", header: "Equipment Type" },
         ];
@@ -454,12 +193,14 @@ export class TestsComponent implements OnInit {
             this.showEquipmentTable = true;
         }
     }
-    save(event) {
-        this.test.testType = event.item.label;
+    saveTest() {
+        this.test.id = this.selectedTest.id;
+        this.test.name = this.selectedTest.name;
         this.spinner.show();
         setTimeout(() => {
             this.tests.push(this.test);
-
+            this.selectedTest = "";
+            this.displayTest = false;
             this.test = new Test();
             this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
@@ -479,6 +220,9 @@ export class TestsComponent implements OnInit {
         this.selectedEvent = event;
         this.displayAcoustic = true;
     }
+    showTestDialog() {
+        this.displayTest = true;
+    }
     customTrackBy(index: number, obj: any): any {
         return index;
     }
@@ -496,7 +240,7 @@ export class TestsComponent implements OnInit {
             this.displayAcoustic = false;
             this.spinner.hide();
         }, 2000);
-        this.save(this.selectedEvent);
+        // this.saveTest(this.selectedEvent);
     }
     saveEquipment(event) {
         this.equipment.equipmentType = event.item.label;
@@ -522,5 +266,23 @@ export class TestsComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    filterTest(event) {
+        const query = event.query;
+        this.testService.getTests().then((tests) => {
+            this.filteredTests = this.searchTest(query, tests);
+        });
+    }
+    searchTest(query, tests: any[]): any[] {
+        // in a real application, make a request to a remote url with the query and return filtered results,
+        // for demo we filter at client side
+        const filtered: any[] = [];
+        for (const item of tests) {
+            const test = item;
+            if (test.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(test);
+            }
+        }
+        return filtered;
     }
 }

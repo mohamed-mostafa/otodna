@@ -1,3 +1,4 @@
 export class Test {
-    testType: string;
+    id: number;
+    name: string;
 }

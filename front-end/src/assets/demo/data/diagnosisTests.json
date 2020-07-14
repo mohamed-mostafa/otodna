@@ -1,0 +1,80 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Prognosis [E01.789]"
+        },
+        {
+            "id": 2,
+            "name": "Imaging, Three-Dimensional [E01.370.350.400]"
+        },
+        {
+            "id": 3,
+            "name": "Clinical Laboratory Techniques [E01.370.225]"
+        },
+        {
+            "id": 4,
+            "name": "Acoustic Impedance Tests [E01.370.382.375.050]"
+        },
+        {
+            "id": 5,
+            "name": "Electrocochleography"
+        },
+        {
+            "id": 6,
+            "name": " vcc vcccccccccccfcv"
+        },
+        {
+            "id": 7,
+            "name": "Audiometry, Speech [E01.370.382.375.060.060]"
+        },
+        {
+            "id": 8,
+            "name": "Psychoacoustics [E01.370.382.375.060.530]"
+        },
+        {
+            "id": 9,
+            "name": "Dichotic Listening Tests [E01.370.382.375.200]"
+        },
+        {
+            "id": 10,
+            "name": "Recruitment Detection, Audiologic [E01.370.382.375.650]"
+        },
+        {
+            "id": 11,
+            "name": "Caloric Tests [E01.370.382.900.150]"
+        },
+        {
+            "id": 12,
+            "name": "Electronystagmography [E01.370.382.900.280]"
+        },
+        {
+            "id": 13,
+            "name": "Head Impulse Test [E01.370.382.900.640]"
+        },
+        {
+            "id": 14,
+            "name": "Otoscopy [E01.370.382.637]"
+        },
+        {
+            "id": 15,
+            "name": "Cornell Medical Index [E01.370.510.150]"
+        },
+        {
+            "id": 16,
+            "name": "Reproductive History [E01.370.510.700]"
+        },
+        {
+            "id": 17,
+            "name": "Vital Signs [E01.370.600.875]"
+        },
+        {
+            "id": 18,
+            "name": "Speech Articulation Tests [E01.370.760.760]"
+        },
+        {
+            "id": 19,
+            "name": "Symptom Assessment [E01.370.872]"
+        }
+    ]
+}
