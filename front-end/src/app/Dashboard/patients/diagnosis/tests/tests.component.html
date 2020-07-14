@@ -33,18 +33,30 @@
     [draggable]="false"
     [resizable]="false"
 >
-    <div style="height: 150px;">
+    <div style="height: 200px;">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12">
                 <p-autoComplete
                     [(ngModel)]="selectedTest"
-                    [suggestions]="filteredTests"
                     (completeMethod)="filterTest($event)"
                     field="name"
                     placeholder="Test Name"
                     [size]="30"
                     [minLength]="1"
                 ></p-autoComplete>
+            </div>
+            <div
+                class="ui-g-12 ui-md-6"
+                *ngFor="let filtered of filteredTests"
+                (click)="saveTest(filtered)"
+            >
+                <p-card
+                    class="centerHeader pointerCursor"
+                    [style]="{ height: '60px' }"
+                    styleClass="ui-card-shadow cardBorderRadius"
+                >
+                    {{ filtered.name }}
+                </p-card>
             </div>
         </div>
     </div>
@@ -56,13 +68,6 @@
             (click)="displayTest = false"
             label="No"
             class="ui-button-secondary"
-        ></button>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-check"
-            (click)="saveTest()"
-            label="Yes"
         ></button>
     </p-footer>
 </p-dialog>
@@ -451,11 +456,11 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td class="ui-resizable-column">
+                        <td class="ui-resizable-column centerHeader">
                             <span class="ui-column-title">Test Id </span>
                             {{ rowData.id }}
                         </td>
-                        <td class="ui-resizable-column">
+                        <td class="ui-resizable-column centerHeader">
                             <span class="ui-column-title">Test Name </span>
                             {{ rowData.name }}
                         </td>

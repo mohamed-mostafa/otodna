@@ -24,3 +24,9 @@
 .labelMarginTop {
     margin-top: 7px;
 }
+.pointerCursor {
+    cursor: pointer;
+}
+.centerHeader {
+    text-align: center;
+}

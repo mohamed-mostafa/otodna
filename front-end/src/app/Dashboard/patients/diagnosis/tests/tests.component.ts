@@ -39,6 +39,7 @@ export class TestsComponent implements OnInit {
     showEquipmentTable = false;
     selectedTest;
     filteredTests: any[];
+    allTests = [];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -182,6 +183,7 @@ export class TestsComponent implements OnInit {
         ];
         this.showTable();
         this.showEquipmentsTable();
+        this.getAllTests();
     }
     showTable() {
         if (this.tests.length > 0) {
@@ -193,13 +195,14 @@ export class TestsComponent implements OnInit {
             this.showEquipmentTable = true;
         }
     }
-    saveTest() {
-        this.test.id = this.selectedTest.id;
-        this.test.name = this.selectedTest.name;
+    saveTest(test) {
+        this.test.id = test.id;
+        this.test.name = test.name;
         this.spinner.show();
         setTimeout(() => {
             this.tests.push(this.test);
             this.selectedTest = "";
+            this.filteredTests = [];
             this.displayTest = false;
             this.test = new Test();
             this.showTable();
@@ -284,5 +287,13 @@ export class TestsComponent implements OnInit {
             }
         }
         return filtered;
+    }
+    getAllTests() {
+        this.testService.getTests().then((res) => {
+            this.allTests = res;
+        });
+    }
+    openTest(test) {
+        console.log(test);
     }
 }
