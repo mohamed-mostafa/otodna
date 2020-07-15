@@ -35,28 +35,38 @@
 >
     <div style="height: 200px;">
         <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-12">
-                <p-autoComplete
-                    [(ngModel)]="selectedTest"
-                    (completeMethod)="filterTest($event)"
-                    field="name"
-                    placeholder="Test Name"
-                    [size]="30"
-                    [minLength]="1"
-                ></p-autoComplete>
-            </div>
-            <div
-                class="ui-g-12 ui-md-6"
-                *ngFor="let filtered of filteredTests"
-                (click)="saveTest(filtered)"
-            >
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '60px' }"
-                    styleClass="ui-card-shadow cardBorderRadius"
+            <div class="ui-g-12 ui-md-12" *ngIf="showTests">
+                <div class="ui-g-12 ui-md-12">
+                    <p-autoComplete
+                        [(ngModel)]="selectedTest"
+                        (completeMethod)="filterTest($event)"
+                        field="name"
+                        placeholder="Test Name"
+                        [size]="30"
+                        [minLength]="1"
+                    ></p-autoComplete>
+                </div>
+                <div
+                    class="ui-g-12 ui-md-6"
+                    *ngFor="let filtered of filteredTests"
+                    (click)="openTest(filtered)"
                 >
-                    {{ filtered.name }}
-                </p-card>
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '60px' }"
+                        styleClass="ui-card-shadow cardBorderRadius"
+                    >
+                        {{ filtered.name }}
+                    </p-card>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
+                <h1>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Incidunt sit id pariatur doloribus, tempora optio labore
+                    sint fuga placeat esse alias amet odit dolorum maxime?
+                    Recusandae consequatur atque eius. Quas?
+                </h1>
             </div>
         </div>
     </div>
@@ -68,6 +78,15 @@
             (click)="cancelTest()"
             label="Cancel"
             class="ui-button-secondary"
+        ></button>
+        <button
+            *ngIf="!showTests"
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="saveTest()"
+            label="Ok"
+            class="ui-button-icon-primary"
         ></button>
     </p-footer>
 </p-dialog>

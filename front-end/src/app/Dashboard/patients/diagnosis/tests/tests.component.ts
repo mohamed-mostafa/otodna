@@ -40,6 +40,8 @@ export class TestsComponent implements OnInit {
     selectedTest;
     filteredTests: any[];
     allTests = [];
+    showTests = true;
+    selected;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -195,14 +197,16 @@ export class TestsComponent implements OnInit {
             this.showEquipmentTable = true;
         }
     }
-    saveTest(test) {
-        this.test.id = test.id;
-        this.test.name = test.name;
+    saveTest() {
+        this.test.id = this.selected.id;
+        this.test.name = this.selected.name;
         this.spinner.show();
         setTimeout(() => {
             this.tests.push(this.test);
             this.selectedTest = "";
             this.filteredTests = [];
+            this.selected = "";
+            this.showTests = true;
             this.displayTest = false;
             this.test = new Test();
             this.showTable();
@@ -210,9 +214,11 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         }, 2000);
     }
-    cancelTest(){
+    cancelTest() {
         this.selectedTest = "";
+        this.selected = "";
         this.filteredTests = [];
+        this.showTests = true;
         this.displayTest = false;
     }
     showMessage(type, title, message) {
@@ -299,6 +305,7 @@ export class TestsComponent implements OnInit {
         });
     }
     openTest(test) {
-        console.log(test);
+        this.selected = test;
+        this.showTests = false;
     }
 }
