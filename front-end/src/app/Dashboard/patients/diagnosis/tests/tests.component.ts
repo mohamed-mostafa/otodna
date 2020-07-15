@@ -210,6 +210,11 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         }, 2000);
     }
+    cancelTest(){
+        this.selectedTest = "";
+        this.filteredTests = [];
+        this.displayTest = false;
+    }
     showMessage(type, title, message) {
         this.messageService.add({
             severity: type,
