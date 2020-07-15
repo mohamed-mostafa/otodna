@@ -14,4 +14,11 @@ export class TestsService {
             .then((res) => res.data as any[])
             .then((data) => data);
     }
+    getAcousticTest() {
+        return this.http
+            .get<any>("assets/demo/data/acousticTest.json")
+            .toPromise()
+            .then((res) => res.data as any[])
+            .then((data) => data);
+    }
 }

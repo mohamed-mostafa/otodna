@@ -61,12 +61,45 @@
                 </div>
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
-                <h1>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Incidunt sit id pariatur doloribus, tempora optio labore
-                    sint fuga placeat esse alias amet odit dolorum maxime?
-                    Recusandae consequatur atque eius. Quas?
-                </h1>
+                <div class="ui-g ui-fluid" *ngFor="let test of acousticTest">
+                    <div class="ui-g-12 ui-md-6" *ngIf="test.textName">
+                        <div class="ui-inputgroup">
+                            <input
+                                type="text"
+                                pInputText
+                                placeholder="{{ test.textName }}"
+                            />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-6" *ngIf="test.numberName">
+                        <div class="ui-inputgroup">
+                            <input
+                                type="number"
+                                pInputText
+                                placeholder="{{ test.numberName }}"
+                            />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-6" *ngIf="test.booleanName">
+                        <p-checkbox
+                            name="{{ test.booleanName }}"
+                            label="{{ test.booleanName }}"
+                            value="{{ test.booleanName }}"
+                        ></p-checkbox>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6" *ngIf="test.dropdownName">
+                        <div class="ui-inputgroup">
+                            <p-dropdown
+                                [options]="test.dropdownValues"
+                                placeholder="Select Value"
+                                optionLabel="name"
+                                id="relation"
+                                [showClear]="true"
+                            ></p-dropdown>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

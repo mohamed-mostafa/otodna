@@ -42,6 +42,7 @@ export class TestsComponent implements OnInit {
     allTests = [];
     showTests = true;
     selected;
+    acousticTest = [];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -186,6 +187,7 @@ export class TestsComponent implements OnInit {
         this.showTable();
         this.showEquipmentsTable();
         this.getAllTests();
+        this.getAcousticTest();
     }
     showTable() {
         if (this.tests.length > 0) {
@@ -307,5 +309,10 @@ export class TestsComponent implements OnInit {
     openTest(test) {
         this.selected = test;
         this.showTests = false;
+    }
+    getAcousticTest() {
+        this.testService.getAcousticTest().then((res) => {
+            this.acousticTest = res;
+        });
     }
 }
