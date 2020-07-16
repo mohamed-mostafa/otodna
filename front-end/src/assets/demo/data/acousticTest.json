@@ -1,33 +1,55 @@
 {
     "data": [
         {
-            "numberName": "test Number",
-            "numberUnit": "test Unit",
-            "numberMin": 0,
-            "numberMax": 100,
-            "booleanName": "Test Boolean",
-            "textName": "Test Text",
-            "dropdownName": "Test Dropdown",
-            "dropdownValues": [
-                { "id": 1, "name": "a" },
-                { "id": 2, "name": "b" },
-                { "id": 3, "name": "c" },
-                { "id": 4, "name": "d" }
-            ]
-        },
-        {
-            "numberName": "test Number 2",
-            "numberUnit": "test Unit 2",
-            "numberMin": 0,
-            "numberMax": 100,
-            "booleanName": "Test Boolean 2",
-            "textName": "Test Text 2",
-            "dropdownName": "Test Dropdown 2",
-            "dropdownValues": [
-                { "id": 1, "name": "a 2" },
-                { "id": 2, "name": "b 2" },
-                { "id": 3, "name": "c 2" },
-                { "id": 4, "name": "d 2" }
+            "name": "Test Name",
+            "parameters": [
+                {
+                    "type": "text",
+                    "name": "Pressure",
+                    "maxLength": "100",
+                    "required": true
+                },
+                {
+                    "type": "number",
+                    "name": "pressure value",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "unit": "mmHg",
+                    "required": true
+                },
+                {
+                    "type": "boolean",
+                    "name": "Inflated",
+                    "required": true
+                },
+                {
+                    "type": "list",
+                    "name": "Severity",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": "Severe" },
+                        { "id": 2, "name": "Moderate" },
+                        { "id": 3, "name": "Mild" }
+                    ]
+                },
+                {
+                    "type": "textarea",
+                    "name": "Type your comments",
+                    "maxLength": "1000",
+                    "required": true
+                },
+                {
+                    "type": "image",
+                    "name": "xRay",
+                    "required": true
+                },
+
+                {
+                    "type": "table",
+                    "name": "testGraph",
+                    "xAxisValues": ["50", "100", "200"],
+                    "cellValues": ["Y", "N"]
+                }
             ]
         }
     ]

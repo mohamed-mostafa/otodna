@@ -2,19 +2,19 @@
     "data": [
         {
             "id": 1,
-            "name": "Prognosis [E01.789]"
+            "name": "Prognosis"
         },
         {
             "id": 2,
-            "name": "Imaging, Three-Dimensional [E01.370.350.400]"
+            "name": "Imaging,Three-Dimensional"
         },
         {
             "id": 3,
-            "name": "Clinical Laboratory Techniques [E01.370.225]"
+            "name": "Clinical Laboratory Techniques"
         },
         {
             "id": 4,
-            "name": "Acoustic Impedance Tests [E01.370.382.375.050]"
+            "name": "Acoustic Impedance Tests"
         },
         {
             "id": 5,
@@ -22,59 +22,59 @@
         },
         {
             "id": 6,
-            "name": " vcc vcccccccccccfcv"
+            "name": "vcc vcccccccccccfcv"
         },
         {
             "id": 7,
-            "name": "Audiometry, Speech [E01.370.382.375.060.060]"
+            "name": "Audiometry, Speech"
         },
         {
             "id": 8,
-            "name": "Psychoacoustics [E01.370.382.375.060.530]"
+            "name": "Psychoacoustics"
         },
         {
             "id": 9,
-            "name": "Dichotic Listening Tests [E01.370.382.375.200]"
+            "name": "Dichotic Listening Tests"
         },
         {
             "id": 10,
-            "name": "Recruitment Detection, Audiologic [E01.370.382.375.650]"
+            "name": "Recruitment Detection, Audiologic"
         },
         {
             "id": 11,
-            "name": "Caloric Tests [E01.370.382.900.150]"
+            "name": "Caloric Tests"
         },
         {
             "id": 12,
-            "name": "Electronystagmography [E01.370.382.900.280]"
+            "name": "Electronystagmography"
         },
         {
             "id": 13,
-            "name": "Head Impulse Test [E01.370.382.900.640]"
+            "name": "Head Impulse Test"
         },
         {
             "id": 14,
-            "name": "Otoscopy [E01.370.382.637]"
+            "name": "Otoscopy"
         },
         {
             "id": 15,
-            "name": "Cornell Medical Index [E01.370.510.150]"
+            "name": "Cornell Medical Index"
         },
         {
             "id": 16,
-            "name": "Reproductive History [E01.370.510.700]"
+            "name": "Reproductive History"
         },
         {
             "id": 17,
-            "name": "Vital Signs [E01.370.600.875]"
+            "name": "Vital Signs"
         },
         {
             "id": 18,
-            "name": "Speech Articulation Tests [E01.370.760.760]"
+            "name": "Speech Articulation Tests"
         },
         {
             "id": 19,
-            "name": "Symptom Assessment [E01.370.872]"
+            "name": "Symptom Assessment"
         }
     ]
 }

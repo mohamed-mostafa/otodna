@@ -7,16 +7,9 @@ import { HttpClient } from "@angular/common/http";
 export class TestsService {
     constructor(private http: HttpClient) {}
 
-    getTests() {
+    getTest(test) {
         return this.http
-            .get<any>("assets/demo/data/diagnosisTests.json")
-            .toPromise()
-            .then((res) => res.data as any[])
-            .then((data) => data);
-    }
-    getAcousticTest() {
-        return this.http
-            .get<any>("assets/demo/data/acousticTest.json")
+            .get<any>(`assets/demo/data/${test}.json`)
             .toPromise()
             .then((res) => res.data as any[])
             .then((data) => data);

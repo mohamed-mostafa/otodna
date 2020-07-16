@@ -33,7 +33,7 @@
     [draggable]="false"
     [resizable]="false"
 >
-    <div style="height: 200px;">
+    <div style="height: 300px;">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
@@ -47,7 +47,7 @@
                     ></p-autoComplete>
                 </div>
                 <div
-                    class="ui-g-12 ui-md-6"
+                    class="ui-g-12 ui-md-3"
                     *ngFor="let filtered of filteredTests"
                     (click)="openTest(filtered)"
                 >
@@ -62,41 +62,144 @@
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div class="ui-g ui-fluid" *ngFor="let test of acousticTest">
-                    <div class="ui-g-12 ui-md-6" *ngIf="test.textName">
-                        <div class="ui-inputgroup">
-                            <input
-                                type="text"
-                                pInputText
-                                placeholder="{{ test.textName }}"
-                            />
+                    <h4 class="centerHeader">{{ test.name }}</h4>
+                    <div
+                        *ngFor="let t of test.parameters"
+                        class="ui-g-12 ui-md-12"
+                    >
+                        <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'text'">
+                            <div class="ui-g-12 ui-md-6">
+                                <label for="left-{{ t.name }}"
+                                    >Left {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup">
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="left-{{ t.name }}"
+                                        class="labelMarginTop"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                    />
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <label for="right-{{ t.name }}"
+                                    >Right {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup">
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="right-{{ t.name }}"
+                                        class="labelMarginTop"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui-g-12 ui-md-6" *ngIf="test.numberName">
-                        <div class="ui-inputgroup">
-                            <input
-                                type="number"
-                                pInputText
-                                placeholder="{{ test.numberName }}"
-                            />
+                        <div
+                            class="ui-g-12 ui-md-12"
+                            *ngIf="t.type === 'number'"
+                        >
+                            <div class="ui-g-12 ui-md-6">
+                                <label for="left-{{ t.name }}"
+                                    >Left {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup">
+                                    <input
+                                        type="number"
+                                        pInputText
+                                        id="left-{{ t.name }}"
+                                        class="labelMarginTop"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                    />
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <label for="right-{{ t.name }}"
+                                    >Right {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup">
+                                    <input
+                                        type="number"
+                                        pInputText
+                                        id="right-{{ t.name }}"
+                                        class="labelMarginTop"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui-g-12 ui-md-6" *ngIf="test.booleanName">
-                        <p-checkbox
-                            name="{{ test.booleanName }}"
-                            label="{{ test.booleanName }}"
-                            value="{{ test.booleanName }}"
-                        ></p-checkbox>
-                    </div>
-
-                    <div class="ui-g-12 ui-md-6" *ngIf="test.dropdownName">
-                        <div class="ui-inputgroup">
-                            <p-dropdown
-                                [options]="test.dropdownValues"
-                                placeholder="Select Value"
-                                optionLabel="name"
-                                id="relation"
-                                [showClear]="true"
-                            ></p-dropdown>
+                        <div
+                            class="ui-g-12 ui-md-12"
+                            *ngIf="t.type === 'boolean'"
+                        >
+                            <div class="ui-g-12 ui-md-6">
+                                <p-checkbox
+                                    label="Left {{ t.name }}"
+                                    [value]="t.name"
+                                    class="labelMarginTop"
+                                    [required]="t.required"
+                                ></p-checkbox>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <p-checkbox
+                                    label="Right {{ t.name }}"
+                                    [value]="t.name"
+                                    class="labelMarginTop"
+                                    [required]="t.required"
+                                ></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'list'">
+                            <div class="ui-g-12 ui-md-6">
+                                <label for="left-{{ t.name }}"
+                                    >Left {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <p-dropdown
+                                        [options]="t.values"
+                                        placeholder="Select Value"
+                                        optionLabel="name"
+                                        id="left-{{ t.name }}"
+                                        [showClear]="true"
+                                        [required]="t.required"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <label for="right-{{ t.name }}"
+                                    >Right {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <p-dropdown
+                                        [options]="t.values"
+                                        placeholder="Select Value"
+                                        optionLabel="name"
+                                        id="right-{{ t.name }}"
+                                        [showClear]="true"
+                                        [required]="t.required"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="ui-g-12 ui-md-12"
+                            *ngIf="t.type === 'textarea'"
+                        >
+                            <textarea
+                                [rows]="5"
+                                [cols]="30"
+                                pInputTextarea
+                                autoResize="autoResize"
+                                [placeholder]="t.name"
+                                [required]="t.required"
+                                [(ngModel)]="t.name"
+                            ></textarea>
                         </div>
                     </div>
                 </div>
@@ -120,361 +223,6 @@
             (click)="saveTest()"
             label="Ok"
             class="ui-button-icon-primary"
-        ></button>
-    </p-footer>
-</p-dialog>
-<p-dialog
-    [header]="dialogName"
-    [(visible)]="displayAcoustic"
-    [style]="{ width: '60vw' }"
-    [baseZIndex]="10000"
-    [maximizable]="true"
-    [draggable]="false"
-    [resizable]="false"
->
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6">
-            <label for="tympanogram">Tympanogram</label>
-            <div class="labelMarginTop">
-                <p-dropdown
-                    [options]="acousticTympanogram"
-                    placeholder="Select Tympanogram"
-                    optionLabel="name"
-                    [showClear]="true"
-                    id="tympanogram"
-                    [(ngModel)]="acoustic.tympanogram"
-                ></p-dropdown>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <label for="rightTympanogram">Right Tympanogram</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    id="rightTympanogram"
-                    placeholder="Right"
-                    [(ngModel)]="acoustic.rightTympanogram"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <label for="leftTympanogram">Left Tympanogram</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    id="leftTympanogram"
-                    placeholder="Left"
-                    [(ngModel)]="acoustic.leftTympanogram"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="rightCompliance">Right Compliance</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    pKeyFilter="int"
-                    id="rightCompliance"
-                    placeholder="Right Compliance"
-                    [(ngModel)]="acoustic.rightCompliance"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="leftCompliance">Left Compliance</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    id="leftCompliance"
-                    pKeyFilter="int"
-                    placeholder="Left Compliance"
-                    [(ngModel)]="acoustic.leftCompliance"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="rightPeakPressuer">Right Peak Pressuer</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    id="rightPeakPressuer"
-                    pKeyFilter="int"
-                    placeholder="Right Peak Pressuer"
-                    [(ngModel)]="acoustic.rightPeakPressuer"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="leftPeakPressuer">Left Peak Pressuer</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    id="leftPeakPressuer"
-                    pKeyFilter="int"
-                    placeholder="Left Peak Pressuer"
-                    [(ngModel)]="acoustic.leftPeakPressuer"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="rightEarCanalVolume">Right Ear Canal Volume</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    pKeyFilter="int"
-                    id="rightEarCanalVolume"
-                    placeholder="Right Ear Canal Volume"
-                    [(ngModel)]="acoustic.rightEarCanalVolume"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="leftEarCanalVolume">Left Ear Canal Volume</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <input
-                    type="text"
-                    pInputText
-                    pKeyFilter="int"
-                    id="leftEarCanalVolume"
-                    placeholder="Left Ear Canal Volume"
-                    [(ngModel)]="acoustic.leftEarCanalVolume"
-                />
-            </div>
-        </div>
-        <p-table>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Freq</th>
-                    <th *ngFor="let freq of frequencyTable">{{ freq }}</th>
-                </tr>
-
-                <tr>
-                    <th>Right</th>
-                    <th
-                        *ngFor="
-                            let freq of rightVal;
-                            let i = index;
-                            trackBy: customTrackBy
-                        "
-                    >
-                        <p-dropdown
-                            [options]="acousticReflex"
-                            placeholder="Y/N"
-                            optionLabel="name"
-                            [showClear]="true"
-                            name="right-{{ i }}"
-                            [(ngModel)]="rightVal[i]"
-                        ></p-dropdown>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Left</th>
-                    <th
-                        *ngFor="
-                            let freq of leftVal;
-                            let i = index;
-                            trackBy: customTrackBy
-                        "
-                    >
-                        <p-dropdown
-                            [options]="acousticReflex"
-                            placeholder="Y/N"
-                            optionLabel="name"
-                            [showClear]="true"
-                            name="left-{{ i }}"
-                            [(ngModel)]="leftVal[i]"
-                        ></p-dropdown>
-                    </th>
-                </tr>
-            </ng-template>
-        </p-table>
-        <p-fieldset legend="Equipments" class="FullWidth">
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-4">
-                    <button
-                        #btn
-                        type="button"
-                        pButton
-                        icon="pi pi-bars"
-                        label="Add Equipment"
-                        (click)="equipment.toggle($event)"
-                    ></button>
-                </div>
-                <div class="ui-g-12 ui-md-8"></div>
-            </div>
-            <p-slideMenu
-                #equipment
-                [model]="equipmentMenu"
-                [popup]="true"
-                [viewportHeight]="250"
-                [style]="{ width: '300px' }"
-                [menuWidth]="300"
-            ></p-slideMenu>
-            <!-- <div *ngIf="!showEquipmentTable">
-                <div class="ui-g-12 ui-md-3"></div>
-                <div class="ui-g-12 ui-md-6 equipmentCenterClass">
-                    <h3>Click Add Equipment To Add A New Equipment</h3>
-                    <button
-                        #btn
-                        type="button"
-                        pButton
-                        icon="pi pi-bars"
-                        label="Add Equipment"
-                        (click)="equipment.toggle($event)"
-                    ></button>
-                </div>
-                <div class="ui-g-12 ui-md-3"></div>
-            </div> -->
-
-            <div class="ui-g ui-fluid" *ngIf="showEquipmentTable">
-                <div class="ui-g-12">
-                    <p-table
-                        #dt
-                        [columns]="equipmentsCols"
-                        styleClass="ui-table-cars"
-                        [value]="equipments"
-                        [paginator]="true"
-                        [resizableColumns]="true"
-                        [responsive]="true"
-                        [rows]="10"
-                        dataKey="vin"
-                        selectionMode="single"
-                    >
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th
-                                    *ngFor="let col of columns"
-                                    [pSortableColumn]="col.field"
-                                    [ngSwitch]="col.field"
-                                    [ngStyle]="{ width: col.width }"
-                                >
-                                    {{ col.header }}
-                                    <p-sortIcon
-                                        [field]="col.field"
-                                    ></p-sortIcon>
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template
-                            pTemplate="body"
-                            let-rowData
-                            let-columns="columns"
-                        >
-                            <tr
-                                [pSelectableRow]="rowData"
-                                [pEditableRow]="rowData"
-                            >
-                                <td class="ui-resizable-column">
-                                    <span class="ui-column-title"
-                                        >Equipment Type
-                                    </span>
-                                    {{ rowData.equipmentType }}
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-        </p-fieldset>
-        <p-fieldset legend="References">
-            <div class="ui-g-12 ui-md-3">
-                <label for="Tympanogram">Tympanogram</label>
-                <div class="ui-inputgroup labelMarginTop">
-                    <input
-                        type="text"
-                        pInputText
-                        id="Tympanogram"
-                        placeholder="Type A"
-                        [readOnly]="true"
-                    />
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-3">
-                <label for="Compliance">Compliance</label>
-                <div class="ui-inputgroup labelMarginTop">
-                    <input
-                        type="text"
-                        pInputText
-                        id="Compliance"
-                        pKeyFilter="int"
-                        placeholder="10"
-                        [readOnly]="true"
-                    />
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-3">
-                <label for="peak">Peak pressuer</label>
-                <div class="ui-inputgroup labelMarginTop">
-                    <input
-                        type="text"
-                        pInputText
-                        id="peak"
-                        pKeyFilter="int"
-                        placeholder="13"
-                        [readOnly]="true"
-                    />
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-3">
-                <label for="ear">Ear Canal Volume</label>
-                <div class="ui-inputgroup labelMarginTop">
-                    <input
-                        type="text"
-                        pInputText
-                        id="ear"
-                        pKeyFilter="int"
-                        placeholder="17"
-                        [readOnly]="true"
-                    />
-                </div>
-            </div>
-            <p-table>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Freq</th>
-                        <th *ngFor="let freq of frequencyTable">{{ freq }}</th>
-                    </tr>
-
-                    <tr>
-                        <th>Right</th>
-                        <th>Yes</th>
-                        <th>Yes</th>
-                        <th>Yes</th>
-                        <th>Yes</th>
-                    </tr>
-                    <tr>
-                        <th>Left</th>
-                        <th>Yes</th>
-                        <th>Yes</th>
-                        <th>Yes</th>
-                        <th>Yes</th>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </p-fieldset>
-    </div>
-    <p-footer>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="cancelAcousticDialog()"
-            label="Cancel"
-            class="ui-button-secondary"
-        ></button>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-check"
-            (click)="saveAcousticDialog()"
-            label="Save"
         ></button>
     </p-footer>
 </p-dialog>
