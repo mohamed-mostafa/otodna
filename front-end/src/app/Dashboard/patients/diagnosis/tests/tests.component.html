@@ -83,6 +83,7 @@
                                     />
                                 </div>
                             </div>
+
                             <div class="ui-g-12 ui-md-6">
                                 <label for="right-{{ t.name }}"
                                     >Right {{ t.name }}</label
@@ -103,7 +104,7 @@
                             class="ui-g-12 ui-md-12"
                             *ngIf="t.type === 'number'"
                         >
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-5">
                                 <label for="left-{{ t.name }}"
                                     >Left {{ t.name }}</label
                                 >
@@ -118,7 +119,10 @@
                                     />
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-1 marginTop28">
+                                {{ t.unit ? t.unit : "" }}
+                            </div>
+                            <div class="ui-g-12 ui-md-5">
                                 <label for="right-{{ t.name }}"
                                     >Right {{ t.name }}</label
                                 >
@@ -132,6 +136,9 @@
                                         [required]="t.required"
                                     />
                                 </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-1 marginTop28">
+                                {{ t.unit ? t.unit : "" }}
                             </div>
                         </div>
                         <div
