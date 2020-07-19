@@ -62,12 +62,19 @@
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div class="ui-g ui-fluid" *ngFor="let test of acousticTest">
-                    <h4 class="centerHeader">{{ test.name }}</h4>
+                    <h4
+                        class="ui-g-12 ui-md-12 centerHeader removeMarginAndPadding"
+                    >
+                        {{ test.name }}
+                    </h4>
                     <div
                         *ngFor="let t of test.parameters"
-                        class="ui-g-12 ui-md-12"
+                        class="ui-g-12 ui-md-12 removeMarginAndPadding"
                     >
-                        <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'text'">
+                        <div
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'text'"
+                        >
                             <div class="ui-g-12 ui-md-6">
                                 <label for="left-{{ t.name }}"
                                     >Left {{ t.name }}</label
@@ -101,7 +108,7 @@
                             </div>
                         </div>
                         <div
-                            class="ui-g-12 ui-md-12"
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
                             *ngIf="t.type === 'number'"
                         >
                             <div class="ui-g-12 ui-md-5">
@@ -142,7 +149,7 @@
                             </div>
                         </div>
                         <div
-                            class="ui-g-12 ui-md-12"
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
                             *ngIf="t.type === 'boolean'"
                         >
                             <div class="ui-g-12 ui-md-6">
@@ -162,7 +169,10 @@
                                 ></p-checkbox>
                             </div>
                         </div>
-                        <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'list'">
+                        <div
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'list'"
+                        >
                             <div class="ui-g-12 ui-md-6">
                                 <label for="left-{{ t.name }}"
                                     >Left {{ t.name }}</label

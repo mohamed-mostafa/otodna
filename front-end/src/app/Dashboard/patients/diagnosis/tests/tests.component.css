@@ -33,3 +33,7 @@
 .marginTop28 {
     margin-top: 28px;
 }
+.removeMarginAndPadding {
+    margin: 0px;
+    padding: 0px;
+}
