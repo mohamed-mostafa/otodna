@@ -160,17 +160,6 @@ export class PatientBasicInfoComponent implements OnInit {
                                 "Confirmed",
                                 "patient Updated Successfully"
                             );
-                            setTimeout(() => {
-                                this.router
-                                    .navigateByUrl("/RefreshComponent", {
-                                        skipLocationChange: true,
-                                    })
-                                    .then(() => {
-                                        this.router.navigate([
-                                            "/dashboard/patient",
-                                        ]);
-                                    });
-                            }, 1000);
                             this.spinner.hide();
                         });
                 } else {

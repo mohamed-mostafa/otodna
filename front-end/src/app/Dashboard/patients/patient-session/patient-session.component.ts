@@ -16,6 +16,9 @@ export class PatientSessionComponent implements OnInit {
     home: MenuItem;
     session: Session = new Session();
     selectedPatient;
+    label;
+    showButtons = true;
+    public href: string = "";
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -30,7 +33,14 @@ export class PatientSessionComponent implements OnInit {
         this.session.sessionTypeId = JSON.parse(
             localStorage.getItem("sessionTypeId")
         );
-
+        this.href = this.router.url;
+        if (this.session.sessionTypeId === 0) {
+            this.label = "New Diagnosis";
+        } else if (this.session.sessionTypeId === 1) {
+            this.label = "New Treatment";
+        } else {
+            this.label = "New Followup";
+        }
         this.session.patientId = this.selectedPatient.id;
         this.items = [
             {
@@ -49,7 +59,7 @@ export class PatientSessionComponent implements OnInit {
                     this.goToPatientPage(event);
                 },
             },
-            { label: "Basic Info" },
+            { label: this.label },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
@@ -62,6 +72,7 @@ export class PatientSessionComponent implements OnInit {
             this.session = selectedSession;
             this.session.date = new Date(selectedSession.date);
             this.session.createdAt = new Date(selectedSession.createdAt);
+            this.showButtons = false;
         } else {
             this.session.date = new Date();
             this.session.createdAt = new Date();
@@ -73,6 +84,7 @@ export class PatientSessionComponent implements OnInit {
                 this.selectedPatient.firstName +
                 " " +
                 this.selectedPatient.lastName;
+            this.showButtons = true;
         }
     }
     reset() {
@@ -102,11 +114,32 @@ export class PatientSessionComponent implements OnInit {
                                     skipLocationChange: true,
                                 })
                                 .then(() => {
-                                    this.router.navigate([
-                                        "/dashboard/addDiagnosis",
-                                    ]);
+                                    this.router.navigate([this.href]);
                                 });
                         }, 1000);
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    update() {
+        this.validateSession((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                this.patientSession
+                    .updateSession(this.session)
+                    .subscribe((u: any) => {
+                        this.spinner.hide();
+                        localStorage.setItem(
+                            "sessionBasicInfo",
+                            JSON.stringify(this.session)
+                        );
+                        this.showMessage(
+                            "success",
+                            "Saved",
+                            "Data updated successfully"
+                        );
                     });
             } else {
                 this.showMessage("warn", "Error", "Please try again");

@@ -35,54 +35,85 @@
             <div class="card timeline ui-fluid">
                 <div class="ui-g">
                     <div class="ui-g-3">
-                        <span class="event-time">just now</span>
+                        <br />
+                        <span *ngFor="let data of allData">
+                            <div
+                                *ngIf="data.sessionTypeId === 0"
+                                class="marginBottomAndTop"
+                            >
+                                {{ data.date | date }}
+                            </div>
+                        </span>
                         <i
                             class="fa fa-stethoscope"
                             style="color: #61b5a1;"
                         ></i>
                     </div>
                     <div class="ui-g-9">
-                        <span class="event-owner">Diagnosis</span>
-                        <span class="event-text">Lorem ipsun dolor amet</span>
-                        <span class="event-text">Lorem ipsun dolor amet</span>
-                        <span class="event-text">Lorem ipsun dolor amet</span>
+                        <span class="event-owner marginBottomAndTop"
+                            >Diagnosis</span
+                        >
+                        <span *ngFor="let data of allData">
+                            <div
+                                *ngIf="data.sessionTypeId === 0"
+                                class="marginBottomAndTop pointerCursor"
+                                (click)="openDiagnosis(data)"
+                            >
+                                {{ data.displayName }}
+                            </div>
+                        </span>
                     </div>
-
                     <div class="ui-g-3">
-                        <span class="event-time">12h ago</span>
+                        <br />
+                        <span *ngFor="let data of allData">
+                            <div
+                                *ngIf="data.sessionTypeId === 1"
+                                class="marginBottomAndTop"
+                            >
+                                {{ data.date | date }}
+                            </div>
+                        </span>
                         <i class="fa fa-medkit" style="color: #61b5a1;"></i>
                     </div>
                     <div class="ui-g-9">
-                        <span class="event-owner">Treatments</span>
-                        <span class="event-text"
-                            >Ab nobis, magnam sunt eum. Laudantium, repudiandae,
-                            similique!.</span
+                        <span class="event-owner marginBottomAndTop"
+                            >Treatment</span
                         >
-                        <span class="event-text"
-                            >Ab nobis, magnam sunt eum. Laudantium, repudiandae,
-                            similique!.</span
-                        >
-                        <span class="event-text"
-                            >Ab nobis, magnam sunt eum. Laudantium, repudiandae,
-                            similique!.</span
-                        >
+                        <span *ngFor="let data of allData">
+                            <div
+                                *ngIf="data.sessionTypeId === 1"
+                                class="marginBottomAndTop pointerCursor"
+                                (click)="openTreatment(data)"
+                            >
+                                {{ data.displayName }}
+                            </div>
+                        </span>
                     </div>
-
                     <div class="ui-g-3">
-                        <span class="event-time">2d ago</span>
+                        <br />
+                        <span *ngFor="let data of allData">
+                            <div
+                                *ngIf="data.sessionTypeId === 2"
+                                class="marginBottomAndTop"
+                            >
+                                {{ data.date | date }}
+                            </div>
+                        </span>
                         <i class="fa fa-ambulance" style="color: #61b5a1;"></i>
                     </div>
                     <div class="ui-g-9">
-                        <span class="event-owner">Follow Up</span>
-                        <span class="event-text"
-                            >Laudantium, repudiandae, similique!</span
+                        <span class="event-owner marginBottomAndTop"
+                            >Followup</span
                         >
-                        <span class="event-text"
-                            >Laudantium, repudiandae, similique!</span
-                        >
-                        <span class="event-text"
-                            >Laudantium, repudiandae, similique!</span
-                        >
+                        <span *ngFor="let data of allData">
+                            <div
+                                *ngIf="data.sessionTypeId === 2"
+                                class="marginBottomAndTop pointerCursor"
+                                (click)="openFollowup(data)"
+                            >
+                                {{ data.displayName }}
+                            </div>
+                        </span>
                     </div>
                 </div>
             </div>

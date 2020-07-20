@@ -28,6 +28,8 @@ export class TestsComponent implements OnInit {
     showTests = true;
     selected;
     acousticTest = [];
+    uploadedFiles: any[] = [];
+    uploadedImages: any[] = [];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -125,8 +127,6 @@ export class TestsComponent implements OnInit {
         });
     }
     searchTest(query, tests: any[]): any[] {
-        // in a real application, make a request to a remote url with the query and return filtered results,
-        // for demo we filter at client side
         const filtered: any[] = [];
         for (const item of tests) {
             const test = item;
@@ -149,5 +149,17 @@ export class TestsComponent implements OnInit {
         this.testService.getTest("acousticTest").then((res) => {
             this.acousticTest = res;
         });
+    }
+    uploadImages(event) {
+        for (const file of event.files) {
+            this.uploadedImages.push(file);
+        }
+        this.showMessage("info", "Success", "Upload Completed");
+    }
+    uploadFiles(event) {
+        for (const file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+        this.showMessage("info", "Success", "Upload Completed");
     }
 }

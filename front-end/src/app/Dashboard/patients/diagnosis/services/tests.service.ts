@@ -9,7 +9,7 @@ export class TestsService {
 
     getTest(test) {
         return this.http
-            .get<any>(`assets/demo/data/${test}.json`)
+            .get<any>(`assets/tests/${test}.json`)
             .toPromise()
             .then((res) => res.data as any[])
             .then((data) => data);

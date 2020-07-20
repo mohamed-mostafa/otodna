@@ -1,0 +1,66 @@
+{
+    "data": [
+        {
+            "name": "Test Name",
+            "parameters": [
+                {
+                    "type": "text",
+                    "name": "Pressure2",
+                    "maxLength": "100",
+                    "required": true
+                },
+                {
+                    "type": "text",
+                    "name": "Another Text",
+                    "maxLength": "100",
+                    "required": true
+                },
+                {
+                    "type": "number",
+                    "name": "pressure value",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "unit": "mmHg",
+                    "required": true
+                },
+                {
+                    "type": "boolean",
+                    "name": "Inflated",
+                    "required": true
+                },
+                {
+                    "type": "list",
+                    "name": "Severity",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": "Severe" },
+                        { "id": 2, "name": "Moderate" },
+                        { "id": 3, "name": "Mild" }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "name": "xRay",
+                    "required": true
+                },
+                {
+                    "type": "file",
+                    "name": "File",
+                    "required": true
+                },
+                {
+                    "type": "textarea",
+                    "name": "Type your comments",
+                    "maxLength": "1000",
+                    "required": true
+                },
+                {
+                    "type": "table",
+                    "name": "testGraph",
+                    "xAxisValues": ["50", "100", "200"],
+                    "cellValues": ["Y", "N"]
+                }
+            ]
+        }
+    ]
+}

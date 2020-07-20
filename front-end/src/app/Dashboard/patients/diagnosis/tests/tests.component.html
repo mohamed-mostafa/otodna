@@ -47,18 +47,40 @@
                     ></p-autoComplete>
                 </div>
                 <div
-                    class="ui-g-12 ui-md-3"
-                    *ngFor="let filtered of filteredTests"
-                    (click)="openTest(filtered)"
+                    *ngIf="
+                        filteredTests && filteredTests.length > 0;
+                        else other
+                    "
                 >
-                    <p-card
-                        class="centerHeader pointerCursor"
-                        [style]="{ height: '60px' }"
-                        styleClass="ui-card-shadow cardBorderRadius"
+                    <div
+                        class="ui-g-12 ui-md-3"
+                        *ngFor="let filtered of filteredTests"
+                        (click)="openTest(filtered)"
                     >
-                        {{ filtered.name }}
-                    </p-card>
+                        <p-card
+                            class="centerHeader pointerCursor"
+                            [style]="{ height: '60px' }"
+                            styleClass="ui-card-shadow cardBorderRadius"
+                        >
+                            {{ filtered.name }}
+                        </p-card>
+                    </div>
                 </div>
+                <ng-template #other>
+                    <div
+                        class="ui-g-12 ui-md-3"
+                        *ngFor="let test of allTests"
+                        (click)="openTest(test)"
+                    >
+                        <p-card
+                            class="centerHeader pointerCursor"
+                            [style]="{ height: '60px' }"
+                            styleClass="ui-card-shadow cardBorderRadius"
+                        >
+                            {{ test.name }}
+                        </p-card>
+                    </div>
+                </ng-template>
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div class="ui-g ui-fluid" *ngFor="let test of acousticTest">
@@ -202,6 +224,63 @@
                                         [required]="t.required"
                                     ></p-dropdown>
                                 </div>
+                            </div>
+                        </div>
+                        <div
+                            class="removeMarginAndPadding"
+                            *ngIf="t.type === 'image'"
+                        >
+                            <label for="img">Choose {{ t.name }}</label>
+                            <div class="ui-g-12 ui-md-12 labelMarginTop">
+                                <p-fileUpload
+                                    name="demo[]"
+                                    url="./upload.php"
+                                    (onUpload)="uploadImages($event)"
+                                    multiple="multiple"
+                                    accept="image/*"
+                                    maxFileSize="1000000"
+                                >
+                                    <ng-template pTemplate="content">
+                                        <ul *ngIf="uploadedImages.length">
+                                            <li
+                                                *ngFor="
+                                                    let file of uploadedImages
+                                                "
+                                            >
+                                                {{ file.name }} -
+                                                {{ file.size }} bytes
+                                            </li>
+                                        </ul>
+                                    </ng-template>
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                        <div
+                            class="removeMarginAndPadding"
+                            *ngIf="t.type === 'file'"
+                        >
+                            <label for="img">Choose {{ t.name }}</label>
+                            <div class="ui-g-12 ui-md-12 labelMarginTop">
+                                <p-fileUpload
+                                    name="demo[]"
+                                    url="./upload.php"
+                                    (onUpload)="uploadFiles($event)"
+                                    multiple="multiple"
+                                    maxFileSize="1000000"
+                                >
+                                    <ng-template pTemplate="content">
+                                        <ul *ngIf="uploadedFiles.length">
+                                            <li
+                                                *ngFor="
+                                                    let file of uploadedFiles
+                                                "
+                                            >
+                                                {{ file.name }} -
+                                                {{ file.size }} bytes
+                                            </li>
+                                        </ul>
+                                    </ng-template>
+                                </p-fileUpload>
                             </div>
                         </div>
                         <div

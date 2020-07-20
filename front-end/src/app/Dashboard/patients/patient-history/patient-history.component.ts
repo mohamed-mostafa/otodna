@@ -1,3 +1,5 @@
+import { NgxSpinnerService } from "ngx-spinner";
+import { PatientSessionService } from "./../services/patient-session.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
@@ -12,10 +14,16 @@ export class PatientHistoryComponent implements OnInit {
     home: MenuItem;
     events: any[];
     fullcalendarOptions: any;
-    constructor(private router: Router) {}
+    selectedPatient;
+    allData = [];
+    constructor(
+        private router: Router,
+        private patientSession: PatientSessionService,
+        private spinner: NgxSpinnerService
+    ) {}
 
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
         this.items = [
@@ -26,14 +34,14 @@ export class PatientHistoryComponent implements OnInit {
                 },
             },
             {
-                label: selectedPatient.username
-                    ? selectedPatient.username
-                    : selectedPatient.firstName +
-                      " " +
-                      selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
             },
         ];
         this.home = { icon: "fa fa-user-md" };
+        this.getAllData();
     }
     addDiagnosis() {
         localStorage.setItem("sessionTypeId", JSON.stringify(0));
@@ -65,5 +73,26 @@ export class PatientHistoryComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    getAllData() {
+        this.spinner.show();
+        this.patientSession
+            .getAllSessions(this.selectedPatient.id)
+            .subscribe(async (result) => {
+                this.allData = result;
+                this.spinner.hide();
+            });
+    }
+    openDiagnosis(data) {
+        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+        this.addDiagnosis();
+    }
+    openTreatment(data) {
+        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+        this.addTreatment();
+    }
+    openFollowup(data) {
+        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+        this.addFollowup();
     }
 }

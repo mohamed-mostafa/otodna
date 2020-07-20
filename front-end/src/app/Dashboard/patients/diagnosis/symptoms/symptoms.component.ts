@@ -85,8 +85,9 @@ export class SymptomsComponent implements OnInit {
             .createSymptoms(symptomsArray)
             .subscribe((u: any) => {
                 this.spinner.hide();
+                console.log(this.selectedSymptoms);
+
                 this.reset();
-                this.selectedSymptoms = [];
                 this.showMessage("success", "Saved", "Data saved successfully");
             });
     }
