@@ -78,7 +78,7 @@
                                 class="marginBottomAndTop pointerCursor"
                                 (click)="openDiagnosis(data)"
                             >
-                                {{ data.displayName }}
+                                {{ data.notes ? data.notes : data.displayName }}
                             </div>
                         </span>
                     </div>
