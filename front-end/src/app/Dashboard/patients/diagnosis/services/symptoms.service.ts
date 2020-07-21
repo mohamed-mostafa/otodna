@@ -8,13 +8,25 @@ import { Observable } from "rxjs";
 })
 export class SymptomsService {
     apiUrl = environment.patientApiUrl;
-    link = "patientDiagnosisSymptoms";
+    diagnosisLink = "patientDiagnosisSymptoms";
+    sessionLink = "patientSessionSymptoms";
     constructor(private http: HttpClient) {}
 
     getAllSymptoms(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.link}`);
+        return this.http.get<any>(`${this.apiUrl}/${this.diagnosisLink}`);
     }
     createSymptoms(data): Observable<void> {
-        return this.http.post<void>(`${this.apiUrl}/${this.link}`, data);
+        return this.http.post<void>(`${this.apiUrl}/${this.sessionLink}`, data);
+    }
+    updateSymptoms(id, data): Observable<void> {
+        return this.http.patch<void>(
+            `${this.apiUrl}/${this.sessionLink}/${id}`,
+            data
+        );
+    }
+    getPatientSessionSymptoms(patientSessionId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
+        );
     }
 }

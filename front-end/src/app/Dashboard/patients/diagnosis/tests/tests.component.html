@@ -266,7 +266,7 @@
                                     url="./upload.php"
                                     (onUpload)="uploadFiles($event)"
                                     multiple="multiple"
-                                    maxFileSize="1000000"
+                                    maxFileSize="100000000"
                                 >
                                     <ng-template pTemplate="content">
                                         <ul *ngIf="uploadedFiles.length">
@@ -296,6 +296,88 @@
                                 [required]="t.required"
                                 [(ngModel)]="t.name"
                             ></textarea>
+                        </div>
+                        <div
+                            class="ui-g-12 ui-md-12"
+                            *ngIf="t.type === 'table'"
+                        >
+                            <p-table>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{ t.name }}</th>
+                                        <th *ngFor="let data of t.xAxisValues">
+                                            {{ data }}
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Right</th>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'boolean'"
+                                        >
+                                            <th
+                                                *ngFor="
+                                                    let freq of t.xAxisValues
+                                                "
+                                            >
+                                                <p-dropdown
+                                                    [options]="t.cellValues"
+                                                    placeholder="Y/N"
+                                                    optionLabel="name"
+                                                    [showClear]="true"
+                                                ></p-dropdown>
+                                            </th>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'number'"
+                                        >
+                                            <th
+                                                *ngFor="
+                                                    let freq of t.xAxisValues
+                                                "
+                                            >
+                                                <input
+                                                    type="number"
+                                                    pInputText
+                                                />
+                                            </th>
+                                        </ng-container>
+                                    </tr>
+                                    <tr>
+                                        <th>Left</th>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'boolean'"
+                                        >
+                                            <th
+                                                *ngFor="
+                                                    let freq of t.xAxisValues
+                                                "
+                                            >
+                                                <p-dropdown
+                                                    [options]="t.cellValues"
+                                                    placeholder="Y/N"
+                                                    optionLabel="name"
+                                                    [showClear]="true"
+                                                ></p-dropdown>
+                                            </th>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'number'"
+                                        >
+                                            <th
+                                                *ngFor="
+                                                    let freq of t.xAxisValues
+                                                "
+                                            >
+                                                <input
+                                                    type="number"
+                                                    pInputText
+                                                />
+                                            </th>
+                                        </ng-container>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
                     </div>
                 </div>

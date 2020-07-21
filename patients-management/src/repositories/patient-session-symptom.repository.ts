@@ -29,4 +29,23 @@ export class PatientSessionSymptomRepository extends DefaultTransactionalReposit
       }
     });
   }
+  public updateDiagnosisSymptoms(
+    id: number,
+    data: Array<Object>,
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const tx: Transaction = await this.beginTransaction();
+      try {
+        await super.deleteAll({patientSessionId: id}, {transaction: tx});
+        for (const d of data) {
+          await super.create(d, {transaction: tx});
+        }
+        await tx.commit();
+        resolve(data);
+      } catch (err) {
+        await tx.rollback();
+        reject(err);
+      }
+    });
+  }
 }

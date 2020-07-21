@@ -30,6 +30,7 @@ export class TestsComponent implements OnInit {
     acousticTest = [];
     uploadedFiles: any[] = [];
     uploadedImages: any[] = [];
+    selectedSession;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -39,6 +40,9 @@ export class TestsComponent implements OnInit {
     ngOnInit(): void {
         let selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
+        );
+        this.selectedSession = JSON.parse(
+            localStorage.getItem("sessionBasicInfo")
         );
         this.items = [
             {
@@ -54,7 +58,7 @@ export class TestsComponent implements OnInit {
                     this.goToPatientPage(event);
                 },
             },
-            { label: "Diagnosis" },
+            { label: this.selectedSession.displayName },
         ];
         this.cols = [
             { field: "id", header: "ID", width: "10%" },

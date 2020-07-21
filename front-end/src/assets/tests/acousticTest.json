@@ -56,9 +56,16 @@
                 },
                 {
                     "type": "table",
-                    "name": "testGraph",
-                    "xAxisValues": ["50", "100", "200"],
-                    "cellValues": ["Y", "N"]
+                    "name": "Freq",
+                    "xAxisValues": ["500", "1000", "2000", "4000"],
+                    "cellValues": [{ "name": "Yes" }, { "name": "No" }],
+                    "cellType": "boolean"
+                },
+                {
+                    "type": "table",
+                    "name": "Freq",
+                    "xAxisValues": ["10", "20", "30", "40", "50"],
+                    "cellType": "number"
                 }
             ]
         }

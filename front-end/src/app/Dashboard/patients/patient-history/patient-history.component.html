@@ -36,82 +36,85 @@
                 <div class="ui-g">
                     <div class="ui-g-3">
                         <br />
-                        <span *ngFor="let data of allData">
-                            <div
-                                *ngIf="data.sessionTypeId === 0"
-                                class="marginBottomAndTop"
-                            >
-                                {{ data.date | date }}
+                        <span *ngFor="let diagnosis of allDiagnosis">
+                            <div class="marginBottomAndTop">
+                                {{ diagnosis.date | date }}
                             </div>
                         </span>
                         <i
                             class="fa fa-stethoscope"
+                            *ngIf="allDiagnosis && allDiagnosis.length > 0"
                             style="color: #61b5a1;"
                         ></i>
                     </div>
                     <div class="ui-g-9">
-                        <span class="event-owner marginBottomAndTop"
+                        <span
+                            class="event-owner marginBottomAndTop"
+                            *ngIf="allDiagnosis && allDiagnosis.length > 0"
                             >Diagnosis</span
                         >
-                        <span *ngFor="let data of allData">
+                        <span *ngFor="let diagnosis of allDiagnosis">
                             <div
-                                *ngIf="data.sessionTypeId === 0"
                                 class="marginBottomAndTop pointerCursor"
-                                (click)="openDiagnosis(data)"
+                                (click)="openDiagnosis(diagnosis)"
                             >
-                                {{ data.displayName }}
+                                {{ diagnosis.displayName }}
                             </div>
                         </span>
                     </div>
                     <div class="ui-g-3">
                         <br />
-                        <span *ngFor="let data of allData">
-                            <div
-                                *ngIf="data.sessionTypeId === 1"
-                                class="marginBottomAndTop"
-                            >
-                                {{ data.date | date }}
+                        <span *ngFor="let treatment of allTreatments">
+                            <div class="marginBottomAndTop">
+                                {{ treatment.date | date }}
                             </div>
                         </span>
-                        <i class="fa fa-medkit" style="color: #61b5a1;"></i>
+                        <i
+                            *ngIf="allTreatments && allTreatments.length > 0"
+                            class="fa fa-medkit"
+                            style="color: #61b5a1;"
+                        ></i>
                     </div>
                     <div class="ui-g-9">
-                        <span class="event-owner marginBottomAndTop"
+                        <span
+                            class="event-owner marginBottomAndTop"
+                            *ngIf="allTreatments && allTreatments.length > 0"
                             >Treatment</span
                         >
-                        <span *ngFor="let data of allData">
+                        <span *ngFor="let treatment of allTreatments">
                             <div
-                                *ngIf="data.sessionTypeId === 1"
                                 class="marginBottomAndTop pointerCursor"
-                                (click)="openTreatment(data)"
+                                (click)="openTreatment(treatment)"
                             >
-                                {{ data.displayName }}
+                                {{ treatment.displayName }}
                             </div>
                         </span>
                     </div>
                     <div class="ui-g-3">
                         <br />
-                        <span *ngFor="let data of allData">
-                            <div
-                                *ngIf="data.sessionTypeId === 2"
-                                class="marginBottomAndTop"
-                            >
-                                {{ data.date | date }}
+                        <span *ngFor="let followup of allFollowups">
+                            <div class="marginBottomAndTop">
+                                {{ followup.date | date }}
                             </div>
                         </span>
-                        <i class="fa fa-ambulance" style="color: #61b5a1;"></i>
+                        <i
+                            *ngIf="allFollowups && allFollowups.length > 0"
+                            class="fa fa-ambulance"
+                            style="color: #61b5a1;"
+                        ></i>
                     </div>
                     <div class="ui-g-9">
-                        <span class="event-owner marginBottomAndTop"
+                        <span
+                            class="event-owner marginBottomAndTop"
+                            *ngIf="allFollowups && allFollowups.length > 0"
                             >Followup</span
                         >
-                        <span *ngFor="let data of allData">
+                        <span *ngFor="let followup of allFollowups">
                             <div
-                                *ngIf="data.sessionTypeId === 2"
                                 class="marginBottomAndTop pointerCursor"
-                                (click)="openFollowup(data)"
+                                (click)="openFollowup(followup)"
                             >
-                                {{ data.displayName }}
+                                {{ followup.displayName }}
                             </div>
                         </span>
                     </div>

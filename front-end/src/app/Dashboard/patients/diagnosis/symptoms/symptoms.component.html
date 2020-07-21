@@ -19,25 +19,48 @@
 </p-fieldset>
 <div class="ui-g ui-fluid" style="margin-top: 15px;">
     <div class="ui-g-12 ui-md-8"></div>
-    <div class="ui-g-12 ui-md-2">
-        <button
-            pButton
-            type="button"
-            label="Discard"
-            (click)="reset()"
-            style="margin-bottom: 10px;"
-            class="ui-button-danger ui-button-raised"
-        ></button>
-    </div>
-    <div class="ui-g-12 ui-md-2">
-        <button
-            pButton
-            type="button"
-            label="Save"
-            (click)="save()"
-            style="margin-bottom: 10px;"
-            class="ui-button-icon-primary ui-button-raised"
-        ></button>
-    </div>
+    <ng-container *ngIf="showButtons; else elseTemplate">
+        <div class="ui-g-12 ui-md-2">
+            <button
+                pButton
+                type="button"
+                label="Discard"
+                (click)="reset()"
+                style="margin-bottom: 10px;"
+                class="ui-button-danger ui-button-raised"
+            ></button>
+        </div>
+        <div class="ui-g-12 ui-md-2">
+            <button
+                pButton
+                type="button"
+                label="Save"
+                (click)="save()"
+                style="margin-bottom: 10px;"
+                class="ui-button-icon-primary ui-button-raised"
+            ></button></div
+    ></ng-container>
+    <ng-template #elseTemplate>
+        <div class="ui-g-12 ui-md-2">
+            <button
+                pButton
+                type="button"
+                label="Back"
+                (click)="back()"
+                style="margin-bottom: 10px;"
+                class="ui-button-danger ui-button-raised"
+            ></button>
+        </div>
+        <div class="ui-g-12 ui-md-2">
+            <button
+                pButton
+                type="button"
+                label="Update"
+                (click)="update()"
+                style="margin-bottom: 10px;"
+                class="ui-button-icon-primary ui-button-raised"
+            ></button>
+        </div>
+    </ng-template>
 </div>
 <ngx-spinner></ngx-spinner>

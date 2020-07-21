@@ -19,6 +19,7 @@ export class PatientSessionComponent implements OnInit {
     label;
     showButtons = true;
     public href: string = "";
+    selectedSession;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -32,6 +33,9 @@ export class PatientSessionComponent implements OnInit {
         );
         this.session.sessionTypeId = JSON.parse(
             localStorage.getItem("sessionTypeId")
+        );
+        this.selectedSession = JSON.parse(
+            localStorage.getItem("sessionBasicInfo")
         );
         this.href = this.router.url;
         if (this.session.sessionTypeId === 0) {
@@ -50,28 +54,31 @@ export class PatientSessionComponent implements OnInit {
                 },
             },
             {
-                label: this.selectedPatient.username
-                    ? this.selectedPatient.username
-                    : this.selectedPatient.firstName +
-                      " " +
-                      this.selectedPatient.lastName,
+                label:
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
                 command: (event) => {
                     this.goToPatientPage(event);
                 },
             },
-            { label: this.label },
+            {
+                label: this.selectedSession
+                    ? this.selectedSession.displayName
+                    : this.label,
+            },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
     }
     loadData() {
-        let selectedSession = JSON.parse(
+        this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
-        if (selectedSession) {
-            this.session = selectedSession;
-            this.session.date = new Date(selectedSession.date);
-            this.session.createdAt = new Date(selectedSession.createdAt);
+        if (this.selectedSession) {
+            this.session = this.selectedSession;
+            this.session.date = new Date(this.selectedSession.date);
+            this.session.createdAt = new Date(this.selectedSession.createdAt);
             this.showButtons = false;
         } else {
             this.session.date = new Date();

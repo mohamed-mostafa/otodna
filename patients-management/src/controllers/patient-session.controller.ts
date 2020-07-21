@@ -59,7 +59,7 @@ export class PatientSessionController {
     return this.patientSessionRepository.create(patientSession);
   }
 
-  @post('/patientDiagnosisSymptoms', {
+  @post('/patientSessionSymptoms', {
     responses: {
       '200': {
         description: 'PatientSession model instance',
@@ -138,6 +138,30 @@ export class PatientSessionController {
     return this.patientDiagnosisSymptomsRepository.find(filter);
   }
 
+  @get('/patientSessionSymptoms', {
+    responses: {
+      '200': {
+        description: 'Array of PatientSessionSymptom model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(PatientSessionSymptom, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findSessionSymptoms(
+    @param.filter(PatientSessionSymptom)
+    filter?: Filter<PatientSessionSymptom>,
+  ): Promise<PatientSessionSymptom[]> {
+    return this.patientSessionSymptomRepository.find(filter);
+  }
+
   @patch('/patientSession', {
     responses: {
       '200': {
@@ -214,7 +238,27 @@ export class PatientSessionController {
   ): Promise<void> {
     await this.patientSessionRepository.replaceById(id, patientSession);
   }
-
+  @patch('/patientSessionSymptoms/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientSessionSymptom),
+          },
+        },
+      },
+    },
+  })
+  async updateDiagnosisSymptoms(
+    @param.path.number('id') id: number,
+    @requestBody() data: Array<Object>,
+  ): Promise<any> {
+    return this.patientSessionSymptomRepository.updateDiagnosisSymptoms(
+      id,
+      data,
+    );
+  }
   @del('/patientSession/{id}', {
     responses: {
       '204': {

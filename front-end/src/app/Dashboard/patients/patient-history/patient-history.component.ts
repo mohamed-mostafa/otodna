@@ -16,6 +16,9 @@ export class PatientHistoryComponent implements OnInit {
     fullcalendarOptions: any;
     selectedPatient;
     allData = [];
+    allDiagnosis = [];
+    allTreatments = [];
+    allFollowups = [];
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
@@ -79,7 +82,15 @@ export class PatientHistoryComponent implements OnInit {
         this.patientSession
             .getAllSessions(this.selectedPatient.id)
             .subscribe(async (result) => {
-                this.allData = result;
+                result.forEach((element) => {
+                    if (element.sessionTypeId === 0) {
+                        this.allDiagnosis.push(element);
+                    } else if (element.sessionTypeId === 1) {
+                        this.allTreatments.push(element);
+                    } else {
+                        this.allFollowups.push(element);
+                    }
+                });
                 this.spinner.hide();
             });
     }

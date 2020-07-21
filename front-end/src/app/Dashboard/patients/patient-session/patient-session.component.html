@@ -34,39 +34,6 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-4">
-            <label for="createdBy">Created By</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <span class="ui-inputgroup-addon backgroundColor"
-                    ><i class="pi pi-user"></i
-                ></span>
-                <input
-                    type="text"
-                    pInputText
-                    id="createdBy"
-                    placeholder="Created By"
-                    [disabled]="true"
-                    [(ngModel)]="session.createdBy"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <label for="createdAt">Created At</label>
-            <div class="labelMarginTop">
-                <p-calendar
-                    [readonlyInput]="true"
-                    placeholder="Created At"
-                    [showIcon]="true"
-                    id="createdAt"
-                    [disabled]="true"
-                    [(ngModel)]="session.createdAt"
-                    [monthNavigator]="true"
-                    [yearNavigator]="true"
-                    yearRange="1950:2020"
-                    showButtonBar="true"
-                ></p-calendar>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
             <label for="performer">Performer</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"

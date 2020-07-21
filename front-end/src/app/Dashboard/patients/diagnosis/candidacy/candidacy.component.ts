@@ -19,7 +19,7 @@ export class CandidacyComponent implements OnInit {
     candidacyMenu: MenuItem[];
     home: MenuItem;
     showTableFlag = false;
-
+    selectedSession;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -28,6 +28,9 @@ export class CandidacyComponent implements OnInit {
     ngOnInit(): void {
         let selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
+        );
+        this.selectedSession = JSON.parse(
+            localStorage.getItem("sessionBasicInfo")
         );
         this.items = [
             {
@@ -43,7 +46,7 @@ export class CandidacyComponent implements OnInit {
                     this.goToPatientPage(event);
                 },
             },
-            { label: "Diagnosis" },
+            { label: this.selectedSession.displayName },
         ];
         this.cols = [{ field: "testType", header: "Candidacy Type" }];
         this.home = { icon: "fa fa-stethoscope" };
