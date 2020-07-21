@@ -34,7 +34,7 @@
     [resizable]="false"
     *ngFor="let test of acousticTest"
 >
-    <div style="height: 300px;">
+    <div style="height: 350px;">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
@@ -85,11 +85,6 @@
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div class="ui-g ui-fluid" *ngFor="let test of acousticTest">
-                    <h4
-                        class="ui-g-12 ui-md-12 centerHeader removeMarginAndPadding"
-                    >
-                        {{ test.name }}
-                    </h4>
                     <div class="ui-g-12 ui-md-6">
                         <h2 class="centerHeader removeMarginAndPadding">
                             L
