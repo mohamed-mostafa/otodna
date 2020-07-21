@@ -25,13 +25,14 @@
     ></button>
 </div>
 <p-dialog
-    header="Add New Test"
+    [header]="test.name"
     [(visible)]="displayTest"
     [style]="{ width: '60vw' }"
     [baseZIndex]="10000"
     [maximizable]="true"
     [draggable]="false"
     [resizable]="false"
+    *ngFor="let test of acousticTest"
 >
     <div style="height: 300px;">
         <div class="ui-g ui-fluid">
@@ -90,14 +91,14 @@
                         {{ test.name }}
                     </h4>
                     <div class="ui-g-12 ui-md-6">
-                        <h4 class="centerHeader removeMarginAndPadding">
-                            Left
-                        </h4>
+                        <h2 class="centerHeader removeMarginAndPadding">
+                            L
+                        </h2>
                     </div>
-                    <div class="ui-g-12 ui-md-6">
-                        <h4 class="centerHeader removeMarginAndPadding">
-                            Right
-                        </h4>
+                    <div class="ui-g-12 ui-md-6 verticalLine">
+                        <h2 class="centerHeader removeMarginAndPadding">
+                            R
+                        </h2>
                     </div>
                     <div
                         *ngFor="let t of test.parameters"
@@ -123,7 +124,7 @@
                                 </div>
                             </div>
 
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6 verticalLine">
                                 <label for="right-{{ t.name }}">{{
                                     t.name
                                 }}</label>
@@ -161,7 +162,7 @@
                             <div class="ui-g-12 ui-md-1 marginTop28">
                                 {{ t.unit ? t.unit : "" }}
                             </div>
-                            <div class="ui-g-12 ui-md-5">
+                            <div class="ui-g-12 ui-md-5 verticalLine">
                                 <label for="right-{{ t.name }}">
                                     {{ t.name }}</label
                                 >
@@ -192,7 +193,7 @@
                                     [required]="t.required"
                                 ></p-checkbox>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6 verticalLine">
                                 <p-checkbox
                                     label=" {{ t.name }}"
                                     [value]="t.name"
@@ -220,7 +221,7 @@
                                     ></p-dropdown>
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6 verticalLine">
                                 <label for="right-{{ t.name }}">
                                     {{ t.name }}</label
                                 >
@@ -266,7 +267,7 @@
                                     </p-fileUpload>
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6 verticalLine">
                                 <label for="img">Choose {{ t.name }}</label>
                                 <div class="labelMarginTop">
                                     <p-fileUpload
@@ -322,7 +323,7 @@
                                     </p-fileUpload>
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6 verticalLine">
                                 <label for="img">Choose {{ t.name }}</label>
                                 <div class="labelMarginTop">
                                     <p-fileUpload

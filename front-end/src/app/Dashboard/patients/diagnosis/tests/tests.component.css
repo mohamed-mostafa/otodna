@@ -32,3 +32,6 @@
     margin: 0px;
     padding: 0px;
 }
+.verticalLine {
+    border-left: 2px solid #e0e0e0;
+}

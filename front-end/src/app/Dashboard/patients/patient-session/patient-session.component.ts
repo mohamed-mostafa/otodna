@@ -134,6 +134,9 @@ export class PatientSessionComponent implements OnInit {
         this.validateSession((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
+                if (this.session.notes === null) {
+                    delete this.session.notes;
+                }
                 this.patientSession
                     .updateSession(this.session)
                     .subscribe((u: any) => {
