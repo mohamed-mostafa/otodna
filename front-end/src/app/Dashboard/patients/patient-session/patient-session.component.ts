@@ -40,9 +40,21 @@ export class PatientSessionComponent implements OnInit {
         this.href = this.router.url;
         if (this.session.sessionTypeId === 0) {
             this.label = "New Diagnosis";
+            this.session.displayName = `Diagnosis - ${String(new Date()).slice(
+                4,
+                15
+            )}`;
         } else if (this.session.sessionTypeId === 1) {
             this.label = "New Treatment";
+            this.session.displayName = `Treatment - ${String(new Date()).slice(
+                4,
+                15
+            )}`;
         } else {
+            this.session.displayName = `Followup - ${String(new Date()).slice(
+                4,
+                15
+            )}`;
             this.label = "New Followup";
         }
         this.session.patientId = this.selectedPatient.id;
@@ -110,11 +122,7 @@ export class PatientSessionComponent implements OnInit {
                             "sessionBasicInfo",
                             JSON.stringify(u)
                         );
-                        this.showMessage(
-                            "success",
-                            "Saved",
-                            "Data saved successfully"
-                        );
+                        this.showMessage("success", "Saved", "Session Started");
                         setTimeout(() => {
                             this.router
                                 .navigateByUrl("/RefreshComponent", {
