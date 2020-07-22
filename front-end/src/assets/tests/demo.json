@@ -5,14 +5,10 @@
             "parameters": [
                 {
                     "type": "text",
-                    "name": "Pressure2",
+                    "name": "Pressure",
                     "maxLength": "100",
-                    "required": true
-                },
-                {
-                    "type": "text",
-                    "name": "Another Text",
-                    "maxLength": "100",
+                    "leftVal": "leftPressure",
+                    "rightVal": "rightPressure",
                     "required": true
                 },
                 {
@@ -21,16 +17,22 @@
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "mmHg",
+                    "leftVal": "leftPressureValue",
+                    "rightVal": "rightPressureValue",
                     "required": true
                 },
                 {
                     "type": "boolean",
                     "name": "Inflated",
+                    "leftVal": "leftInflated",
+                    "rightVal": "rightInflated",
                     "required": true
                 },
                 {
                     "type": "list",
                     "name": "Severity",
+                    "leftVal": "leftSeverity",
+                    "rightVal": "rightSeverity",
                     "required": true,
                     "values": [
                         { "id": 1, "name": "Severe" },
@@ -51,6 +53,7 @@
                 {
                     "type": "textarea",
                     "name": "Type your comments",
+                    "textareaVal": "textareaVal",
                     "maxLength": "1000",
                     "required": true
                 },
@@ -59,11 +62,13 @@
                     "name": "Freq",
                     "xAxisValues": ["500", "1000", "2000", "4000"],
                     "cellValues": [{ "name": "Yes" }, { "name": "No" }],
-                    "cellType": "boolean"
+                    "cellType": "boolean",
+                    "leftVal": "leftFreq",
+                    "rightVal": "rightFreq"
                 },
                 {
                     "type": "table",
-                    "name": "Freq",
+                    "name": "numbers",
                     "xAxisValues": ["10", "20", "30", "40", "50"],
                     "cellType": "number"
                 }

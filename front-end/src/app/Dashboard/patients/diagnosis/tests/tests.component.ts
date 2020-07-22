@@ -1,12 +1,11 @@
-import { Equipment } from "./equipment";
 import { Router } from "@angular/router";
-import { Acoustic } from "./acoustic";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Test } from "./test";
 import { TestsService } from "../services/tests.service";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
     selector: "app-tests",
@@ -15,6 +14,7 @@ import { TestsService } from "../services/tests.service";
     providers: [MessageService],
 })
 export class TestsComponent implements OnInit {
+    myFormGroup: FormGroup;
     cols: any[];
     tests: any[] = [];
     test: Test = new Test();
@@ -27,10 +27,11 @@ export class TestsComponent implements OnInit {
     allTests = [];
     showTests = true;
     selected;
-    acousticTest = [];
+    selectedTestData = [];
     uploadedFiles: any[] = [];
     uploadedImages: any[] = [];
     selectedSession;
+    dialogHeader;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -44,6 +45,7 @@ export class TestsComponent implements OnInit {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
+        this.dialogHeader = "Add New Test";
         this.items = [
             {
                 label: "Patients",
@@ -61,14 +63,13 @@ export class TestsComponent implements OnInit {
             { label: this.selectedSession.displayName },
         ];
         this.cols = [
-            { field: "id", header: "ID", width: "10%" },
-            { field: "name", header: "Name", width: "90%" },
+            { field: "id", header: "ID", width: "20%" },
+            { field: "name", header: "Name", width: "80%" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
 
         this.showTable();
         this.getAllTests();
-        this.getAcousticTest();
     }
     showTable() {
         if (this.tests.length > 0) {
@@ -76,6 +77,7 @@ export class TestsComponent implements OnInit {
         }
     }
     saveTest() {
+        console.log(this.myFormGroup.value);
         this.test.id = this.selected.id;
         this.test.name = this.selected.name;
         this.spinner.show();
@@ -87,6 +89,7 @@ export class TestsComponent implements OnInit {
             this.showTests = true;
             this.displayTest = false;
             this.test = new Test();
+            this.dialogHeader = "Add New Test";
             this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
@@ -98,6 +101,7 @@ export class TestsComponent implements OnInit {
         this.filteredTests = [];
         this.showTests = true;
         this.displayTest = false;
+        this.dialogHeader = "Add New Test";
     }
     showMessage(type, title, message) {
         this.messageService.add({
@@ -147,11 +151,26 @@ export class TestsComponent implements OnInit {
     }
     openTest(test) {
         this.selected = test;
+        if (test.id === "E01.370.382.375.050") {
+            this.getSelectedTest(test.id);
+        } else {
+            this.getSelectedTest("demo");
+        }
         this.showTests = false;
     }
-    getAcousticTest() {
-        this.testService.getTest("acousticTest").then((res) => {
-            this.acousticTest = res;
+    getSelectedTest(test) {
+        this.testService.getTest(test).then((res) => {
+            this.selectedTestData = res;
+            this.dialogHeader = res.map((r) => r.name);
+            let group = {};
+            res.forEach((r) => {
+                r.parameters.forEach((element) => {
+                    group[element.textareaVal] = new FormControl("");
+                    group[element.leftVal] = new FormControl("");
+                    group[element.rightVal] = new FormControl("");
+                });
+            });
+            this.myFormGroup = new FormGroup(group);
         });
     }
     uploadImages(event) {
