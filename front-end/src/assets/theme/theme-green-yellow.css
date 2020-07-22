@@ -332,7 +332,7 @@ body
     font-size: 14px;
     padding: 0.2145em 0.429em;
     margin: 0 0.286em 0 0;
-    background: #feedbc;
+    background: #d8efe9;
     color: #4c4224;
 }
 body .ui-autocomplete-panel {
@@ -361,7 +361,7 @@ body
     .ui-autocomplete-items
     .ui-autocomplete-list-item.ui-state-highlight {
     color: #4c4224;
-    background-color: #feedbc;
+    background-color: #d8efe9;
 }
 body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-group {
     padding: 0.429em 0.857em;

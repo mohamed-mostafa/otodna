@@ -1,0 +1,32 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Otoscopes"
+        },
+        {
+            "id": 2,
+            "name": "Auditory Brain Stem Implants"
+        },
+        {
+            "id": 3,
+            "name": "Cochlear Implants"
+        },
+        {
+            "id": 4,
+            "name": "Ossicular Prosthesis"
+        },
+        {
+            "id": 5,
+            "name": "Bone conduction implant"
+        },
+        {
+            "id": 6,
+            "name": "Tympanometer"
+        },
+        {
+            "id": 7,
+            "name": "Audiometer"
+        }
+    ]
+}

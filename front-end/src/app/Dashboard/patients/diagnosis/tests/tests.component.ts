@@ -25,6 +25,7 @@ export class TestsComponent implements OnInit {
     selectedTest;
     filteredTests: any[];
     allTests = [];
+    allEquipments = [];
     showTests = true;
     selected;
     selectedTestData = [];
@@ -32,6 +33,8 @@ export class TestsComponent implements OnInit {
     uploadedImages: any[] = [];
     selectedSession;
     dialogHeader;
+    selectedEquipments;
+    filteredEquipments: any[];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -70,6 +73,7 @@ export class TestsComponent implements OnInit {
 
         this.showTable();
         this.getAllTests();
+        this.getAllEquipments();
     }
     showTable() {
         if (this.tests.length > 0) {
@@ -78,6 +82,8 @@ export class TestsComponent implements OnInit {
     }
     saveTest() {
         console.log(this.myFormGroup.value);
+        console.log(this.selectedEquipments);
+
         this.test.id = this.selected.id;
         this.test.name = this.selected.name;
         this.spinner.show();
@@ -89,6 +95,7 @@ export class TestsComponent implements OnInit {
             this.showTests = true;
             this.displayTest = false;
             this.test = new Test();
+            this.selectedEquipments = "";
             this.dialogHeader = "Add New Test";
             this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
@@ -149,6 +156,11 @@ export class TestsComponent implements OnInit {
             this.allTests = res;
         });
     }
+    getAllEquipments() {
+        this.testService.getTest("equipments").then((res) => {
+            this.allEquipments = res;
+        });
+    }
     openTest(test) {
         this.selected = test;
         if (test.id === "E01.370.382.375.050") {
@@ -184,5 +196,14 @@ export class TestsComponent implements OnInit {
             this.uploadedFiles.push(file);
         }
         this.showMessage("info", "Success", "Upload Completed");
+    }
+    filterEquipments(event) {
+        this.filteredEquipments = [];
+        for (const item of this.allEquipments) {
+            const brand = item.name;
+            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+                this.filteredEquipments.push(brand);
+            }
+        }
     }
 }
