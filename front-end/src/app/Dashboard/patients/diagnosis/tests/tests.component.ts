@@ -5,7 +5,7 @@ import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Test } from "./test";
 import { TestsService } from "../services/tests.service";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: "app-tests",
@@ -178,8 +178,16 @@ export class TestsComponent implements OnInit {
             res.forEach((r) => {
                 r.parameters.forEach((element) => {
                     group[element.textareaVal] = new FormControl("");
-                    group[element.leftVal] = new FormControl("");
-                    group[element.rightVal] = new FormControl("");
+                    group[element.leftVal] = element.required
+                        ? new FormControl("", {
+                              validators: Validators.required,
+                          })
+                        : new FormControl("");
+                    group[element.rightVal] = element.required
+                        ? new FormControl("", {
+                              validators: Validators.required,
+                          })
+                        : new FormControl("");
                 });
             });
             this.myFormGroup = new FormGroup(group);

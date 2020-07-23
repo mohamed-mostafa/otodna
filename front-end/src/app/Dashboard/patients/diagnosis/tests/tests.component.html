@@ -481,58 +481,66 @@
                                 </p-table>
                             </div>
                         </div>
-                    </form>
-                    <div class="ui-g-12 ui-md-12">
-                        <p-fieldset legend="Equipments">
-                            <p-autoComplete
-                                id="acAdvanced"
-                                [(ngModel)]="selectedEquipments"
-                                [suggestions]="filteredEquipments"
-                                (completeMethod)="filterEquipments($event)"
-                                [size]="30"
-                                [minLength]="1"
-                                [dropdown]="true"
-                                multiple="true"
-                            >
-                                <ng-template let-equip pTemplate="item">
-                                    <div class="ui-helper-clearfix">
-                                        <div
-                                            style="
-                                                font-size: 18px;
-                                                float: right;
-                                                margin: 10px 10px 0 0;
-                                            "
-                                        >
-                                            {{ equip }}
+                        <div class="ui-g-12 ui-md-12">
+                            <p-fieldset legend="Equipments">
+                                <p-autoComplete
+                                    id="acAdvanced"
+                                    [(ngModel)]="selectedEquipments"
+                                    [suggestions]="filteredEquipments"
+                                    (completeMethod)="filterEquipments($event)"
+                                    [size]="30"
+                                    [minLength]="1"
+                                    [dropdown]="true"
+                                    multiple="true"
+                                    [formControlName]="selectedEquipments"
+                                >
+                                    <ng-template let-equip pTemplate="item">
+                                        <div class="ui-helper-clearfix">
+                                            <div
+                                                style="
+                                                    font-size: 18px;
+                                                    float: right;
+                                                    margin: 10px 10px 0 0;
+                                                "
+                                            >
+                                                {{ equip }}
+                                            </div>
                                         </div>
-                                    </div>
-                                </ng-template>
-                            </p-autoComplete>
-                        </p-fieldset>
-                    </div>
+                                    </ng-template>
+                                </p-autoComplete>
+                            </p-fieldset>
+                        </div>
+                        <div class="ui-g-12 ui-md-8"></div>
+                        <div class="ui-g-12 ui-md-4">
+                            <p-footer>
+                                <div class="ui-g-12 ui-md-6">
+                                    <button
+                                        type="button"
+                                        pButton
+                                        icon="pi pi-times"
+                                        (click)="cancelTest()"
+                                        label="Cancel"
+                                        class="ui-button-secondary"
+                                    ></button>
+                                </div>
+                                <div class="ui-g-12 ui-md-6">
+                                    <button
+                                        *ngIf="!showTests"
+                                        type="submit"
+                                        pButton
+                                        [disabled]="!myFormGroup.valid"
+                                        icon="pi pi-check"
+                                        label="Ok"
+                                        class="ui-button-icon-primary"
+                                    ></button>
+                                </div>
+                            </p-footer>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <p-footer>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="cancelTest()"
-            label="Cancel"
-            class="ui-button-secondary"
-        ></button>
-        <button
-            *ngIf="!showTests"
-            type="submit"
-            pButton
-            icon="pi pi-times"
-            label="Ok"
-            (click)="saveTest()"
-            class="ui-button-icon-primary"
-        ></button>
-    </p-footer>
 </p-dialog>
 <div class="ui-g ui-fluid" *ngIf="showTableFlag">
     <div class="ui-g-12">
