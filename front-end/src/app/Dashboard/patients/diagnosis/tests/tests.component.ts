@@ -69,7 +69,6 @@ export class TestsComponent implements OnInit {
             { field: "name", header: "Name", width: "80%" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
-
         this.showTable();
         this.getAllTests();
         this.getAllEquipments();
@@ -89,7 +88,6 @@ export class TestsComponent implements OnInit {
             this.selectedTest = "";
             this.filteredTests = [];
             this.selected = "";
-            this.showTests = true;
             this.displayTest = false;
             this.test = new Test();
             this.dialogHeader = "Add New Test";
@@ -97,6 +95,9 @@ export class TestsComponent implements OnInit {
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         }, 2000);
+    }
+    onHide() {
+        this.showTests = true;
     }
     cancelTest() {
         this.selectedTest = "";
