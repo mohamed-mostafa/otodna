@@ -33,7 +33,6 @@ export class TestsComponent implements OnInit {
     uploadedImages: any[] = [];
     selectedSession;
     dialogHeader;
-    selectedEquipments;
     filteredEquipments: any[];
     constructor(
         private messageService: MessageService,
@@ -93,7 +92,6 @@ export class TestsComponent implements OnInit {
             this.showTests = true;
             this.displayTest = false;
             this.test = new Test();
-            this.selectedEquipments = "";
             this.dialogHeader = "Add New Test";
             this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
