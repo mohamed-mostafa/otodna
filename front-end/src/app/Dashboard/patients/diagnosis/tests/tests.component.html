@@ -97,7 +97,7 @@
                                 R
                             </h2>
                         </div>
-                        <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                        <div class="ui-g-12 ui-md-6 leftColor">
                             <h2 class="centerHeader removeMarginAndPadding">
                                 L
                             </h2>
@@ -126,7 +126,7 @@
                                         />
                                     </div>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                                <div class="ui-g-12 ui-md-6 leftColor">
                                     <label for="left-{{ t.name }}">{{
                                         t.name
                                     }}</label>
@@ -170,7 +170,7 @@
                                         {{ t.unit ? t.unit : "" }}
                                     </div>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                                <div class="ui-g-12 ui-md-6 leftColor">
                                     <div class="ui-g-12 ui-md-10">
                                         <label for="left-{{ t.name }}">
                                             {{ t.name }}</label
@@ -209,7 +209,7 @@
                                         formControlName="{{ t.rightVal }}"
                                     ></p-checkbox>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                                <div class="ui-g-12 ui-md-6 leftColor">
                                     <p-checkbox
                                         label="{{ t.name }}"
                                         [value]="t.name"
@@ -239,7 +239,7 @@
                                         ></p-dropdown>
                                     </div>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                                <div class="ui-g-12 ui-md-6 leftColor">
                                     <label for="left-{{ t.name }}">
                                         {{ t.name }}</label
                                     >
@@ -290,7 +290,7 @@
                                         </p-fileUpload>
                                     </div>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                                <div class="ui-g-12 ui-md-6 leftColor">
                                     <label for="img">Choose {{ t.name }}</label>
                                     <div class="labelMarginTop">
                                         <p-fileUpload
@@ -352,7 +352,7 @@
                                         </p-fileUpload>
                                     </div>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftVerticalLine">
+                                <div class="ui-g-12 ui-md-6 leftColor">
                                     <label for="img">Choose {{ t.name }}</label>
                                     <div class="labelMarginTop">
                                         <p-fileUpload
@@ -415,7 +415,9 @@
                                             </tr>
 
                                             <tr>
-                                                <th>Right</th>
+                                                <th class="rightColor">
+                                                    Right
+                                                </th>
                                                 <ng-container
                                                     *ngIf="
                                                         t.cellType === 'boolean'
@@ -457,7 +459,7 @@
                                                 </ng-container>
                                             </tr>
                                             <tr>
-                                                <th>Left</th>
+                                                <th class="leftColor">Left</th>
                                                 <ng-container
                                                     *ngIf="
                                                         t.cellType === 'boolean'

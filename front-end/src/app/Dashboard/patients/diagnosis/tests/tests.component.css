@@ -33,8 +33,13 @@
     padding: 0px;
 }
 .rightVerticalLine {
-    border-right: 6px solid #bb0202;
+    border-right: 2px solid #e0e0e0;
+    color: #ff1744;
 }
-.leftVerticalLine {
-    border-left: 6px solid #011fa3;
+.leftColor {
+    /* border-left: 6px solid #011fa3; */
+    color: #1976d2 !important;
+}
+.rightColor {
+    color: #ff1744 !important;
 }
