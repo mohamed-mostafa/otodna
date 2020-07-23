@@ -25,8 +25,7 @@
                     "type": "boolean",
                     "name": "Inflated",
                     "leftVal": "leftInflated",
-                    "rightVal": "rightInflated",
-                    "required": true
+                    "rightVal": "rightInflated"
                 },
                 {
                     "type": "list",
@@ -54,8 +53,7 @@
                     "type": "textarea",
                     "name": "Type your comments",
                     "textareaVal": "textareaVal",
-                    "maxLength": "1000",
-                    "required": true
+                    "maxLength": "1000"
                 },
                 {
                     "type": "table",
@@ -73,6 +71,10 @@
                     "xAxisName": "Freq",
                     "xAxisValues": ["10", "20", "30", "40", "50"],
                     "cellType": "number"
+                },
+                {
+                    "type": "equipment",
+                    "equipmentVal": "equipments"
                 }
             ]
         }

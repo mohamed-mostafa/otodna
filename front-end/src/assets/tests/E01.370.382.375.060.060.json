@@ -52,6 +52,10 @@
                     "cellType": "number",
                     "leftVal": "leftScore",
                     "rightVal": "rightScore"
+                },
+                {
+                    "type": "equipment",
+                    "equipmentVal": "equipments"
                 }
             ]
         }

@@ -32,6 +32,9 @@
     margin: 0px;
     padding: 0px;
 }
-.verticalLine {
-    border-left: 2px solid #e0e0e0;
+.rightVerticalLine {
+    border-right: 6px solid #bb0202;
+}
+.leftVerticalLine {
+    border-left: 6px solid #011fa3;
 }

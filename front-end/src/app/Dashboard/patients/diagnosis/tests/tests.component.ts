@@ -82,8 +82,6 @@ export class TestsComponent implements OnInit {
     }
     saveTest() {
         console.log(this.myFormGroup.value);
-        console.log(this.selectedEquipments);
-
         this.test.id = this.selected.id;
         this.test.name = this.selected.name;
         this.spinner.show();
@@ -182,6 +180,7 @@ export class TestsComponent implements OnInit {
             res.forEach((r) => {
                 r.parameters.forEach((element) => {
                     group[element.textareaVal] = new FormControl("");
+                    group[element.equipmentVal] = new FormControl("");
                     group[element.leftVal] = element.required
                         ? new FormControl("", {
                               validators: Validators.required,

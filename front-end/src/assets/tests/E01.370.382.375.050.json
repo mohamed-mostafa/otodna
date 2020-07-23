@@ -56,6 +56,10 @@
                     "cellType": "boolean",
                     "leftVal": "leftAcousticReflex",
                     "rightVal": "rightAcousticReflex"
+                },
+                {
+                    "type": "equipment",
+                    "equipmentVal": "equipments"
                 }
             ]
         }

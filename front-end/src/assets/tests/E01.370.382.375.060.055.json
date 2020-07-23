@@ -151,6 +151,10 @@
                     ],
                     "leftVal": "leftUsing",
                     "rightVal": "rightUsing"
+                },
+                {
+                    "type": "equipment",
+                    "equipmentVal": "equipments"
                 }
             ]
         }
