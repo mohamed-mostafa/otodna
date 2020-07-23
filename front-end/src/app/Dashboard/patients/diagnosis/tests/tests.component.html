@@ -391,94 +391,109 @@
                                 class="ui-g-12 ui-md-12"
                                 *ngIf="t.type === 'table'"
                             >
-                                <p-table>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th>{{ t.name }}</th>
-                                            <th
-                                                *ngFor="
-                                                    let data of t.xAxisValues;
-                                                    let i = index
-                                                "
-                                            >
-                                                {{ data }}
-                                            </th>
-                                        </tr>
+                                <label> {{ t.name }}</label>
+                                <div class="labelMarginTop">
+                                    <p-table>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{ t.xAxisName }}</th>
+                                                <th
+                                                    *ngFor="
+                                                        let data of t.xAxisValues;
+                                                        let i = index
+                                                    "
+                                                >
+                                                    {{ data }}
+                                                </th>
+                                            </tr>
 
-                                        <tr>
-                                            <th>Right</th>
-                                            <ng-container
-                                                *ngIf="t.cellType === 'boolean'"
-                                            >
-                                                <th
-                                                    *ngFor="
-                                                        let freq of t.xAxisValues
+                                            <tr>
+                                                <th>Right</th>
+                                                <ng-container
+                                                    *ngIf="
+                                                        t.cellType === 'boolean'
                                                     "
                                                 >
-                                                    <p-dropdown
-                                                        [options]="t.cellValues"
-                                                        placeholder="Y/N"
-                                                        optionLabel="name"
-                                                        [showClear]="true"
-                                                        formControlName="{{
-                                                            t.rightVal
-                                                        }}"
-                                                    ></p-dropdown>
-                                                </th>
-                                            </ng-container>
-                                            <ng-container
-                                                *ngIf="t.cellType === 'number'"
-                                            >
-                                                <th
-                                                    *ngFor="
-                                                        let freq of t.xAxisValues
+                                                    <th
+                                                        *ngFor="
+                                                            let freq of t.xAxisValues
+                                                        "
+                                                    >
+                                                        <p-dropdown
+                                                            [options]="
+                                                                t.cellValues
+                                                            "
+                                                            placeholder="Y/N"
+                                                            optionLabel="name"
+                                                            [showClear]="true"
+                                                            formControlName="{{
+                                                                t.rightVal
+                                                            }}"
+                                                        ></p-dropdown>
+                                                    </th>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="
+                                                        t.cellType === 'number'
                                                     "
                                                 >
-                                                    <input
-                                                        type="number"
-                                                        pInputText
-                                                    />
-                                                </th>
-                                            </ng-container>
-                                        </tr>
-                                        <tr>
-                                            <th>Left</th>
-                                            <ng-container
-                                                *ngIf="t.cellType === 'boolean'"
-                                            >
-                                                <th
-                                                    *ngFor="
-                                                        let freq of t.xAxisValues
+                                                    <th
+                                                        *ngFor="
+                                                            let freq of t.xAxisValues
+                                                        "
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            pInputText
+                                                        />
+                                                    </th>
+                                                </ng-container>
+                                            </tr>
+                                            <tr>
+                                                <th>Left</th>
+                                                <ng-container
+                                                    *ngIf="
+                                                        t.cellType === 'boolean'
                                                     "
                                                 >
-                                                    <p-dropdown
-                                                        [options]="t.cellValues"
-                                                        placeholder="Y/N"
-                                                        optionLabel="name"
-                                                        [showClear]="true"
-                                                        formControlName="{{
-                                                            t.leftVal
-                                                        }}"
-                                                    ></p-dropdown>
-                                                </th>
-                                            </ng-container>
-                                            <ng-container
-                                                *ngIf="t.cellType === 'number'"
-                                            >
-                                                <th
-                                                    *ngFor="
-                                                        let freq of t.xAxisValues
+                                                    <th
+                                                        *ngFor="
+                                                            let freq of t.xAxisValues
+                                                        "
+                                                    >
+                                                        <p-dropdown
+                                                            [options]="
+                                                                t.cellValues
+                                                            "
+                                                            placeholder="Y/N"
+                                                            optionLabel="name"
+                                                            [showClear]="true"
+                                                            formControlName="{{
+                                                                t.leftVal
+                                                            }}"
+                                                        ></p-dropdown>
+                                                    </th>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="
+                                                        t.cellType === 'number'
                                                     "
                                                 >
-                                                    <input
-                                                        type="number"
-                                                        pInputText
-                                                    />
-                                                </th>
-                                            </ng-container>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
+                                                    <th
+                                                        *ngFor="
+                                                            let freq of t.xAxisValues
+                                                        "
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            pInputText
+                                                        />
+                                                    </th>
+                                                </ng-container>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
                             </div>
                         </div>
                         <div class="ui-g-12 ui-md-12">

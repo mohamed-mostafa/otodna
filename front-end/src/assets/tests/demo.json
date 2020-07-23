@@ -59,7 +59,8 @@
                 },
                 {
                     "type": "table",
-                    "name": "Freq",
+                    "name": "Test boolean",
+                    "xAxisName": "Freq",
                     "xAxisValues": ["500", "1000", "2000", "4000"],
                     "cellValues": [{ "name": "Yes" }, { "name": "No" }],
                     "cellType": "boolean",
@@ -68,7 +69,8 @@
                 },
                 {
                     "type": "table",
-                    "name": "numbers",
+                    "name": "Test Numbers",
+                    "xAxisName": "Freq",
                     "xAxisValues": ["10", "20", "30", "40", "50"],
                     "cellType": "number"
                 }

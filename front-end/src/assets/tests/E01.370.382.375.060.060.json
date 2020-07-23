@@ -35,7 +35,8 @@
                 },
                 {
                     "type": "table",
-                    "name": "Intensity db",
+                    "name": "Score",
+                    "xAxisName": "Intensity db",
                     "xAxisValues": [
                         "10",
                         "20",
@@ -49,8 +50,8 @@
                         "100"
                     ],
                     "cellType": "number",
-                    "leftVal": "leftIntensityDb",
-                    "rightVal": "rightIntensityDb"
+                    "leftVal": "leftScore",
+                    "rightVal": "rightScore"
                 }
             ]
         }

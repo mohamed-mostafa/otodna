@@ -49,12 +49,13 @@
                 },
                 {
                     "type": "table",
-                    "name": "Freq",
+                    "name": "Acoustic reflex",
+                    "xAxisName": "Freq",
                     "xAxisValues": ["500", "1000", "2000", "4000"],
                     "cellValues": [{ "name": "Yes" }, { "name": "No" }],
                     "cellType": "boolean",
-                    "leftVal": "leftFreq",
-                    "rightVal": "rightFreq"
+                    "leftVal": "leftAcousticReflex",
+                    "rightVal": "rightAcousticReflex"
                 }
             ]
         }

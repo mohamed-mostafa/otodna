@@ -1,0 +1,158 @@
+{
+    "data": [
+        {
+            "name": "Audiometry Pure-Tone",
+            "parameters": [
+                {
+                    "type": "table",
+                    "name": "AC (Air Conduction)",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftAirConduction",
+                    "rightVal": "rightAirConduction"
+                },
+                {
+                    "type": "table",
+                    "name": "BC ( Bone Conduction)",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftBoneConduction",
+                    "rightVal": "rightBoneConduction"
+                },
+                {
+                    "type": "table",
+                    "name": "AC Masked",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftACMasked",
+                    "rightVal": "rightACMasked"
+                },
+                {
+                    "type": "table",
+                    "name": "BC Masked",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftBCMasked",
+                    "rightVal": "rightBCMasked"
+                },
+                {
+                    "type": "table",
+                    "name": "Aided",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftAided",
+                    "rightVal": "rightAided"
+                },
+                {
+                    "type": "table",
+                    "name": "Sound Field",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftSoundField",
+                    "rightVal": "rightSoundField"
+                },
+                {
+                    "type": "table",
+                    "name": "Loudness",
+                    "xAxisName": "Freq",
+                    "xAxisValues": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftLoudness",
+                    "rightVal": "rightLoudness"
+                },
+                {
+                    "type": "list",
+                    "name": "Reliability",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": "Good" },
+                        { "id": 2, "name": "Fair" },
+                        { "id": 3, "name": "Poor" }
+                    ],
+                    "leftVal": "leftReliability",
+                    "rightVal": "rightReliability"
+                },
+                {
+                    "type": "list",
+                    "name": "Using",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": "Headphone" },
+                        { "id": 2, "name": "Earphones" }
+                    ],
+                    "leftVal": "leftUsing",
+                    "rightVal": "rightUsing"
+                }
+            ]
+        }
+    ]
+}
