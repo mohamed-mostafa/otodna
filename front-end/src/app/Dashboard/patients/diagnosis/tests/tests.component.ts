@@ -163,7 +163,10 @@ export class TestsComponent implements OnInit {
     }
     openTest(test) {
         this.selected = test;
-        if (test.id === "E01.370.382.375.050") {
+        if (
+            test.id === "E01.370.382.375.050" ||
+            test.id === "E01.370.382.375.060.060"
+        ) {
             this.getSelectedTest(test.id);
         } else {
             this.getSelectedTest("demo");

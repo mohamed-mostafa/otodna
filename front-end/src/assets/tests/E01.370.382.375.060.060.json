@@ -1,0 +1,58 @@
+{
+    "data": [
+        {
+            "name": "Audiometry Speech",
+            "parameters": [
+                {
+                    "type": "number",
+                    "name": "SRT ( Speech receptio threshold)",
+                    "minimum": -20,
+                    "maximum": -120,
+                    "unit": "dB",
+                    "required": true,
+                    "leftVal": "leftSRT",
+                    "rightVal": "rightSRT"
+                },
+                {
+                    "type": "number",
+                    "name": "SD Score",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "unit": "%",
+                    "required": true,
+                    "leftVal": "leftSDScore",
+                    "rightVal": "rightSDScore"
+                },
+                {
+                    "type": "number",
+                    "name": "SD Intensity",
+                    "minimum": -20,
+                    "maximum": -120,
+                    "unit": "dB",
+                    "required": true,
+                    "leftVal": "leftSDIntensity",
+                    "rightVal": "rightSDIntensity"
+                },
+                {
+                    "type": "table",
+                    "name": "Intensity db",
+                    "xAxisValues": [
+                        "10",
+                        "20",
+                        "30",
+                        "40",
+                        "50",
+                        "60",
+                        "70",
+                        "80",
+                        "90",
+                        "100"
+                    ],
+                    "cellType": "number",
+                    "leftVal": "leftIntensityDb",
+                    "rightVal": "rightIntensityDb"
+                }
+            ]
+        }
+    ]
+}
