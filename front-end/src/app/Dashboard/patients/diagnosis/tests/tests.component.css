@@ -43,3 +43,8 @@
 .rightColor {
     color: #ff1744 !important;
 }
+.equipmentStyle {
+    font-size: 18px;
+    float: left;
+    margin: 10px 10px 0 0;
+}

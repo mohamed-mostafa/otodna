@@ -88,303 +88,284 @@
                     class="ui-g ui-fluid"
                     *ngFor="let test of selectedTestData"
                 >
-                    <form
-                        class="ui-g-12 ui-md-12"
-                        [formGroup]="myFormGroup"
-                        (ngSubmit)="saveTest()"
+                    <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                        <h2 class="centerHeader removeMarginAndPadding">
+                            R
+                        </h2>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 leftColor">
+                        <h2 class="centerHeader removeMarginAndPadding">
+                            L
+                        </h2>
+                    </div>
+                    <div
+                        *ngFor="let t of test.parameters"
+                        class="ui-g-12 ui-md-12 removeMarginAndPadding"
                     >
-                        <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                            <h2 class="centerHeader removeMarginAndPadding">
-                                R
-                            </h2>
-                        </div>
-                        <div class="ui-g-12 ui-md-6 leftColor">
-                            <h2 class="centerHeader removeMarginAndPadding">
-                                L
-                            </h2>
+                        <div
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'text'"
+                        >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <label for="right-{{ t.name }}">{{
+                                    t.name
+                                }}</label>
+                                <div class="ui-inputgroup">
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="right-{{ t.name }}"
+                                        class="labelMarginTop"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.rightVal"
+                                    />
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 leftColor">
+                                <label for="left-{{ t.name }}">{{
+                                    t.name
+                                }}</label>
+                                <div class="ui-inputgroup">
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="left-{{ t.name }}"
+                                        class="labelMarginTop"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.leftVal"
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <div
-                            *ngFor="let t of test.parameters"
                             class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'number'"
                         >
-                            <div
-                                class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                                *ngIf="t.type === 'text'"
-                            >
-                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                    <label for="right-{{ t.name }}">{{
-                                        t.name
-                                    }}</label>
-                                    <div class="ui-inputgroup">
-                                        <input
-                                            type="text"
-                                            pInputText
-                                            id="right-{{ t.name }}"
-                                            class="labelMarginTop"
-                                            [placeholder]="t.name"
-                                            [required]="t.required"
-                                            formControlName="{{ t.rightVal }}"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="ui-g-12 ui-md-6 leftColor">
-                                    <label for="left-{{ t.name }}">{{
-                                        t.name
-                                    }}</label>
-                                    <div class="ui-inputgroup">
-                                        <input
-                                            type="text"
-                                            pInputText
-                                            id="left-{{ t.name }}"
-                                            class="labelMarginTop"
-                                            [placeholder]="t.name"
-                                            [required]="t.required"
-                                            formControlName="{{ t.leftVal }}"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                                *ngIf="t.type === 'number'"
-                            >
-                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                    <div class="ui-g-12 ui-md-10">
-                                        <label for="right-{{ t.name }}">
-                                            {{ t.name }}</label
-                                        >
-                                        <div class="ui-inputgroup">
-                                            <input
-                                                type="number"
-                                                pInputText
-                                                id="right-{{ t.name }}"
-                                                class="labelMarginTop"
-                                                [placeholder]="t.name"
-                                                [required]="t.required"
-                                                formControlName="{{
-                                                    t.rightVal
-                                                }}"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="ui-g-12 ui-md-2 marginTop28">
-                                        {{ t.unit ? t.unit : "" }}
-                                    </div>
-                                </div>
-                                <div class="ui-g-12 ui-md-6 leftColor">
-                                    <div class="ui-g-12 ui-md-10">
-                                        <label for="left-{{ t.name }}">
-                                            {{ t.name }}</label
-                                        >
-                                        <div class="ui-inputgroup">
-                                            <input
-                                                type="number"
-                                                pInputText
-                                                [min]="t.minimum"
-                                                [max]="t.maximum"
-                                                id="left-{{ t.name }}"
-                                                class="labelMarginTop"
-                                                [placeholder]="t.name"
-                                                [required]="t.required"
-                                                formControlName="{{
-                                                    t.leftVal
-                                                }}"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="ui-g-12 ui-md-1 marginTop28">
-                                        {{ t.unit ? t.unit : "" }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                                *ngIf="t.type === 'boolean'"
-                            >
-                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                    <p-checkbox
-                                        label=" {{ t.name }}"
-                                        [value]="t.name"
-                                        class="labelMarginTop"
-                                        [required]="t.required"
-                                        formControlName="{{ t.rightVal }}"
-                                    ></p-checkbox>
-                                </div>
-                                <div class="ui-g-12 ui-md-6 leftColor">
-                                    <p-checkbox
-                                        label="{{ t.name }}"
-                                        [value]="t.name"
-                                        class="labelMarginTop"
-                                        [required]="t.required"
-                                        formControlName="{{ t.leftVal }}"
-                                    ></p-checkbox>
-                                </div>
-                            </div>
-                            <div
-                                class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                                *ngIf="t.type === 'list'"
-                            >
-                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <div class="ui-g-12 ui-md-10">
                                     <label for="right-{{ t.name }}">
                                         {{ t.name }}</label
                                     >
-                                    <div class="ui-inputgroup labelMarginTop">
-                                        <p-dropdown
-                                            [options]="t.values"
-                                            placeholder="Select Value"
-                                            optionLabel="name"
+                                    <div class="ui-inputgroup">
+                                        <input
+                                            type="number"
+                                            pInputText
                                             id="right-{{ t.name }}"
-                                            [showClear]="true"
+                                            class="labelMarginTop"
+                                            [placeholder]="t.name"
                                             [required]="t.required"
-                                            formControlName="{{ t.rightVal }}"
-                                        ></p-dropdown>
+                                            [(ngModel)]="t.rightVal"
+                                        />
                                     </div>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftColor">
+                                <div class="ui-g-12 ui-md-2 marginTop28">
+                                    {{ t.unit ? t.unit : "" }}
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 leftColor">
+                                <div class="ui-g-12 ui-md-10">
                                     <label for="left-{{ t.name }}">
                                         {{ t.name }}</label
                                     >
-                                    <div class="ui-inputgroup labelMarginTop">
-                                        <p-dropdown
-                                            [options]="t.values"
-                                            placeholder="Select Value"
-                                            optionLabel="name"
+                                    <div class="ui-inputgroup">
+                                        <input
+                                            type="number"
+                                            pInputText
+                                            [min]="t.minimum"
+                                            [max]="t.maximum"
                                             id="left-{{ t.name }}"
-                                            [showClear]="true"
+                                            class="labelMarginTop"
+                                            [placeholder]="t.name"
                                             [required]="t.required"
-                                            formControlName="{{ t.leftVal }}"
-                                        ></p-dropdown>
+                                            [(ngModel)]="t.leftVal"
+                                        />
                                     </div>
                                 </div>
+                                <div class="ui-g-12 ui-md-1 marginTop28">
+                                    {{ t.unit ? t.unit : "" }}
+                                </div>
                             </div>
-                            <div
-                                class="removeMarginAndPadding"
-                                *ngIf="t.type === 'image'"
-                            >
-                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                    <label for="img">Choose {{ t.name }}</label>
-                                    <div class="labelMarginTop">
-                                        <p-fileUpload
-                                            name="demo[]"
-                                            url="./upload.php"
-                                            (onUpload)="uploadImages($event)"
-                                            multiple="multiple"
-                                            accept="image/*"
-                                            maxFileSize="1000000"
-                                        >
-                                            <ng-template pTemplate="content">
-                                                <ul
-                                                    *ngIf="
-                                                        uploadedImages.length
+                        </div>
+                        <div
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'boolean'"
+                        >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <p-checkbox
+                                    label=" {{ t.name }}"
+                                    [value]="t.name"
+                                    class="labelMarginTop"
+                                    [required]="t.required"
+                                    [(ngModel)]="t.rightVal"
+                                ></p-checkbox>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 leftColor">
+                                <p-checkbox
+                                    label="{{ t.name }}"
+                                    [value]="t.name"
+                                    class="labelMarginTop"
+                                    [required]="t.required"
+                                    [(ngModel)]="t.leftVal"
+                                ></p-checkbox>
+                            </div>
+                        </div>
+                        <div
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'list'"
+                        >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <label for="right-{{ t.name }}">
+                                    {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <p-dropdown
+                                        [options]="t.values"
+                                        placeholder="Select Value"
+                                        optionLabel="name"
+                                        id="right-{{ t.name }}"
+                                        [showClear]="true"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.rightVal"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 leftColor">
+                                <label for="left-{{ t.name }}">
+                                    {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <p-dropdown
+                                        [options]="t.values"
+                                        placeholder="Select Value"
+                                        optionLabel="name"
+                                        id="left-{{ t.name }}"
+                                        [showClear]="true"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.leftVal"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="removeMarginAndPadding"
+                            *ngIf="t.type === 'image'"
+                        >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <label for="img">Choose {{ t.name }}</label>
+                                <div class="labelMarginTop">
+                                    <p-fileUpload
+                                        name="demo[]"
+                                        url="./upload.php"
+                                        (onUpload)="uploadImages($event)"
+                                        multiple="multiple"
+                                        accept="image/*"
+                                        maxFileSize="1000000"
+                                    >
+                                        <ng-template pTemplate="content">
+                                            <ul *ngIf="uploadedImages.length">
+                                                <li
+                                                    *ngFor="
+                                                        let file of uploadedImages
                                                     "
                                                 >
-                                                    <li
-                                                        *ngFor="
-                                                            let file of uploadedImages
-                                                        "
-                                                    >
-                                                        {{ file.name }} -
-                                                        {{ file.size }} bytes
-                                                    </li>
-                                                </ul>
-                                            </ng-template>
-                                        </p-fileUpload>
-                                    </div>
+                                                    {{ file.name }} -
+                                                    {{ file.size }} bytes
+                                                </li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-fileUpload>
                                 </div>
-                                <div class="ui-g-12 ui-md-6 leftColor">
-                                    <label for="img">Choose {{ t.name }}</label>
-                                    <div class="labelMarginTop">
-                                        <p-fileUpload
-                                            name="demo[]"
-                                            url="./upload.php"
-                                            (onUpload)="uploadImages($event)"
-                                            multiple="multiple"
-                                            accept="image/*"
-                                            maxFileSize="1000000"
-                                        >
-                                            <ng-template pTemplate="content">
-                                                <ul
-                                                    *ngIf="
-                                                        uploadedImages.length
+                            </div>
+                            <div class="ui-g-12 ui-md-6 leftColor">
+                                <label for="img">Choose {{ t.name }}</label>
+                                <div class="labelMarginTop">
+                                    <p-fileUpload
+                                        name="demo[]"
+                                        url="./upload.php"
+                                        (onUpload)="uploadImages($event)"
+                                        multiple="multiple"
+                                        accept="image/*"
+                                        maxFileSize="1000000"
+                                    >
+                                        <ng-template pTemplate="content">
+                                            <ul *ngIf="uploadedImages.length">
+                                                <li
+                                                    *ngFor="
+                                                        let file of uploadedImages
                                                     "
                                                 >
-                                                    <li
-                                                        *ngFor="
-                                                            let file of uploadedImages
-                                                        "
-                                                    >
-                                                        {{ file.name }} -
-                                                        {{ file.size }} bytes
-                                                    </li>
-                                                </ul>
-                                            </ng-template>
-                                        </p-fileUpload>
-                                    </div>
+                                                    {{ file.name }} -
+                                                    {{ file.size }} bytes
+                                                </li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-fileUpload>
                                 </div>
                             </div>
-                            <div
-                                class="removeMarginAndPadding"
-                                *ngIf="t.type === 'file'"
-                            >
-                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                    <label for="img">Choose {{ t.name }}</label>
-                                    <div class="labelMarginTop">
-                                        <p-fileUpload
-                                            name="demo[]"
-                                            url="./upload.php"
-                                            (onUpload)="uploadFiles($event)"
-                                            multiple="multiple"
-                                            maxFileSize="100000000"
-                                        >
-                                            <ng-template pTemplate="content">
-                                                <ul
-                                                    *ngIf="uploadedFiles.length"
+                        </div>
+                        <div
+                            class="removeMarginAndPadding"
+                            *ngIf="t.type === 'file'"
+                        >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <label for="img">Choose {{ t.name }}</label>
+                                <div class="labelMarginTop">
+                                    <p-fileUpload
+                                        name="demo[]"
+                                        url="./upload.php"
+                                        (onUpload)="uploadFiles($event)"
+                                        multiple="multiple"
+                                        maxFileSize="100000000"
+                                    >
+                                        <ng-template pTemplate="content">
+                                            <ul *ngIf="uploadedFiles.length">
+                                                <li
+                                                    *ngFor="
+                                                        let file of uploadedFiles
+                                                    "
                                                 >
-                                                    <li
-                                                        *ngFor="
-                                                            let file of uploadedFiles
-                                                        "
-                                                    >
-                                                        {{ file.name }} -
-                                                        {{ file.size }} bytes
-                                                    </li>
-                                                </ul>
-                                            </ng-template>
-                                        </p-fileUpload>
-                                    </div>
-                                </div>
-                                <div class="ui-g-12 ui-md-6 leftColor">
-                                    <label for="img">Choose {{ t.name }}</label>
-                                    <div class="labelMarginTop">
-                                        <p-fileUpload
-                                            name="demo[]"
-                                            url="./upload.php"
-                                            (onUpload)="uploadFiles($event)"
-                                            multiple="multiple"
-                                            maxFileSize="100000000"
-                                        >
-                                            <ng-template pTemplate="content">
-                                                <ul
-                                                    *ngIf="uploadedFiles.length"
-                                                >
-                                                    <li
-                                                        *ngFor="
-                                                            let file of uploadedFiles
-                                                        "
-                                                    >
-                                                        {{ file.name }} -
-                                                        {{ file.size }} bytes
-                                                    </li>
-                                                </ul>
-                                            </ng-template>
-                                        </p-fileUpload>
-                                    </div>
+                                                    {{ file.name }} -
+                                                    {{ file.size }} bytes
+                                                </li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-fileUpload>
                                 </div>
                             </div>
-                            <div
-                                class="ui-g-12 ui-md-12"
-                                *ngIf="t.type === 'textarea'"
-                            >
+                            <div class="ui-g-12 ui-md-6 leftColor">
+                                <label for="img">Choose {{ t.name }}</label>
+                                <div class="labelMarginTop">
+                                    <p-fileUpload
+                                        name="demo[]"
+                                        url="./upload.php"
+                                        (onUpload)="uploadFiles($event)"
+                                        multiple="multiple"
+                                        maxFileSize="100000000"
+                                    >
+                                        <ng-template pTemplate="content">
+                                            <ul *ngIf="uploadedFiles.length">
+                                                <li
+                                                    *ngFor="
+                                                        let file of uploadedFiles
+                                                    "
+                                                >
+                                                    {{ file.name }} -
+                                                    {{ file.size }} bytes
+                                                </li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-fileUpload>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="ui-g-12 ui-md-12"
+                            *ngIf="t.type === 'textarea'"
+                        >
+                            <label>{{ t.name }}</label>
+                            <div class="labelMarginTop">
                                 <textarea
                                     [rows]="5"
                                     [cols]="30"
@@ -392,181 +373,143 @@
                                     autoResize="autoResize"
                                     [placeholder]="t.name"
                                     [required]="t.required"
-                                    formControlName="{{ t.textareaVal }}"
+                                    [(ngModel)]="t.textareaVal"
                                 ></textarea>
                             </div>
-                            <div
-                                class="ui-g-12 ui-md-12"
-                                *ngIf="t.type === 'table'"
-                            >
-                                <label> {{ t.name }}</label>
-                                <div class="labelMarginTop">
-                                    <p-table>
-                                        <ng-template pTemplate="header">
-                                            <tr>
-                                                <th>{{ t.xAxisName }}</th>
+                        </div>
+                        <div
+                            class="ui-g-12 ui-md-12"
+                            *ngIf="t.type === 'table'"
+                        >
+                            <label> {{ t.name }}</label>
+                            <div class="labelMarginTop">
+                                <p-table>
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>{{ t.xAxisName }}</th>
+                                            <th *ngFor="let data of t.cells">
+                                                {{ data.name }}
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th class="rightColor">
+                                                Right
+                                            </th>
+                                            <ng-container
+                                                *ngIf="t.cellType === 'boolean'"
+                                            >
                                                 <th
-                                                    *ngFor="
-                                                        let data of t.xAxisValues;
-                                                        let i = index
-                                                    "
+                                                    *ngFor="let freq of t.cells"
                                                 >
-                                                    {{ data }}
+                                                    <p-dropdown
+                                                        [options]="t.cellValues"
+                                                        placeholder="Y/N"
+                                                        optionLabel="name"
+                                                        [showClear]="true"
+                                                        [(ngModel)]="freq.right"
+                                                    ></p-dropdown>
                                                 </th>
-                                            </tr>
-
-                                            <tr>
-                                                <th class="rightColor">
-                                                    Right
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="t.cellType === 'number'"
+                                            >
+                                                <th
+                                                    *ngFor="let freq of t.cells"
+                                                >
+                                                    <input
+                                                        type="number"
+                                                        pInputText
+                                                        [(ngModel)]="freq.right"
+                                                    />
                                                 </th>
-                                                <ng-container
-                                                    *ngIf="
-                                                        t.cellType === 'boolean'
-                                                    "
+                                            </ng-container>
+                                        </tr>
+                                        <tr>
+                                            <th class="leftColor">Left</th>
+                                            <ng-container
+                                                *ngIf="t.cellType === 'boolean'"
+                                            >
+                                                <th
+                                                    *ngFor="let freq of t.cells"
                                                 >
-                                                    <th
-                                                        *ngFor="
-                                                            let freq of t.xAxisValues
-                                                        "
-                                                    >
-                                                        <p-dropdown
-                                                            [options]="
-                                                                t.cellValues
-                                                            "
-                                                            placeholder="Y/N"
-                                                            optionLabel="name"
-                                                            [showClear]="true"
-                                                            formControlName="{{
-                                                                t.rightVal
-                                                            }}"
-                                                        ></p-dropdown>
-                                                    </th>
-                                                </ng-container>
-                                                <ng-container
-                                                    *ngIf="
-                                                        t.cellType === 'number'
-                                                    "
+                                                    <p-dropdown
+                                                        [options]="t.cellValues"
+                                                        placeholder="Y/N"
+                                                        optionLabel="name"
+                                                        [showClear]="true"
+                                                        [(ngModel)]="freq.left"
+                                                    ></p-dropdown>
+                                                </th>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="t.cellType === 'number'"
+                                            >
+                                                <th
+                                                    *ngFor="let freq of t.cells"
                                                 >
-                                                    <th
-                                                        *ngFor="
-                                                            let freq of t.xAxisValues
-                                                        "
-                                                    >
-                                                        <input
-                                                            type="number"
-                                                            pInputText
-                                                        />
-                                                    </th>
-                                                </ng-container>
-                                            </tr>
-                                            <tr>
-                                                <th class="leftColor">Left</th>
-                                                <ng-container
-                                                    *ngIf="
-                                                        t.cellType === 'boolean'
-                                                    "
-                                                >
-                                                    <th
-                                                        *ngFor="
-                                                            let freq of t.xAxisValues
-                                                        "
-                                                    >
-                                                        <p-dropdown
-                                                            [options]="
-                                                                t.cellValues
-                                                            "
-                                                            placeholder="Y/N"
-                                                            optionLabel="name"
-                                                            [showClear]="true"
-                                                            formControlName="{{
-                                                                t.leftVal
-                                                            }}"
-                                                        ></p-dropdown>
-                                                    </th>
-                                                </ng-container>
-                                                <ng-container
-                                                    *ngIf="
-                                                        t.cellType === 'number'
-                                                    "
-                                                >
-                                                    <th
-                                                        *ngFor="
-                                                            let freq of t.xAxisValues
-                                                        "
-                                                    >
-                                                        <input
-                                                            type="number"
-                                                            pInputText
-                                                        />
-                                                    </th>
-                                                </ng-container>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </div>
+                                                    <input
+                                                        type="number"
+                                                        pInputText
+                                                        [(ngModel)]="freq.left"
+                                                    />
+                                                </th>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
                             </div>
-                            <div
-                                class="ui-g-12 ui-md-12"
-                                *ngIf="t.type === 'equipment'"
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12">
+                        <p-fieldset legend="Equipments">
+                            <p-autoComplete
+                                id="acAdvanced"
+                                [suggestions]="filteredEquipments"
+                                (completeMethod)="filterEquipments($event)"
+                                [size]="30"
+                                [minLength]="1"
+                                [dropdown]="true"
+                                multiple="true"
+                                [(ngModel)]="selectedEquipments"
                             >
-                                <p-fieldset legend="Equipments">
-                                    <p-autoComplete
-                                        id="acAdvanced"
-                                        [suggestions]="filteredEquipments"
-                                        (completeMethod)="
-                                            filterEquipments($event)
-                                        "
-                                        [size]="30"
-                                        [minLength]="1"
-                                        [dropdown]="true"
-                                        multiple="true"
-                                        formControlName="{{ t.equipmentVal }}"
-                                    >
-                                        <ng-template let-equip pTemplate="item">
-                                            <div class="ui-helper-clearfix">
-                                                <div
-                                                    style="
-                                                        font-size: 18px;
-                                                        float: left;
-                                                        margin: 10px 10px 0 0;
-                                                    "
-                                                >
-                                                    {{ equip }}
-                                                </div>
-                                            </div>
-                                        </ng-template>
-                                    </p-autoComplete>
-                                </p-fieldset>
-                            </div>
-                        </div>
+                                <ng-template let-equip pTemplate="item">
+                                    <div class="ui-helper-clearfix">
+                                        <div class="equipmentStyle">
+                                            {{ equip }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+                        </p-fieldset>
+                    </div>
 
-                        <div class="ui-g-12 ui-md-8"></div>
-                        <div class="ui-g-12 ui-md-4">
-                            <p-footer>
-                                <div class="ui-g-12 ui-md-6">
-                                    <button
-                                        type="button"
-                                        pButton
-                                        icon="pi pi-times"
-                                        (click)="cancelTest()"
-                                        label="Cancel"
-                                        class="ui-button-secondary"
-                                    ></button>
-                                </div>
-                                <div class="ui-g-12 ui-md-6">
-                                    <button
-                                        *ngIf="!showTests"
-                                        type="submit"
-                                        pButton
-                                        [disabled]="!myFormGroup.valid"
-                                        icon="pi pi-check"
-                                        label="Ok"
-                                        class="ui-button-icon-primary"
-                                    ></button>
-                                </div>
-                            </p-footer>
-                        </div>
-                    </form>
+                    <div class="ui-g-12 ui-md-8"></div>
+                    <div class="ui-g-12 ui-md-4">
+                        <p-footer>
+                            <div class="ui-g-12 ui-md-6">
+                                <button
+                                    type="button"
+                                    pButton
+                                    icon="pi pi-times"
+                                    (click)="cancelTest()"
+                                    label="Cancel"
+                                    class="ui-button-secondary"
+                                ></button>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <button
+                                    *ngIf="!showTests"
+                                    type="submit"
+                                    pButton
+                                    (click)="saveTest()"
+                                    icon="pi pi-check"
+                                    label="Ok"
+                                    class="ui-button-icon-primary"
+                                ></button>
+                            </div>
+                        </p-footer>
+                    </div>
                 </div>
             </div>
         </div>

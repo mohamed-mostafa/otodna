@@ -14,7 +14,6 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
     providers: [MessageService],
 })
 export class TestsComponent implements OnInit {
-    myFormGroup: FormGroup;
     cols: any[];
     tests: any[] = [];
     test: Test = new Test();
@@ -34,6 +33,7 @@ export class TestsComponent implements OnInit {
     selectedSession;
     dialogHeader;
     filteredEquipments: any[];
+    selectedEquipments = [];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -79,7 +79,16 @@ export class TestsComponent implements OnInit {
         }
     }
     saveTest() {
-        console.log(this.myFormGroup.value);
+        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
+            this.selectedTestData.forEach((element) => {
+                const equipments = this.selectedEquipments;
+                element.parameters.push({
+                    type: "equipment",
+                    values: equipments,
+                });
+            });
+        }
+        console.log(this.selectedTestData);
         this.test.id = this.selected.id;
         this.test.name = this.selected.name;
         this.spinner.show();
@@ -87,6 +96,7 @@ export class TestsComponent implements OnInit {
             this.tests.push(this.test);
             this.selectedTest = "";
             this.filteredTests = [];
+            this.selectedEquipments = [];
             this.selected = "";
             this.displayTest = false;
             this.test = new Test();
@@ -175,24 +185,6 @@ export class TestsComponent implements OnInit {
         this.testService.getTest(test).then((res) => {
             this.selectedTestData = res;
             this.dialogHeader = res.map((r) => r.name);
-            let group = {};
-            res.forEach((r) => {
-                r.parameters.forEach((element) => {
-                    group[element.textareaVal] = new FormControl("");
-                    group[element.equipmentVal] = new FormControl("");
-                    group[element.leftVal] = element.required
-                        ? new FormControl("", {
-                              validators: Validators.required,
-                          })
-                        : new FormControl("");
-                    group[element.rightVal] = element.required
-                        ? new FormControl("", {
-                              validators: Validators.required,
-                          })
-                        : new FormControl("");
-                });
-            });
-            this.myFormGroup = new FormGroup(group);
         });
     }
     uploadImages(event) {
@@ -215,5 +207,8 @@ export class TestsComponent implements OnInit {
                 this.filteredEquipments.push(brand);
             }
         }
+    }
+    customTrackBy(index: number, obj: any): any {
+        return index;
     }
 }

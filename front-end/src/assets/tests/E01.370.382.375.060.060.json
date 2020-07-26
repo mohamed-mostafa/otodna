@@ -10,8 +10,8 @@
                     "maximum": -120,
                     "unit": "dB",
                     "required": true,
-                    "leftVal": "leftSRT",
-                    "rightVal": "rightSRT"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "number",
@@ -20,8 +20,8 @@
                     "maximum": 100,
                     "unit": "%",
                     "required": true,
-                    "leftVal": "leftSDScore",
-                    "rightVal": "rightSDScore"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "number",
@@ -30,32 +30,26 @@
                     "maximum": -120,
                     "unit": "dB",
                     "required": true,
-                    "leftVal": "leftSDIntensity",
-                    "rightVal": "rightSDIntensity"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "table",
                     "name": "Score",
                     "xAxisName": "Intensity db",
-                    "xAxisValues": [
-                        "10",
-                        "20",
-                        "30",
-                        "40",
-                        "50",
-                        "60",
-                        "70",
-                        "80",
-                        "90",
-                        "100"
+                    "cells": [
+                        { "name": "10", "left": "", "right": "" },
+                        { "name": "20", "left": "", "right": "" },
+                        { "name": "30", "left": "", "right": "" },
+                        { "name": "40", "left": "", "right": "" },
+                        { "name": "50", "left": "", "right": "" },
+                        { "name": "60", "left": "", "right": "" },
+                        { "name": "70", "left": "", "right": "" },
+                        { "name": "80", "left": "", "right": "" },
+                        { "name": "90", "left": "", "right": "" },
+                        { "name": "100", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftScore",
-                    "rightVal": "rightScore"
-                },
-                {
-                    "type": "equipment",
-                    "equipmentVal": "equipments"
+                    "cellType": "number"
                 }
             ]
         }

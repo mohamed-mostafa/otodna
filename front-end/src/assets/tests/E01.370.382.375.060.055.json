@@ -7,127 +7,113 @@
                     "type": "table",
                     "name": "AC (Air Conduction)",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftAirConduction",
-                    "rightVal": "rightAirConduction"
+                    "cellType": "number"
                 },
                 {
                     "type": "table",
                     "name": "BC ( Bone Conduction)",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftBoneConduction",
-                    "rightVal": "rightBoneConduction"
+                    "cellType": "number"
                 },
                 {
                     "type": "table",
                     "name": "AC Masked",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftACMasked",
-                    "rightVal": "rightACMasked"
+                    "cellType": "number"
                 },
                 {
                     "type": "table",
                     "name": "BC Masked",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftBCMasked",
-                    "rightVal": "rightBCMasked"
+                    "cellType": "number"
                 },
                 {
                     "type": "table",
                     "name": "Aided",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftAided",
-                    "rightVal": "rightAided"
+                    "cellType": "number"
                 },
                 {
                     "type": "table",
                     "name": "Sound Field",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftSoundField",
-                    "rightVal": "rightSoundField"
+                    "cellType": "number"
                 },
                 {
                     "type": "table",
                     "name": "Loudness",
                     "xAxisName": "Freq",
-                    "xAxisValues": [
-                        "125 Hz",
-                        "250 Hz",
-                        "500 Hz",
-                        "1000 Hz",
-                        "2000 Hz",
-                        "3000 Hz",
-                        "4000 Hz",
-                        "6000 Hz"
+                    "cells": [
+                        { "name": "125 Hz", "left": "", "right": "" },
+                        { "name": "250 Hz", "left": "", "right": "" },
+                        { "name": "500 Hz", "left": "", "right": "" },
+                        { "name": "1000 Hz", "left": "", "right": "" },
+                        { "name": "2000 Hz", "left": "", "right": "" },
+                        { "name": "3000 Hz", "left": "", "right": "" },
+                        { "name": "4000 Hz", "left": "", "right": "" },
+                        { "name": "6000 Hz", "left": "", "right": "" }
                     ],
-                    "cellType": "number",
-                    "leftVal": "leftLoudness",
-                    "rightVal": "rightLoudness"
+                    "cellType": "number"
                 },
                 {
                     "type": "list",
@@ -138,8 +124,8 @@
                         { "id": 2, "name": "Fair" },
                         { "id": 3, "name": "Poor" }
                     ],
-                    "leftVal": "leftReliability",
-                    "rightVal": "rightReliability"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "list",
@@ -149,12 +135,8 @@
                         { "id": 1, "name": "Headphone" },
                         { "id": 2, "name": "Earphones" }
                     ],
-                    "leftVal": "leftUsing",
-                    "rightVal": "rightUsing"
-                },
-                {
-                    "type": "equipment",
-                    "equipmentVal": "equipments"
+                    "leftVal": "",
+                    "rightVal": ""
                 }
             ]
         }

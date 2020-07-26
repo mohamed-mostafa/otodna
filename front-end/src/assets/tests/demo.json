@@ -7,8 +7,8 @@
                     "type": "text",
                     "name": "Pressure",
                     "maxLength": "100",
-                    "leftVal": "leftPressure",
-                    "rightVal": "rightPressure",
+                    "leftVal": "",
+                    "rightVal": "",
                     "required": true
                 },
                 {
@@ -17,21 +17,21 @@
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "mmHg",
-                    "leftVal": "leftPressureValue",
-                    "rightVal": "rightPressureValue",
+                    "leftVal": "",
+                    "rightVal": "",
                     "required": true
                 },
                 {
                     "type": "boolean",
                     "name": "Inflated",
-                    "leftVal": "leftInflated",
-                    "rightVal": "rightInflated"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "list",
                     "name": "Severity",
-                    "leftVal": "leftSeverity",
-                    "rightVal": "rightSeverity",
+                    "leftVal": "",
+                    "rightVal": "",
                     "required": true,
                     "values": [
                         { "id": 1, "name": "Severe" },
@@ -52,29 +52,34 @@
                 {
                     "type": "textarea",
                     "name": "Type your comments",
-                    "textareaVal": "textareaVal",
+                    "textareaVal": "",
                     "maxLength": "1000"
                 },
                 {
                     "type": "table",
                     "name": "Test boolean",
                     "xAxisName": "Freq",
-                    "xAxisValues": ["500", "1000", "2000", "4000"],
-                    "cellValues": [{ "name": "Yes" }, { "name": "No" }],
+                    "cells": [
+                        { "name": "500", "left": "", "right": "" },
+                        { "name": "1000", "left": "", "right": "" },
+                        { "name": "2000", "left": "", "right": "" },
+                        { "name": "3000", "left": "", "right": "" }
+                    ],
                     "cellType": "boolean",
-                    "leftVal": "leftFreq",
-                    "rightVal": "rightFreq"
+                    "cellValues": [{ "name": "Yes" }, { "name": "No" }]
                 },
                 {
                     "type": "table",
                     "name": "Test Numbers",
                     "xAxisName": "Freq",
-                    "xAxisValues": ["10", "20", "30", "40", "50"],
-                    "cellType": "number"
-                },
-                {
-                    "type": "equipment",
-                    "equipmentVal": "equipments"
+                    "cellType": "number",
+                    "cells": [
+                        { "name": "10", "left": "", "right": "" },
+                        { "name": "20", "left": "", "right": "" },
+                        { "name": "30", "left": "", "right": "" },
+                        { "name": "40", "left": "", "right": "" },
+                        { "name": "50", "left": "", "right": "" }
+                    ]
                 }
             ]
         }

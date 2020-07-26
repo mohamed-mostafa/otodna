@@ -14,8 +14,8 @@
                         { "id": 4, "name": "Type AS" },
                         { "id": 5, "name": "Type AD" }
                     ],
-                    "leftVal": "leftTympanogram",
-                    "rightVal": "rightTympanogram"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "number",
@@ -24,8 +24,8 @@
                     "maximum": 100,
                     "unit": "cm3",
                     "required": true,
-                    "leftVal": "leftCompliance",
-                    "rightVal": "rightCompliance"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "number",
@@ -34,8 +34,8 @@
                     "maximum": 100,
                     "unit": "daPa",
                     "required": true,
-                    "leftVal": "leftPeakPressure",
-                    "rightVal": "rightPeakPressure"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "number",
@@ -44,22 +44,21 @@
                     "maximum": 100,
                     "unit": "cm3",
                     "required": true,
-                    "leftVal": "leftEarCanalVolume",
-                    "rightVal": "rightEarCanalVolume"
+                    "leftVal": "",
+                    "rightVal": ""
                 },
                 {
                     "type": "table",
                     "name": "Acoustic reflex",
                     "xAxisName": "Freq",
-                    "xAxisValues": ["500", "1000", "2000", "4000"],
+                    "cells": [
+                        { "name": "500", "left": "", "right": "" },
+                        { "name": "1000", "left": "", "right": "" },
+                        { "name": "2000", "left": "", "right": "" },
+                        { "name": "4000", "left": "", "right": "" }
+                    ],
                     "cellValues": [{ "name": "Yes" }, { "name": "No" }],
-                    "cellType": "boolean",
-                    "leftVal": "leftAcousticReflex",
-                    "rightVal": "rightAcousticReflex"
-                },
-                {
-                    "type": "equipment",
-                    "equipmentVal": "equipments"
+                    "cellType": "boolean"
                 }
             ]
         }
