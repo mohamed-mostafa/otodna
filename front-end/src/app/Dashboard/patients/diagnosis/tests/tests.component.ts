@@ -1,3 +1,4 @@
+import { ParameterValueService } from "./../../services/parameter-value.service";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
@@ -5,7 +6,6 @@ import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Test } from "./test";
 import { TestsService } from "../services/tests.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: "app-tests",
@@ -37,6 +37,7 @@ export class TestsComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
+        private parameterValueService: ParameterValueService,
         private router: Router,
         private spinner: NgxSpinnerService
     ) {}
@@ -78,33 +79,49 @@ export class TestsComponent implements OnInit {
             this.showTableFlag = true;
         }
     }
+    getEquipmentsAllData(data) {
+        const allSelectedEquipments = [];
+        for (const d of data) {
+            for (const a of this.allEquipments) {
+                if (a.name === d) {
+                    allSelectedEquipments.push(a);
+                }
+            }
+        }
+        return allSelectedEquipments;
+    }
     saveTest() {
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
+            const equipmentsAllData = this.getEquipmentsAllData(
+                this.selectedEquipments
+            );
             this.selectedTestData.forEach((element) => {
-                const equipments = this.selectedEquipments;
-                element.parameters.push({
-                    type: "equipment",
-                    values: equipments,
-                });
+                element.equipments = equipmentsAllData;
+                element.sessionTestId = this.selectedSession.id;
+            });
+        } else {
+            this.selectedTestData.forEach((element) => {
+                element.sessionTestId = this.selectedSession.id;
             });
         }
-        console.log(this.selectedTestData);
         this.test.id = this.selected.id;
         this.test.name = this.selected.name;
         this.spinner.show();
-        setTimeout(() => {
-            this.tests.push(this.test);
-            this.selectedTest = "";
-            this.filteredTests = [];
-            this.selectedEquipments = [];
-            this.selected = "";
-            this.displayTest = false;
-            this.test = new Test();
-            this.dialogHeader = "Add New Test";
-            this.showTable();
-            this.showMessage("success", "Saved", "Data saved successfully");
-            this.spinner.hide();
-        }, 2000);
+        this.parameterValueService
+            .createParametersValues(this.selectedTestData)
+            .subscribe((u: any) => {
+                this.tests.push(this.test);
+                this.selectedTest = "";
+                this.filteredTests = [];
+                this.selectedEquipments = [];
+                this.selected = "";
+                this.displayTest = false;
+                this.test = new Test();
+                this.dialogHeader = "Add New Test";
+                this.showTable();
+                this.showMessage("success", "Saved", "Data saved successfully");
+                this.spinner.hide();
+            });
     }
     onHide() {
         this.showTests = true;

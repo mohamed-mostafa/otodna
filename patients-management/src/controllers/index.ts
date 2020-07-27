@@ -9,3 +9,4 @@ export * from './patient-immunization.controller';
 export * from './patient-medication.controller';
 export * from './patient-problem.controller';
 export * from './patient-session.controller';
+export * from './parameter-value.controller';
