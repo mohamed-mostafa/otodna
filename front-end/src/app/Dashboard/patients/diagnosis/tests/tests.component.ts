@@ -125,6 +125,8 @@ export class TestsComponent implements OnInit {
     }
     onHide() {
         this.showTests = true;
+        this.filteredTests = [];
+        this.selectedTest = "";
     }
     cancelTest() {
         this.selectedTest = "";

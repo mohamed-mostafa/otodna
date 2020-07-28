@@ -1,0 +1,164 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Cholesteatoma Middle Ear"
+        },
+        {
+            "id": 2,
+            "name": "Congenital Microtia"
+        },
+        {
+            "id": 3,
+            "name": "Ear Deformities Acquired"
+        },
+        {
+            "id": "4",
+            "name": "Ear Neoplasms"
+        },
+        {
+            "id": 5,
+            "name": "Earache"
+        },
+        {
+            "id": "6",
+            "name": "Usher Syndromes"
+        },
+        {
+            "id": "7",
+            "name": "Wolfram Syndrome"
+        },
+        {
+            "id": 8,
+            "name": "Herpes Zoster Oticus"
+        },
+        {
+            "id": 9,
+            "name": "Hearing Loss, Bilateral"
+        },
+        {
+            "id": 10,
+            "name": "Hearing Loss, Conductive"
+        },
+        {
+            "id": 11,
+            "name": "Hearing Loss, Functional"
+        },
+        {
+            "id": 12,
+            "name": "Hearing Loss, High-Frequency"
+        },
+        {
+            "id": 13,
+            "name": "Hearing Loss, Mixed Conductive-Sensorineural"
+        },
+        {
+            "id": 14,
+            "name": "Hearing Loss, Sensorineural"
+        },
+        {
+            "id": 15,
+            "name": "Hearing Loss, Sudden"
+        },
+        {
+            "id": 16,
+            "name": "Hearing Loss, Unilateral"
+        },
+        {
+            "id": 17,
+            "name": "Hyperacusis"
+        },
+        {
+            "id": 18,
+            "name": "Tinnitus"
+        },
+        {
+            "id": 19,
+            "name": "Cochlear Diseases"
+        },
+        {
+            "id": 20,
+            "name": "Meniere Disease"
+        },
+        {
+            "id": 21,
+            "name": "Labyrinthitis"
+        },
+        {
+            "id": 22,
+            "name": "Bilateral Vestibulopathy"
+        },
+        {
+            "id": 23,
+            "name": "Benign Paroxysmal Positional Vertigo"
+        },
+        {
+            "id": 24,
+            "name": "Otitis Externa"
+        },
+        {
+            "id": 25,
+            "name": "Mastoiditis"
+        },
+        {
+            "id": 26,
+            "name": "Otitis Media with Effusion"
+        },
+        {
+            "id": 27,
+            "name": "Otitis Media, Suppurative"
+        },
+        {
+            "id": 28,
+            "name": "Petrositis"
+        },
+        {
+            "id": 29,
+            "name": "Otomycosis"
+        },
+        {
+            "id": 30,
+            "name": "Otosclerosis"
+        },
+        {
+            "id": 31,
+            "name": "Ototoxicity"
+        },
+        {
+            "id": 32,
+            "name": "Auditory Perceptual Disorders"
+        },
+        {
+            "id": 33,
+            "name": "Hearing Loss, Central"
+        },
+        {
+            "id": 34,
+            "name": "Neurofibromatosis 2"
+        },
+        {
+            "id": 35,
+            "name": "Vestibular Neuronitis"
+        },
+        {
+            "id": 36,
+            "name": "Vestibulocochlear Nerve Injuries"
+        },
+        {
+            "id": 37,
+            "name": "Susac Syndrome"
+        },
+        {
+            "id": 38,
+            "name": "Tympanic Membrane Perforation"
+        },
+        {
+            "id": 39,
+            "name": "Ear Neoplasms"
+        },
+        {
+            "id": 40,
+            "name": "Congenital Microtia"
+        }
+    ]
+}

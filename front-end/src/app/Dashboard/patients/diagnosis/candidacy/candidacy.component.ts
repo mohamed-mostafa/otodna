@@ -1,3 +1,4 @@
+import { TestsService } from "./../services/tests.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
@@ -16,13 +17,18 @@ export class CandidacyComponent implements OnInit {
     candidacies: any[] = [];
     candidacy: Candidacy = new Candidacy();
     items: MenuItem[];
-    candidacyMenu: MenuItem[];
     home: MenuItem;
     showTableFlag = false;
     selectedSession;
+    allTests = [];
+    filteredTests: any[];
+    displayTest: boolean;
+    selectedTest;
+
     constructor(
         private messageService: MessageService,
         private router: Router,
+        private testService: TestsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -48,151 +54,30 @@ export class CandidacyComponent implements OnInit {
             },
             { label: this.selectedSession.displayName },
         ];
-        this.cols = [{ field: "testType", header: "Candidacy Type" }];
+        this.cols = [
+            { field: "id", header: "ID", width: "20%" },
+            { field: "name", header: "Name", width: "80%" },
+        ];
         this.home = { icon: "fa fa-stethoscope" };
 
-        this.candidacyMenu = [
-            {
-                label: "Therapeutics [E02]",
-                icon: "fa fa-stethoscope",
-                items: [
-                    {
-                        label: "Acoustic Stimulation [E02.037]",
-                        icon: "fa fa-stethoscope",
-                        command: (event) => {
-                            this.save(event);
-                        },
-                    },
-                    {
-                        label: "Drug Therapy [E02.319]",
-                        icon: "fa fa-stethoscope",
-                        command: (event) => {
-                            this.save(event);
-                        },
-                    },
-                    {
-                        label: "Rehabilitation [E02.831]",
-                        icon: "fa fa-stethoscope",
-                        items: [
-                            {
-                                label:
-                                    "Correction of Hearing Impairment [E02.831.200]",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label:
-                                            "Communication Methods, Total [E02.831.200.221]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                    {
-                                        label: "Lipreading [E02.831.200.432]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                    {
-                                        label:
-                                            "Manual Communication [E02.831.200.609]",
-                                        icon: "fa fa-stethoscope",
-                                        items: [
-                                            {
-                                                label:
-                                                    "Sign Language [E02.831.200.609.668]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                            {
-                                label:
-                                    "Rehabilitation of Speech and Language Disorders [E02.831.727]",
-                                icon: "fa fa-stethoscope",
-                                items: [
-                                    {
-                                        label:
-                                            "Language Therapy [E02.831.727.344]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                    {
-                                        label:
-                                            "Myofunctional Therapy [E02.831.727.442]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                    {
-                                        label:
-                                            "Speech, Alaryngeal [E02.831.727.541]",
-                                        icon: "fa fa-stethoscope",
-                                        items: [
-                                            {
-                                                label:
-                                                    "Speech, Esophageal [E02.831.727.541.677]",
-                                                icon: "fa fa-stethoscope",
-                                                command: (event) => {
-                                                    this.save(event);
-                                                },
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        label:
-                                            "Speech Therapy [E02.831.727.552]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                    {
-                                        label:
-                                            "Voice Training [E02.831.727.862]",
-                                        icon: "fa fa-stethoscope",
-                                        command: (event) => {
-                                            this.save(event);
-                                        },
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    { separator: true },
-                    {
-                        label: "Quit",
-                        icon: "pi pi-fw pi-times",
-                    },
-                ],
-            },
-            { separator: true },
-            {
-                label: "Quit",
-                icon: "pi pi-fw pi-times",
-            },
-        ];
         this.showTable();
+        this.getAllTests();
     }
     showTable() {
         if (this.candidacies.length > 0) {
             this.showTableFlag = true;
         }
     }
-    save(event) {
-        this.candidacy.candidacyType = event.item.label;
+    save(test) {
+        this.candidacy.id = test.id;
+        this.candidacy.name = test.name;
         this.spinner.show();
         setTimeout(() => {
             this.candidacies.push(this.candidacy);
             this.candidacy = new Candidacy();
+            this.displayTest = false;
+            this.selectedTest = "";
+            this.filteredTests = [];
             this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
@@ -206,9 +91,7 @@ export class CandidacyComponent implements OnInit {
             life: 3000,
         });
     }
-    customTrackBy(index: number, obj: any): any {
-        return index;
-    }
+
     goToPatientPage(event) {
         this.router
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
@@ -222,5 +105,33 @@ export class CandidacyComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    getAllTests() {
+        this.testService.getTest("diagnosisCandidacy").then((res) => {
+            this.allTests = res;
+        });
+    }
+    filterTest(event) {
+        const query = event.query;
+        this.testService.getTest("diagnosisCandidacy").then((tests) => {
+            this.filteredTests = this.searchTest(query, tests);
+        });
+    }
+    searchTest(query, tests: any[]): any[] {
+        const filtered: any[] = [];
+        for (const item of tests) {
+            const test = item;
+            if (test.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(test);
+            }
+        }
+        return filtered;
+    }
+    showTestDialog() {
+        this.displayTest = true;
+    }
+    onHide() {
+        this.filteredTests = [];
+        this.selectedTest = "";
     }
 }

@@ -1,3 +1,4 @@
 export class Candidacy {
-    candidacyType: string;
+    id: number;
+    name: string;
 }

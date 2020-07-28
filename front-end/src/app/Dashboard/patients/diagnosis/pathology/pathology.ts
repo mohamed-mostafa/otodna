@@ -1,3 +1,4 @@
 export class Pathology {
-    pathologyType: string;
+    id: number;
+    name: string;
 }
