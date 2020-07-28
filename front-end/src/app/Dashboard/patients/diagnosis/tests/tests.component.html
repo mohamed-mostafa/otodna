@@ -154,53 +154,49 @@
                             *ngIf="t.type === 'number'"
                         >
                             <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                <div class="ui-g-12 ui-md-10">
-                                    <label for="right-{{ t.name }}">
-                                        {{ t.name }}</label
+                                <label for="right-{{ t.name }}">
+                                    {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <span
+                                        class="ui-inputgroup-addon rightBackgroundColor"
+                                        >R</span
                                     >
-                                    <div class="ui-inputgroup labelMarginTop">
-                                        <span
-                                            class="ui-inputgroup-addon rightBackgroundColor"
-                                            >R</span
-                                        >
-                                        <input
-                                            type="number"
-                                            pInputText
-                                            id="right-{{ t.name }}"
-                                            [placeholder]="t.name"
-                                            [required]="t.required"
-                                            [(ngModel)]="t.rightVal"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="ui-g-12 ui-md-2 marginTop28">
-                                    {{ t.unit ? t.unit : "" }}
+                                    <input
+                                        type="number"
+                                        pInputText
+                                        id="right-{{ t.name }}"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.rightVal"
+                                    />
+                                    <span class="ui-inputgroup-addon">{{
+                                        t.unit ? t.unit : ""
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="ui-g-12 ui-md-6">
-                                <div class="ui-g-12 ui-md-10">
-                                    <label for="left-{{ t.name }}">
-                                        {{ t.name }}</label
+                                <label for="left-{{ t.name }}">
+                                    {{ t.name }}</label
+                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <span
+                                        class="ui-inputgroup-addon leftBackgroundColor"
+                                        >L</span
                                     >
-                                    <div class="ui-inputgroup labelMarginTop">
-                                        <span
-                                            class="ui-inputgroup-addon leftBackgroundColor"
-                                            >L</span
-                                        >
-                                        <input
-                                            type="number"
-                                            pInputText
-                                            [min]="t.minimum"
-                                            [max]="t.maximum"
-                                            id="left-{{ t.name }}"
-                                            [placeholder]="t.name"
-                                            [required]="t.required"
-                                            [(ngModel)]="t.leftVal"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="ui-g-12 ui-md-1 marginTop28">
-                                    {{ t.unit ? t.unit : "" }}
+                                    <input
+                                        type="number"
+                                        pInputText
+                                        [min]="t.minimum"
+                                        [max]="t.maximum"
+                                        id="left-{{ t.name }}"
+                                        [placeholder]="t.name"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.leftVal"
+                                    />
+                                    <span class="ui-inputgroup-addon">
+                                        {{ t.unit ? t.unit : "" }}</span
+                                    >
                                 </div>
                             </div>
                         </div>
