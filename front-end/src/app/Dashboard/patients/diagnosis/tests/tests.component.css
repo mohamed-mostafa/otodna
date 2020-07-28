@@ -34,17 +34,24 @@
 }
 .rightVerticalLine {
     border-right: 2px solid #e0e0e0;
-    color: #ff1744;
+    /* color: #ff1744; */
+}
+.leftVerticalColor {
+    border-left: 5px solid #1e88e5;
+    padding-left: 5px;
 }
 .leftColor {
-    /* border-left: 6px solid #011fa3; */
-    color: #1976d2 !important;
+    color: #1e88e5 !important;
 }
 .rightColor {
-    color: #ff1744 !important;
+    color: #c62828 !important;
 }
 .equipmentStyle {
     font-size: 18px;
     float: left;
     margin: 10px 10px 0 0;
+}
+.rightBackgroundColor {
+    background-color: #c62828 !important;
+    color: white !important;
 }

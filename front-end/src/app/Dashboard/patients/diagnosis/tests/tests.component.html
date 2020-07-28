@@ -89,12 +89,16 @@
                     *ngFor="let test of selectedTestData"
                 >
                     <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                        <h2 class="centerHeader removeMarginAndPadding">
+                        <h2
+                            class="centerHeader removeMarginAndPadding rightColor"
+                        >
                             R
                         </h2>
                     </div>
-                    <div class="ui-g-12 ui-md-6 leftColor">
-                        <h2 class="centerHeader removeMarginAndPadding">
+                    <div class="ui-g-12 ui-md-6">
+                        <h2
+                            class="centerHeader removeMarginAndPadding leftColor"
+                        >
                             L
                         </h2>
                     </div>
@@ -110,28 +114,32 @@
                                 <label for="right-{{ t.name }}">{{
                                     t.name
                                 }}</label>
-                                <div class="ui-inputgroup">
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <span
+                                        class="ui-inputgroup-addon rightBackgroundColor"
+                                        >R</span
+                                    >
                                     <input
                                         type="text"
                                         pInputText
                                         id="right-{{ t.name }}"
-                                        class="labelMarginTop"
                                         [placeholder]="t.name"
                                         [required]="t.required"
                                         [(ngModel)]="t.rightVal"
                                     />
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6 leftColor">
+                            <div class="ui-g-12 ui-md-6">
                                 <label for="left-{{ t.name }}">{{
                                     t.name
                                 }}</label>
-                                <div class="ui-inputgroup">
+                                <div
+                                    class="ui-inputgroup labelMarginTop leftVerticalColor"
+                                >
                                     <input
                                         type="text"
                                         pInputText
                                         id="left-{{ t.name }}"
-                                        class="labelMarginTop"
                                         [placeholder]="t.name"
                                         [required]="t.required"
                                         [(ngModel)]="t.leftVal"
@@ -148,12 +156,15 @@
                                     <label for="right-{{ t.name }}">
                                         {{ t.name }}</label
                                     >
-                                    <div class="ui-inputgroup">
+                                    <div class="ui-inputgroup labelMarginTop">
+                                        <span
+                                            class="ui-inputgroup-addon rightBackgroundColor"
+                                            >R</span
+                                        >
                                         <input
                                             type="number"
                                             pInputText
                                             id="right-{{ t.name }}"
-                                            class="labelMarginTop"
                                             [placeholder]="t.name"
                                             [required]="t.required"
                                             [(ngModel)]="t.rightVal"
@@ -164,19 +175,20 @@
                                     {{ t.unit ? t.unit : "" }}
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6 leftColor">
+                            <div class="ui-g-12 ui-md-6">
                                 <div class="ui-g-12 ui-md-10">
                                     <label for="left-{{ t.name }}">
                                         {{ t.name }}</label
                                     >
-                                    <div class="ui-inputgroup">
+                                    <div
+                                        class="ui-inputgroup labelMarginTop leftVerticalColor"
+                                    >
                                         <input
                                             type="number"
                                             pInputText
                                             [min]="t.minimum"
                                             [max]="t.maximum"
                                             id="left-{{ t.name }}"
-                                            class="labelMarginTop"
                                             [placeholder]="t.name"
                                             [required]="t.required"
                                             [(ngModel)]="t.leftVal"
@@ -201,14 +213,15 @@
                                     [(ngModel)]="t.rightVal"
                                 ></p-checkbox>
                             </div>
-                            <div class="ui-g-12 ui-md-6 leftColor">
-                                <p-checkbox
-                                    label="{{ t.name }}"
-                                    [value]="t.name"
-                                    class="labelMarginTop"
-                                    [required]="t.required"
-                                    [(ngModel)]="t.leftVal"
-                                ></p-checkbox>
+                            <div class="ui-g-12 ui-md-6">
+                                <div class="labelMarginTop leftVerticalColor">
+                                    <p-checkbox
+                                        label="{{ t.name }}"
+                                        [value]="t.name"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.leftVal"
+                                    ></p-checkbox>
+                                </div>
                             </div>
                         </div>
                         <div
@@ -231,11 +244,13 @@
                                     ></p-dropdown>
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6 leftColor">
+                            <div class="ui-g-12 ui-md-6">
                                 <label for="left-{{ t.name }}">
                                     {{ t.name }}</label
                                 >
-                                <div class="ui-inputgroup labelMarginTop">
+                                <div
+                                    class="ui-inputgroup labelMarginTop leftVerticalColor"
+                                >
                                     <p-dropdown
                                         [options]="t.values"
                                         placeholder="Select Value"
@@ -278,9 +293,9 @@
                                     </p-fileUpload>
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6 leftColor">
+                            <div class="ui-g-12 ui-md-6">
                                 <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop">
+                                <div class="labelMarginTop leftVerticalColor">
                                     <p-fileUpload
                                         name="demo[]"
                                         url="./upload.php"
@@ -334,9 +349,9 @@
                                     </p-fileUpload>
                                 </div>
                             </div>
-                            <div class="ui-g-12 ui-md-6 leftColor">
+                            <div class="ui-g-12 ui-md-6">
                                 <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop">
+                                <div class="labelMarginTop leftVerticalColor">
                                     <p-fileUpload
                                         name="demo[]"
                                         url="./upload.php"
@@ -426,7 +441,9 @@
                                             </ng-container>
                                         </tr>
                                         <tr>
-                                            <th class="leftColor">Left</th>
+                                            <th class="leftColor">
+                                                Left
+                                            </th>
                                             <ng-container
                                                 *ngIf="t.cellType === 'boolean'"
                                             >
