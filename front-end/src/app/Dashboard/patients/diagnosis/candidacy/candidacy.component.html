@@ -7,25 +7,25 @@
             type="button"
             pButton
             icon="pi pi-bars"
-            label="Add Candidacy"
+            label="Add Recommendation"
             (click)="showTestDialog()"
         ></button>
     </div>
     <div class="ui-g-12 ui-md-9"></div>
 </div>
 <div class="centerClass" *ngIf="!showTableFlag">
-    <h3>Click Add Candidacy To Add A New Candidacy</h3>
+    <h3>Click Add Recommendation To Add A New Recommendation</h3>
     <button
         #btn
         type="button"
         pButton
         icon="pi pi-bars"
-        label="Add Candidacy"
+        label="Add Recommendation"
         (click)="showTestDialog()"
     ></button>
 </div>
 <p-dialog
-    header="Add New Candidacy"
+    header="Add New Recommendation"
     [(visible)]="displayTest"
     [style]="{ width: '70vw' }"
     [baseZIndex]="10000"

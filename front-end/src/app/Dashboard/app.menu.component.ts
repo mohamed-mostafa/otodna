@@ -221,7 +221,7 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ["diagnosisPathology"],
                     },
                     {
-                        label: "Candidacy",
+                        label: "Recommendation",
                         icon: "fa fa-fw fa-stethoscope",
                         routerLink: ["diagnosisCandidacy"],
                     },
@@ -297,39 +297,45 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ["patient"],
                     },
                     {
-                        label: "Family",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
-                    },
-                    {
-                        label: "Vital",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
-                    },
-                    {
-                        label: "Allergies",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
-                    },
-                    {
-                        label: "Lab Results",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
-                    },
-                    {
-                        label: "Immunizations",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
-                    },
-                    {
-                        label: "Medications",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
-                    },
-                    {
-                        label: "Problems",
-                        icon: "fa fa-fw fa-lock",
-                        styleClass: "menuCss",
+                        label: "Medical Records",
+                        icon: "fa fa-fw fa-heartbeat",
+                        items: [
+                            {
+                                label: "Family",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            },
+                            {
+                                label: "Vital",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            },
+                            {
+                                label: "Allergies",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            },
+                            {
+                                label: "Lab Results",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            },
+                            {
+                                label: "Immunizations",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            },
+                            {
+                                label: "Medications",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            },
+                            {
+                                label: "Problems",
+                                icon: "fa fa-fw fa-lock",
+                                styleClass: "menuCss",
+                            }
+                        ]
                     },
                     {
                         label: "Patient History",
@@ -345,45 +351,51 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ["patient"],
                     },
                     {
-                        label: "Family",
-                        icon: "fa fa-fw fa-users",
-                        routerLink: ["family"],
-                    },
-                    {
-                        label: "Vital",
-                        icon: "fa fa-fw fa-star",
-                        routerLink: ["vital"],
-                    },
-                    {
-                        label: "Allergies",
-                        icon: "fa fa-fw fa-user-md",
-                        routerLink: ["allergies"],
-                    },
-                    {
-                        label: "Lab Results",
-                        icon: "fa fa-fw fa-flask",
-                        routerLink: ["labResults"],
-                    },
-                    {
-                        label: "Immunizations",
-                        icon: "fa fa-fw fa-medkit",
-                        routerLink: ["immunizations"],
-                    },
-                    {
-                        label: "Medications",
+                        label: "Medical Records",
                         icon: "fa fa-fw fa-heartbeat",
-                        routerLink: ["medications"],
-                    },
-                    {
-                        label: "Problems",
-                        icon: "fa fa-fw fa-exclamation-triangle",
-                        routerLink: ["problems"],
+                        items: [
+                            {
+                                label: "Family",
+                                icon: "fa fa-fw fa-users",
+                                routerLink: ["family"],
+                            },
+                            {
+                                label: "Vital",
+                                icon: "fa fa-fw fa-star",
+                                routerLink: ["vital"],
+                            },
+                            {
+                                label: "Allergies",
+                                icon: "fa fa-fw fa-user-md",
+                                routerLink: ["allergies"],
+                            },
+                            {
+                                label: "Lab Results",
+                                icon: "fa fa-fw fa-flask",
+                                routerLink: ["labResults"],
+                            },
+                            {
+                                label: "Immunizations",
+                                icon: "fa fa-fw fa-medkit",
+                                routerLink: ["immunizations"],
+                            },
+                            {
+                                label: "Medications",
+                                icon: "fa fa-fw fa-heartbeat",
+                                routerLink: ["medications"],
+                            },
+                            {
+                                label: "Problems",
+                                icon: "fa fa-fw fa-exclamation-triangle",
+                                routerLink: ["problems"],
+                            }
+                        ]
                     },
                     {
                         label: "Patient History",
                         icon: "fa fa-fw fa-history",
                         routerLink: ["patientHistory"],
-                    },
+                    }
                 ];
             }
             this.otherMenu = this.otherMenu.filter(
