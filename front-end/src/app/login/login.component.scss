@@ -19,7 +19,7 @@
         // @include shadow(0 2px 6px 0 rgba(0, 0, 0, 0.24));
 
         img {
-            height: 90px;
+            height: 80px;
             width: 170px;
             vertical-align: middle;
         }
@@ -121,4 +121,9 @@
     text-decoration: underline;
     display: inline;
     padding-top: 30px;
+}
+
+.logoStyle {
+    margin-left: 250px;
+    width: 27% !important;
 }
