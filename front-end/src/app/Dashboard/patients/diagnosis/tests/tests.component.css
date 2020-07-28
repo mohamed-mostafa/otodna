@@ -34,7 +34,6 @@
 }
 .rightVerticalLine {
     border-right: 2px solid #e0e0e0;
-    /* color: #ff1744; */
 }
 .leftVerticalColor {
     border-left: 5px solid #1e88e5;
@@ -54,4 +53,16 @@
 .rightBackgroundColor {
     background-color: #c62828 !important;
     color: white !important;
+}
+.leftBackgroundColor {
+    background-color: #1e88e5 !important;
+    color: white !important;
+}
+.ui-fluid .ui-dropdown,
+.ui-fluid p-dropdown {
+    width: 100%;
+    min-width: 90%;
+}
+.lineHeight {
+    line-height: 5px;
 }

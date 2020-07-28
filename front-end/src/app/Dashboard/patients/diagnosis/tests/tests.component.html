@@ -133,9 +133,11 @@
                                 <label for="left-{{ t.name }}">{{
                                     t.name
                                 }}</label>
-                                <div
-                                    class="ui-inputgroup labelMarginTop leftVerticalColor"
-                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <span
+                                        class="ui-inputgroup-addon leftBackgroundColor"
+                                        >L</span
+                                    >
                                     <input
                                         type="text"
                                         pInputText
@@ -180,9 +182,11 @@
                                     <label for="left-{{ t.name }}">
                                         {{ t.name }}</label
                                     >
-                                    <div
-                                        class="ui-inputgroup labelMarginTop leftVerticalColor"
-                                    >
+                                    <div class="ui-inputgroup labelMarginTop">
+                                        <span
+                                            class="ui-inputgroup-addon leftBackgroundColor"
+                                            >L</span
+                                        >
                                         <input
                                             type="number"
                                             pInputText
@@ -205,16 +209,25 @@
                             *ngIf="t.type === 'boolean'"
                         >
                             <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                <p-checkbox
-                                    label=" {{ t.name }}"
-                                    [value]="t.name"
-                                    class="labelMarginTop"
-                                    [required]="t.required"
-                                    [(ngModel)]="t.rightVal"
-                                ></p-checkbox>
+                                <div class="ui-inputgroup">
+                                    <span
+                                        class="ui-inputgroup-addon rightBackgroundColor lineHeight"
+                                        >R</span
+                                    >
+                                    <p-checkbox
+                                        label=" {{ t.name }}"
+                                        [value]="t.name"
+                                        [required]="t.required"
+                                        [(ngModel)]="t.rightVal"
+                                    ></p-checkbox>
+                                </div>
                             </div>
                             <div class="ui-g-12 ui-md-6">
-                                <div class="labelMarginTop leftVerticalColor">
+                                <div class="ui-inputgroup">
+                                    <span
+                                        class="ui-inputgroup-addon leftBackgroundColor lineHeight"
+                                        >L</span
+                                    >
                                     <p-checkbox
                                         label="{{ t.name }}"
                                         [value]="t.name"
@@ -233,6 +246,10 @@
                                     {{ t.name }}</label
                                 >
                                 <div class="ui-inputgroup labelMarginTop">
+                                    <span
+                                        class="ui-inputgroup-addon rightBackgroundColor"
+                                        >R</span
+                                    >
                                     <p-dropdown
                                         [options]="t.values"
                                         placeholder="Select Value"
@@ -248,9 +265,11 @@
                                 <label for="left-{{ t.name }}">
                                     {{ t.name }}</label
                                 >
-                                <div
-                                    class="ui-inputgroup labelMarginTop leftVerticalColor"
-                                >
+                                <div class="ui-inputgroup labelMarginTop">
+                                    <span
+                                        class="ui-inputgroup-addon leftBackgroundColor"
+                                        >L</span
+                                    >
                                     <p-dropdown
                                         [options]="t.values"
                                         placeholder="Select Value"
@@ -295,7 +314,7 @@
                             </div>
                             <div class="ui-g-12 ui-md-6">
                                 <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop leftVerticalColor">
+                                <div class="labelMarginTop">
                                     <p-fileUpload
                                         name="demo[]"
                                         url="./upload.php"
@@ -351,7 +370,7 @@
                             </div>
                             <div class="ui-g-12 ui-md-6">
                                 <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop leftVerticalColor">
+                                <div class="labelMarginTop">
                                     <p-fileUpload
                                         name="demo[]"
                                         url="./upload.php"
