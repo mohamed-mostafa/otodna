@@ -303,7 +303,6 @@ export class AppMenuComponent implements OnInit {
                             label: "Medical Records",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
-                            badge: 7,
                             items: [],
                         },
                         {
@@ -323,7 +322,6 @@ export class AppMenuComponent implements OnInit {
                             label: "Medical Records",
                             icon: "fa fa-fw fa-heartbeat",
                             routerLink: ["/dashboard"],
-                            badge: 7,
                             items: [
                                 {
                                     label: "Family",
