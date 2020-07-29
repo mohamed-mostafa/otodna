@@ -1,4 +1,5 @@
 export class Pathology {
-    id: number;
-    name: string;
+    deseaseId: number;
+    deseaseName: string;
+    patientSessionId: number;
 }

@@ -1,4 +1,4 @@
-import { TestsService } from "./../services/tests.service";
+import { PathologyService } from "./../services/pathology.service";
 import { MenuItem } from "primeng/primeng";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
@@ -27,7 +27,7 @@ export class PathologyComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private router: Router,
-        private testService: TestsService,
+        private pathologyService: PathologyService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -37,6 +37,7 @@ export class PathologyComponent implements OnInit {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
+        this.pathology.patientSessionId = this.selectedSession.id;
         this.items = [
             {
                 label: "Patients",
@@ -61,6 +62,7 @@ export class PathologyComponent implements OnInit {
 
         this.showTable();
         this.getAllTests();
+        this.getAllPathologies();
     }
     showTable() {
         if (this.pathologies.length > 0) {
@@ -68,19 +70,22 @@ export class PathologyComponent implements OnInit {
         }
     }
     save(test) {
-        this.pathology.id = test.id;
-        this.pathology.name = test.name;
+        this.pathology.deseaseId = test.id;
+        this.pathology.deseaseName = test.name;
+        this.pathology.patientSessionId = this.selectedSession.id;
         this.spinner.show();
-        setTimeout(() => {
-            this.pathologies.push(this.pathology);
-            this.pathology = new Pathology();
-            this.displayTest = false;
-            this.selectedTest = "";
-            this.filteredTests = [];
-            this.showTable();
-            this.showMessage("success", "Saved", "Data saved successfully");
-            this.spinner.hide();
-        }, 2000);
+        this.pathologyService
+            .createPathology(this.pathology)
+            .subscribe((u: any) => {
+                this.pathology = new Pathology();
+                this.displayTest = false;
+                this.selectedTest = "";
+                this.filteredTests = [];
+                this.getAllPathologies();
+                this.showTable();
+                this.showMessage("success", "Saved", "Data saved successfully");
+                this.spinner.hide();
+            });
     }
     showMessage(type, title, message) {
         this.messageService.add({
@@ -106,13 +111,13 @@ export class PathologyComponent implements OnInit {
             });
     }
     getAllTests() {
-        this.testService.getTest("diagnosisPathology").then((res) => {
+        this.pathologyService.getTest("diagnosisPathology").then((res) => {
             this.allTests = res;
         });
     }
     filterTest(event) {
         const query = event.query;
-        this.testService.getTest("diagnosisPathology").then((tests) => {
+        this.pathologyService.getTest("diagnosisPathology").then((tests) => {
             this.filteredTests = this.searchTest(query, tests);
         });
     }
@@ -132,5 +137,13 @@ export class PathologyComponent implements OnInit {
     onHide() {
         this.filteredTests = [];
         this.selectedTest = "";
+    }
+    getAllPathologies() {
+        this.spinner.show();
+        this.pathologyService.getAllPathologies().subscribe((result) => {
+            this.pathologies = result;
+            this.showTable();
+            this.spinner.hide();
+        });
     }
 }

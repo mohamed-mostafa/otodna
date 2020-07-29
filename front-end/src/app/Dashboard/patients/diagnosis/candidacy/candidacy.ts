@@ -1,4 +1,5 @@
 export class Candidacy {
-    id: number;
-    name: string;
+    treatmentId: number;
+    treatmentName: string;
+    patientSessionId: number;
 }

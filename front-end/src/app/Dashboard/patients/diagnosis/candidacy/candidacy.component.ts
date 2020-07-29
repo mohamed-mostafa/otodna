@@ -1,4 +1,4 @@
-import { TestsService } from "./../services/tests.service";
+import { CandidacyService } from "./../services/candidacy.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
@@ -28,7 +28,7 @@ export class CandidacyComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private router: Router,
-        private testService: TestsService,
+        private candidacyService: CandidacyService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -38,6 +38,7 @@ export class CandidacyComponent implements OnInit {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
+        this.candidacy.patientSessionId = this.selectedSession.id;
         this.items = [
             {
                 label: "Patients",
@@ -62,6 +63,7 @@ export class CandidacyComponent implements OnInit {
 
         this.showTable();
         this.getAllTests();
+        this.getAllCandidacies();
     }
     showTable() {
         if (this.candidacies.length > 0) {
@@ -69,19 +71,23 @@ export class CandidacyComponent implements OnInit {
         }
     }
     save(test) {
-        this.candidacy.id = test.id;
-        this.candidacy.name = test.name;
+        this.candidacy.treatmentId = test.id;
+        this.candidacy.treatmentName = test.name;
+        this.candidacy.patientSessionId = this.selectedSession.id;
         this.spinner.show();
-        setTimeout(() => {
-            this.candidacies.push(this.candidacy);
-            this.candidacy = new Candidacy();
-            this.displayTest = false;
-            this.selectedTest = "";
-            this.filteredTests = [];
-            this.showTable();
-            this.showMessage("success", "Saved", "Data saved successfully");
-            this.spinner.hide();
-        }, 2000);
+        this.candidacyService
+            .createCandidacy(this.candidacy)
+            .subscribe((u: any) => {
+                this.candidacies.push(this.candidacy);
+                this.candidacy = new Candidacy();
+                this.displayTest = false;
+                this.selectedTest = "";
+                this.filteredTests = [];
+                this.getAllCandidacies();
+                this.showTable();
+                this.showMessage("success", "Saved", "Data saved successfully");
+                this.spinner.hide();
+            });
     }
     showMessage(type, title, message) {
         this.messageService.add({
@@ -107,13 +113,13 @@ export class CandidacyComponent implements OnInit {
             });
     }
     getAllTests() {
-        this.testService.getTest("diagnosisCandidacy").then((res) => {
+        this.candidacyService.getTest("diagnosisCandidacy").then((res) => {
             this.allTests = res;
         });
     }
     filterTest(event) {
         const query = event.query;
-        this.testService.getTest("diagnosisCandidacy").then((tests) => {
+        this.candidacyService.getTest("diagnosisCandidacy").then((tests) => {
             this.filteredTests = this.searchTest(query, tests);
         });
     }
@@ -133,5 +139,13 @@ export class CandidacyComponent implements OnInit {
     onHide() {
         this.filteredTests = [];
         this.selectedTest = "";
+    }
+    getAllCandidacies() {
+        this.spinner.show();
+        this.candidacyService.getAllCandidacies().subscribe((result) => {
+            this.candidacies = result;
+            this.showTable();
+            this.spinner.hide();
+        });
     }
 }

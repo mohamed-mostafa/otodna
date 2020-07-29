@@ -9,7 +9,7 @@ import {Entity, model, property} from '@loopback/repository';
 export class PatientSessionPathology extends Entity {
   @property({
     type: 'number',
-    required: true,
+    required: false,
     precision: 10,
     scale: 0,
     id: 1,
@@ -36,7 +36,7 @@ export class PatientSessionPathology extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     length: 5,
     mysql: {columnName: 'ear', dataType: 'varchar', dataLength: 5, dataPrecision: null, dataScale: null, nullable: 'N'},
   })

@@ -13,7 +13,7 @@
             "name": "Communication Methods, Total"
         },
         {
-            "id": "4",
+            "id": 4,
             "name": "Lipreading"
         },
         {
@@ -21,11 +21,11 @@
             "name": "Sign Language"
         },
         {
-            "id": "6",
+            "id": 6,
             "name": "Language Therapy"
         },
         {
-            "id": "7",
+            "id": 7,
             "name": "Myofunctional Therapy"
         },
         {

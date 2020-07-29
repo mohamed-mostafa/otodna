@@ -13,7 +13,7 @@
             "name": "Ear Deformities Acquired"
         },
         {
-            "id": "4",
+            "id": 4,
             "name": "Ear Neoplasms"
         },
         {
@@ -21,11 +21,11 @@
             "name": "Earache"
         },
         {
-            "id": "6",
+            "id": 6,
             "name": "Usher Syndromes"
         },
         {
-            "id": "7",
+            "id": 7,
             "name": "Wolfram Syndrome"
         },
         {
