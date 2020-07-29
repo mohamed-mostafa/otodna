@@ -27,8 +27,26 @@
     background-color: #d8efe9 !important;
 }
 
-.iconStyle {
+.greenIconStyle {
     color: #61b5a1;
+    background-color: white;
+    padding: 15px;
+    border-radius: 50px;
+}
+.orangeIconStyle {
+    color: #df9d88;
+    background-color: white;
+    padding: 15px;
+    border-radius: 50px;
+}
+.yellowIconStyle {
+    color: #ecc563;
+    background-color: white;
+    padding: 15px;
+    border-radius: 50px;
+}
+.moveIconStyle {
+    color: #997fd4;
     background-color: white;
     padding: 15px;
     border-radius: 50px;
