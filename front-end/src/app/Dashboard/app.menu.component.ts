@@ -303,7 +303,6 @@ export class AppMenuComponent implements OnInit {
                             label: "Medical Records",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
-                            items: [],
                         },
                         {
                             label: "Patient History",
