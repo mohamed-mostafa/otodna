@@ -1,3 +1,4 @@
+import {SessionTestRepository} from './session-test.repository';
 import {SessionTestEquipmentRepository} from './session-test-equipment.repository';
 import {
   Transaction,
@@ -18,12 +19,21 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
   }
   @repository(SessionTestEquipmentRepository)
   private sessionTestEquipmentRepository: SessionTestEquipmentRepository;
+  @repository(SessionTestRepository)
+  private sessionTestRepository: SessionTestRepository;
   public createParametersValues(data: Array<any>): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      let handledData = await this.handleData(data);
-      let equipments = data[0].equipments;
       const tx: Transaction = await this.beginTransaction();
       try {
+        let sessionTestObj = {
+          testId: data[0].testId,
+          testName: data[0].name,
+          patientSessionId: data[0].sessionTestId,
+        };
+        let res = await this.sessionTestRepository.create(sessionTestObj);
+        let handledData = await this.handleData(data, res.id);
+        let equipments = data[0].equipments;
+
         if (handledData && handledData.length > 0) {
           for (const d of handledData) {
             await super.create(d, {transaction: tx});
@@ -34,7 +44,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
             let obj = {
               equipmentId: e.id,
               equipmentName: e.name,
-              sessionTestId: data[0].sessionTestId,
+              sessionTestId: res.id,
             };
             await this.sessionTestEquipmentRepository.create(obj, {
               transaction: tx,
@@ -49,7 +59,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
       }
     });
   }
-  async handleData(data: Array<any>) {
+  async handleData(data: Array<any>, id: number) {
     let AllData = [];
     for (const d of data) {
       for (const item of d.parameters) {
@@ -60,7 +70,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'left',
               parameterType: item.type,
               value: item.leftVal.name,
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(leftObj);
           }
@@ -70,7 +80,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'right',
               parameterType: item.type,
               value: item.rightVal.name,
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(rightObj);
           }
@@ -82,7 +92,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'left',
               parameterType: item.type,
               value: item.leftVal,
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(leftObj);
           }
@@ -92,7 +102,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'right',
               parameterType: item.type,
               value: item.rightVal,
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(rightObj);
           }
@@ -104,7 +114,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'both',
               parameterType: item.type,
               value: item.textareaVal,
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(obj);
           }
@@ -116,7 +126,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'left',
               parameterType: item.type,
               value: item.leftVal[0],
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(leftObj);
           }
@@ -126,7 +136,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               ear: 'right',
               parameterType: item.type,
               value: item.rightVal[0],
-              sessionTestId: d.sessionTestId,
+              sessionTestId: id,
             };
             AllData.push(rightObj);
           }
@@ -141,7 +151,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
                   ear: 'left',
                   parameterType: item.type,
                   value: cell.left,
-                  sessionTestId: d.sessionTestId,
+                  sessionTestId: id,
                 };
                 AllData.push(leftObj);
               }
@@ -152,7 +162,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
                   ear: 'right',
                   parameterType: item.type,
                   value: cell.right,
-                  sessionTestId: d.sessionTestId,
+                  sessionTestId: id,
                 };
                 AllData.push(rightObj);
               }
@@ -167,7 +177,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
                   ear: 'left',
                   parameterType: item.type,
                   value: cell.left.name,
-                  sessionTestId: d.sessionTestId,
+                  sessionTestId: id,
                 };
                 AllData.push(leftObj);
               }
@@ -178,7 +188,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
                   ear: 'right',
                   parameterType: item.type,
                   value: cell.right.name,
-                  sessionTestId: d.sessionTestId,
+                  sessionTestId: id,
                 };
                 AllData.push(rightObj);
               }

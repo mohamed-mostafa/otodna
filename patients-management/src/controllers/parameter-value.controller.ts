@@ -1,3 +1,5 @@
+import {SessionTest} from './../models/session-test.model';
+import {SessionTestRepository} from './../repositories/session-test.repository';
 import {
   Count,
   CountSchema,
@@ -23,6 +25,8 @@ export class ParameterValueController {
   constructor(
     @repository(ParameterValueRepository)
     public parameterValueRepository: ParameterValueRepository,
+    @repository(SessionTestRepository)
+    private sessionTestRepository: SessionTestRepository,
   ) {}
 
   @post('/parameterValue', {
@@ -103,7 +107,28 @@ export class ParameterValueController {
   ): Promise<ParameterValue[]> {
     return this.parameterValueRepository.find(filter);
   }
-
+  @get('/sessionTests', {
+    responses: {
+      '200': {
+        description: 'Array of sessionTests model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(SessionTest, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findSessionTests(
+    @param.filter(SessionTest) filter?: Filter<SessionTest>,
+  ): Promise<SessionTest[]> {
+    return this.sessionTestRepository.find(filter);
+  }
   @patch('/parameterValue', {
     responses: {
       '200': {

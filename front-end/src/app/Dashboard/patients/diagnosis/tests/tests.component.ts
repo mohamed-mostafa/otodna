@@ -73,6 +73,7 @@ export class TestsComponent implements OnInit {
         this.showTable();
         this.getAllTests();
         this.getAllEquipments();
+        this.getSessionTests();
     }
     showTable() {
         if (this.tests.length > 0) {
@@ -98,9 +99,11 @@ export class TestsComponent implements OnInit {
             this.selectedTestData.forEach((element) => {
                 element.equipments = equipmentsAllData;
                 element.sessionTestId = this.selectedSession.id;
+                element.testId = this.selected.id;
             });
         } else {
             this.selectedTestData.forEach((element) => {
+                element.testId = this.selected.id;
                 element.sessionTestId = this.selectedSession.id;
             });
         }
@@ -110,7 +113,6 @@ export class TestsComponent implements OnInit {
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
-                this.tests.push(this.test);
                 this.selectedTest = "";
                 this.filteredTests = [];
                 this.selectedEquipments = [];
@@ -118,6 +120,7 @@ export class TestsComponent implements OnInit {
                 this.displayTest = false;
                 this.test = new Test();
                 this.dialogHeader = "Add New Test";
+                this.getSessionTests();
                 this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
@@ -229,5 +232,13 @@ export class TestsComponent implements OnInit {
     }
     customTrackBy(index: number, obj: any): any {
         return index;
+    }
+    getSessionTests() {
+        this.spinner.show();
+        this.testService.getSessionTests().subscribe((result) => {
+            this.tests = result;
+            this.showTable();
+            this.spinner.hide();
+        });
     }
 }
