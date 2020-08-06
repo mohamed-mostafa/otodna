@@ -1,48 +1,48 @@
 {
     "data": [
         {
-            "testId": "demo",
-            "testName": "Demo"
+            "treatmentId": "demo",
+            "treatmentName": "Demo"
         },
         {
-            "testId": "1",
-            "testName": "Acoustic Stimulation"
+            "treatmentId": "1",
+            "treatmentName": "Acoustic Stimulation"
         },
         {
-            "testId": "2",
-            "testName": "Drug Therapy"
+            "treatmentId": "2",
+            "treatmentName": "Drug Therapy"
         },
         {
-            "testId": "3",
-            "testName": "Communication Methods, Total"
+            "treatmentId": "3",
+            "treatmentName": "Communication Methods, Total"
         },
         {
-            "testId": "4",
-            "testName": "Lipreading"
+            "treatmentId": "4",
+            "treatmentName": "Lipreading"
         },
         {
-            "testId": "5",
-            "testName": "Sign Language"
+            "treatmentId": "5",
+            "treatmentName": "Sign Language"
         },
         {
-            "testId": "6",
-            "testName": "Language Therapy"
+            "treatmentId": "6",
+            "treatmentName": "Language Therapy"
         },
         {
-            "testId": "7",
-            "testName": "Myofunctional Therapy"
+            "treatmentId": "7",
+            "treatmentName": "Myofunctional Therapy"
         },
         {
-            "testId": "8",
-            "testName": "Speech, Esophageal"
+            "treatmentId": "8",
+            "treatmentName": "Speech, Esophageal"
         },
         {
-            "testId": "9",
-            "testName": "Speech Therapy"
+            "treatmentId": "9",
+            "treatmentName": "Speech Therapy"
         },
         {
-            "testId": "10",
-            "testName": "Voice Training"
+            "treatmentId": "10",
+            "treatmentName": "Voice Training"
         }
     ]
 }

@@ -25,6 +25,12 @@ export class TreatmentTestsService {
             `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
+    createTreatment(data): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/${this.sessionTestsLink}`,
+            data
+        );
+    }
     getTestParametersValues(sessionTreatmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTreatmentId][eq]=${sessionTreatmentId}`

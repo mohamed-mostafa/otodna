@@ -102,11 +102,11 @@ export class TreatmentTestsComponent implements OnInit {
             });
         }
         this.selectedTestData.forEach((element) => {
-            element.testId = this.selected.testId;
+            element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
         });
-        this.test.testId = this.selected.testId;
-        this.test.testName = this.selected.testName;
+        this.test.treatmentId = this.selected.treatmentId;
+        this.test.treatmentName = this.selected.treatmentName;
         this.spinner.show();
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
@@ -189,10 +189,39 @@ export class TreatmentTestsComponent implements OnInit {
             this.allEquipments = res;
         });
     }
-    openTest(test) {
+    async openTest(test) {
         this.selected = test;
-        this.getSelectedTest("demo");
-        this.showTests = false;
+        this.testService.getTest(test.treatmentId).then(
+            (res) => {
+                this.selectedTestData = res;
+                this.showTests = false;
+                this.dialogHeader = res.map((r) => r.name);
+            },
+            (err) => {
+                if (this.showTests) {
+                    test.patientSessionId = this.selectedSession.id;
+                    this.saveWithoutParams(test);
+                } else {
+                    this.showTests = true;
+                    return false;
+                }
+            }
+        );
+    }
+    saveWithoutParams(test) {
+        this.testService.createTreatment(test).subscribe((u: any) => {
+            this.selectedTest = "";
+            this.filteredTests = [];
+            this.selectedEquipments = [];
+            this.selected = "";
+            this.displayTest = false;
+            this.test = new Test();
+            this.dialogHeader = "Add New Test";
+            this.getSessionTests();
+            this.showTable();
+            this.showMessage("success", "Saved", "Data saved successfully");
+            this.spinner.hide();
+        });
     }
     getSelectedTest(test) {
         this.testService.getTest(test).then((res) => {
@@ -234,12 +263,12 @@ export class TreatmentTestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    retrieveTestData(test) {
+    async retrieveTestData(test) {
+        await this.openTest(test);
         this.showTests = false;
         this.spinner.show();
-        this.openTest(test);
         this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
-            if (res) {
+            if (res && res.length > 0) {
                 res.forEach((element) => {
                     this.selectedEquipments.push(element.equipmentName);
                 });
@@ -248,84 +277,96 @@ export class TreatmentTestsComponent implements OnInit {
         this.testService
             .getTestParametersValues(test.id)
             .subscribe((result) => {
-                const parameters = this.selectedTestData[0].parameters;
-                if (parameters && parameters.length > 0) {
-                    for (const element of parameters) {
-                        for (const item of result) {
-                            if (
-                                element.name === item.parameterName &&
-                                element.type === "table"
-                            ) {
-                                for (const cell of element.cells) {
+                if (result && result.length > 0) {
+                    const parameters = this.selectedTestData[0].parameters;
+                    if (parameters && parameters.length > 0) {
+                        for (const element of parameters) {
+                            for (const item of result) {
+                                if (
+                                    element.name === item.parameterName &&
+                                    element.type === "table"
+                                ) {
+                                    for (const cell of element.cells) {
+                                        if (
+                                            cell.name ===
+                                                item.subParameterName &&
+                                            item.ear === "left"
+                                        ) {
+                                            if (
+                                                element.cellType === "boolean"
+                                            ) {
+                                                cell.left = {
+                                                    name: item.value,
+                                                };
+                                            } else {
+                                                cell.left = item.value;
+                                            }
+                                        }
+                                        if (
+                                            cell.name ===
+                                                item.subParameterName &&
+                                            item.ear === "right"
+                                        ) {
+                                            if (
+                                                element.cellType === "boolean"
+                                            ) {
+                                                cell.right = {
+                                                    name: item.value,
+                                                };
+                                            } else {
+                                                cell.right = item.value;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (
+                                    element.name === item.parameterName &&
+                                    element.type === "textarea"
+                                ) {
+                                    element.textareaVal = item.value;
+                                }
+                                if (
+                                    element.name === item.parameterName &&
+                                    element.type === "list"
+                                ) {
+                                    if (item.ear === "left") {
+                                        const found = element.values.filter(
+                                            (val) => val.name === item.value
+                                        );
+                                        element.leftVal = found[0];
+                                    }
+                                    if (item.ear === "right") {
+                                        const found = element.values.filter(
+                                            (val) => val.name === item.value
+                                        );
+                                        element.rightVal = found[0];
+                                    }
+                                }
+                                if (
+                                    element.type === "text" ||
+                                    element.type === "number" ||
+                                    element.type === "boolean"
+                                ) {
                                     if (
-                                        cell.name === item.subParameterName &&
+                                        element.name === item.parameterName &&
                                         item.ear === "left"
                                     ) {
-                                        if (element.cellType === "boolean") {
-                                            cell.left = { name: item.value };
-                                        } else {
-                                            cell.left = item.value;
-                                        }
+                                        element.leftVal = item.value;
                                     }
                                     if (
-                                        cell.name === item.subParameterName &&
+                                        element.name === item.parameterName &&
                                         item.ear === "right"
                                     ) {
-                                        if (element.cellType === "boolean") {
-                                            cell.right = { name: item.value };
-                                        } else {
-                                            cell.right = item.value;
-                                        }
+                                        element.rightVal = item.value;
                                     }
-                                }
-                            }
-                            if (
-                                element.name === item.parameterName &&
-                                element.type === "textarea"
-                            ) {
-                                element.textareaVal = item.value;
-                            }
-                            if (
-                                element.name === item.parameterName &&
-                                element.type === "list"
-                            ) {
-                                if (item.ear === "left") {
-                                    const found = element.values.filter(
-                                        (val) => val.name === item.value
-                                    );
-                                    element.leftVal = found[0];
-                                }
-                                if (item.ear === "right") {
-                                    const found = element.values.filter(
-                                        (val) => val.name === item.value
-                                    );
-                                    element.rightVal = found[0];
-                                }
-                            }
-                            if (
-                                element.type === "text" ||
-                                element.type === "number" ||
-                                element.type === "boolean"
-                            ) {
-                                if (
-                                    element.name === item.parameterName &&
-                                    item.ear === "left"
-                                ) {
-                                    element.leftVal = item.value;
-                                }
-                                if (
-                                    element.name === item.parameterName &&
-                                    item.ear === "right"
-                                ) {
-                                    element.rightVal = item.value;
                                 }
                             }
                         }
                     }
+                    console.log(this.selectedTestData);
+                    this.displayTest = true;
+                    this.cdref.detectChanges();
                 }
-                console.log(this.selectedTestData);
-                this.displayTest = true;
-                this.cdref.detectChanges();
                 this.spinner.hide();
             });
     }
