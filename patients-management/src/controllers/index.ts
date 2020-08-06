@@ -12,3 +12,4 @@ export * from './patient-session.controller';
 export * from './parameter-value.controller';
 export * from './session-pathology.controller';
 export * from './session-treatment.controller';
+export * from './session-test.controller';

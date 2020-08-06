@@ -191,21 +191,31 @@ export class TestsComponent implements OnInit {
     }
     openTest(test) {
         this.selected = test;
-        if (
-            test.testId === "E01.370.382.375.050" ||
-            test.testId === "E01.370.382.375.060.060" ||
-            test.testId === "E01.370.382.375.060.055"
-        ) {
-            this.getSelectedTest(test.testId);
-        } else {
-            this.getSelectedTest("demo");
-        }
-        this.showTests = false;
+        this.testService.getTest(test.testId).then(
+            (res) => {
+                this.selectedTestData = res;
+                this.showTests = false;
+                this.dialogHeader = res.map((r) => r.name);
+            },
+            (err) => {
+                test.patientSessionId = this.selectedSession.id;
+                this.saveWithoutParams(test);
+            }
+        );
     }
-    getSelectedTest(test) {
-        this.testService.getTest(test).then((res) => {
-            this.selectedTestData = res;
-            this.dialogHeader = res.map((r) => r.name);
+    saveWithoutParams(test) {
+        this.testService.createSessionTest(test).subscribe((u: any) => {
+            this.selectedTest = "";
+            this.filteredTests = [];
+            this.selectedEquipments = [];
+            this.selected = "";
+            this.displayTest = false;
+            this.test = new Test();
+            this.dialogHeader = "Add New Test";
+            this.getSessionTests();
+            this.showTable();
+            this.showMessage("success", "Saved", "Data saved successfully");
+            this.spinner.hide();
         });
     }
     uploadImages(event) {

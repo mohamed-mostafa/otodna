@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class TestsService {
     apiUrl = environment.patientApiUrl;
-    sessionTestsLink = "sessionTests";
+    sessionTestsLink = "session-tests";
     parameterValueLink = "parameterValue";
     sessionTestEquipmentLink = "sessionTestEquipment";
     constructor(private http: HttpClient) {}
@@ -23,6 +23,12 @@ export class TestsService {
     getSessionTests(patientSessionId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
+        );
+    }
+    createSessionTest(data): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/${this.sessionTestsLink}`,
+            data
         );
     }
     getTestParametersValues(sessionTestId): Observable<any> {

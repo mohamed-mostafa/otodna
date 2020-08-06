@@ -1,4 +1,5 @@
 export class Test {
-    testId: number;
+    testId: string;
     testName: string;
+    patientSessionId: number;
 }
