@@ -1,3 +1,12 @@
+import { FollowupCandidacyService } from "./patients/followup/services/followup-candidacy.service";
+import { FollowupPathologyService } from "./patients/followup/services/followup-pathology.service";
+import { FollowupTestsService } from "./patients/followup/services/followup-tests.service";
+import { FollowupSymptomsService } from "./patients/followup/services/followup-symptoms.service";
+import { TreatmentTestsService } from "./patients/treatments/services/treatment-tests.service";
+import { ParameterValueService } from "./patients/services/parameter-value.service";
+import { CandidacyService } from "./patients/diagnosis/services/candidacy.service";
+import { PathologyService } from "./patients/diagnosis/services/pathology.service";
+import { TestsService } from "./patients/diagnosis/services/tests.service";
 import { SymptomsService } from "./patients/diagnosis/services/symptoms.service";
 import { PatientSessionService } from "./patients/services/patient-session.service";
 import { ProblemsService } from "./patients/services/problems.service";
@@ -44,4 +53,13 @@ export const SERVICES = [
     ProblemsService,
     PatientSessionService,
     SymptomsService,
+    TestsService,
+    PathologyService,
+    CandidacyService,
+    ParameterValueService,
+    TreatmentTestsService,
+    FollowupSymptomsService,
+    FollowupTestsService,
+    FollowupPathologyService,
+    FollowupCandidacyService,
 ];

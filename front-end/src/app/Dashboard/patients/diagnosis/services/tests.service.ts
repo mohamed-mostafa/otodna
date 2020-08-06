@@ -9,6 +9,8 @@ import { Observable } from "rxjs";
 export class TestsService {
     apiUrl = environment.patientApiUrl;
     sessionTestsLink = "sessionTests";
+    parameterValueLink = "parameterValue";
+    sessionTestEquipmentLink = "sessionTestEquipment";
     constructor(private http: HttpClient) {}
 
     getTest(test) {
@@ -18,7 +20,19 @@ export class TestsService {
             .then((res) => res.data as any[])
             .then((data) => data);
     }
-    getSessionTests(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.sessionTestsLink}`);
+    getSessionTests(patientSessionId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
+        );
+    }
+    getTestParametersValues(sessionTestId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTestId][eq]=${sessionTestId}`
+        );
+    }
+    getSessionTestEquipment(sessionTestId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTestEquipmentLink}?filter[where][sessionTestId][eq]=${sessionTestId}`
+        );
     }
 }

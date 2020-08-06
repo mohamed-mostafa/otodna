@@ -11,8 +11,10 @@ export class PathologyService {
     link = "patient-session-pathologies";
     constructor(private http: HttpClient) {}
 
-    getAllPathologies(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.link}`);
+    getAllPathologies(patientSessionId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}?filter[where][patientSessionId][eq]=${patientSessionId}`
+        );
     }
     createPathology(data): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, data);

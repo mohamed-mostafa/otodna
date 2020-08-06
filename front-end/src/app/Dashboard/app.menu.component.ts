@@ -256,25 +256,118 @@ export class AppMenuComponent implements OnInit {
                     ];
                 }
                 resolve(array);
-            } else if (this.router.url === "/dashboard/addTreatment") {
-                const array = ["addTreatment"];
-                this.otherMenu = [
-                    {
-                        label: "Treatment",
-                        icon: "fa fa-fw fa-info",
-                        routerLink: ["addTreatment"],
-                    },
-                ];
+            } else if (
+                this.router.url === "/dashboard/addTreatment" ||
+                this.router.url === "/dashboard/treatmentTests"
+            ) {
+                const array = ["addTreatment", "treatmentTests"];
+                let selectedSession = JSON.parse(
+                    localStorage.getItem("sessionBasicInfo")
+                );
+                if (selectedSession) {
+                    this.otherMenu = [
+                        {
+                            label: "Basic Info",
+                            icon: "fa fa-fw fa-info",
+                            routerLink: ["addTreatment"],
+                        },
+                        {
+                            label: "Tests",
+                            icon: "fa fa-fw fa-flask",
+                            routerLink: ["treatmentTests"],
+                        },
+                    ];
+                } else {
+                    this.otherMenu = [
+                        {
+                            label: "Basic Info",
+                            icon: "fa fa-fw fa-info",
+                            routerLink: ["addTreatment"],
+                        },
+                        {
+                            label: "Tests",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                    ];
+                }
+
                 resolve(array);
-            } else if (this.router.url === "/dashboard/addFollowup") {
-                const array = ["addFollowup"];
-                this.otherMenu = [
-                    {
-                        label: "Followup",
-                        icon: "fa fa-fw fa-info",
-                        routerLink: ["addFollowup"],
-                    },
+            } else if (
+                this.router.url === "/dashboard/addFollowup" ||
+                this.router.url === "/dashboard/followupSymptoms" ||
+                this.router.url === "/dashboard/followupTests" ||
+                this.router.url === "/dashboard/followupPathology" ||
+                this.router.url === "/dashboard/followupCandidacy"
+            ) {
+                const array = [
+                    "addFollowup",
+                    "followupSymptoms",
+                    "followupTests",
+                    "followupPathology",
+                    "followupCandidacy",
                 ];
+                let selectedSession = JSON.parse(
+                    localStorage.getItem("sessionBasicInfo")
+                );
+                if (selectedSession) {
+                    this.otherMenu = [
+                        {
+                            label: "Basic Info",
+                            icon: "fa fa-fw fa-info",
+                            routerLink: ["addFollowup"],
+                        },
+                        {
+                            label: "Symptoms",
+                            icon: "fa fa-fw fa-medkit",
+                            routerLink: ["followupSymptoms"],
+                        },
+                        {
+                            label: "Tests",
+                            icon: "fa fa-fw fa-flask",
+                            routerLink: ["followupTests"],
+                        },
+                        {
+                            label: "Pathology",
+                            icon: "fa fa-fw fa-book",
+                            routerLink: ["followupPathology"],
+                        },
+                        {
+                            label: "Recommendation",
+                            icon: "fa fa-fw fa-stethoscope",
+                            routerLink: ["followupCandidacy"],
+                        },
+                    ];
+                } else {
+                    this.otherMenu = [
+                        {
+                            label: "Basic Info",
+                            icon: "fa fa-fw fa-info",
+                            routerLink: ["addFollowup"],
+                        },
+                        {
+                            label: "Symptoms",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                        {
+                            label: "Tests",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                        {
+                            label: "Pathology",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                        {
+                            label: "Candidacy",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                    ];
+                }
+
                 resolve(array);
             } else {
                 localStorage.removeItem("sessionBasicInfo");

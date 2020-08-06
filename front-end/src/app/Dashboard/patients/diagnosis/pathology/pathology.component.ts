@@ -140,10 +140,12 @@ export class PathologyComponent implements OnInit {
     }
     getAllPathologies() {
         this.spinner.show();
-        this.pathologyService.getAllPathologies().subscribe((result) => {
-            this.pathologies = result;
-            this.showTable();
-            this.spinner.hide();
-        });
+        this.pathologyService
+            .getAllPathologies(this.selectedSession.id)
+            .subscribe((result) => {
+                this.pathologies = result;
+                this.showTable();
+                this.spinner.hide();
+            });
     }
 }

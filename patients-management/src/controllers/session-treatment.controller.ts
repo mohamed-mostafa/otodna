@@ -1,3 +1,5 @@
+import {SessionTreatmentEquipment} from './../models/session-treatment-equipment.model';
+import {SessionTreatmentEquipmentRepository} from './../repositories/session-treatment-equipment.repository';
 import {
   Count,
   CountSchema,
@@ -22,14 +24,18 @@ import {SessionTreatmentRepository} from '../repositories';
 export class SessionTreatmentController {
   constructor(
     @repository(SessionTreatmentRepository)
-    public sessionTreatmentRepository : SessionTreatmentRepository,
+    public sessionTreatmentRepository: SessionTreatmentRepository,
+    @repository(SessionTreatmentEquipmentRepository)
+    public sessionTreatmentEquipmentRepository: SessionTreatmentEquipmentRepository,
   ) {}
 
   @post('/session-treatments', {
     responses: {
       '200': {
         description: 'SessionTreatment model instance',
-        content: {'application/json': {schema: getModelSchemaRef(SessionTreatment)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(SessionTreatment)},
+        },
       },
     },
   })
@@ -71,7 +77,9 @@ export class SessionTreatmentController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(SessionTreatment, {includeRelations: true}),
+              items: getModelSchemaRef(SessionTreatment, {
+                includeRelations: true,
+              }),
             },
           },
         },
@@ -82,6 +90,30 @@ export class SessionTreatmentController {
     @param.filter(SessionTreatment) filter?: Filter<SessionTreatment>,
   ): Promise<SessionTreatment[]> {
     return this.sessionTreatmentRepository.find(filter);
+  }
+
+  @get('/sessionTreatmentEquipment', {
+    responses: {
+      '200': {
+        description: 'Array of sessionTreatmentEquipment model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(SessionTreatmentEquipment, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findSessionTreatmentEquipment(
+    @param.filter(SessionTreatmentEquipment)
+    filter?: Filter<SessionTreatmentEquipment>,
+  ): Promise<SessionTreatmentEquipment[]> {
+    return this.sessionTreatmentEquipmentRepository.find(filter);
   }
 
   @patch('/session-treatments', {
@@ -112,7 +144,9 @@ export class SessionTreatmentController {
         description: 'SessionTreatment model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(SessionTreatment, {includeRelations: true}),
+            schema: getModelSchemaRef(SessionTreatment, {
+              includeRelations: true,
+            }),
           },
         },
       },
@@ -120,7 +154,8 @@ export class SessionTreatmentController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(SessionTreatment, {exclude: 'where'}) filter?: FilterExcludingWhere<SessionTreatment>
+    @param.filter(SessionTreatment, {exclude: 'where'})
+    filter?: FilterExcludingWhere<SessionTreatment>,
   ): Promise<SessionTreatment> {
     return this.sessionTreatmentRepository.findById(id, filter);
   }

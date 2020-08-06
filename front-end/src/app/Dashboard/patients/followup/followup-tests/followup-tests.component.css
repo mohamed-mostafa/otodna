@@ -1,0 +1,71 @@
+.centerClass {
+    text-align: center;
+    margin-top: 12%;
+}
+
+.labelMarginTop {
+    margin-top: 7px;
+}
+
+.equipmentCenterClass {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.FullWidth {
+    width: 100%;
+}
+.labelMarginTop {
+    margin-top: 7px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.centerHeader {
+    text-align: center;
+}
+.marginTop28 {
+    margin-top: 28px;
+}
+.removeMarginAndPadding {
+    margin: 0px;
+    padding: 0px;
+}
+.rightVerticalLine {
+    border-right: 2px solid #e0e0e0;
+}
+.leftVerticalColor {
+    border-left: 5px solid #1e88e5;
+    padding-left: 5px;
+}
+.leftColor {
+    color: #1e88e5 !important;
+}
+.rightColor {
+    color: #c62828 !important;
+}
+.equipmentStyle {
+    font-size: 18px;
+    float: left;
+    margin: 10px 10px 0 0;
+}
+.rightBackgroundColor {
+    background-color: #c62828 !important;
+    color: white !important;
+}
+.leftBackgroundColor {
+    background-color: #1e88e5 !important;
+    color: white !important;
+}
+.ui-fluid .ui-dropdown,
+.ui-fluid p-dropdown {
+    width: 100%;
+    min-width: 90%;
+}
+.lineHeight {
+    line-height: 5px;
+}
+.pointerCursor {
+    cursor: pointer;
+}

@@ -88,16 +88,14 @@ export class PatientHistoryComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    openDiagnosis(data) {
+    openDataPage(data) {
         localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-        this.addDiagnosis();
-    }
-    openTreatment(data) {
-        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-        this.addTreatment();
-    }
-    openFollowup(data) {
-        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-        this.addFollowup();
+        if (data.sessionTypeId === 0) {
+            this.addDiagnosis();
+        } else if (data.sessionTypeId === 1) {
+            this.addTreatment();
+        } else {
+            this.addFollowup();
+        }
     }
 }

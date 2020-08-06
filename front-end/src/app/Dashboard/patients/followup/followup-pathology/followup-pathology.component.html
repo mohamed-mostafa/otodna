@@ -1,0 +1,133 @@
+<p-toast></p-toast>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<div class="ui-g ui-fluid" *ngIf="showTableFlag">
+    <div class="ui-g-12 ui-md-3">
+        <button
+            #btn
+            type="button"
+            pButton
+            icon="pi pi-bars"
+            label="Add Pathology"
+            (click)="showTestDialog()"
+        ></button>
+    </div>
+    <div class="ui-g-12 ui-md-9"></div>
+</div>
+<div class="centerClass" *ngIf="!showTableFlag">
+    <h3>Click Add Pathology To Add A New Pathology</h3>
+    <button
+        #btn
+        type="button"
+        pButton
+        icon="pi pi-bars"
+        label="Add Pathology"
+        (click)="showTestDialog()"
+    ></button>
+</div>
+<p-dialog
+    header="Add New Pathology"
+    [(visible)]="displayTest"
+    [style]="{ width: '70vw' }"
+    [baseZIndex]="10000"
+    [maximizable]="true"
+    [draggable]="false"
+    [resizable]="false"
+    (onHide)="onHide()"
+>
+    <div style="height: 350px;">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <div class="ui-g-12 ui-md-12">
+                    <p-autoComplete
+                        [(ngModel)]="selectedTest"
+                        (completeMethod)="filterTest($event)"
+                        field="name"
+                        placeholder="Start typing to filter ..."
+                        [size]="30"
+                        [minLength]="1"
+                    ></p-autoComplete>
+                </div>
+                <div
+                    *ngIf="
+                        filteredTests && filteredTests.length > 0;
+                        else other
+                    "
+                >
+                    <div
+                        class="ui-g-12 ui-md-3"
+                        *ngFor="let filtered of filteredTests"
+                        (click)="save(filtered)"
+                    >
+                        <p-card
+                            class="centerHeader pointerCursor"
+                            [style]="{ height: '60px' }"
+                            styleClass="ui-card-shadow cardBorderRadius"
+                        >
+                            {{ filtered.name }}
+                        </p-card>
+                    </div>
+                </div>
+                <ng-template #other>
+                    <div
+                        class="ui-g-12 ui-md-3"
+                        *ngFor="let test of allTests"
+                        (click)="save(test)"
+                    >
+                        <p-card
+                            class="centerHeader pointerCursor"
+                            [style]="{ height: '60px' }"
+                            styleClass="ui-card-shadow cardBorderRadius"
+                        >
+                            {{ test.name }}
+                        </p-card>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+<div class="ui-g ui-fluid" *ngIf="showTableFlag">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <p-table
+                #dt
+                [columns]="cols"
+                styleClass="ui-table-cars"
+                [value]="pathologies"
+                [paginator]="true"
+                [resizableColumns]="true"
+                [responsive]="true"
+                [rows]="10"
+                dataKey="vin"
+                selectionMode="single"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns"
+                            [pSortableColumn]="col.field"
+                            [ngSwitch]="col.field"
+                            [ngStyle]="{ width: col.width }"
+                        >
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td class="ui-resizable-column centerHeader">
+                            <span class="ui-column-title">Test Id </span>
+                            {{ rowData.deseaseId }}
+                        </td>
+                        <td class="ui-resizable-column centerHeader">
+                            <span class="ui-column-title">Test Name </span>
+                            {{ rowData.deseaseName }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>

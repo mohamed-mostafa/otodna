@@ -1,80 +1,80 @@
 {
     "data": [
         {
-            "id": 1,
-            "name": "Prognosis"
+            "testId": 1,
+            "testName": "Prognosis"
         },
         {
-            "id": 2,
-            "name": "Imaging,Three-Dimensional"
+            "testId": 2,
+            "testName": "Imaging,Three-Dimensional"
         },
         {
-            "id": 3,
-            "name": "Clinical Laboratory Techniques"
+            "testId": 3,
+            "testName": "Clinical Laboratory Techniques"
         },
         {
-            "id": "E01.370.382.375.050",
-            "name": "Acoustic Impedance Tests"
+            "testId": "E01.370.382.375.050",
+            "testName": "Acoustic Impedance Tests"
         },
         {
-            "id": 5,
-            "name": "Electrocochleography"
+            "testId": 5,
+            "testName": "Electrocochleography"
         },
         {
-            "id": "E01.370.382.375.060.055",
-            "name": "Audiometry Pure-Tone"
+            "testId": "E01.370.382.375.060.055",
+            "testName": "Audiometry Pure-Tone"
         },
         {
-            "id": "E01.370.382.375.060.060",
-            "name": "Audiometry Speech"
+            "testId": "E01.370.382.375.060.060",
+            "testName": "Audiometry Speech"
         },
         {
-            "id": 8,
-            "name": "Psychoacoustics"
+            "testId": 8,
+            "testName": "Psychoacoustics"
         },
         {
-            "id": 9,
-            "name": "Dichotic Listening Tests"
+            "testId": 9,
+            "testName": "Dichotic Listening Tests"
         },
         {
-            "id": 10,
-            "name": "Recruitment Detection, Audiologic"
+            "testId": 10,
+            "testName": "Recruitment Detection, Audiologic"
         },
         {
-            "id": 11,
-            "name": "Caloric Tests"
+            "testId": 11,
+            "testName": "Caloric Tests"
         },
         {
-            "id": 12,
-            "name": "Electronystagmography"
+            "testId": 12,
+            "testName": "Electronystagmography"
         },
         {
-            "id": 13,
-            "name": "Head Impulse Test"
+            "testId": 13,
+            "testName": "Head Impulse Test"
         },
         {
-            "id": 14,
-            "name": "Otoscopy"
+            "testId": 14,
+            "testName": "Otoscopy"
         },
         {
-            "id": 15,
-            "name": "Cornell Medical Index"
+            "testId": 15,
+            "testName": "Cornell Medical Index"
         },
         {
-            "id": 16,
-            "name": "Reproductive History"
+            "testId": 16,
+            "testName": "Reproductive History"
         },
         {
-            "id": 17,
-            "name": "Vital Signs"
+            "testId": 17,
+            "testName": "Vital Signs"
         },
         {
-            "id": 18,
-            "name": "Speech Articulation Tests"
+            "testId": 18,
+            "testName": "Speech Articulation Tests"
         },
         {
-            "id": 19,
-            "name": "Symptom Assessment"
+            "testId": 19,
+            "testName": "Symptom Assessment"
         }
     ]
 }

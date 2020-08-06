@@ -1,3 +1,5 @@
+import {SessionTestEquipment} from './../models/session-test-equipment.model';
+import {SessionTestEquipmentRepository} from './../repositories/session-test-equipment.repository';
 import {PatientSessionSymptom} from './../models/patient-session-symptom.model';
 import {PatientSessionSymptomRepository} from './../repositories/patient-session-symptom.repository';
 import {PatientDiagnosisSymptomsRepository} from './../repositories/patient-diagnosis-symptoms.repository';
@@ -31,6 +33,8 @@ export class PatientSessionController {
     public patientDiagnosisSymptomsRepository: PatientDiagnosisSymptomsRepository,
     @repository(PatientSessionSymptomRepository)
     public patientSessionSymptomRepository: PatientSessionSymptomRepository,
+    @repository(SessionTestEquipmentRepository)
+    public sessionTestEquipmentRepository: SessionTestEquipmentRepository,
   ) {}
 
   @post('/patientSession', {
@@ -112,6 +116,29 @@ export class PatientSessionController {
     @param.filter(PatientSession) filter?: Filter<PatientSession>,
   ): Promise<PatientSession[]> {
     return this.patientSessionRepository.find(filter);
+  }
+
+  @get('/sessionTestEquipment', {
+    responses: {
+      '200': {
+        description: 'Array of SessionTestEquipment model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(SessionTestEquipment, {
+                includeRelations: true,
+              }),
+            },
+          },
+        },
+      },
+    },
+  })
+  async findSessionTestEquipment(
+    @param.filter(SessionTestEquipment) filter?: Filter<SessionTestEquipment>,
+  ): Promise<SessionTestEquipment[]> {
+    return this.sessionTestEquipmentRepository.find(filter);
   }
 
   @get('/patientDiagnosisSymptoms', {

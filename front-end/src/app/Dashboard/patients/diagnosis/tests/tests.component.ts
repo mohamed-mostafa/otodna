@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Test } from "./test";
 import { TestsService } from "../services/tests.service";
 
@@ -39,6 +39,7 @@ export class TestsComponent implements OnInit {
         private testService: TestsService,
         private parameterValueService: ParameterValueService,
         private router: Router,
+        private cdref: ChangeDetectorRef,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -66,8 +67,8 @@ export class TestsComponent implements OnInit {
             { label: this.selectedSession.displayName },
         ];
         this.cols = [
-            { field: "id", header: "ID", width: "20%" },
-            { field: "name", header: "Name", width: "80%" },
+            { field: "testId", header: "Test ID", width: "20%" },
+            { field: "testName", header: "Test Name", width: "80%" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.showTable();
@@ -98,17 +99,14 @@ export class TestsComponent implements OnInit {
             );
             this.selectedTestData.forEach((element) => {
                 element.equipments = equipmentsAllData;
-                element.sessionTestId = this.selectedSession.id;
-                element.testId = this.selected.id;
-            });
-        } else {
-            this.selectedTestData.forEach((element) => {
-                element.testId = this.selected.id;
-                element.sessionTestId = this.selectedSession.id;
             });
         }
-        this.test.id = this.selected.id;
-        this.test.name = this.selected.name;
+        this.selectedTestData.forEach((element) => {
+            element.testId = this.selected.testId;
+            element.sessionTestId = this.selectedSession.id;
+        });
+        this.test.testId = this.selected.testId;
+        this.test.testName = this.selected.testName;
         this.spinner.show();
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
@@ -130,6 +128,7 @@ export class TestsComponent implements OnInit {
         this.showTests = true;
         this.filteredTests = [];
         this.selectedTest = "";
+        this.selectedEquipments = [];
     }
     cancelTest() {
         this.selectedTest = "";
@@ -193,11 +192,11 @@ export class TestsComponent implements OnInit {
     openTest(test) {
         this.selected = test;
         if (
-            test.id === "E01.370.382.375.050" ||
-            test.id === "E01.370.382.375.060.060" ||
-            test.id === "E01.370.382.375.060.055"
+            test.testId === "E01.370.382.375.050" ||
+            test.testId === "E01.370.382.375.060.060" ||
+            test.testId === "E01.370.382.375.060.055"
         ) {
-            this.getSelectedTest(test.id);
+            this.getSelectedTest(test.testId);
         } else {
             this.getSelectedTest("demo");
         }
@@ -230,15 +229,108 @@ export class TestsComponent implements OnInit {
             }
         }
     }
-    customTrackBy(index: number, obj: any): any {
-        return index;
-    }
     getSessionTests() {
         this.spinner.show();
-        this.testService.getSessionTests().subscribe((result) => {
-            this.tests = result;
-            this.showTable();
-            this.spinner.hide();
+        this.testService
+            .getSessionTests(this.selectedSession.id)
+            .subscribe((result) => {
+                this.tests = result;
+                this.showTable();
+                this.spinner.hide();
+            });
+    }
+    retrieveTestData(test) {
+        this.showTests = false;
+        this.spinner.show();
+        this.openTest(test);
+        this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
+            if (res) {
+                res.forEach((element) => {
+                    this.selectedEquipments.push(element.equipmentName);
+                });
+            }
         });
+        this.testService
+            .getTestParametersValues(test.id)
+            .subscribe((result) => {
+                const parameters = this.selectedTestData[0].parameters;
+                if (parameters && parameters.length > 0) {
+                    for (const element of parameters) {
+                        for (const item of result) {
+                            if (
+                                element.name === item.parameterName &&
+                                element.type === "table"
+                            ) {
+                                for (const cell of element.cells) {
+                                    if (
+                                        cell.name === item.subParameterName &&
+                                        item.ear === "left"
+                                    ) {
+                                        if (element.cellType === "boolean") {
+                                            cell.left = { name: item.value };
+                                        } else {
+                                            cell.left = item.value;
+                                        }
+                                    }
+                                    if (
+                                        cell.name === item.subParameterName &&
+                                        item.ear === "right"
+                                    ) {
+                                        if (element.cellType === "boolean") {
+                                            cell.right = { name: item.value };
+                                        } else {
+                                            cell.right = item.value;
+                                        }
+                                    }
+                                }
+                            }
+                            if (
+                                element.name === item.parameterName &&
+                                element.type === "textarea"
+                            ) {
+                                element.textareaVal = item.value;
+                            }
+                            if (
+                                element.name === item.parameterName &&
+                                element.type === "list"
+                            ) {
+                                if (item.ear === "left") {
+                                    const found = element.values.filter(
+                                        (val) => val.name === item.value
+                                    );
+                                    element.leftVal = found[0];
+                                }
+                                if (item.ear === "right") {
+                                    const found = element.values.filter(
+                                        (val) => val.name === item.value
+                                    );
+                                    element.rightVal = found[0];
+                                }
+                            }
+                            if (
+                                element.type === "text" ||
+                                element.type === "number" ||
+                                element.type === "boolean"
+                            ) {
+                                if (
+                                    element.name === item.parameterName &&
+                                    item.ear === "left"
+                                ) {
+                                    element.leftVal = item.value;
+                                }
+                                if (
+                                    element.name === item.parameterName &&
+                                    item.ear === "right"
+                                ) {
+                                    element.rightVal = item.value;
+                                }
+                            }
+                        }
+                    }
+                }
+                this.displayTest = true;
+                this.cdref.detectChanges();
+                this.spinner.hide();
+            });
     }
 }

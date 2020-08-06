@@ -63,7 +63,7 @@
                             [style]="{ height: '60px' }"
                             styleClass="ui-card-shadow cardBorderRadius"
                         >
-                            {{ filtered.name }}
+                            {{ filtered.testName }}
                         </p-card>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             [style]="{ height: '60px' }"
                             styleClass="ui-card-shadow cardBorderRadius"
                         >
-                            {{ test.name }}
+                            {{ test.testName }}
                         </p-card>
                     </div>
                 </ng-template>
@@ -576,7 +576,12 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                    <tr
+                        [pSelectableRow]="rowData"
+                        [pEditableRow]="rowData"
+                        (click)="retrieveTestData(rowData)"
+                        class="pointerCursor"
+                    >
                         <td class="ui-resizable-column centerHeader">
                             <span class="ui-column-title">Test Id </span>
                             {{ rowData.testId }}

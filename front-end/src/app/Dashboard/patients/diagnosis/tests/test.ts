@@ -1,4 +1,4 @@
 export class Test {
-    id: number;
-    name: string;
+    testId: number;
+    testName: string;
 }

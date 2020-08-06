@@ -1,3 +1,5 @@
+import {SessionTreatmentEquipmentRepository} from './session-treatment-equipment.repository';
+import {SessionTreatmentRepository} from './session-treatment.repository';
 import {SessionTestRepository} from './session-test.repository';
 import {SessionTestEquipmentRepository} from './session-test-equipment.repository';
 import {
@@ -21,36 +23,78 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
   private sessionTestEquipmentRepository: SessionTestEquipmentRepository;
   @repository(SessionTestRepository)
   private sessionTestRepository: SessionTestRepository;
+  @repository(SessionTreatmentRepository)
+  private sessionTreatmentRepository: SessionTreatmentRepository;
+  @repository(SessionTreatmentEquipmentRepository)
+  private sessionTreatmentEquipmentRepository: SessionTreatmentEquipmentRepository;
   public createParametersValues(data: Array<any>): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const tx: Transaction = await this.beginTransaction();
       try {
-        let sessionTestObj = {
-          testId: data[0].testId,
-          testName: data[0].name,
-          patientSessionId: data[0].sessionTestId,
-        };
-        let res = await this.sessionTestRepository.create(sessionTestObj);
-        let handledData = await this.handleData(data, res.id);
-        let equipments = data[0].equipments;
+        if (data[0].sessionTestId) {
+          let sessionTestObj = {
+            testId: data[0].testId,
+            testName: data[0].name,
+            patientSessionId: data[0].sessionTestId,
+          };
+          let res = await this.sessionTestRepository.create(sessionTestObj);
+          let handledData = await this.handleData(
+            data,
+            res.id,
+            'sessionTestId',
+          );
+          let equipments = data[0].equipments;
+          if (handledData && handledData.length > 0) {
+            for (const d of handledData) {
+              await super.create(d, {transaction: tx});
+            }
+          }
+          if (equipments && equipments.length > 0) {
+            for (const e of equipments) {
+              let obj = {
+                equipmentId: e.id,
+                equipmentName: e.name,
+                sessionTestId: res.id,
+              };
+              await this.sessionTestEquipmentRepository.create(obj, {
+                transaction: tx,
+              });
+            }
+          }
+        } else {
+          let sessionTestObj = {
+            treatmentId: data[0].testId,
+            treatmentName: data[0].name,
+            patientSessionId: data[0].sessionTreatmentId,
+          };
+          let res = await this.sessionTreatmentRepository.create(
+            sessionTestObj,
+          );
+          let handledData = await this.handleData(
+            data,
+            res.id,
+            'sessionTreatmentId',
+          );
+          let equipments = data[0].equipments;
+          if (handledData && handledData.length > 0) {
+            for (const d of handledData) {
+              await super.create(d, {transaction: tx});
+            }
+          }
+          if (equipments && equipments.length > 0) {
+            for (const e of equipments) {
+              let obj = {
+                equipmentId: e.id,
+                equipmentName: e.name,
+                sessionTreatmentId: res.id,
+              };
+              await this.sessionTreatmentEquipmentRepository.create(obj, {
+                transaction: tx,
+              });
+            }
+          }
+        }
 
-        if (handledData && handledData.length > 0) {
-          for (const d of handledData) {
-            await super.create(d, {transaction: tx});
-          }
-        }
-        if (equipments && equipments.length > 0) {
-          for (const e of equipments) {
-            let obj = {
-              equipmentId: e.id,
-              equipmentName: e.name,
-              sessionTestId: res.id,
-            };
-            await this.sessionTestEquipmentRepository.create(obj, {
-              transaction: tx,
-            });
-          }
-        }
         await tx.commit();
         resolve(data);
       } catch (err) {
@@ -59,85 +103,92 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
       }
     });
   }
-  async handleData(data: Array<any>, id: number) {
+  async handleData(data: Array<any>, id: number, type: string) {
     let AllData = [];
     for (const d of data) {
       for (const item of d.parameters) {
         if (item.type === 'list') {
           if (item.leftVal.name) {
-            let leftObj = {
+            let leftObj: any = {
               parameterName: item.name,
               ear: 'left',
               parameterType: item.type,
               value: item.leftVal.name,
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            leftObj[type] = id;
             AllData.push(leftObj);
           }
           if (item.rightVal.name) {
-            let rightObj = {
+            let rightObj: any = {
               parameterName: item.name,
               ear: 'right',
               parameterType: item.type,
               value: item.rightVal.name,
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            rightObj[type] = id;
             AllData.push(rightObj);
           }
         }
         if (item.type === 'number' || item.type === 'text') {
           if (item.leftVal) {
-            let leftObj = {
+            let leftObj: any = {
               parameterName: item.name,
               ear: 'left',
               parameterType: item.type,
               value: item.leftVal,
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            leftObj[type] = id;
             AllData.push(leftObj);
           }
           if (item.rightVal) {
-            let rightObj = {
+            let rightObj: any = {
               parameterName: item.name,
               ear: 'right',
               parameterType: item.type,
               value: item.rightVal,
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            rightObj[type] = id;
             AllData.push(rightObj);
           }
         }
         if (item.type === 'textarea') {
           if (item.textareaVal) {
-            let obj = {
+            let obj: any = {
               parameterName: item.name,
               ear: 'both',
               parameterType: item.type,
               value: item.textareaVal,
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            obj[type] = id;
             AllData.push(obj);
           }
         }
         if (item.type === 'boolean') {
           if (item.leftVal && item.leftVal.length > 0) {
-            let leftObj = {
+            let leftObj: any = {
               parameterName: item.name,
               ear: 'left',
               parameterType: item.type,
               value: item.leftVal[0],
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            leftObj[type] = id;
             AllData.push(leftObj);
           }
           if (item.rightVal && item.rightVal.length > 0) {
-            let rightObj = {
+            let rightObj: any = {
               parameterName: item.name,
               ear: 'right',
               parameterType: item.type,
               value: item.rightVal[0],
-              sessionTestId: id,
+              // sessionTestId: id,
             };
+            rightObj[type] = id;
             AllData.push(rightObj);
           }
         }
@@ -145,25 +196,27 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           if (item.cellType === 'number') {
             for (const cell of item.cells) {
               if (cell.left) {
-                let leftObj = {
+                let leftObj: any = {
                   parameterName: item.name,
                   subParameterName: cell.name,
                   ear: 'left',
                   parameterType: item.type,
                   value: cell.left,
-                  sessionTestId: id,
+                  // sessionTestId: id,
                 };
+                leftObj[type] = id;
                 AllData.push(leftObj);
               }
               if (cell.right) {
-                let rightObj = {
+                let rightObj: any = {
                   parameterName: item.name,
                   subParameterName: cell.name,
                   ear: 'right',
                   parameterType: item.type,
                   value: cell.right,
-                  sessionTestId: id,
+                  // sessionTestId: id,
                 };
+                rightObj[type] = id;
                 AllData.push(rightObj);
               }
             }
@@ -171,25 +224,27 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           if (item.cellType === 'boolean') {
             for (const cell of item.cells) {
               if (cell.left.name) {
-                let leftObj = {
+                let leftObj: any = {
                   parameterName: item.name,
                   subParameterName: cell.name,
                   ear: 'left',
                   parameterType: item.type,
                   value: cell.left.name,
-                  sessionTestId: id,
+                  // sessionTestId: id,
                 };
+                leftObj[type] = id;
                 AllData.push(leftObj);
               }
               if (cell.right.name) {
-                let rightObj = {
+                let rightObj: any = {
                   parameterName: item.name,
                   subParameterName: cell.name,
                   ear: 'right',
                   parameterType: item.type,
                   value: cell.right.name,
-                  sessionTestId: id,
+                  // sessionTestId: id,
                 };
+                rightObj[type] = id;
                 AllData.push(rightObj);
               }
             }

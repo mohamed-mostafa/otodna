@@ -1,10 +1,9 @@
+import { TreatmentTestsComponent } from "./patients/treatments/treatment-tests/treatment-tests.component";
 import { PatientSessionComponent } from "./patients/patient-session/patient-session.component";
 import { SymptomsComponent } from "./patients/diagnosis/symptoms/symptoms.component";
 import { AuthGuard } from "./../Auth/auth.guard";
 import { TeamMembersComponent } from "./Teams/team-members/team-members.component";
 import { MyTeamsComponent } from "./Teams/my-teams/my-teams.component";
-import { AddFollowupComponent } from "./patients/followup/add-followup/add-followup.component";
-import { AddTreatmentComponent } from "./patients/treatments/add-treatment/add-treatment.component";
 import { PatientHistoryComponent } from "./patients/patient-history/patient-history.component";
 import { ProblemsComponent } from "./patients/problems/problems.component";
 import { MedicationsComponent } from "./patients/medications/medications.component";
@@ -79,7 +78,18 @@ export const routes: Routes = [
             { path: "diagnosisPathology", component: PathologyComponent },
             { path: "diagnosisCandidacy", component: CandidacyComponent },
             { path: "addTreatment", component: PatientSessionComponent },
+            { path: "treatmentTests", component: TreatmentTestsComponent },
             { path: "addFollowup", component: PatientSessionComponent },
+            { path: "followupSymptoms", component: SymptomsComponent },
+            { path: "followupTests", component: TestsComponent },
+            {
+                path: "followupPathology",
+                component: PathologyComponent,
+            },
+            {
+                path: "followupCandidacy",
+                component: CandidacyComponent,
+            },
         ],
     },
 ];
@@ -115,8 +125,6 @@ export const COMPONENTS = [
     MedicationsComponent,
     ProblemsComponent,
     PatientHistoryComponent,
-    AddTreatmentComponent,
-    AddFollowupComponent,
     TestsComponent,
     PathologyComponent,
     CandidacyComponent,
@@ -124,6 +132,7 @@ export const COMPONENTS = [
     TeamMembersComponent,
     SymptomsComponent,
     PatientSessionComponent,
+    TreatmentTestsComponent,
 ];
 @NgModule({
     exports: [RouterModule],
