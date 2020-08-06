@@ -1,7 +1,3 @@
-import { FollowupCandidacyService } from "./patients/followup/services/followup-candidacy.service";
-import { FollowupPathologyService } from "./patients/followup/services/followup-pathology.service";
-import { FollowupTestsService } from "./patients/followup/services/followup-tests.service";
-import { FollowupSymptomsService } from "./patients/followup/services/followup-symptoms.service";
 import { TreatmentTestsService } from "./patients/treatments/services/treatment-tests.service";
 import { ParameterValueService } from "./patients/services/parameter-value.service";
 import { CandidacyService } from "./patients/diagnosis/services/candidacy.service";
@@ -58,8 +54,4 @@ export const SERVICES = [
     CandidacyService,
     ParameterValueService,
     TreatmentTestsService,
-    FollowupSymptomsService,
-    FollowupTestsService,
-    FollowupPathologyService,
-    FollowupCandidacyService,
 ];
