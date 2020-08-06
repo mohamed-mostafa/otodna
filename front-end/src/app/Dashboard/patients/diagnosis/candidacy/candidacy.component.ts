@@ -49,7 +49,7 @@ export class CandidacyComponent implements OnInit {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
-        this.dialogHeader = "Add New Pathology";
+        this.dialogHeader = "Add New Recommendation";
         this.candidacy.patientSessionId = this.selectedSession.id;
         this.items = [
             {
@@ -104,11 +104,11 @@ export class CandidacyComponent implements OnInit {
             });
         }
         this.selectedTestData.forEach((element) => {
-            element.testId = this.selected.id;
+            element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
         });
-        this.candidacy.treatmentId = this.selected.id;
-        this.candidacy.treatmentName = this.selected.name;
+        this.candidacy.treatmentId = this.selected.treatmentId;
+        this.candidacy.treatmentName = this.selected.treatmentName;
         this.candidacy.patientSessionId = this.selectedSession.id;
         this.spinner.show();
         this.parameterValueService
@@ -120,7 +120,7 @@ export class CandidacyComponent implements OnInit {
                 this.selected = "";
                 this.displayTest = false;
                 this.candidacy = new Candidacy();
-                this.dialogHeader = "Add New Test";
+                this.dialogHeader = "Add New Recommendation";
                 this.getAllCandidacies();
                 this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
@@ -139,7 +139,7 @@ export class CandidacyComponent implements OnInit {
         this.filteredTests = [];
         this.showTests = true;
         this.displayTest = false;
-        this.dialogHeader = "Add New Test";
+        this.dialogHeader = "Add New Recommendation";
     }
     showMessage(type, title, message) {
         this.messageService.add({
@@ -203,15 +203,38 @@ export class CandidacyComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    openTest(test) {
+    async openTest(test) {
         this.selected = test;
-        this.getSelectedTest("demo");
-        this.showTests = false;
+        this.candidacyService.getTest(test.treatmentId).then(
+            (res) => {
+                this.selectedTestData = res;
+                this.showTests = false;
+                this.dialogHeader = res.map((r) => r.name);
+            },
+            (err) => {
+                if (this.showTests) {
+                    test.patientSessionId = this.selectedSession.id;
+                    this.saveWithoutParams(test);
+                } else {
+                    this.showTests = true;
+                    return false;
+                }
+            }
+        );
     }
-    getSelectedTest(test) {
-        this.candidacyService.getTest(test).then((res) => {
-            this.selectedTestData = res;
-            this.dialogHeader = res.map((r) => r.name);
+    saveWithoutParams(test) {
+        this.candidacyService.createCandidacy(test).subscribe((u: any) => {
+            this.selectedTest = "";
+            this.filteredTests = [];
+            this.selectedEquipments = [];
+            this.selected = "";
+            this.displayTest = false;
+            this.candidacy = new Candidacy();
+            this.dialogHeader = "Add New Recommendation";
+            this.getAllCandidacies();
+            this.showTable();
+            this.showMessage("success", "Saved", "Data saved successfully");
+            this.spinner.hide();
         });
     }
     uploadImages(event) {
@@ -235,14 +258,14 @@ export class CandidacyComponent implements OnInit {
             }
         }
     }
-    retrieveTestData(test) {
+    async retrieveTestData(test) {
+        await this.openTest(test);
         this.showTests = false;
         this.spinner.show();
-        this.openTest(test);
         this.candidacyService
             .getSessionTestEquipment(test.id)
             .subscribe((res) => {
-                if (res) {
+                if (res && res.length > 0) {
                     res.forEach((element) => {
                         this.selectedEquipments.push(element.equipmentName);
                     });
@@ -251,83 +274,95 @@ export class CandidacyComponent implements OnInit {
         this.candidacyService
             .getTestParametersValues(test.id)
             .subscribe((result) => {
-                const parameters = this.selectedTestData[0].parameters;
-                if (parameters && parameters.length > 0) {
-                    for (const element of parameters) {
-                        for (const item of result) {
-                            if (
-                                element.name === item.parameterName &&
-                                element.type === "table"
-                            ) {
-                                for (const cell of element.cells) {
+                if (result && result.length > 0) {
+                    const parameters = this.selectedTestData[0].parameters;
+                    if (parameters && parameters.length > 0) {
+                        for (const element of parameters) {
+                            for (const item of result) {
+                                if (
+                                    element.name === item.parameterName &&
+                                    element.type === "table"
+                                ) {
+                                    for (const cell of element.cells) {
+                                        if (
+                                            cell.name ===
+                                                item.subParameterName &&
+                                            item.ear === "left"
+                                        ) {
+                                            if (
+                                                element.cellType === "boolean"
+                                            ) {
+                                                cell.left = {
+                                                    name: item.value,
+                                                };
+                                            } else {
+                                                cell.left = item.value;
+                                            }
+                                        }
+                                        if (
+                                            cell.name ===
+                                                item.subParameterName &&
+                                            item.ear === "right"
+                                        ) {
+                                            if (
+                                                element.cellType === "boolean"
+                                            ) {
+                                                cell.right = {
+                                                    name: item.value,
+                                                };
+                                            } else {
+                                                cell.right = item.value;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (
+                                    element.name === item.parameterName &&
+                                    element.type === "textarea"
+                                ) {
+                                    element.textareaVal = item.value;
+                                }
+                                if (
+                                    element.name === item.parameterName &&
+                                    element.type === "list"
+                                ) {
+                                    if (item.ear === "left") {
+                                        const found = element.values.filter(
+                                            (val) => val.name === item.value
+                                        );
+                                        element.leftVal = found[0];
+                                    }
+                                    if (item.ear === "right") {
+                                        const found = element.values.filter(
+                                            (val) => val.name === item.value
+                                        );
+                                        element.rightVal = found[0];
+                                    }
+                                }
+                                if (
+                                    element.type === "text" ||
+                                    element.type === "number" ||
+                                    element.type === "boolean"
+                                ) {
                                     if (
-                                        cell.name === item.subParameterName &&
+                                        element.name === item.parameterName &&
                                         item.ear === "left"
                                     ) {
-                                        if (element.cellType === "boolean") {
-                                            cell.left = { name: item.value };
-                                        } else {
-                                            cell.left = item.value;
-                                        }
+                                        element.leftVal = item.value;
                                     }
                                     if (
-                                        cell.name === item.subParameterName &&
+                                        element.name === item.parameterName &&
                                         item.ear === "right"
                                     ) {
-                                        if (element.cellType === "boolean") {
-                                            cell.right = { name: item.value };
-                                        } else {
-                                            cell.right = item.value;
-                                        }
+                                        element.rightVal = item.value;
                                     }
-                                }
-                            }
-                            if (
-                                element.name === item.parameterName &&
-                                element.type === "textarea"
-                            ) {
-                                element.textareaVal = item.value;
-                            }
-                            if (
-                                element.name === item.parameterName &&
-                                element.type === "list"
-                            ) {
-                                if (item.ear === "left") {
-                                    const found = element.values.filter(
-                                        (val) => val.name === item.value
-                                    );
-                                    element.leftVal = found[0];
-                                }
-                                if (item.ear === "right") {
-                                    const found = element.values.filter(
-                                        (val) => val.name === item.value
-                                    );
-                                    element.rightVal = found[0];
-                                }
-                            }
-                            if (
-                                element.type === "text" ||
-                                element.type === "number" ||
-                                element.type === "boolean"
-                            ) {
-                                if (
-                                    element.name === item.parameterName &&
-                                    item.ear === "left"
-                                ) {
-                                    element.leftVal = item.value;
-                                }
-                                if (
-                                    element.name === item.parameterName &&
-                                    item.ear === "right"
-                                ) {
-                                    element.rightVal = item.value;
                                 }
                             }
                         }
                     }
+                    this.displayTest = true;
+                    this.cdref.detectChanges();
                 }
-                this.displayTest = true;
-                this.cdref.detectChanges();
                 this.spinner.hide();
             });
     }

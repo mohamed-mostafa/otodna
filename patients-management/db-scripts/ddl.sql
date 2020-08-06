@@ -502,7 +502,7 @@ DROP TABLE IF EXISTS `session_treatment`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `session_treatment` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `treatment_id` int NOT NULL,
+  `treatment_id` varchar(45) NOT NULL,
   `treatment_name` varchar(45) NOT NULL,
   `candidancy` tinyint NOT NULL DEFAULT '0',
   `ear` varchar(5) NOT NULL DEFAULT 'BOTH',

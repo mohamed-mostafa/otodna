@@ -25,14 +25,14 @@ export class SessionTreatment extends Entity {
   id: number;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     precision: 10,
     scale: 0,
     mysql: {
       columnName: 'treatment_id',
-      dataType: 'int',
-      dataLength: null,
+      dataType: 'varchar',
+      dataLength: 45,
       dataPrecision: 10,
       dataScale: 0,
       nullable: 'N',

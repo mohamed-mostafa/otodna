@@ -202,6 +202,7 @@ export class TestsComponent implements OnInit {
                     test.patientSessionId = this.selectedSession.id;
                     this.saveWithoutParams(test);
                 } else {
+                    this.showTests = true;
                     return false;
                 }
             }
