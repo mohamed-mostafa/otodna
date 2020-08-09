@@ -1,3 +1,4 @@
+import { PatientSessionService } from "./../services/patient-session.service";
 import { element } from "protractor";
 import { AdvancedSearch } from "./advancedSearch";
 import { TeamsService } from "./../../services/teams.service";
@@ -26,11 +27,15 @@ export class SearchPatientComponent implements OnInit {
     patients;
     patientsLength;
     basicSearch;
+    diagnosisCount;
+    treatmentsCount;
+    followupCount;
     advancedSearch: AdvancedSearch = new AdvancedSearch();
     constructor(
         private teamService: TeamsService,
         private spinner: NgxSpinnerService,
         private patientService: PatientService,
+        private patientSession: PatientSessionService,
         private messageService: MessageService,
         private router: Router
     ) {}
@@ -65,6 +70,9 @@ export class SearchPatientComponent implements OnInit {
         ];
         this.getALlPatients();
         this.getPatientsCount();
+        this.getDiagnosisCount();
+        this.getTreatmentCount();
+        this.getFollowupCount();
     }
     showSearch() {
         this.show = !this.show;
@@ -147,18 +155,46 @@ export class SearchPatientComponent implements OnInit {
             }
         );
     }
-    getPatientsCount() {
+    async getDate() {
         const now = new Date();
         const date = new Date(now.getFullYear(), now.getMonth(), 1);
         const fullYear = new Date(date).getFullYear();
         const month = String(new Date(date).getMonth() + 1).padStart(2, "0");
         const day = String(new Date(date).getDate()).padStart(2, "0");
         const fullDate = `${fullYear}-${month}-${day}`;
-
-        this.patientService
-            .getPatientsCount(fullDate)
+        return fullDate;
+    }
+    async getPatientsCount() {
+        const date = await this.getDate();
+        this.patientService.getPatientsCount(date).subscribe(async (result) => {
+            this.patientsLength = result.count;
+            this.spinner.hide();
+        });
+    }
+    async getDiagnosisCount() {
+        const date = await this.getDate();
+        this.patientSession
+            .getSessionCount(0, date)
             .subscribe(async (result) => {
-                this.patientsLength = result.count;
+                this.diagnosisCount = result.count;
+                this.spinner.hide();
+            });
+    }
+    async getTreatmentCount() {
+        const date = await this.getDate();
+        this.patientSession
+            .getSessionCount(1, date)
+            .subscribe(async (result) => {
+                this.treatmentsCount = result.count;
+                this.spinner.hide();
+            });
+    }
+    async getFollowupCount() {
+        const date = await this.getDate();
+        this.patientSession
+            .getSessionCount(2, date)
+            .subscribe(async (result) => {
+                this.followupCount = result.count;
                 this.spinner.hide();
             });
     }

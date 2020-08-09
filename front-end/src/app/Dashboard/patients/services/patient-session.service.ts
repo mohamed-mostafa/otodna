@@ -15,6 +15,11 @@ export class PatientSessionService {
             `${this.apiUrl}/${this.link}?filter[where][patientId][eq]=${patientId}`
         );
     }
+    getSessionCount(sessionTypeId, date): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/count?[where][and][0][sessionTypeId][eq]=${sessionTypeId}&[where][and][1][createdAt][gte]=${date}`
+        );
+    }
     createSession(session): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, session);
     }

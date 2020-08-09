@@ -18,15 +18,21 @@
             </div>
             <div class="intro-box">
                 <div class="intro-box-name">Diagnosis This Month</div>
-                <div class="intro-box-detail textCenter">0</div>
+                <div class="intro-box-detail textCenter">
+                    {{ diagnosisCount ? diagnosisCount : 0 }}
+                </div>
             </div>
             <div class="intro-box">
                 <div class="intro-box-name">Treatments This Month</div>
-                <div class="intro-box-detail textCenter">0</div>
+                <div class="intro-box-detail textCenter">
+                    {{ treatmentsCount ? treatmentsCount : 0 }}
+                </div>
             </div>
             <div class="intro-box">
                 <div class="intro-box-name">Followups This Month</div>
-                <div class="intro-box-detail textCenter">0</div>
+                <div class="intro-box-detail textCenter">
+                    {{ followupCount ? followupCount : 0 }}
+                </div>
             </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-xl-12">
@@ -66,7 +72,9 @@
                             Diagnosis
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">0</div>
+                    <div class="overview-box-details marginRight">
+                        {{ diagnosisCount ? diagnosisCount : 0 }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,7 +91,9 @@
                             Treatments
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">0</div>
+                    <div class="overview-box-details marginRight">
+                        {{ treatmentsCount ? treatmentsCount : 0 }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,7 +110,9 @@
                             Follow Up
                         </div>
                     </div>
-                    <div class="overview-box-details marginRight">0</div>
+                    <div class="overview-box-details marginRight">
+                        {{ followupCount ? followupCount : 0 }}
+                    </div>
                 </div>
             </div>
         </div>
