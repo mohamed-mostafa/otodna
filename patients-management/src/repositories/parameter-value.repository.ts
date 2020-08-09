@@ -103,6 +103,81 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
       }
     });
   }
+  public updateParametersValues(data: Array<any>): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const tx: Transaction = await this.beginTransaction();
+      try {
+        if (data[0].sessionTestId) {
+          await super.deleteAll({sessionTestId: data[0].id}, {transaction: tx});
+          await this.sessionTestEquipmentRepository.deleteAll(
+            {sessionTestId: data[0].id},
+            {transaction: tx},
+          );
+          let handledData = await this.handleData(
+            data,
+            data[0].id,
+            'sessionTestId',
+          );
+          let equipments = data[0].equipments;
+          if (handledData && handledData.length > 0) {
+            for (const d of handledData) {
+              await super.create(d, {transaction: tx});
+            }
+          }
+          if (equipments && equipments.length > 0) {
+            for (const e of equipments) {
+              let obj = {
+                equipmentId: e.id,
+                equipmentName: e.name,
+                sessionTestId: data[0].id,
+              };
+              await this.sessionTestEquipmentRepository.create(obj, {
+                transaction: tx,
+              });
+            }
+          }
+        } else {
+          await super.deleteAll(
+            {sessionTreatmentId: data[0].id},
+            {transaction: tx},
+          );
+          await this.sessionTreatmentEquipmentRepository.deleteAll(
+            {sessionTreatmentId: data[0].id},
+            {transaction: tx},
+          );
+          let handledData = await this.handleData(
+            data,
+            data[0].id,
+            'sessionTreatmentId',
+          );
+          let equipments = data[0].equipments;
+          if (handledData && handledData.length > 0) {
+            for (const d of handledData) {
+              await super.create(d, {transaction: tx});
+            }
+          }
+          if (equipments && equipments.length > 0) {
+            for (const e of equipments) {
+              let obj = {
+                equipmentId: e.id,
+                equipmentName: e.name,
+                sessionTreatmentId: data[0].id,
+              };
+              await this.sessionTreatmentEquipmentRepository.create(obj, {
+                transaction: tx,
+              });
+            }
+          }
+        }
+
+        await tx.commit();
+        resolve(data);
+      } catch (err) {
+        await tx.rollback();
+        reject(err);
+      }
+    });
+  }
   async handleData(data: Array<any>, id: number, type: string) {
     let AllData = [];
     for (const d of data) {

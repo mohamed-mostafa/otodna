@@ -34,6 +34,7 @@ export class TestsComponent implements OnInit {
     dialogHeader;
     filteredEquipments: any[];
     selectedEquipments = [];
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -124,11 +125,43 @@ export class TestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
+    updateTest() {
+        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
+            const equipmentsAllData = this.getEquipmentsAllData(
+                this.selectedEquipments
+            );
+            this.selectedTestData.forEach((element) => {
+                element.equipments = equipmentsAllData;
+            });
+        }
+        this.selectedTestData.forEach((element) => {
+            element.testId = this.selected.testId;
+            element.sessionTestId = this.selectedSession.id;
+        });
+        this.test.testId = this.selected.testId;
+        this.test.testName = this.selected.testName;
+        this.parameterValueService
+            .updateParametersValues(this.selectedTestData)
+            .subscribe((u: any) => {
+                this.selectedTest = "";
+                this.filteredTests = [];
+                this.selectedEquipments = [];
+                this.selected = "";
+                this.displayTest = false;
+                this.test = new Test();
+                this.dialogHeader = "Add New Test";
+                this.getSessionTests();
+                this.showTable();
+                this.showMessage("success", "Saved", "Data saved successfully");
+                this.spinner.hide();
+            });
+    }
     onHide() {
         this.showTests = true;
         this.filteredTests = [];
         this.selectedTest = "";
         this.selectedEquipments = [];
+        this.showSaveButton = true;
     }
     cancelTest() {
         this.selectedTest = "";
@@ -260,6 +293,8 @@ export class TestsComponent implements OnInit {
         this.spinner.show();
         this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
             if (res && res.length > 0) {
+                this.showSaveButton = false;
+                this.selectedTestData[0].id = test.id;
                 res.forEach((element) => {
                     this.selectedEquipments.push(element.equipmentName);
                 });
@@ -269,6 +304,8 @@ export class TestsComponent implements OnInit {
             .getTestParametersValues(test.id)
             .subscribe((result) => {
                 if (result && result.length > 0) {
+                    this.selectedTestData[0].id = test.id;
+                    this.showSaveButton = false;
                     const parameters = this.selectedTestData[0].parameters;
                     if (parameters && parameters.length > 0) {
                         for (const element of parameters) {

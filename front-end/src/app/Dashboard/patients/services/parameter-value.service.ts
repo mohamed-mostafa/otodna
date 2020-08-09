@@ -14,4 +14,7 @@ export class ParameterValueService {
     createParametersValues(data): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, data);
     }
+    updateParametersValues(data): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${this.link}`, data);
+    }
 }

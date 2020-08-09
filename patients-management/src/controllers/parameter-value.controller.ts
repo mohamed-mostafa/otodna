@@ -71,6 +71,23 @@ export class ParameterValueController {
   ): Promise<any> {
     return this.parameterValueRepository.createParametersValues(data);
   }
+  @put('/parametersValues', {
+    responses: {
+      '200': {
+        description: 'parametersValues model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(ParameterValue),
+          },
+        },
+      },
+    },
+  })
+  async updateParametersValues(
+    @requestBody() data: Array<Object>,
+  ): Promise<any> {
+    return this.parameterValueRepository.updateParametersValues(data);
+  }
   @get('/parameterValue/count', {
     responses: {
       '200': {

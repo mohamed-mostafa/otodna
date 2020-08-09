@@ -34,6 +34,7 @@ export class CandidacyComponent implements OnInit {
     dialogHeader;
     filteredEquipments: any[];
     selectedEquipments = [];
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -127,11 +128,45 @@ export class CandidacyComponent implements OnInit {
                 this.spinner.hide();
             });
     }
+    updateTest() {
+        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
+            const equipmentsAllData = this.getEquipmentsAllData(
+                this.selectedEquipments
+            );
+            this.selectedTestData.forEach((element) => {
+                element.equipments = equipmentsAllData;
+            });
+        }
+        this.selectedTestData.forEach((element) => {
+            element.testId = this.selected.treatmentId;
+            element.sessionTreatmentId = this.selectedSession.id;
+        });
+        this.candidacy.treatmentId = this.selected.treatmentId;
+        this.candidacy.treatmentName = this.selected.treatmentName;
+        this.candidacy.patientSessionId = this.selectedSession.id;
+        this.spinner.show();
+        this.parameterValueService
+            .updateParametersValues(this.selectedTestData)
+            .subscribe((u: any) => {
+                this.selectedTest = "";
+                this.filteredTests = [];
+                this.selectedEquipments = [];
+                this.selected = "";
+                this.displayTest = false;
+                this.candidacy = new Candidacy();
+                this.dialogHeader = "Add New Recommendation";
+                this.getAllCandidacies();
+                this.showTable();
+                this.showMessage("success", "Saved", "Data saved successfully");
+                this.spinner.hide();
+            });
+    }
     onHide() {
         this.showTests = true;
         this.filteredTests = [];
         this.selectedTest = "";
         this.selectedEquipments = [];
+        this.showSaveButton = true;
     }
     cancelTest() {
         this.selectedTest = "";
@@ -266,6 +301,8 @@ export class CandidacyComponent implements OnInit {
             .getSessionTestEquipment(test.id)
             .subscribe((res) => {
                 if (res && res.length > 0) {
+                    this.showSaveButton = false;
+                    this.selectedTestData[0].id = test.id;
                     res.forEach((element) => {
                         this.selectedEquipments.push(element.equipmentName);
                     });
@@ -275,6 +312,8 @@ export class CandidacyComponent implements OnInit {
             .getTestParametersValues(test.id)
             .subscribe((result) => {
                 if (result && result.length > 0) {
+                    this.showSaveButton = false;
+                    this.selectedTestData[0].id = test.id;
                     const parameters = this.selectedTestData[0].parameters;
                     if (parameters && parameters.length > 0) {
                         for (const element of parameters) {
