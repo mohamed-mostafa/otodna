@@ -492,6 +492,35 @@
                                 </p-table>
                             </div>
                         </div>
+                        <div
+                            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                            *ngIf="t.type === 'graph'"
+                        >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <div class="ui-inputgroup">
+                                    <p-toast
+                                        [style]="{ marginTop: '80px' }"
+                                    ></p-toast>
+                                    <p-chart
+                                        type="line"
+                                        [data]="graphData"
+                                        (onDataSelect)="selectData($event)"
+                                    ></p-chart>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <div class="ui-inputgroup">
+                                    <p-toast
+                                        [style]="{ marginTop: '80px' }"
+                                    ></p-toast>
+                                    <p-chart
+                                        type="line"
+                                        [data]="graphData"
+                                        (onDataSelect)="selectData($event)"
+                                    ></p-chart>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="ui-g-12 ui-md-12">
                         <p-fieldset legend="Equipments">

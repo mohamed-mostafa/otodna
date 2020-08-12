@@ -35,6 +35,7 @@ export class TestsComponent implements OnInit {
     filteredEquipments: any[];
     selectedEquipments = [];
     showSaveButton = true;
+    graphData: any;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -76,6 +77,15 @@ export class TestsComponent implements OnInit {
         this.getAllTests();
         this.getAllEquipments();
         this.getSessionTests();
+    }
+    selectData(event) {
+        this.messageService.add({
+            severity: "info",
+            summary: "Data Selected",
+            detail: this.graphData.datasets[event.element._datasetIndex].data[
+                event.element._index
+            ],
+        });
     }
     showTable() {
         if (this.tests.length > 0) {
@@ -229,6 +239,25 @@ export class TestsComponent implements OnInit {
                 this.selectedTestData = res;
                 this.showTests = false;
                 this.dialogHeader = res.map((r) => r.name);
+                res.forEach((r) => {
+                    if (r.parameters) {
+                        r.parameters.forEach((element) => {
+                            if (element.type === "graph") {
+                                this.graphData = {
+                                    labels: element.xAxis,
+                                    datasets: [
+                                        {
+                                            label: element.name,
+                                            data: element.yAxis,
+                                            fill: true,
+                                            borderColor: "#4bc0c0",
+                                        },
+                                    ],
+                                };
+                            }
+                        });
+                    }
+                });
             },
             (err) => {
                 if (this.showTests) {

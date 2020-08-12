@@ -59,6 +59,12 @@
                     ],
                     "cellValues": [{ "name": "Yes" }, { "name": "No" }],
                     "cellType": "boolean"
+                },
+                {
+                    "type": "graph",
+                    "xAxis": [-400, -200, 0, 200],
+                    "yAxis": [0.5, 0.7, 1, 0.6],
+                    "name": "Type A"
                 }
             ]
         }
