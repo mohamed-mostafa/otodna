@@ -19,7 +19,6 @@ export class MedicationsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showTableFlag = false;
     medication: Medication = new Medication();
     selectedPatient;
     status;
@@ -59,14 +58,8 @@ export class MedicationsComponent implements OnInit {
             { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
-        this.showTable();
         this.getALlMedications();
         this.getMedicationStatuses();
-    }
-    showTable() {
-        if (this.medications.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -175,7 +168,11 @@ export class MedicationsComponent implements OnInit {
             .getAllMedications(this.medication.patientId)
             .subscribe(async (result) => {
                 this.medications = await this.getMedicationStatusById(result);
-                this.showTable();
+                this.medications.sort(
+                    (a, b) =>
+                        new Date(b.notedDate).getTime() -
+                        new Date(a.notedDate).getTime()
+                );
                 this.spinner.hide();
             });
     }

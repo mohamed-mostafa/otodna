@@ -19,7 +19,6 @@ export class LabResultsComponent implements OnInit {
     labResults: any[] = [];
     displayBasic: boolean;
     labResult: LabResult = new LabResult();
-    showTableFlag = false;
     selectedPatient;
 
     constructor(
@@ -55,13 +54,7 @@ export class LabResultsComponent implements OnInit {
             { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
-        this.showTable();
         this.getALlLabResults();
-    }
-    showTable() {
-        if (this.labResults.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -145,7 +138,11 @@ export class LabResultsComponent implements OnInit {
             .getAllLabResults(this.labResult.patientId)
             .subscribe(async (result) => {
                 this.labResults = result;
-                this.showTable();
+                this.labResults.sort(
+                    (a, b) =>
+                        new Date(b.notedDate).getTime() -
+                        new Date(a.notedDate).getTime()
+                );
                 this.spinner.hide();
             });
     }

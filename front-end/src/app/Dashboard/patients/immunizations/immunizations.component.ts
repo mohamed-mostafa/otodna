@@ -20,7 +20,6 @@ export class ImmunizationsComponent implements OnInit {
     home: MenuItem;
     displayBasic: boolean;
     immunization: Immunizations = new Immunizations();
-    showTableFlag = false;
     selectedPatient;
     status;
     constructor(
@@ -56,14 +55,8 @@ export class ImmunizationsComponent implements OnInit {
             { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
-        this.showTable();
         this.getALlImmunizations();
         this.getImmunizationStatuses();
-    }
-    showTable() {
-        if (this.immunizations.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -147,7 +140,11 @@ export class ImmunizationsComponent implements OnInit {
                 this.immunizations = await this.getImmunizationStatusById(
                     result
                 );
-                this.showTable();
+                this.immunizations.sort(
+                    (a, b) =>
+                        new Date(b.notedDate).getTime() -
+                        new Date(a.notedDate).getTime()
+                );
                 this.spinner.hide();
             });
     }

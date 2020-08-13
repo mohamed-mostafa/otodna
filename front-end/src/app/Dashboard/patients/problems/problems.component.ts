@@ -20,7 +20,6 @@ export class ProblemsComponent implements OnInit {
     statuses = [];
     displayBasic: boolean;
     problem: Problem = new Problem();
-    showTableFlag = false;
     selectedPatient;
     status;
     constructor(
@@ -55,14 +54,8 @@ export class ProblemsComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-user-md" };
-        this.showTable();
         this.getALlProblems();
         this.getProblemStatuses();
-    }
-    showTable() {
-        if (this.problems.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -144,7 +137,11 @@ export class ProblemsComponent implements OnInit {
             .getAllProblems(this.problem.patientId)
             .subscribe(async (result) => {
                 this.problems = await this.getProblemStatusById(result);
-                this.showTable();
+                this.problems.sort(
+                    (a, b) =>
+                        new Date(b.notedDate).getTime() -
+                        new Date(a.notedDate).getTime()
+                );
                 this.spinner.hide();
             });
     }
