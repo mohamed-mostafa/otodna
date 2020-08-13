@@ -37,40 +37,49 @@
                     <div class="ui-g-3">
                         <br />
                         <span>
-                            <div class="marginBottomAndTop">
+                            <div
+                                class="marginBottomAndTop pointerCursor"
+                                (click)="openDataPage(data)"
+                            >
                                 {{ data.date | date }}
                             </div>
                         </span>
                         <i
                             *ngIf="data.sessionTypeId === 0"
-                            class="fa fa-stethoscope"
+                            class="fa fa-stethoscope marginBottomAndTop pointerCursor"
+                            (click)="openDataPage(data)"
                             style="color: #61b5a1;"
                         ></i>
                         <i
                             *ngIf="data.sessionTypeId === 1"
-                            class="fa fa-medkit"
+                            class="fa fa-medkit marginBottomAndTop pointerCursor"
+                            (click)="openDataPage(data)"
                             style="color: #61b5a1;"
                         ></i>
                         <i
                             *ngIf="data.sessionTypeId === 2"
-                            class="fa fa-ambulance"
+                            class="fa fa-ambulance marginBottomAndTop pointerCursor"
+                            (click)="openDataPage(data)"
                             style="color: #61b5a1;"
                         ></i>
                     </div>
                     <div class="ui-g-9">
                         <span
                             *ngIf="data.sessionTypeId === 0"
-                            class="event-owner marginBottomAndTop"
+                            class="event-owner marginBottomAndTop pointerCursor"
+                            (click)="openDataPage(data)"
                             >Diagnosis</span
                         >
                         <span
                             *ngIf="data.sessionTypeId === 1"
-                            class="event-owner marginBottomAndTop"
+                            class="event-owner marginBottomAndTop pointerCursor"
+                            (click)="openDataPage(data)"
                             >Treatment</span
                         >
                         <span
                             *ngIf="data.sessionTypeId === 2"
-                            class="event-owner marginBottomAndTop"
+                            class="event-owner marginBottomAndTop pointerCursor"
+                            (click)="openDataPage(data)"
                             >Followup</span
                         >
                         <span>

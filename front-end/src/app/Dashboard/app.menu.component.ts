@@ -373,13 +373,13 @@ export class AppMenuComponent implements OnInit {
                 localStorage.removeItem("sessionBasicInfo");
                 const array = [
                     "patient",
-                    "family",
-                    "vital",
-                    "allergies",
-                    "labResults",
-                    "immunizations",
-                    "medications",
-                    "problems",
+                    "medical/family",
+                    "medical/vital",
+                    "medical/allergies",
+                    "medical/labResults",
+                    "medical/immunizations",
+                    "medical/medications",
+                    "medical/problems",
                     "patientHistory",
                 ];
                 let selectedPatient = JSON.parse(
@@ -413,42 +413,42 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: "Medical Records",
                             icon: "fa fa-fw fa-heartbeat",
-                            routerLink: ["/dashboard"],
+                            routerLink: ["/dashboard/medical"],
                             items: [
                                 {
                                     label: "Family",
                                     icon: "fa fa-fw fa-users",
-                                    routerLink: ["family"],
+                                    routerLink: ["medical/family"],
                                 },
                                 {
                                     label: "Vital",
                                     icon: "fa fa-fw fa-star",
-                                    routerLink: ["vital"],
+                                    routerLink: ["medical/vital"],
                                 },
                                 {
                                     label: "Allergies",
                                     icon: "fa fa-fw fa-user-md",
-                                    routerLink: ["allergies"],
+                                    routerLink: ["medical/allergies"],
                                 },
                                 {
                                     label: "Lab Results",
                                     icon: "fa fa-fw fa-flask",
-                                    routerLink: ["labResults"],
+                                    routerLink: ["medical/labResults"],
                                 },
                                 {
                                     label: "Immunizations",
                                     icon: "fa fa-fw fa-medkit",
-                                    routerLink: ["immunizations"],
+                                    routerLink: ["medical/immunizations"],
                                 },
                                 {
                                     label: "Medications",
                                     icon: "fa fa-fw fa-heartbeat",
-                                    routerLink: ["medications"],
+                                    routerLink: ["medical/medications"],
                                 },
                                 {
                                     label: "Problems",
                                     icon: "fa fa-fw fa-exclamation-triangle",
-                                    routerLink: ["problems"],
+                                    routerLink: ["medical/problems"],
                                 },
                             ],
                         },
