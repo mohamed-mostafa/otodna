@@ -25,7 +25,6 @@ export class AllergiesComponent implements OnInit {
     severity;
     allergyStatuses = [];
     status;
-    showTableFlag = false;
     selectedPatient;
     constructor(
         private messageService: MessageService,
@@ -63,16 +62,10 @@ export class AllergiesComponent implements OnInit {
             { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
-        this.showTable();
         this.getALlAllergies();
         this.getALlTypes();
         this.getALlSeverities();
         this.getALlStatuses();
-    }
-    showTable() {
-        if (this.allergies.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -184,7 +177,11 @@ export class AllergiesComponent implements OnInit {
                 this.allergies = await this.getAllergyTypeById(result);
                 this.allergies = await this.getAllergySeverityById(result);
                 this.allergies = await this.getAllergyStatusById(result);
-                this.showTable();
+                this.allergies.sort(
+                    (a, b) =>
+                        new Date(b.notedDate).getTime() -
+                        new Date(a.notedDate).getTime()
+                );
                 this.spinner.hide();
             });
     }
