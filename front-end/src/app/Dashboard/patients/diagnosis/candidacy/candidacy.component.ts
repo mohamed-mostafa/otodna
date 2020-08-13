@@ -20,7 +20,6 @@ export class CandidacyComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayTest: boolean;
-    showTableFlag = false;
     selectedTest;
     filteredTests: any[];
     allTests = [];
@@ -74,15 +73,9 @@ export class CandidacyComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-stethoscope" };
 
-        this.showTable();
         this.getAllTests();
         this.getAllCandidacies();
         this.getAllEquipments();
-    }
-    showTable() {
-        if (this.candidacies.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     getEquipmentsAllData(data) {
         const allSelectedEquipments = [];
@@ -123,7 +116,6 @@ export class CandidacyComponent implements OnInit {
                 this.candidacy = new Candidacy();
                 this.dialogHeader = "Add New Recommendation";
                 this.getAllCandidacies();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -156,7 +148,6 @@ export class CandidacyComponent implements OnInit {
                 this.candidacy = new Candidacy();
                 this.dialogHeader = "Add New Recommendation";
                 this.getAllCandidacies();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -234,7 +225,6 @@ export class CandidacyComponent implements OnInit {
             .getAllCandidacies(this.selectedSession.id)
             .subscribe((result) => {
                 this.candidacies = result;
-                this.showTable();
                 this.spinner.hide();
             });
     }
@@ -267,7 +257,6 @@ export class CandidacyComponent implements OnInit {
             this.candidacy = new Candidacy();
             this.dialogHeader = "Add New Recommendation";
             this.getAllCandidacies();
-            this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         });
