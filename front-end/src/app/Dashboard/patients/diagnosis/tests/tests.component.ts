@@ -20,7 +20,6 @@ export class TestsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayTest: boolean;
-    showTableFlag = false;
     selectedTest;
     filteredTests: any[];
     allTests = [];
@@ -73,7 +72,6 @@ export class TestsComponent implements OnInit {
             { field: "testName", header: "Test Name", width: "80%" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
-        this.showTable();
         this.getAllTests();
         this.getAllEquipments();
         this.getSessionTests();
@@ -86,11 +84,6 @@ export class TestsComponent implements OnInit {
                 event.element._index
             ],
         });
-    }
-    showTable() {
-        if (this.tests.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     getEquipmentsAllData(data) {
         const allSelectedEquipments = [];
@@ -130,7 +123,6 @@ export class TestsComponent implements OnInit {
                 this.test = new Test();
                 this.dialogHeader = "Add New Test";
                 this.getSessionTests();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -161,7 +153,6 @@ export class TestsComponent implements OnInit {
                 this.test = new Test();
                 this.dialogHeader = "Add New Test";
                 this.getSessionTests();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -280,7 +271,6 @@ export class TestsComponent implements OnInit {
             this.test = new Test();
             this.dialogHeader = "Add New Test";
             this.getSessionTests();
-            this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         });
@@ -312,7 +302,6 @@ export class TestsComponent implements OnInit {
             .getSessionTests(this.selectedSession.id)
             .subscribe((result) => {
                 this.tests = result;
-                this.showTable();
                 this.spinner.hide();
             });
     }

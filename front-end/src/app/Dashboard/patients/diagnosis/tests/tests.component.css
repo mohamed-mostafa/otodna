@@ -69,3 +69,6 @@
 .pointerCursor {
     cursor: pointer;
 }
+.bold {
+    font-weight: bold;
+}
