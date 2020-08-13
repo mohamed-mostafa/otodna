@@ -20,7 +20,6 @@ export class TreatmentTestsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayTest: boolean;
-    showTableFlag = false;
     selectedTreatment;
     filteredTreatments: any[];
     allTreatments = [];
@@ -72,15 +71,9 @@ export class TreatmentTestsComponent implements OnInit {
             { field: "treatmentName", header: "Treatment Name", width: "80%" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
-        this.showTable();
         this.getAllTreatments();
         this.getAllEquipments();
         this.getSessionTreatments();
-    }
-    showTable() {
-        if (this.treatments.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     getEquipmentsAllData(data) {
         const allSelectedEquipments = [];
@@ -120,7 +113,6 @@ export class TreatmentTestsComponent implements OnInit {
                 this.treatment = new Treatment();
                 this.dialogHeader = "Add New Treatment";
                 this.getSessionTreatments();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -152,7 +144,6 @@ export class TreatmentTestsComponent implements OnInit {
                 this.treatment = new Treatment();
                 this.dialogHeader = "Add New Treatment";
                 this.getSessionTreatments();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -261,7 +252,6 @@ export class TreatmentTestsComponent implements OnInit {
             this.treatment = new Treatment();
             this.dialogHeader = "Add New Treatment";
             this.getSessionTreatments();
-            this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         });
@@ -302,7 +292,6 @@ export class TreatmentTestsComponent implements OnInit {
             .getSessionTreatments(this.selectedSession.id)
             .subscribe((result) => {
                 this.treatments = result;
-                this.showTable();
                 this.spinner.hide();
             });
     }
