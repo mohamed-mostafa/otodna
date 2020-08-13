@@ -1,27 +1,5 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-<div class="ui-g ui-fluid" *ngIf="showTableFlag">
-    <div class="ui-g-12 ui-md-9"></div>
-    <div class="ui-g-12 ui-md-3">
-        <button
-            type="button"
-            (click)="showDialog()"
-            pButton
-            icon="pi pi-external-link"
-            label="Add Vital"
-        ></button>
-    </div>
-</div>
-<div class="centerClass" *ngIf="!showTableFlag">
-    <h3>Click Add Vital To Add A New Vital</h3>
-    <button
-        type="button"
-        (click)="showDialog()"
-        pButton
-        icon="pi pi-external-link"
-        label="Add Vital"
-    ></button>
-</div>
 <p-dialog
     header="Add Vital"
     [(visible)]="displayBasic"
@@ -92,59 +70,43 @@
         ></button>
     </p-footer>
 </p-dialog>
-<div class="ui-g ui-fluid" *ngIf="showTableFlag">
-    <div class="ui-g-12">
-        <div class="card card-w-title">
-            <p-table
-                #dt
-                [columns]="cols"
-                styleClass="ui-table-cars"
-                [value]="vitals"
-                [paginator]="true"
-                [resizableColumns]="true"
-                [responsive]="true"
-                [rows]="10"
-                dataKey="vin"
-                selectionMode="single"
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12"><h2 class="centerHeader">Patient Vitals</h2></div>
+    <div class="ui-g-3" *ngFor="let vital of vitals">
+        <p-card
+            class="centerHeader"
+            [style]="{ height: '120px' }"
+            styleClass="ui-card-shadow"
+        >
+            <div>
+                <div class="ui-g-12 ui-md-12 bold">
+                    {{ vital.vitalName }}
+                </div>
+                <div class="ui-g-12 ui-md-12 bold">
+                    {{ vital.vitalRecordValue }} {{ vital.vitalUnit }}
+                </div>
+                <div class="ui-g-12 ui-md-12 bold">
+                    {{ vital.notedDate | date }}
+                </div>
+            </div>
+        </p-card>
+    </div>
+    <div class="ui-g-3">
+        <div style="border-style: dotted;">
+            <p-card
+                class="centerHeader pointerCursor"
+                [style]="{ height: '115px' }"
+                (click)="showDialog()"
             >
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th
-                            *ngFor="let col of columns"
-                            [pSortableColumn]="col.field"
-                            [ngSwitch]="col.field"
-                            [ngStyle]="{ width: col.width }"
-                        >
-                            {{ col.header }}
-                            <p-sortIcon [field]="col.field"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
-                        <td class="ui-resizable-column">
-                            <span class="ui-column-title">Record Type </span
-                            >{{ rowData.vitalName }}
-                        </td>
-                        <td class="ui-resizable-column">
-                            <span class="ui-column-title">Record Value </span
-                            >{{ rowData.vitalUnit }}
-                        </td>
-                        <td class="ui-resizable-column">
-                            <span class="ui-column-title">Record Value </span
-                            >{{ rowData.vitalRecordValue }}
-                        </td>
-                        <td class="ui-resizable-column">
-                            <span class="ui-column-title">Noted Date </span
-                            >{{ rowData.notedDate | date }}
-                        </td>
-                        <td class="ui-resizable-column">
-                            <span class="ui-column-title">Comment </span
-                            >{{ rowData.comment }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+                <h3 style="margin-top: 30px;">
+                    <i
+                        class="fa fa-plus"
+                        aira-hidden="true"
+                        style="margin: 5px;"
+                    ></i>
+                    Add Vital
+                </h3>
+            </p-card>
         </div>
     </div>
 </div>

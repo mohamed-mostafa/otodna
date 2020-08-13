@@ -21,7 +21,6 @@ export class VitalComponent implements OnInit {
     displayBasic: boolean;
     vital: Vital = new Vital();
     recordType;
-    showTableFlag = false;
     selectedPatient;
     constructor(
         private messageService: MessageService,
@@ -56,14 +55,8 @@ export class VitalComponent implements OnInit {
             { field: "comment", header: "Comment" },
         ];
         this.home = { icon: "fa fa-user-md" };
-        this.showTable();
         this.getALlVitals();
         this.getAllVitalRecordTypes();
-    }
-    showTable() {
-        if (this.vitals.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     showDialog() {
         this.displayBasic = true;
@@ -149,7 +142,11 @@ export class VitalComponent implements OnInit {
             .getAllVitals(this.vital.patientId)
             .subscribe(async (result) => {
                 this.vitals = await this.getVitalRecordTypeById(result);
-                this.showTable();
+                this.vitals.sort(
+                    (a, b) =>
+                        new Date(b.notedDate).getTime() -
+                        new Date(a.notedDate).getTime()
+                );
                 this.spinner.hide();
             });
     }
