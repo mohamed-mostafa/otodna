@@ -29,6 +29,11 @@ export class UsersService {
             `${this.apiUrl}/${this.usersLink}?filter[where][and][0][role_id][neq]=2&filter[where][and][1][approved][eq]=1`
         );
     }
+    getAllApprovedUsers(): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.usersLink}?filter[where][approved][eq]=1`
+        );
+    }
     createUser(user): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.usersLink}/`, user);
     }

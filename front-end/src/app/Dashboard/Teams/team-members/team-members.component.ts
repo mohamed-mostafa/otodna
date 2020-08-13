@@ -65,12 +65,10 @@ export class TeamMembersComponent implements OnInit {
     }
     getAllUsers() {
         this.spinner.show();
-        this.usersService
-            .getAllApprovedUsersExceptConsultants()
-            .subscribe((result) => {
-                this.users = result;
-                this.spinner.hide();
-            });
+        this.usersService.getAllApprovedUsers().subscribe((result) => {
+            this.users = result;
+            this.spinner.hide();
+        });
     }
     goToMyTeamsPage(event) {
         this.router
