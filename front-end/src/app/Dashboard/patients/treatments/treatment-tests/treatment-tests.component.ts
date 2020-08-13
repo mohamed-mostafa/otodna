@@ -5,7 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
 import { MessageService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
-import { Test } from "./test";
+import { Treatment } from "./treatment";
 
 @Component({
     selector: "app-treatment-tests",
@@ -15,15 +15,15 @@ import { Test } from "./test";
 })
 export class TreatmentTestsComponent implements OnInit {
     cols: any[];
-    tests: any[] = [];
-    test: Test = new Test();
+    treatments: any[] = [];
+    treatment: Treatment = new Treatment();
     items: MenuItem[];
     home: MenuItem;
     displayTest: boolean;
     showTableFlag = false;
-    selectedTest;
-    filteredTests: any[];
-    allTests = [];
+    selectedTreatment;
+    filteredTreatments: any[];
+    allTreatments = [];
     allEquipments = [];
     showTests = true;
     selected;
@@ -37,7 +37,7 @@ export class TreatmentTestsComponent implements OnInit {
     showSaveButton = true;
     constructor(
         private messageService: MessageService,
-        private testService: TreatmentTestsService,
+        private treatmentService: TreatmentTestsService,
         private parameterValueService: ParameterValueService,
         private router: Router,
         private cdref: ChangeDetectorRef,
@@ -50,7 +50,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
-        this.dialogHeader = "Add New Test";
+        this.dialogHeader = "Add New Treatment";
         this.items = [
             {
                 label: "Patients",
@@ -68,17 +68,17 @@ export class TreatmentTestsComponent implements OnInit {
             { label: this.selectedSession.displayName },
         ];
         this.cols = [
-            { field: "testId", header: "Test ID", width: "20%" },
-            { field: "testName", header: "Test Name", width: "80%" },
+            { field: "treatmentId", header: "Treatment ID", width: "20%" },
+            { field: "treatmentName", header: "Treatment Name", width: "80%" },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.showTable();
-        this.getAllTests();
+        this.getAllTreatments();
         this.getAllEquipments();
-        this.getSessionTests();
+        this.getSessionTreatments();
     }
     showTable() {
-        if (this.tests.length > 0) {
+        if (this.treatments.length > 0) {
             this.showTableFlag = true;
         }
     }
@@ -93,7 +93,7 @@ export class TreatmentTestsComponent implements OnInit {
         }
         return allSelectedEquipments;
     }
-    saveTest() {
+    saveTreatment() {
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
             const equipmentsAllData = this.getEquipmentsAllData(
                 this.selectedEquipments
@@ -106,26 +106,26 @@ export class TreatmentTestsComponent implements OnInit {
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
         });
-        this.test.treatmentId = this.selected.treatmentId;
-        this.test.treatmentName = this.selected.treatmentName;
+        this.treatment.treatmentId = this.selected.treatmentId;
+        this.treatment.treatmentName = this.selected.treatmentName;
         this.spinner.show();
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
-                this.selectedTest = "";
-                this.filteredTests = [];
+                this.selectedTreatment = "";
+                this.filteredTreatments = [];
                 this.selectedEquipments = [];
                 this.selected = "";
                 this.displayTest = false;
-                this.test = new Test();
-                this.dialogHeader = "Add New Test";
-                this.getSessionTests();
+                this.treatment = new Treatment();
+                this.dialogHeader = "Add New Treatment";
+                this.getSessionTreatments();
                 this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
     }
-    updateTest() {
+    updateTreatment() {
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
             const equipmentsAllData = this.getEquipmentsAllData(
                 this.selectedEquipments
@@ -138,20 +138,20 @@ export class TreatmentTestsComponent implements OnInit {
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
         });
-        this.test.treatmentId = this.selected.treatmentId;
-        this.test.treatmentName = this.selected.treatmentName;
+        this.treatment.treatmentId = this.selected.treatmentId;
+        this.treatment.treatmentName = this.selected.treatmentName;
         this.spinner.show();
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
-                this.selectedTest = "";
-                this.filteredTests = [];
+                this.selectedTreatment = "";
+                this.filteredTreatments = [];
                 this.selectedEquipments = [];
                 this.selected = "";
                 this.displayTest = false;
-                this.test = new Test();
-                this.dialogHeader = "Add New Test";
-                this.getSessionTests();
+                this.treatment = new Treatment();
+                this.dialogHeader = "Add New Treatment";
+                this.getSessionTreatments();
                 this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
@@ -159,18 +159,18 @@ export class TreatmentTestsComponent implements OnInit {
     }
     onHide() {
         this.showTests = true;
-        this.filteredTests = [];
-        this.selectedTest = "";
+        this.filteredTreatments = [];
+        this.selectedTreatment = "";
         this.selectedEquipments = [];
         this.showSaveButton = true;
     }
-    cancelTest() {
-        this.selectedTest = "";
+    cancelTreatment() {
+        this.selectedTreatment = "";
         this.selected = "";
-        this.filteredTests = [];
+        this.filteredTreatments = [];
         this.showTests = true;
         this.displayTest = false;
-        this.dialogHeader = "Add New Test";
+        this.dialogHeader = "Add New Treatment";
     }
     showMessage(type, title, message) {
         this.messageService.add({
@@ -197,35 +197,44 @@ export class TreatmentTestsComponent implements OnInit {
                 this.router.navigate(["/dashboard"]);
             });
     }
-    filterTest(event) {
+    filterTreatment(event) {
+        console.log(event);
         const query = event.query;
-        this.testService.getTest("treatmentTests").then((tests) => {
-            this.filteredTests = this.searchTest(query, tests);
-        });
+        this.treatmentService
+            .getTreatmentTest("treatmentTests")
+            .then((treatments) => {
+                this.filteredTreatments = this.searchTreatment(
+                    query,
+                    treatments
+                );
+            });
     }
-    searchTest(query, tests: any[]): any[] {
+    searchTreatment(query, treatments: any[]): any[] {
         const filtered: any[] = [];
-        for (const item of tests) {
-            const test = item;
-            if (test.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-                filtered.push(test);
+        for (const item of treatments) {
+            if (
+                item.treatmentName
+                    .toLowerCase()
+                    .indexOf(query.toLowerCase()) === 0
+            ) {
+                filtered.push(item);
             }
         }
         return filtered;
     }
-    getAllTests() {
-        this.testService.getTest("treatmentTests").then((res) => {
-            this.allTests = res;
+    getAllTreatments() {
+        this.treatmentService.getTreatmentTest("treatmentTests").then((res) => {
+            this.allTreatments = res;
         });
     }
     getAllEquipments() {
-        this.testService.getTest("equipments").then((res) => {
+        this.treatmentService.getTreatmentTest("equipments").then((res) => {
             this.allEquipments = res;
         });
     }
-    async openTest(test) {
-        this.selected = test;
-        this.testService.getTest(test.treatmentId).then(
+    async openTest(treatment) {
+        this.selected = treatment;
+        this.treatmentService.getTreatmentTest(treatment.treatmentId).then(
             (res) => {
                 this.selectedTestData = res;
                 this.showTests = false;
@@ -233,8 +242,8 @@ export class TreatmentTestsComponent implements OnInit {
             },
             (err) => {
                 if (this.showTests) {
-                    test.patientSessionId = this.selectedSession.id;
-                    this.saveWithoutParams(test);
+                    treatment.patientSessionId = this.selectedSession.id;
+                    this.saveWithoutParams(treatment);
                 } else {
                     this.showTests = true;
                     return false;
@@ -242,23 +251,23 @@ export class TreatmentTestsComponent implements OnInit {
             }
         );
     }
-    saveWithoutParams(test) {
-        this.testService.createTreatment(test).subscribe((u: any) => {
-            this.selectedTest = "";
-            this.filteredTests = [];
+    saveWithoutParams(treatment) {
+        this.treatmentService.createTreatment(treatment).subscribe((u: any) => {
+            this.selectedTreatment = "";
+            this.filteredTreatments = [];
             this.selectedEquipments = [];
             this.selected = "";
             this.displayTest = false;
-            this.test = new Test();
-            this.dialogHeader = "Add New Test";
-            this.getSessionTests();
+            this.treatment = new Treatment();
+            this.dialogHeader = "Add New Treatment";
+            this.getSessionTreatments();
             this.showTable();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         });
     }
-    getSelectedTest(test) {
-        this.testService.getTest(test).then((res) => {
+    getSelectedTest(treatment) {
+        this.treatmentService.getTreatmentTest(treatment).then((res) => {
             this.selectedTestData = res;
             this.dialogHeader = res.map((r) => r.name);
         });
@@ -287,35 +296,37 @@ export class TreatmentTestsComponent implements OnInit {
     customTrackBy(index: number, obj: any): any {
         return index;
     }
-    getSessionTests() {
+    getSessionTreatments() {
         this.spinner.show();
-        this.testService
-            .getSessionTests(this.selectedSession.id)
+        this.treatmentService
+            .getSessionTreatments(this.selectedSession.id)
             .subscribe((result) => {
-                this.tests = result;
+                this.treatments = result;
                 this.showTable();
                 this.spinner.hide();
             });
     }
-    async retrieveTestData(test) {
-        await this.openTest(test);
+    async retrieveTestData(treatment) {
+        await this.openTest(treatment);
         this.showTests = false;
         this.spinner.show();
-        this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
-            if (res && res.length > 0) {
-                this.showSaveButton = false;
-                this.selectedTestData[0].id = test.id;
-                res.forEach((element) => {
-                    this.selectedEquipments.push(element.equipmentName);
-                });
-            }
-        });
-        this.testService
-            .getTestParametersValues(test.id)
+        this.treatmentService
+            .getSessionTreatmentEquipment(treatment.id)
+            .subscribe((res) => {
+                if (res && res.length > 0) {
+                    this.showSaveButton = false;
+                    this.selectedTestData[0].id = treatment.id;
+                    res.forEach((element) => {
+                        this.selectedEquipments.push(element.equipmentName);
+                    });
+                }
+            });
+        this.treatmentService
+            .getTestParametersValues(treatment.id)
             .subscribe((result) => {
                 if (result && result.length > 0) {
                     this.showSaveButton = false;
-                    this.selectedTestData[0].id = test.id;
+                    this.selectedTestData[0].id = treatment.id;
                     const parameters = this.selectedTestData[0].parameters;
                     if (parameters && parameters.length > 0) {
                         for (const element of parameters) {

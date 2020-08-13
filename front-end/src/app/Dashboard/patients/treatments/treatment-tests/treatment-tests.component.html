@@ -7,20 +7,20 @@
             type="button"
             pButton
             icon="pi pi-bars"
-            label="Add Test"
+            label="Add Treatment"
             (click)="showTestDialog()"
         ></button>
     </div>
     <div class="ui-g-12 ui-md-9"></div>
 </div>
 <div class="centerClass" *ngIf="!showTableFlag">
-    <h3>Click Add Test To Add A New Test</h3>
+    <h3>Click Add Treatment To Add A New Treatment</h3>
     <button
         #btn
         type="button"
         pButton
         icon="pi pi-bars"
-        label="Add Test"
+        label="Add Treatment"
         (click)="showTestDialog()"
     ></button>
 </div>
@@ -39,8 +39,8 @@
             <div class="ui-g-12 ui-md-12" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
                     <p-autoComplete
-                        [(ngModel)]="selectedTest"
-                        (completeMethod)="filterTest($event)"
+                        [(ngModel)]="selectedTreatment"
+                        (completeMethod)="filterTreatment($event)"
                         field="name"
                         placeholder="Start typing to filter ..."
                         [size]="30"
@@ -49,13 +49,13 @@
                 </div>
                 <div
                     *ngIf="
-                        filteredTests && filteredTests.length > 0;
+                        filteredTreatments && filteredTreatments.length > 0;
                         else other
                     "
                 >
                     <div
                         class="ui-g-12 ui-md-3"
-                        *ngFor="let filtered of filteredTests"
+                        *ngFor="let filtered of filteredTreatments"
                         (click)="openTest(filtered)"
                     >
                         <p-card
@@ -70,15 +70,15 @@
                 <ng-template #other>
                     <div
                         class="ui-g-12 ui-md-3"
-                        *ngFor="let test of allTests"
-                        (click)="openTest(test)"
+                        *ngFor="let treatment of allTreatments"
+                        (click)="openTest(treatment)"
                     >
                         <p-card
                             class="centerHeader pointerCursor"
                             [style]="{ height: '60px' }"
                             styleClass="ui-card-shadow cardBorderRadius"
                         >
-                            {{ test.treatmentName }}
+                            {{ treatment.treatmentName }}
                         </p-card>
                     </div>
                 </ng-template>
@@ -86,7 +86,7 @@
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div
                     class="ui-g ui-fluid"
-                    *ngFor="let test of selectedTestData"
+                    *ngFor="let treatment of selectedTestData"
                 >
                     <div class="ui-g-12 ui-md-6 rightVerticalLine">
                         <h2
@@ -103,7 +103,7 @@
                         </h2>
                     </div>
                     <div
-                        *ngFor="let t of test.parameters"
+                        *ngFor="let t of treatment.parameters"
                         class="ui-g-12 ui-md-12 removeMarginAndPadding"
                     >
                         <div
@@ -524,7 +524,7 @@
                                     type="button"
                                     pButton
                                     icon="pi pi-times"
-                                    (click)="cancelTest()"
+                                    (click)="cancelTreatment()"
                                     label="Cancel"
                                     class="ui-button-secondary"
                                 ></button>
@@ -534,7 +534,7 @@
                                     *ngIf="!showTests"
                                     type="submit"
                                     pButton
-                                    (click)="saveTest()"
+                                    (click)="saveTreatment()"
                                     icon="pi pi-check"
                                     label="Ok"
                                     class="ui-button-icon-primary"
@@ -549,7 +549,7 @@
                                     type="button"
                                     pButton
                                     icon="pi pi-times"
-                                    (click)="cancelTest()"
+                                    (click)="cancelTreatment()"
                                     label="Cancel"
                                     class="ui-button-secondary"
                                 ></button>
@@ -559,7 +559,7 @@
                                     *ngIf="!showTests"
                                     type="submit"
                                     pButton
-                                    (click)="updateTest()"
+                                    (click)="updateTreatment()"
                                     icon="pi pi-check"
                                     label="Update"
                                     class="ui-button-icon-primary"
@@ -579,7 +579,7 @@
                 #dt
                 [columns]="cols"
                 styleClass="ui-table-cars"
-                [value]="tests"
+                [value]="treatments"
                 [paginator]="true"
                 [resizableColumns]="true"
                 [responsive]="true"

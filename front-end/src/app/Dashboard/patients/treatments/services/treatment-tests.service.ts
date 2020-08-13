@@ -13,14 +13,14 @@ export class TreatmentTestsService {
     sessionTestEquipmentLink = "/sessionTreatmentEquipment";
     constructor(private http: HttpClient) {}
 
-    getTest(test) {
+    getTreatmentTest(test) {
         return this.http
             .get<any>(`assets/tests/${test}.json`)
             .toPromise()
             .then((res) => res.data as any[])
             .then((data) => data);
     }
-    getSessionTests(patientSessionId): Observable<any> {
+    getSessionTreatments(patientSessionId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
         );
@@ -36,7 +36,7 @@ export class TreatmentTestsService {
             `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTreatmentId][eq]=${sessionTreatmentId}`
         );
     }
-    getSessionTestEquipment(sessionTreatmentId): Observable<any> {
+    getSessionTreatmentEquipment(sessionTreatmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.sessionTestEquipmentLink}?filter[where][sessionTreatmentId][eq]=${sessionTreatmentId}`
         );
