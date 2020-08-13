@@ -18,7 +18,6 @@ export class PathologyComponent implements OnInit {
     pathology: Pathology = new Pathology();
     items: MenuItem[];
     home: MenuItem;
-    showTableFlag = false;
     selectedSession;
     allTests = [];
     filteredTests: any[];
@@ -60,14 +59,8 @@ export class PathologyComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-stethoscope" };
 
-        this.showTable();
         this.getAllTests();
         this.getAllPathologies();
-    }
-    showTable() {
-        if (this.pathologies.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     save(test) {
         this.pathology.deseaseId = test.id;
@@ -82,7 +75,6 @@ export class PathologyComponent implements OnInit {
                 this.selectedTest = "";
                 this.filteredTests = [];
                 this.getAllPathologies();
-                this.showTable();
                 this.showMessage("success", "Saved", "Data saved successfully");
                 this.spinner.hide();
             });
@@ -144,7 +136,6 @@ export class PathologyComponent implements OnInit {
             .getAllPathologies(this.selectedSession.id)
             .subscribe((result) => {
                 this.pathologies = result;
-                this.showTable();
                 this.spinner.hide();
             });
     }
