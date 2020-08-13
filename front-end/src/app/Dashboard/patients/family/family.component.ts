@@ -20,7 +20,6 @@ export class FamilyComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     displayBasic: boolean;
-    showTableFlag = false;
     family: Family = new Family();
     selectedPatient;
     constructor(
@@ -55,12 +54,6 @@ export class FamilyComponent implements OnInit {
         this.home = { icon: "fa fa-user-md" };
         this.getALlFamilies();
         this.getAllPatientMemberRelationType();
-        this.showTable();
-    }
-    showTable() {
-        if (this.families.length > 0) {
-            this.showTableFlag = true;
-        }
     }
     getALlFamilies() {
         this.spinner.show();
@@ -70,7 +63,6 @@ export class FamilyComponent implements OnInit {
                 this.families = await this.getPatientMemberRelationTypeById(
                     result
                 );
-                this.showTable();
                 this.spinner.hide();
             });
     }
