@@ -203,6 +203,7 @@ CREATE TABLE `parameter_value` (
   `ear` char(5) NOT NULL,
   `session_test_id` int DEFAULT NULL,
   `session_treatment_id` int DEFAULT NULL,
+  `session_pathology_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -381,6 +382,7 @@ CREATE TABLE `patient_session` (
   `performer` varchar(45) DEFAULT NULL,
   `notes` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
+  `ended` varchar(5) DEFAULT 'false',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -394,7 +396,7 @@ DROP TABLE IF EXISTS `patient_session_pathology`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `patient_session_pathology` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `desease_id` int NOT NULL,
+  `desease_id` varchar(45) NOT NULL,
   `desease_name` varchar(45) NOT NULL,
   `ear` varchar(5) NOT NULL DEFAULT 'BOTH',
   `patient_session_id` int NOT NULL,

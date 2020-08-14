@@ -141,6 +141,20 @@ export class ParameterValue extends Entity {
     },
   })
   sessionTreatmentId?: number;
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {
+      columnName: 'session_pathology_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'Y',
+    },
+  })
+  sessionPathologyId?: number;
 
   // Define well-known properties here
 

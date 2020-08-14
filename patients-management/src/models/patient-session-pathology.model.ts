@@ -3,8 +3,8 @@ import {Entity, model, property} from '@loopback/repository';
 @model({
   settings: {
     idInjection: false,
-    mysql: {schema: 'otodna-patients', table: 'patient_session_pathology'}
-  }
+    mysql: {schema: 'otodna-patients', table: 'patient_session_pathology'},
+  },
 })
 export class PatientSessionPathology extends Entity {
   @property({
@@ -13,16 +13,30 @@ export class PatientSessionPathology extends Entity {
     precision: 10,
     scale: 0,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   id: number;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'desease_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'desease_id',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   deseaseId: number;
 
@@ -30,7 +44,14 @@ export class PatientSessionPathology extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'desease_name', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'desease_name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   deseaseName: string;
 
@@ -38,7 +59,14 @@ export class PatientSessionPathology extends Entity {
     type: 'string',
     required: false,
     length: 5,
-    mysql: {columnName: 'ear', dataType: 'varchar', dataLength: 5, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'ear',
+      dataType: 'varchar',
+      dataLength: 5,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   ear: string;
 
@@ -47,7 +75,14 @@ export class PatientSessionPathology extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'patient_session_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'patient_session_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   patientSessionId: number;
 
@@ -66,4 +101,5 @@ export interface PatientSessionPathologyRelations {
   // describe navigational properties here
 }
 
-export type PatientSessionPathologyWithRelations = PatientSessionPathology & PatientSessionPathologyRelations;
+export type PatientSessionPathologyWithRelations = PatientSessionPathology &
+  PatientSessionPathologyRelations;

@@ -153,7 +153,11 @@ export class TestsComponent implements OnInit {
                 this.test = new Test();
                 this.dialogHeader = "Add New Test";
                 this.getSessionTests();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessage(
+                    "success",
+                    "Saved",
+                    "Data updated successfully"
+                );
                 this.spinner.hide();
             });
     }

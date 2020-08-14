@@ -144,7 +144,11 @@ export class TreatmentTestsComponent implements OnInit {
                 this.treatment = new Treatment();
                 this.dialogHeader = "Add New Treatment";
                 this.getSessionTreatments();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessage(
+                    "success",
+                    "Saved",
+                    "Data updated successfully"
+                );
                 this.spinner.hide();
             });
     }

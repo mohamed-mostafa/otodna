@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 export class PathologyService {
     apiUrl = environment.patientApiUrl;
     link = "patient-session-pathologies";
+    parameterValueLink = "parameterValue";
     constructor(private http: HttpClient) {}
 
     getAllPathologies(patientSessionId): Observable<any> {
@@ -25,5 +26,10 @@ export class PathologyService {
             .toPromise()
             .then((res) => res.data as any[])
             .then((data) => data);
+    }
+    getTestParametersValues(sessionPathologyId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionPathologyId][eq]=${sessionPathologyId}`
+        );
     }
 }

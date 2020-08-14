@@ -1,164 +1,168 @@
 {
     "data": [
         {
-            "id": 1,
-            "name": "Cholesteatoma Middle Ear"
+            "deseaseId": "demo",
+            "deseaseName": "Demo"
         },
         {
-            "id": 2,
-            "name": "Congenital Microtia"
+            "deseaseId": "1",
+            "deseaseName": "Cholesteatoma Middle Ear"
         },
         {
-            "id": 3,
-            "name": "Ear Deformities Acquired"
+            "deseaseId": "2",
+            "deseaseName": "Congenital Microtia"
         },
         {
-            "id": 4,
-            "name": "Ear Neoplasms"
+            "deseaseId": "3",
+            "deseaseName": "Ear Deformities Acquired"
         },
         {
-            "id": 5,
-            "name": "Earache"
+            "deseaseId": "4",
+            "deseaseName": "Ear Neoplasms"
         },
         {
-            "id": 6,
-            "name": "Usher Syndromes"
+            "deseaseId": "5",
+            "deseaseName": "Earache"
         },
         {
-            "id": 7,
-            "name": "Wolfram Syndrome"
+            "deseaseId": "6",
+            "deseaseName": "Usher Syndromes"
         },
         {
-            "id": 8,
-            "name": "Herpes Zoster Oticus"
+            "deseaseId": "7",
+            "deseaseName": "Wolfram Syndrome"
         },
         {
-            "id": 9,
-            "name": "Hearing Loss, Bilateral"
+            "deseaseId": "8",
+            "deseaseName": "Herpes Zoster Oticus"
         },
         {
-            "id": 10,
-            "name": "Hearing Loss, Conductive"
+            "deseaseId": "9",
+            "deseaseName": "Hearing Loss, Bilateral"
         },
         {
-            "id": 11,
-            "name": "Hearing Loss, Functional"
+            "deseaseId": "10",
+            "deseaseName": "Hearing Loss, Conductive"
         },
         {
-            "id": 12,
-            "name": "Hearing Loss, High-Frequency"
+            "deseaseId": "11",
+            "deseaseName": "Hearing Loss, Functional"
         },
         {
-            "id": 13,
-            "name": "Hearing Loss, Mixed Conductive-Sensorineural"
+            "deseaseId": "12",
+            "deseaseName": "Hearing Loss, High-Frequency"
         },
         {
-            "id": 14,
-            "name": "Hearing Loss, Sensorineural"
+            "deseaseId": "13",
+            "deseaseName": "Hearing Loss, Mixed Conductive-Sensorineural"
         },
         {
-            "id": 15,
-            "name": "Hearing Loss, Sudden"
+            "deseaseId": "14",
+            "deseaseName": "Hearing Loss, Sensorineural"
         },
         {
-            "id": 16,
-            "name": "Hearing Loss, Unilateral"
+            "deseaseId": "15",
+            "deseaseName": "Hearing Loss, Sudden"
         },
         {
-            "id": 17,
-            "name": "Hyperacusis"
+            "deseaseId": "16",
+            "deseaseName": "Hearing Loss, Unilateral"
         },
         {
-            "id": 18,
-            "name": "Tinnitus"
+            "deseaseId": "17",
+            "deseaseName": "Hyperacusis"
         },
         {
-            "id": 19,
-            "name": "Cochlear Diseases"
+            "deseaseId": "18",
+            "deseaseName": "Tinnitus"
         },
         {
-            "id": 20,
-            "name": "Meniere Disease"
+            "deseaseId": "19",
+            "deseaseName": "Cochlear Diseases"
         },
         {
-            "id": 21,
-            "name": "Labyrinthitis"
+            "deseaseId": "20",
+            "deseaseName": "Meniere Disease"
         },
         {
-            "id": 22,
-            "name": "Bilateral Vestibulopathy"
+            "deseaseId": "21",
+            "deseaseName": "Labyrinthitis"
         },
         {
-            "id": 23,
-            "name": "Benign Paroxysmal Positional Vertigo"
+            "deseaseId": "22",
+            "deseaseName": "Bilateral Vestibulopathy"
         },
         {
-            "id": 24,
-            "name": "Otitis Externa"
+            "deseaseId": "23",
+            "deseaseName": "Benign Paroxysmal Positional Vertigo"
         },
         {
-            "id": 25,
-            "name": "Mastoiditis"
+            "deseaseId": "24",
+            "deseaseName": "Otitis Externa"
         },
         {
-            "id": 26,
-            "name": "Otitis Media with Effusion"
+            "deseaseId": "25",
+            "deseaseName": "Mastoiditis"
         },
         {
-            "id": 27,
-            "name": "Otitis Media, Suppurative"
+            "deseaseId": "26",
+            "deseaseName": "Otitis Media with Effusion"
         },
         {
-            "id": 28,
-            "name": "Petrositis"
+            "deseaseId": "27",
+            "deseaseName": "Otitis Media, Suppurative"
         },
         {
-            "id": 29,
-            "name": "Otomycosis"
+            "deseaseId": "28",
+            "deseaseName": "Petrositis"
         },
         {
-            "id": 30,
-            "name": "Otosclerosis"
+            "deseaseId": "29",
+            "deseaseName": "Otomycosis"
         },
         {
-            "id": 31,
-            "name": "Ototoxicity"
+            "deseaseId": "30",
+            "deseaseName": "Otosclerosis"
         },
         {
-            "id": 32,
-            "name": "Auditory Perceptual Disorders"
+            "deseaseId": "31",
+            "deseaseName": "Ototoxicity"
         },
         {
-            "id": 33,
-            "name": "Hearing Loss, Central"
+            "deseaseId": "32",
+            "deseaseName": "Auditory Perceptual Disorders"
         },
         {
-            "id": 34,
-            "name": "Neurofibromatosis 2"
+            "deseaseId": "33",
+            "deseaseName": "Hearing Loss, Central"
         },
         {
-            "id": 35,
-            "name": "Vestibular Neuronitis"
+            "deseaseId": "34",
+            "deseaseName": "Neurofibromatosis 2"
         },
         {
-            "id": 36,
-            "name": "Vestibulocochlear Nerve Injuries"
+            "deseaseId": "35",
+            "deseaseName": "Vestibular Neuronitis"
         },
         {
-            "id": 37,
-            "name": "Susac Syndrome"
+            "deseaseId": "36",
+            "deseaseName": "Vestibulocochlear Nerve Injuries"
         },
         {
-            "id": 38,
-            "name": "Tympanic Membrane Perforation"
+            "deseaseId": "37",
+            "deseaseName": "Susac Syndrome"
         },
         {
-            "id": 39,
-            "name": "Ear Neoplasms"
+            "deseaseId": "38",
+            "deseaseName": "Tympanic Membrane Perforation"
         },
         {
-            "id": 40,
-            "name": "Congenital Microtia"
+            "deseaseId": "39",
+            "deseaseName": "Ear Neoplasms"
+        },
+        {
+            "deseaseId": "40",
+            "deseaseName": "Congenital Microtia"
         }
     ]
 }

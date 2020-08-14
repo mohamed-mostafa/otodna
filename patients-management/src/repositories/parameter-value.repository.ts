@@ -1,3 +1,4 @@
+import {PatientSessionPathologyRepository} from './patient-session-pathology.repository';
 import {SessionTreatmentEquipmentRepository} from './session-treatment-equipment.repository';
 import {SessionTreatmentRepository} from './session-treatment.repository';
 import {SessionTestRepository} from './session-test.repository';
@@ -25,6 +26,8 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
   private sessionTestRepository: SessionTestRepository;
   @repository(SessionTreatmentRepository)
   private sessionTreatmentRepository: SessionTreatmentRepository;
+  @repository(PatientSessionPathologyRepository)
+  private patientSessionPathologyRepository: PatientSessionPathologyRepository;
   @repository(SessionTreatmentEquipmentRepository)
   private sessionTreatmentEquipmentRepository: SessionTreatmentEquipmentRepository;
   public createParametersValues(data: Array<any>): Promise<any> {
@@ -61,7 +64,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               });
             }
           }
-        } else {
+        } else if (data[0].sessionTreatmentId) {
           let sessionTestObj = {
             treatmentId: data[0].testId,
             treatmentName: data[0].name,
@@ -91,6 +94,25 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               await this.sessionTreatmentEquipmentRepository.create(obj, {
                 transaction: tx,
               });
+            }
+          }
+        } else {
+          let sessionTestObj = {
+            deseaseId: data[0].testId,
+            deseaseName: data[0].name,
+            patientSessionId: data[0].sessionPathologyId,
+          };
+          let res = await this.patientSessionPathologyRepository.create(
+            sessionTestObj,
+          );
+          let handledData = await this.handleData(
+            data,
+            res.id,
+            'sessionPathologyId',
+          );
+          if (handledData && handledData.length > 0) {
+            for (const d of handledData) {
+              await super.create(d, {transaction: tx});
             }
           }
         }
@@ -136,7 +158,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               });
             }
           }
-        } else {
+        } else if (data[0].sessionTreatmentId) {
           await super.deleteAll(
             {sessionTreatmentId: data[0].id},
             {transaction: tx},
@@ -168,8 +190,22 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
               });
             }
           }
+        } else {
+          await super.deleteAll(
+            {sessionPathologyId: data[0].id},
+            {transaction: tx},
+          );
+          let handledData = await this.handleData(
+            data,
+            data[0].id,
+            'sessionPathologyId',
+          );
+          if (handledData && handledData.length > 0) {
+            for (const d of handledData) {
+              await super.create(d, {transaction: tx});
+            }
+          }
         }
-
         await tx.commit();
         resolve(data);
       } catch (err) {

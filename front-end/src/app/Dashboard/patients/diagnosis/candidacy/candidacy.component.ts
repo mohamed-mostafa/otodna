@@ -148,7 +148,11 @@ export class CandidacyComponent implements OnInit {
                 this.candidacy = new Candidacy();
                 this.dialogHeader = "Add New Recommendation";
                 this.getAllCandidacies();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessage(
+                    "success",
+                    "Saved",
+                    "Data updated successfully"
+                );
                 this.spinner.hide();
             });
     }
