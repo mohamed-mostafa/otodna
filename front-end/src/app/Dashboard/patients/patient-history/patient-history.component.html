@@ -87,7 +87,11 @@
                                 class="marginBottomAndTop pointerCursor"
                                 (click)="openDataPage(data)"
                             >
-                                {{ data.notes ? data.notes : data.displayName }}
+                                {{
+                                    data.notes
+                                        ? data.notes
+                                        : "Session is not ended, Please end session"
+                                }}
                             </div>
                         </span>
                     </div>

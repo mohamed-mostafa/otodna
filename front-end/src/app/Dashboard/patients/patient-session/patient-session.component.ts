@@ -117,6 +117,7 @@ export class PatientSessionComponent implements OnInit {
                 this.patientSession
                     .createSession(this.session)
                     .subscribe((u: any) => {
+                        u.ended = "false";
                         this.spinner.hide();
                         localStorage.setItem(
                             "sessionBasicInfo",
@@ -225,5 +226,20 @@ export class PatientSessionComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    endSession() {
+        if (!this.session.notes) {
+            this.showMessage(
+                "error",
+                "Validation Error",
+                "Conclusion is required"
+            );
+            return false;
+        }
+        this.session.ended = "true";
+        this.patientSession.updateSession(this.session).subscribe((u: any) => {
+            this.session = new Session();
+            this.goToPatientPage("a");
+        });
     }
 }

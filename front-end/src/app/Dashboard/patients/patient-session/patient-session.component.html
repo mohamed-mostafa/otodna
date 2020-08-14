@@ -1,5 +1,17 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<div class="ui-g ui-fluid" *ngIf="!showButtons && session.ended === 'false'">
+    <div class="ui-g-12 ui-md-10"></div>
+    <div class="ui-g-12 ui-md-2">
+        <button
+            pButton
+            type="button"
+            label="End Session"
+            (click)="endSession()"
+            class="ui-button-danger ui-button-raised"
+        ></button>
+    </div>
+</div>
 <p-fieldset legend="Patient Session">
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-4">

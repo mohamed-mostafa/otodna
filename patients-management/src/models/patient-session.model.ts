@@ -140,6 +140,20 @@ export class PatientSession extends Entity {
   })
   patientId: number;
 
+  @property({
+    type: 'string',
+    length: 5,
+    mysql: {
+      columnName: 'ended',
+      dataType: 'varchar',
+      dataLength: 5,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
+  })
+  ended?: string;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data
