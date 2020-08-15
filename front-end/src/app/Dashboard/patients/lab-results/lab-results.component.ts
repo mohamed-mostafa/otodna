@@ -21,6 +21,7 @@ export class LabResultsComponent implements OnInit {
     labResult: LabResult = new LabResult();
     selectedPatient;
     showSaveButton = true;
+    showAllButtons = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -56,6 +57,20 @@ export class LabResultsComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-user-md" };
         this.getALlLabResults();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     showDialog() {
         this.displayBasic = true;

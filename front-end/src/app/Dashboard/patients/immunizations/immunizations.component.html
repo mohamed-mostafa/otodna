@@ -2,7 +2,7 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <p-dialog
-    header="Add Immunization"
+    header="Immunization"
     [(visible)]="displayBasic"
     [style]="{ width: '58vw' }"
     [baseZIndex]="10000"
@@ -63,7 +63,7 @@
             </div>
         </div>
     </p-card>
-    <p-footer>
+    <p-footer *ngIf="showAllButtons">
         <ng-container *ngIf="showSaveButton; else elseTemplate">
             <button
                 type="button"
@@ -111,7 +111,7 @@
             [style]="{ height: '120px' }"
             styleClass="ui-card-shadow"
         >
-            <p-header>
+            <p-header *ngIf="showAllButtons">
                 <a
                     href="javascript:void(0)"
                     class="iconStyle"
@@ -134,7 +134,7 @@
             </div>
         </p-card>
     </div>
-    <div class="ui-g-3">
+    <div class="ui-g-3" *ngIf="showAllButtons">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"

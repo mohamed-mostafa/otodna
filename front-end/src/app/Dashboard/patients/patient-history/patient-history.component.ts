@@ -16,6 +16,7 @@ export class PatientHistoryComponent implements OnInit {
     fullcalendarOptions: any;
     selectedPatient;
     allData = [];
+    showAllButtons = true;
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
@@ -42,6 +43,20 @@ export class PatientHistoryComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-user-md" };
         this.getAllData();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     addDiagnosis() {
         localStorage.setItem("sessionTypeId", JSON.stringify(0));
@@ -89,13 +104,15 @@ export class PatientHistoryComponent implements OnInit {
             });
     }
     openDataPage(data) {
-        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-        if (data.sessionTypeId === 0) {
-            this.addDiagnosis();
-        } else if (data.sessionTypeId === 1) {
-            this.addTreatment();
-        } else {
-            this.addFollowup();
+        if (this.showAllButtons === true) {
+            localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+            if (data.sessionTypeId === 0) {
+                this.addDiagnosis();
+            } else if (data.sessionTypeId === 1) {
+                this.addTreatment();
+            } else {
+                this.addFollowup();
+            }
         }
     }
 }

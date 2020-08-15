@@ -23,6 +23,7 @@ export class FamilyComponent implements OnInit {
     family: Family = new Family();
     selectedPatient;
     showSaveButton = true;
+    showAllButtons = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -56,6 +57,20 @@ export class FamilyComponent implements OnInit {
         this.home = { icon: "fa fa-user-md" };
         this.getALlFamilies();
         this.getAllPatientMemberRelationType();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     getALlFamilies() {
         this.spinner.show();

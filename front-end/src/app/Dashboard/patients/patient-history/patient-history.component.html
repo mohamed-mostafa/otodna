@@ -1,7 +1,7 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-6"></div>
-    <div class="ui-g-12 ui-md-2">
+    <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
         <button
             type="button"
             pButton
@@ -10,7 +10,7 @@
             (click)="addDiagnosis()"
         ></button>
     </div>
-    <div class="ui-g-12 ui-md-2">
+    <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
         <button
             type="button"
             pButton
@@ -19,7 +19,7 @@
             (click)="addTreatment()"
         ></button>
     </div>
-    <div class="ui-g-12 ui-md-2">
+    <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
         <button
             type="button"
             pButton

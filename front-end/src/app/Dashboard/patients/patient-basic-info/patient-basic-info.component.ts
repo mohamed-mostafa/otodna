@@ -26,6 +26,7 @@ export class PatientBasicInfoComponent implements OnInit {
     selectedCountry;
     selectedTeam;
     showTeams = false;
+    showAllButtons = true;
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
@@ -79,6 +80,7 @@ export class PatientBasicInfoComponent implements OnInit {
             ];
             this.hideDiscard = true;
             this.getPatientMedicalInfoById(this.patient.id);
+            this.checkLoggedInUserTeamWithPatient();
         } else {
             this.items = [
                 {
@@ -91,6 +93,19 @@ export class PatientBasicInfoComponent implements OnInit {
             ];
         }
         this.home = { icon: "fa fa-user-md" };
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.patient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     reset() {
         this.patient = new Patient();
