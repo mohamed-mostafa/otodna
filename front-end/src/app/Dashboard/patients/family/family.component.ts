@@ -1,7 +1,7 @@
 import { FamilyService } from "./../services/family.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Family } from "./family";
@@ -10,7 +10,7 @@ import { Family } from "./family";
     selector: "app-family",
     templateUrl: "./family.component.html",
     styleUrls: ["./family.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class FamilyComponent implements OnInit {
     cols: any[];
@@ -22,10 +22,12 @@ export class FamilyComponent implements OnInit {
     displayBasic: boolean;
     family: Family = new Family();
     selectedPatient;
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private familyService: FamilyService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -122,6 +124,30 @@ export class FamilyComponent implements OnInit {
             }
         });
     }
+    update() {
+        this.validateFamily((callback) => {
+            if (callback === "valid") {
+                this.family.familyMemberRelationTypeId = this.familyMemberRelation.id;
+                delete this.family.relationName;
+                this.spinner.show();
+                this.familyService
+                    .updateFamilyMember(this.family)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlFamilies();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data updated successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
     showMessage(type, title, message) {
         this.messageService.add({
             severity: type,
@@ -156,5 +182,42 @@ export class FamilyComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard"]);
             });
+    }
+    deleteFamilyMember(family) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this family member?",
+            header: "Delete Family Member Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.familyService
+                    .deleteFamilyMember(family.id)
+                    .subscribe((u: any) => {
+                        this.getALlFamilies();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Family member has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        const found = this.relations.find(
+            (r) => data.familyMemberRelationTypeId === r.id
+        );
+        this.familyMemberRelation = found;
+        this.family = data;
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }

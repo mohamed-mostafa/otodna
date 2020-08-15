@@ -1,7 +1,7 @@
 import { ProblemsService } from "./../services/problems.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Problem } from "./problem";
@@ -10,7 +10,7 @@ import { Problem } from "./problem";
     selector: "app-problems",
     templateUrl: "./problems.component.html",
     styleUrls: ["./problems.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class ProblemsComponent implements OnInit {
     cols: any[];
@@ -22,10 +22,12 @@ export class ProblemsComponent implements OnInit {
     problem: Problem = new Problem();
     selectedPatient;
     status;
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private problemsService: ProblemsService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -85,6 +87,30 @@ export class ProblemsComponent implements OnInit {
                             "success",
                             "Saved",
                             "Data saved successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    update() {
+        this.validateProblem((callback) => {
+            if (callback === "valid") {
+                this.problem.problemStatusId = this.status.id;
+                delete this.problem.statusName;
+                this.spinner.show();
+                this.problemsService
+                    .updateProblem(this.problem)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlProblems();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data Updated successfully"
                         );
                     });
             } else {
@@ -161,5 +187,41 @@ export class ProblemsComponent implements OnInit {
                 });
         });
         return problems;
+    }
+    deleteProblem(problem) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this problem?",
+            header: "Delete problem Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.problemsService
+                    .deleteProblem(problem.id)
+                    .subscribe((u: any) => {
+                        this.getALlProblems();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Problem has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        const found = this.statuses.find((r) => data.problemStatusId === r.id);
+        this.status = found;
+        this.problem = data;
+        this.problem.notedDate = new Date(data.notedDate);
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }

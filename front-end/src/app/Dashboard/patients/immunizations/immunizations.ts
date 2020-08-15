@@ -5,4 +5,5 @@ export class Immunizations {
     notedDate: Date;
     comment: string;
     patientId: number;
+    statusName: string;
 }

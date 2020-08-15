@@ -7,4 +7,7 @@ export class Allergies {
     notedDate: Date;
     comment: string;
     patientId: number;
+    typeName: string;
+    severityName: string;
+    statusName: string;
 }

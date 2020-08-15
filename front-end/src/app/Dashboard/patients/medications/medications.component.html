@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <p-dialog
     header="Add Medication"
     [(visible)]="displayBasic"
@@ -8,6 +9,7 @@
     [maximizable]="true"
     [draggable]="false"
     [resizable]="false"
+    (onHide)="onHide()"
 >
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
@@ -73,21 +75,40 @@
         </div>
     </p-card>
     <p-footer>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="cancel()"
-            label="Cancel"
-            class="ui-button-secondary"
-        ></button>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-check"
-            (click)="save()"
-            label="Save"
-        ></button>
+        <ng-container *ngIf="showSaveButton; else elseTemplate">
+            <button
+                type="button"
+                pButton
+                icon="pi pi-times"
+                (click)="cancel()"
+                label="Cancel"
+                class="ui-button-secondary"
+            ></button>
+            <button
+                type="button"
+                pButton
+                icon="pi pi-check"
+                (click)="save()"
+                label="Save"
+            ></button
+        ></ng-container>
+        <ng-template #elseTemplate>
+            <button
+                type="button"
+                pButton
+                icon="pi pi-times"
+                (click)="cancel()"
+                label="Cancel"
+                class="ui-button-secondary"
+            ></button>
+            <button
+                type="button"
+                pButton
+                icon="pi pi-check"
+                (click)="update()"
+                label="Update"
+            ></button
+        ></ng-template>
     </p-footer>
 </p-dialog>
 <div class="ui-g ui-fluid">
@@ -95,10 +116,20 @@
     <div class="ui-g-3" *ngFor="let medication of medications">
         <p-card
             class="centerHeader"
-            [style]="{ height: '140px' }"
+            [style]="{ height: '160px' }"
             styleClass="ui-card-shadow"
         >
-            <div>
+            <p-header>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteMedication(medication)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-header>
+            <div (click)="viewData(medication)" class="pointerCursor">
                 <div class="ui-g-12 ui-md-12 bold">
                     {{ medication.medication }}
                 </div>
@@ -124,7 +155,7 @@
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '135px' }"
+                [style]="{ height: '155px' }"
                 (click)="showDialog()"
             >
                 <h3 style="margin-top: 30px;">

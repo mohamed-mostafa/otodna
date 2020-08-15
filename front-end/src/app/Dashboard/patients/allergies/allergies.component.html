@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <p-dialog
     header="Add Allergy"
     [(visible)]="displayBasic"
@@ -8,6 +9,7 @@
     [maximizable]="true"
     [draggable]="false"
     [resizable]="false"
+    (onHide)="onHide()"
 >
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
@@ -80,21 +82,40 @@
         </div>
     </p-card>
     <p-footer>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="cancel()"
-            label="Cancel"
-            class="ui-button-secondary"
-        ></button>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-check"
-            (click)="save()"
-            label="Save"
-        ></button>
+        <ng-container *ngIf="showSaveButton; else elseTemplate">
+            <button
+                type="button"
+                pButton
+                icon="pi pi-times"
+                (click)="cancel()"
+                label="Cancel"
+                class="ui-button-secondary"
+            ></button>
+            <button
+                type="button"
+                pButton
+                icon="pi pi-check"
+                (click)="save()"
+                label="Save"
+            ></button
+        ></ng-container>
+        <ng-template #elseTemplate>
+            <button
+                type="button"
+                pButton
+                icon="pi pi-times"
+                (click)="cancel()"
+                label="Cancel"
+                class="ui-button-secondary"
+            ></button>
+            <button
+                type="button"
+                pButton
+                icon="pi pi-check"
+                (click)="update()"
+                label="Update"
+            ></button
+        ></ng-template>
     </p-footer>
 </p-dialog>
 <div class="ui-g ui-fluid">
@@ -105,7 +126,17 @@
             [style]="{ height: '120px' }"
             styleClass="ui-card-shadow"
         >
-            <div>
+            <p-header>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteAllergy(allergy)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-header>
+            <div (click)="viewData(allergy)" class="pointerCursor">
                 <div class="ui-g-12 ui-md-12 bold">
                     {{ allergy.typeName }}
                 </div>

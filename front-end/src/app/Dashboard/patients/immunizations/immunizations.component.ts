@@ -1,7 +1,7 @@
 import { ImmunizationsService } from "./../services/immunizations.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Immunizations } from "./immunizations";
@@ -10,7 +10,7 @@ import { Immunizations } from "./immunizations";
     selector: "app-immunizations",
     templateUrl: "./immunizations.component.html",
     styleUrls: ["./immunizations.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class ImmunizationsComponent implements OnInit {
     cols: any[];
@@ -22,10 +22,12 @@ export class ImmunizationsComponent implements OnInit {
     immunization: Immunizations = new Immunizations();
     selectedPatient;
     status;
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private immunizationsService: ImmunizationsService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -86,6 +88,30 @@ export class ImmunizationsComponent implements OnInit {
                             "success",
                             "Saved",
                             "Data saved successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    update() {
+        this.validateImmunization((callback) => {
+            if (callback === "valid") {
+                this.immunization.immunizationStatusId = this.status.id;
+                delete this.immunization.statusName;
+                this.spinner.show();
+                this.immunizationsService
+                    .updateImmunization(this.immunization)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlImmunizations();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data Updated successfully"
                         );
                     });
             } else {
@@ -166,5 +192,43 @@ export class ImmunizationsComponent implements OnInit {
                 });
         });
         return immunizations;
+    }
+    deleteImmunization(immunization) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this immunization ?",
+            header: "Delete immunization  Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.immunizationsService
+                    .deleteImmunization(immunization.id)
+                    .subscribe((u: any) => {
+                        this.getALlImmunizations();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Immunization has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        const found = this.immunizationsStatus.find(
+            (r) => data.immunizationStatusId === r.id
+        );
+        this.status = found;
+        this.immunization = data;
+        this.immunization.notedDate = new Date(data.notedDate);
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }

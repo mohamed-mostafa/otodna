@@ -1,7 +1,7 @@
 import { VitalService } from "./../services/vital.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Vital } from "./vital";
@@ -10,7 +10,7 @@ import { Vital } from "./vital";
     selector: "app-vital",
     templateUrl: "./vital.component.html",
     styleUrls: ["./vital.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class VitalComponent implements OnInit {
     cols: any[];
@@ -22,10 +22,12 @@ export class VitalComponent implements OnInit {
     vital: Vital = new Vital();
     recordType;
     selectedPatient;
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private vitalService: VitalService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -81,6 +83,31 @@ export class VitalComponent implements OnInit {
                             "success",
                             "Saved",
                             "Data saved successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    update() {
+        this.validateVital((callback) => {
+            if (callback === "valid") {
+                this.vital.vitalRecordTypeId = this.recordType.id;
+                delete this.vital.vitalName;
+                delete this.vital.vitalUnit;
+                this.spinner.show();
+                this.vitalService
+                    .updateVital(this.vital)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlVitals();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data updated successfully"
                         );
                     });
             } else {
@@ -167,5 +194,41 @@ export class VitalComponent implements OnInit {
                 });
         });
         return vitals;
+    }
+    deleteVital(vital) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this vital?",
+            header: "Delete vital Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.vitalService.deleteVital(vital.id).subscribe((u: any) => {
+                    this.getALlVitals();
+                    this.spinner.hide();
+                });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Vital has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        const found = this.recordTypes.find(
+            (r) => data.vitalRecordTypeId === r.id
+        );
+        this.recordType = found;
+        this.vital = data;
+        this.vital.notedDate = new Date(data.notedDate);
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }

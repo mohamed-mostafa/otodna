@@ -7,4 +7,5 @@ export class Medication {
     notedDate: Date;
     comment: string;
     patientId: number;
+    statusName: string;
 }

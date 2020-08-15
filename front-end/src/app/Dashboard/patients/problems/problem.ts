@@ -4,4 +4,5 @@ export class Problem {
     notedDate: Date;
     comment: string;
     patientId: number;
+    statusName: string;
 }

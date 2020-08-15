@@ -1,7 +1,7 @@
 import { AllergiesService } from "./../services/allergies.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Allergies } from "./allergies";
@@ -10,7 +10,7 @@ import { Allergies } from "./allergies";
     selector: "app-allergies",
     templateUrl: "./allergies.component.html",
     styleUrls: ["./allergies.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class AllergiesComponent implements OnInit {
     cols: any[];
@@ -26,10 +26,12 @@ export class AllergiesComponent implements OnInit {
     allergyStatuses = [];
     status;
     selectedPatient;
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private allergiesService: AllergiesService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -99,6 +101,34 @@ export class AllergiesComponent implements OnInit {
                             "success",
                             "Saved",
                             "Data saved successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    update() {
+        this.validateAllergy((callback) => {
+            if (callback === "valid") {
+                this.allergy.allergyTypeId = this.type.id;
+                this.allergy.allergySeverityId = this.severity.id;
+                this.allergy.allergyStatusId = this.status.id;
+                delete this.allergy.typeName;
+                delete this.allergy.severityName;
+                delete this.allergy.statusName;
+                this.spinner.show();
+                this.allergiesService
+                    .updateAllergy(this.allergy)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlAllergies();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data updated successfully"
                         );
                     });
             } else {
@@ -239,5 +269,49 @@ export class AllergiesComponent implements OnInit {
                 });
         });
         return allergies;
+    }
+    deleteAllergy(allergy) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this allergy?",
+            header: "Delete Allergy Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.allergiesService
+                    .deleteAllergy(allergy.id)
+                    .subscribe((u: any) => {
+                        this.getALlAllergies();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Allergy has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        const type = this.allergyTypes.find((r) => data.allergyTypeId === r.id);
+        this.type = type;
+        const severity = this.allergySeverities.find(
+            (r) => data.allergySeverityId === r.id
+        );
+        this.severity = severity;
+        const status = this.allergyStatuses.find(
+            (r) => data.allergyStatusId === r.id
+        );
+        this.status = status;
+        this.allergy = data;
+        this.allergy.notedDate = new Date(data.notedDate);
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }

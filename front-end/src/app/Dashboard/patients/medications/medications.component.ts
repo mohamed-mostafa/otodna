@@ -1,7 +1,7 @@
 import { MedicationsService } from "./../services/medications.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Medication } from "./medication";
@@ -10,7 +10,7 @@ import { Medication } from "./medication";
     selector: "app-medications",
     templateUrl: "./medications.component.html",
     styleUrls: ["./medications.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class MedicationsComponent implements OnInit {
     cols: any[];
@@ -23,10 +23,12 @@ export class MedicationsComponent implements OnInit {
     selectedPatient;
     status;
     date;
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private medicationsService: MedicationsService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -92,6 +94,32 @@ export class MedicationsComponent implements OnInit {
                             "success",
                             "Saved",
                             "Data saved successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
+    update() {
+        this.validateMedication((callback) => {
+            if (callback === "valid") {
+                this.medication.medicationStatusId = this.status.id;
+                this.medication.startDate = this.date[0];
+                this.medication.endDate = this.date[1];
+                delete this.medication.statusName;
+                this.spinner.show();
+                this.medicationsService
+                    .updateMedication(this.medication)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlMedications();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data Updated successfully"
                         );
                     });
             } else {
@@ -194,5 +222,46 @@ export class MedicationsComponent implements OnInit {
                 });
         });
         return medications;
+    }
+    deleteMedication(medication) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this medication?",
+            header: "Delete medication Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.medicationsService
+                    .deleteMedication(medication.id)
+                    .subscribe((u: any) => {
+                        this.getALlMedications();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Medication has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        const found = this.statuses.find(
+            (r) => data.medicationStatusId === r.id
+        );
+        this.status = found;
+        this.date = [];
+        this.date.push(new Date(data.startDate));
+        this.date.push(new Date(data.endDate));
+        this.medication = data;
+        this.medication.notedDate = new Date(data.notedDate);
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }

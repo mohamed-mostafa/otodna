@@ -1,7 +1,7 @@
 import { LabResultsService } from "./../services/lab-results.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { LabResult } from "./labResult";
 import { Component, OnInit } from "@angular/core";
@@ -10,7 +10,7 @@ import { Component, OnInit } from "@angular/core";
     selector: "app-lab-results",
     templateUrl: "./lab-results.component.html",
     styleUrls: ["./lab-results.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class LabResultsComponent implements OnInit {
     cols: any[];
@@ -20,11 +20,12 @@ export class LabResultsComponent implements OnInit {
     displayBasic: boolean;
     labResult: LabResult = new LabResult();
     selectedPatient;
-
+    showSaveButton = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private labResultsService: LabResultsService,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -89,6 +90,28 @@ export class LabResultsComponent implements OnInit {
             }
         });
     }
+    update() {
+        this.validateLabResult((callback) => {
+            if (callback === "valid") {
+                this.spinner.show();
+                this.labResultsService
+                    .updateLabResult(this.labResult)
+                    .subscribe((u: any) => {
+                        this.displayBasic = false;
+                        this.spinner.hide();
+                        this.getALlLabResults();
+                        this.reset();
+                        this.showMessage(
+                            "success",
+                            "Updated",
+                            "Data Updated successfully"
+                        );
+                    });
+            } else {
+                this.showMessage("warn", "Error", "Please try again");
+            }
+        });
+    }
     showMessage(type, title, message) {
         this.messageService.add({
             severity: type,
@@ -145,5 +168,39 @@ export class LabResultsComponent implements OnInit {
                 );
                 this.spinner.hide();
             });
+    }
+    deleteLabResult(labResult) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this labResult ?",
+            header: "Delete labResult Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.labResultsService
+                    .deleteLabResult(labResult.id)
+                    .subscribe((u: any) => {
+                        this.getALlLabResults();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Lab result has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
+    }
+    viewData(data) {
+        this.showSaveButton = false;
+        this.displayBasic = true;
+        this.labResult = data;
+        this.labResult.notedDate = new Date(data.notedDate);
+    }
+    onHide() {
+        this.reset();
+        this.showSaveButton = true;
     }
 }
