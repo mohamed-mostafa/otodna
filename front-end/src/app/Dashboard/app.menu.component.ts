@@ -186,7 +186,8 @@ export class AppMenuComponent implements OnInit {
                 this.router.url === "/dashboard/symptoms" ||
                 this.router.url === "/dashboard/diagnosisTests" ||
                 this.router.url === "/dashboard/diagnosisPathology" ||
-                this.router.url === "/dashboard/diagnosisCandidacy"
+                this.router.url === "/dashboard/diagnosisCandidacy" ||
+                this.router.url === "/dashboard/diagnosisDocuments"
             ) {
                 const array = [
                     "addDiagnosis",
@@ -194,6 +195,7 @@ export class AppMenuComponent implements OnInit {
                     "diagnosisTests",
                     "diagnosisPathology",
                     "diagnosisCandidacy",
+                    "diagnosisDocuments",
                 ];
                 let selectedSession = JSON.parse(
                     localStorage.getItem("sessionBasicInfo")
@@ -225,6 +227,11 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-stethoscope",
                             routerLink: ["diagnosisCandidacy"],
                         },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-file-text",
+                            routerLink: ["diagnosisDocuments"],
+                        },
                     ];
                 } else {
                     this.otherMenu = [
@@ -253,14 +260,24 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
                     ];
                 }
                 resolve(array);
             } else if (
                 this.router.url === "/dashboard/addTreatment" ||
-                this.router.url === "/dashboard/treatmentTests"
+                this.router.url === "/dashboard/treatmentTests" ||
+                this.router.url === "/dashboard/treatmentsDocuments"
             ) {
-                const array = ["addTreatment", "treatmentTests"];
+                const array = [
+                    "addTreatment",
+                    "treatmentTests",
+                    "treatmentsDocuments",
+                ];
                 let selectedSession = JSON.parse(
                     localStorage.getItem("sessionBasicInfo")
                 );
@@ -276,6 +293,11 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-flask",
                             routerLink: ["treatmentTests"],
                         },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-file-text",
+                            routerLink: ["treatmentsDocuments"],
+                        },
                     ];
                 } else {
                     this.otherMenu = [
@@ -289,6 +311,11 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
                     ];
                 }
 
@@ -298,7 +325,8 @@ export class AppMenuComponent implements OnInit {
                 this.router.url === "/dashboard/followupSymptoms" ||
                 this.router.url === "/dashboard/followupTests" ||
                 this.router.url === "/dashboard/followupPathology" ||
-                this.router.url === "/dashboard/followupCandidacy"
+                this.router.url === "/dashboard/followupCandidacy" ||
+                this.router.url === "/dashboard/followupDocuments"
             ) {
                 const array = [
                     "addFollowup",
@@ -306,6 +334,7 @@ export class AppMenuComponent implements OnInit {
                     "followupTests",
                     "followupPathology",
                     "followupCandidacy",
+                    "followupDocuments",
                 ];
                 let selectedSession = JSON.parse(
                     localStorage.getItem("sessionBasicInfo")
@@ -337,6 +366,11 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-stethoscope",
                             routerLink: ["followupCandidacy"],
                         },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-file-text",
+                            routerLink: ["followupDocuments"],
+                        },
                     ];
                 } else {
                     this.otherMenu = [
@@ -365,6 +399,11 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
                     ];
                 }
 
@@ -381,6 +420,7 @@ export class AppMenuComponent implements OnInit {
                     "medical/medications",
                     "medical/problems",
                     "patientHistory",
+                    "documents",
                 ];
                 let selectedPatient = JSON.parse(
                     localStorage.getItem("selectedPatient")
@@ -394,6 +434,11 @@ export class AppMenuComponent implements OnInit {
                         },
                         {
                             label: "Medical Records",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                        {
+                            label: "Documents",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
@@ -451,6 +496,11 @@ export class AppMenuComponent implements OnInit {
                                     routerLink: ["medical/problems"],
                                 },
                             ],
+                        },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-file-text",
+                            routerLink: ["documents"],
                         },
                         {
                             label: "Patient History",

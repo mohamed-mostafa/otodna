@@ -1,3 +1,5 @@
+import { SessionDocumentsComponent } from "./patients/session-documents/session-documents.component";
+import { DocumentsComponent } from "./patients/documents/documents.component";
 import { TreatmentTestsComponent } from "./patients/treatments/treatment-tests/treatment-tests.component";
 import { PatientSessionComponent } from "./patients/patient-session/patient-session.component";
 import { SymptomsComponent } from "./patients/diagnosis/symptoms/symptoms.component";
@@ -93,6 +95,16 @@ export const routes: Routes = [
                 path: "followupCandidacy",
                 component: CandidacyComponent,
             },
+            { path: "documents", component: DocumentsComponent },
+            {
+                path: "diagnosisDocuments",
+                component: SessionDocumentsComponent,
+            },
+            {
+                path: "treatmentsDocuments",
+                component: SessionDocumentsComponent,
+            },
+            { path: "followupDocuments", component: SessionDocumentsComponent },
         ],
     },
 ];
@@ -136,6 +148,8 @@ export const COMPONENTS = [
     SymptomsComponent,
     PatientSessionComponent,
     TreatmentTestsComponent,
+    DocumentsComponent,
+    SessionDocumentsComponent,
 ];
 @NgModule({
     exports: [RouterModule],
