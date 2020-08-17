@@ -20,6 +20,7 @@ export class PatientSessionComponent implements OnInit {
     showButtons = true;
     public href: string = "";
     selectedSession;
+    showAllButtons = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -82,6 +83,20 @@ export class PatientSessionComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     loadData() {
         this.selectedSession = JSON.parse(

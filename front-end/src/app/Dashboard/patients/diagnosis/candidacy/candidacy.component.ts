@@ -14,6 +14,7 @@ import { Candidacy } from "./candidacy";
     providers: [MessageService],
 })
 export class CandidacyComponent implements OnInit {
+    selectedPatient;
     cols: any[];
     candidacies: any[] = [];
     candidacy: Candidacy = new Candidacy();
@@ -34,6 +35,7 @@ export class CandidacyComponent implements OnInit {
     filteredEquipments: any[];
     selectedEquipments = [];
     showSaveButton = true;
+    showAllButtons = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -43,7 +45,7 @@ export class CandidacyComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
         this.selectedSession = JSON.parse(
@@ -60,7 +62,9 @@ export class CandidacyComponent implements OnInit {
             },
             {
                 label:
-                    selectedPatient.firstName + " " + selectedPatient.lastName,
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
                 command: (event) => {
                     this.goToPatientPage(event);
                 },
@@ -76,6 +80,20 @@ export class CandidacyComponent implements OnInit {
         this.getAllTests();
         this.getAllCandidacies();
         this.getAllEquipments();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     getEquipmentsAllData(data) {
         const allSelectedEquipments = [];

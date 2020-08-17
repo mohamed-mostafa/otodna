@@ -104,15 +104,13 @@ export class PatientHistoryComponent implements OnInit {
             });
     }
     openDataPage(data) {
-        if (this.showAllButtons === true) {
-            localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-            if (data.sessionTypeId === 0) {
-                this.addDiagnosis();
-            } else if (data.sessionTypeId === 1) {
-                this.addTreatment();
-            } else {
-                this.addFollowup();
-            }
+        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+        if (data.sessionTypeId === 0) {
+            this.addDiagnosis();
+        } else if (data.sessionTypeId === 1) {
+            this.addTreatment();
+        } else {
+            this.addFollowup();
         }
     }
 }

@@ -524,7 +524,7 @@
                     <div class="ui-g-12 ui-md-8"></div>
                     <div class="ui-g-12 ui-md-4" *ngIf="showSaveButton">
                         <p-footer>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6" *ngIf="showAllButtons">
                                 <button
                                     type="button"
                                     pButton
@@ -534,7 +534,7 @@
                                     class="ui-button-secondary"
                                 ></button>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6" *ngIf="showAllButtons">
                                 <button
                                     *ngIf="!showTests"
                                     type="submit"
@@ -549,7 +549,7 @@
                     </div>
                     <div class="ui-g-12 ui-md-4" *ngIf="!showSaveButton">
                         <p-footer>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6" *ngIf="showAllButtons">
                                 <button
                                     type="button"
                                     pButton
@@ -559,7 +559,7 @@
                                     class="ui-button-secondary"
                                 ></button>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12 ui-md-6" *ngIf="showAllButtons">
                                 <button
                                     *ngIf="!showTests"
                                     type="submit"
@@ -592,7 +592,7 @@
             </div>
         </p-card>
     </div>
-    <div class="ui-g-3">
+    <div class="ui-g-3" *ngIf="showAllButtons">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"

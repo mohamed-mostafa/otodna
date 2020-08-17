@@ -14,6 +14,7 @@ import { Pathology } from "./pathology";
     providers: [MessageService],
 })
 export class PathologyComponent implements OnInit {
+    selectedPatient;
     cols: any[];
     pathologies: any[] = [];
     pathology: Pathology = new Pathology();
@@ -31,6 +32,7 @@ export class PathologyComponent implements OnInit {
     selectedSession;
     dialogHeader;
     showSaveButton = true;
+    showAllButtons = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -40,7 +42,7 @@ export class PathologyComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
         this.selectedSession = JSON.parse(
@@ -57,7 +59,9 @@ export class PathologyComponent implements OnInit {
             },
             {
                 label:
-                    selectedPatient.firstName + " " + selectedPatient.lastName,
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
                 command: (event) => {
                     this.goToPatientPage(event);
                 },
@@ -72,6 +76,20 @@ export class PathologyComponent implements OnInit {
 
         this.getAllTests();
         this.getAllPathologies();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     save() {
         this.selectedTestData.forEach((element) => {

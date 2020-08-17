@@ -494,7 +494,7 @@
 
                     <div class="ui-g-12 ui-md-8"></div>
                     <div class="ui-g-12 ui-md-4" *ngIf="showSaveButton">
-                        <p-footer>
+                        <p-footer *ngIf="showAllButtons">
                             <div class="ui-g-12 ui-md-6">
                                 <button
                                     type="button"
@@ -519,7 +519,7 @@
                         </p-footer>
                     </div>
                     <div class="ui-g-12 ui-md-4" *ngIf="!showSaveButton">
-                        <p-footer>
+                        <p-footer *ngIf="showAllButtons">
                             <div class="ui-g-12 ui-md-6">
                                 <button
                                     type="button"
@@ -565,7 +565,7 @@
             </div>
         </p-card>
     </div>
-    <div class="ui-g-3">
+    <div class="ui-g-3" *ngIf="showAllButtons">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"

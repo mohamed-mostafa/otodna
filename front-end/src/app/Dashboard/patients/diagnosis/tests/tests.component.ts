@@ -35,6 +35,8 @@ export class TestsComponent implements OnInit {
     selectedEquipments = [];
     showSaveButton = true;
     graphData: any;
+    showAllButtons = true;
+    selectedPatient;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -44,7 +46,7 @@ export class TestsComponent implements OnInit {
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
-        let selectedPatient = JSON.parse(
+        this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
         this.selectedSession = JSON.parse(
@@ -60,7 +62,9 @@ export class TestsComponent implements OnInit {
             },
             {
                 label:
-                    selectedPatient.firstName + " " + selectedPatient.lastName,
+                    this.selectedPatient.firstName +
+                    " " +
+                    this.selectedPatient.lastName,
                 command: (event) => {
                     this.goToPatientPage(event);
                 },
@@ -75,6 +79,20 @@ export class TestsComponent implements OnInit {
         this.getAllTests();
         this.getAllEquipments();
         this.getSessionTests();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 0) {
+            const found = LoggedInUser.teams.some(
+                (team) => team.id === this.selectedPatient.teamId
+            );
+            if (found) {
+                this.showAllButtons = true;
+            } else {
+                this.showAllButtons = false;
+            }
+        }
     }
     selectData(event) {
         this.messageService.add({

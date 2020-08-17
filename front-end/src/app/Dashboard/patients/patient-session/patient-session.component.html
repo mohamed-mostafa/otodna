@@ -2,7 +2,7 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <div class="ui-g ui-fluid" *ngIf="!showButtons && session.ended === 'false'">
     <div class="ui-g-12 ui-md-10"></div>
-    <div class="ui-g-12 ui-md-2">
+    <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
         <button
             pButton
             type="button"
@@ -76,7 +76,7 @@
         </div>
     </div>
 </p-fieldset>
-<div class="ui-g ui-fluid">
+<div class="ui-g ui-fluid" *ngIf="showAllButtons">
     <div class="ui-g-12 ui-md-8"></div>
     <ng-container *ngIf="showButtons; else elseTemplate">
         <div class="ui-g-12 ui-md-2">
