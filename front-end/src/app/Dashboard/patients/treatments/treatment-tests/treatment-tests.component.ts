@@ -3,7 +3,7 @@ import { ParameterValueService } from "./../../services/parameter-value.service"
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Treatment } from "./treatment";
 
@@ -11,7 +11,7 @@ import { Treatment } from "./treatment";
     selector: "app-treatment-tests",
     templateUrl: "./treatment-tests.component.html",
     styleUrls: ["./treatment-tests.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class TreatmentTestsComponent implements OnInit {
     cols: any[];
@@ -42,6 +42,7 @@ export class TreatmentTestsComponent implements OnInit {
         private parameterValueService: ParameterValueService,
         private router: Router,
         private cdref: ChangeDetectorRef,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -437,5 +438,29 @@ export class TreatmentTestsComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard/addTreatment"]);
             });
+    }
+    deleteTreatment(data) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this treatment?",
+            header: "Delete Treatment Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.treatmentService
+                    .deleteTreatment(data.id)
+                    .subscribe((u: any) => {
+                        this.getSessionTreatments();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Treatment has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
     }
 }

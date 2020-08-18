@@ -3,7 +3,7 @@ import { PathologyService } from "./../services/pathology.service";
 import { MenuItem } from "primeng/primeng";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Pathology } from "./pathology";
 
@@ -11,7 +11,7 @@ import { Pathology } from "./pathology";
     selector: "app-pathology",
     templateUrl: "./pathology.component.html",
     styleUrls: ["./pathology.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class PathologyComponent implements OnInit {
     selectedPatient;
@@ -39,6 +39,7 @@ export class PathologyComponent implements OnInit {
         private pathologyService: PathologyService,
         private parameterValueService: ParameterValueService,
         private cdref: ChangeDetectorRef,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -373,5 +374,29 @@ export class PathologyComponent implements OnInit {
                     this.router.navigate(["/dashboard/addFollowup"]);
                 });
         }
+    }
+    deletePathology(data) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this pathology?",
+            header: "Delete Pathology Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.pathologyService
+                    .deletePathology(data.id)
+                    .subscribe((u: any) => {
+                        this.getAllPathologies();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Pathology test has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
     }
 }

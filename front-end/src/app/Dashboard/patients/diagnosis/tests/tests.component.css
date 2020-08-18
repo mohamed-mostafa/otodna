@@ -81,3 +81,8 @@
     padding-top: 12px;
     font-size: 15px;
 }
+.iconStyle {
+    color: red;
+    float: right;
+    padding: 5px;
+}

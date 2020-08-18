@@ -31,6 +31,11 @@ export class TestsService {
             data
         );
     }
+    deleteSessionTest(id: String): Observable<void> {
+        return this.http.delete<void>(
+            `${this.apiUrl}/${this.sessionTestsLink}/${id}`
+        );
+    }
     getTestParametersValues(sessionTestId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTestId][eq]=${sessionTestId}`

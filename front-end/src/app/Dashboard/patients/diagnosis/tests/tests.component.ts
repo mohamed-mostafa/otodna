@@ -2,7 +2,7 @@ import { ParameterValueService } from "./../../services/parameter-value.service"
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MenuItem } from "primeng/primeng";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Test } from "./test";
 import { TestsService } from "../services/tests.service";
@@ -11,7 +11,7 @@ import { TestsService } from "../services/tests.service";
     selector: "app-tests",
     templateUrl: "./tests.component.html",
     styleUrls: ["./tests.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class TestsComponent implements OnInit {
     cols: any[];
@@ -43,6 +43,7 @@ export class TestsComponent implements OnInit {
         private parameterValueService: ParameterValueService,
         private router: Router,
         private cdref: ChangeDetectorRef,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -455,5 +456,29 @@ export class TestsComponent implements OnInit {
                     this.router.navigate(["/dashboard/addFollowup"]);
                 });
         }
+    }
+    deleteTest(data) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this test?",
+            header: "Delete Test Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.testService
+                    .deleteSessionTest(data.id)
+                    .subscribe((u: any) => {
+                        this.getSessionTests();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Test has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
     }
 }

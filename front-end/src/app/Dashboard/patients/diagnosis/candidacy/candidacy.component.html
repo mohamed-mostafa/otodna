@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid" *ngIf="selectedSession.ended === 'false'">
     <div class="ui-g-12 ui-md-10"></div>
     <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
@@ -547,8 +548,18 @@
             [style]="{ height: '70px' }"
             styleClass="ui-card-shadow"
         >
+            <p-header *ngIf="showAllButtons">
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteCandidacy(candidacy)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-header>
             <div (click)="retrieveTestData(candidacy)">
-                <div class="ui-g-12 ui-md-12 bold testStyle">
+                <div class="ui-g-12 ui-md-12 bold ">
                     {{ candidacy.treatmentName }}
                 </div>
             </div>

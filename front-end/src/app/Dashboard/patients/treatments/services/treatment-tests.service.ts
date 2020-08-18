@@ -31,6 +31,11 @@ export class TreatmentTestsService {
             data
         );
     }
+    deleteTreatment(id: String): Observable<void> {
+        return this.http.delete<void>(
+            `${this.apiUrl}/${this.sessionTestsLink}/${id}`
+        );
+    }
     getTestParametersValues(sessionTreatmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTreatmentId][eq]=${sessionTreatmentId}`

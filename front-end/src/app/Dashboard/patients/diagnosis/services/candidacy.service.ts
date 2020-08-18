@@ -21,6 +21,9 @@ export class CandidacyService {
     createCandidacy(data): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, data);
     }
+    deleteCandidacy(id: String): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${this.link}/${id}`);
+    }
     getTest(test) {
         return this.http
             .get<any>(`assets/tests/${test}.json`)

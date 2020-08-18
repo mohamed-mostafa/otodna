@@ -2,7 +2,7 @@ import { ParameterValueService } from "./../../services/parameter-value.service"
 import { CandidacyService } from "./../services/candidacy.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
-import { MessageService } from "primeng/api";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Candidacy } from "./candidacy";
@@ -11,7 +11,7 @@ import { Candidacy } from "./candidacy";
     selector: "app-candidacy",
     templateUrl: "./candidacy.component.html",
     styleUrls: ["./candidacy.component.css"],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class CandidacyComponent implements OnInit {
     selectedPatient;
@@ -40,6 +40,7 @@ export class CandidacyComponent implements OnInit {
         private candidacyService: CandidacyService,
         private parameterValueService: ParameterValueService,
         private cdref: ChangeDetectorRef,
+        private confirmationService: ConfirmationService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -375,5 +376,29 @@ export class CandidacyComponent implements OnInit {
                     this.router.navigate(["/dashboard/addFollowup"]);
                 });
         }
+    }
+    deleteCandidacy(data) {
+        this.confirmationService.confirm({
+            message: "Do you want to delete this candidacy?",
+            header: "Delete Candidacy Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.spinner.show();
+                this.candidacyService
+                    .deleteCandidacy(data.id)
+                    .subscribe((u: any) => {
+                        this.getAllCandidacies();
+                        this.spinner.hide();
+                    });
+                this.showMessage(
+                    "success",
+                    "Confirmed",
+                    "Candidacy has been deleted"
+                );
+            },
+            reject: () => {
+                this.showMessage("info", "Rejected", "You have rejected");
+            },
+        });
     }
 }
