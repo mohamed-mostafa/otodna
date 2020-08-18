@@ -469,29 +469,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui-g-12 ui-md-12">
-                        <p-fieldset legend="Equipments">
-                            <p-autoComplete
-                                id="acAdvanced"
-                                [suggestions]="filteredEquipments"
-                                (completeMethod)="filterEquipments($event)"
-                                [size]="30"
-                                [minLength]="1"
-                                [dropdown]="true"
-                                multiple="true"
-                                [(ngModel)]="selectedEquipments"
-                            >
-                                <ng-template let-equip pTemplate="item">
-                                    <div class="ui-helper-clearfix">
-                                        <div class="equipmentStyle">
-                                            {{ equip }}
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </p-autoComplete>
-                        </p-fieldset>
-                    </div>
-
                     <div class="ui-g-12 ui-md-8"></div>
                     <div class="ui-g-12 ui-md-4" *ngIf="showSaveButton">
                         <p-footer *ngIf="showAllButtons">

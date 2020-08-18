@@ -32,8 +32,6 @@ export class CandidacyComponent implements OnInit {
     uploadedImages: any[] = [];
     selectedSession;
     dialogHeader;
-    filteredEquipments: any[];
-    selectedEquipments = [];
     showSaveButton = true;
     showAllButtons = true;
     constructor(
@@ -79,7 +77,6 @@ export class CandidacyComponent implements OnInit {
 
         this.getAllTests();
         this.getAllCandidacies();
-        this.getAllEquipments();
         this.checkLoggedInUserTeamWithPatient();
     }
     checkLoggedInUserTeamWithPatient() {
@@ -95,26 +92,7 @@ export class CandidacyComponent implements OnInit {
             }
         }
     }
-    getEquipmentsAllData(data) {
-        const allSelectedEquipments = [];
-        for (const d of data) {
-            for (const a of this.allEquipments) {
-                if (a.name === d) {
-                    allSelectedEquipments.push(a);
-                }
-            }
-        }
-        return allSelectedEquipments;
-    }
     save() {
-        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
-            const equipmentsAllData = this.getEquipmentsAllData(
-                this.selectedEquipments
-            );
-            this.selectedTestData.forEach((element) => {
-                element.equipments = equipmentsAllData;
-            });
-        }
         this.selectedTestData.forEach((element) => {
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
@@ -128,7 +106,6 @@ export class CandidacyComponent implements OnInit {
             .subscribe((u: any) => {
                 this.selectedTest = "";
                 this.filteredTests = [];
-                this.selectedEquipments = [];
                 this.selected = "";
                 this.displayTest = false;
                 this.candidacy = new Candidacy();
@@ -139,14 +116,6 @@ export class CandidacyComponent implements OnInit {
             });
     }
     updateTest() {
-        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
-            const equipmentsAllData = this.getEquipmentsAllData(
-                this.selectedEquipments
-            );
-            this.selectedTestData.forEach((element) => {
-                element.equipments = equipmentsAllData;
-            });
-        }
         this.selectedTestData.forEach((element) => {
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
@@ -160,7 +129,6 @@ export class CandidacyComponent implements OnInit {
             .subscribe((u: any) => {
                 this.selectedTest = "";
                 this.filteredTests = [];
-                this.selectedEquipments = [];
                 this.selected = "";
                 this.displayTest = false;
                 this.candidacy = new Candidacy();
@@ -178,7 +146,6 @@ export class CandidacyComponent implements OnInit {
         this.showTests = true;
         this.filteredTests = [];
         this.selectedTest = "";
-        this.selectedEquipments = [];
         this.showSaveButton = true;
     }
     cancelTest() {
@@ -233,11 +200,6 @@ export class CandidacyComponent implements OnInit {
         }
         return filtered;
     }
-    getAllEquipments() {
-        this.candidacyService.getTest("equipments").then((res) => {
-            this.allEquipments = res;
-        });
-    }
     showTestDialog() {
         this.displayTest = true;
     }
@@ -273,7 +235,6 @@ export class CandidacyComponent implements OnInit {
         this.candidacyService.createCandidacy(test).subscribe((u: any) => {
             this.selectedTest = "";
             this.filteredTests = [];
-            this.selectedEquipments = [];
             this.selected = "";
             this.displayTest = false;
             this.candidacy = new Candidacy();
@@ -295,30 +256,10 @@ export class CandidacyComponent implements OnInit {
         }
         this.showMessage("info", "Success", "Upload Completed");
     }
-    filterEquipments(event) {
-        this.filteredEquipments = [];
-        for (const item of this.allEquipments) {
-            const brand = item.name;
-            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
-                this.filteredEquipments.push(brand);
-            }
-        }
-    }
     async retrieveTestData(test) {
         await this.openTest(test);
         this.showTests = false;
         this.spinner.show();
-        this.candidacyService
-            .getSessionTestEquipment(test.id)
-            .subscribe((res) => {
-                if (res && res.length > 0) {
-                    this.showSaveButton = false;
-                    this.selectedTestData[0].id = test.id;
-                    res.forEach((element) => {
-                        this.selectedEquipments.push(element.equipmentName);
-                    });
-                }
-            });
         this.candidacyService
             .getTestParametersValues(test.id)
             .subscribe((result) => {
