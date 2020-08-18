@@ -429,4 +429,13 @@ export class TreatmentTestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
+    endSession() {
+        this.router
+            .navigateByUrl("/RefreshComponent", {
+                skipLocationChange: true,
+            })
+            .then(() => {
+                this.router.navigate(["/dashboard/addTreatment"]);
+            });
+    }
 }

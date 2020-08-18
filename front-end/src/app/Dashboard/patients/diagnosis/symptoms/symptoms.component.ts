@@ -182,4 +182,23 @@ export class SymptomsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
+    endSession() {
+        if (this.router.url === "/dashboard/symptoms") {
+            this.router
+                .navigateByUrl("/RefreshComponent", {
+                    skipLocationChange: true,
+                })
+                .then(() => {
+                    this.router.navigate(["/dashboard/addDiagnosis"]);
+                });
+        } else {
+            this.router
+                .navigateByUrl("/RefreshComponent", {
+                    skipLocationChange: true,
+                })
+                .then(() => {
+                    this.router.navigate(["/dashboard/addFollowup"]);
+                });
+        }
+    }
 }
