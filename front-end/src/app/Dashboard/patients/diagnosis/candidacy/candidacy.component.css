@@ -72,3 +72,12 @@
 .bold {
     font-weight: bold;
 }
+.addTestStyle {
+    padding-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.testStyle {
+    padding-top: 12px;
+    font-size: 15px;
+}

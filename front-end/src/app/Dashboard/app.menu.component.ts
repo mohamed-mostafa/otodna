@@ -289,7 +289,7 @@ export class AppMenuComponent implements OnInit {
                             routerLink: ["addTreatment"],
                         },
                         {
-                            label: "Tests",
+                            label: "Treatment",
                             icon: "fa fa-fw fa-flask",
                             routerLink: ["treatmentTests"],
                         },

@@ -557,7 +557,7 @@
             styleClass="ui-card-shadow"
         >
             <div (click)="retrieveTestData(treatment)">
-                <div class="ui-g-12 ui-md-12 bold">
+                <div class="ui-g-12 ui-md-12 bold testStyle">
                     {{ treatment.treatmentName }}
                 </div>
             </div>
@@ -570,14 +570,14 @@
                 [style]="{ height: '65px' }"
                 (click)="showTestDialog()"
             >
-                <h3>
+                <div class="addTestStyle">
                     <i
                         class="fa fa-plus"
                         aira-hidden="true"
                         style="margin: 5px;"
                     ></i>
                     Add Treatment
-                </h3>
+                </div>
             </p-card>
         </div>
     </div>
