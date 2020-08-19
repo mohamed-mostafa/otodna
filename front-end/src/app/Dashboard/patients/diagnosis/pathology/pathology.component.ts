@@ -1,3 +1,4 @@
+import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { PathologyService } from "./../services/pathology.service";
 import { MenuItem } from "primeng/primeng";
@@ -40,6 +41,7 @@ export class PathologyComponent implements OnInit {
         private parameterValueService: ParameterValueService,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
+        private teamsService: TeamsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -176,9 +178,33 @@ export class PathologyComponent implements OnInit {
             });
     }
     getAllTests() {
-        this.pathologyService.getTest("diagnosisPathology").then((res) => {
-            this.allTests = res;
-        });
+        if (this.selectedPatient.teamId === 0) {
+            this.pathologyService.getTest("diagnosisPathology").then((res) => {
+                this.allTests = res;
+            });
+        } else {
+            const promise = new Promise((resolve) => {
+                this.teamsService
+                    .getTeamById(this.selectedPatient.teamId)
+                    .subscribe((result) => {
+                        resolve(result);
+                    });
+            });
+            promise.then((data: any) => {
+                const id = data.departmentId;
+                this.pathologyService
+                    .getTest("diagnosisPathology")
+                    .then((res) => {
+                        for (const r of res) {
+                            for (const dep of r.departments) {
+                                if (dep.id === id) {
+                                    this.allTests.push(r);
+                                }
+                            }
+                        }
+                    });
+            });
+        }
     }
     filterTest(event) {
         const query = event.query;

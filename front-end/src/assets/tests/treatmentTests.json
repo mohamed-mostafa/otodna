@@ -2,47 +2,84 @@
     "data": [
         {
             "treatmentId": "demo",
-            "treatmentName": "Demo"
+            "treatmentName": "Demo",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 3, "name": "Speech" }
+            ]
         },
         {
             "treatmentId": "1",
-            "treatmentName": "Acoustic Stimulation"
+            "treatmentName": "Acoustic Stimulation",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" }
+            ]
         },
         {
             "treatmentId": "2",
-            "treatmentName": "Drug Therapy"
+            "treatmentName": "Drug Therapy",
+            "departments": [
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
         },
         {
             "treatmentId": "3",
-            "treatmentName": "Communication Methods, Total"
+            "treatmentName": "Communication Methods, Total",
+            "departments": [{ "id": 1, "name": "Otology" }]
         },
         {
             "treatmentId": "4",
-            "treatmentName": "Lipreading"
+            "treatmentName": "Lipreading",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
         },
         {
             "treatmentId": "5",
-            "treatmentName": "Sign Language"
+            "treatmentName": "Sign Language",
+            "departments": [{ "id": 2, "name": "Audiology" }]
         },
         {
             "treatmentId": "6",
-            "treatmentName": "Language Therapy"
+            "treatmentName": "Language Therapy",
+            "departments": [{ "id": 3, "name": "Speech" }]
         },
         {
             "treatmentId": "7",
-            "treatmentName": "Myofunctional Therapy"
+            "treatmentName": "Myofunctional Therapy",
+            "departments": [
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
         },
         {
             "treatmentId": "8",
-            "treatmentName": "Speech, Esophageal"
+            "treatmentName": "Speech, Esophageal",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 3, "name": "Speech" }
+            ]
         },
         {
             "treatmentId": "9",
-            "treatmentName": "Speech Therapy"
+            "treatmentName": "Speech Therapy",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" }
+            ]
         },
         {
             "treatmentId": "10",
-            "treatmentName": "Voice Training"
+            "treatmentName": "Voice Training",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
         }
     ]
 }

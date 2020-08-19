@@ -1,3 +1,4 @@
+import { TeamsService } from "./../../../services/teams.service";
 import { TreatmentTestsService } from "./../services/treatment-tests.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { Router } from "@angular/router";
@@ -43,6 +44,7 @@ export class TreatmentTestsComponent implements OnInit {
         private router: Router,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
+        private teamsService: TeamsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -237,9 +239,35 @@ export class TreatmentTestsComponent implements OnInit {
         return filtered;
     }
     getAllTreatments() {
-        this.treatmentService.getTreatmentTest("treatmentTests").then((res) => {
-            this.allTreatments = res;
-        });
+        if (this.selectedPatient.teamId === 0) {
+            this.treatmentService
+                .getTreatmentTest("treatmentTests")
+                .then((res) => {
+                    this.allTreatments = res;
+                });
+        } else {
+            const promise = new Promise((resolve) => {
+                this.teamsService
+                    .getTeamById(this.selectedPatient.teamId)
+                    .subscribe((result) => {
+                        resolve(result);
+                    });
+            });
+            promise.then((data: any) => {
+                const id = data.departmentId;
+                this.treatmentService
+                    .getTreatmentTest("treatmentTests")
+                    .then((res) => {
+                        for (const r of res) {
+                            for (const dep of r.departments) {
+                                if (dep.id === id) {
+                                    this.allTreatments.push(r);
+                                }
+                            }
+                        }
+                    });
+            });
+        }
     }
     getAllEquipments() {
         this.treatmentService.getTreatmentTest("equipments").then((res) => {

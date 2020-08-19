@@ -1,3 +1,4 @@
+import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -44,6 +45,7 @@ export class TestsComponent implements OnInit {
         private router: Router,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
+        private teamsService: TeamsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -237,9 +239,31 @@ export class TestsComponent implements OnInit {
         return filtered;
     }
     getAllTests() {
-        this.testService.getTest("diagnosisTests").then((res) => {
-            this.allTests = res;
-        });
+        if (this.selectedPatient.teamId === 0) {
+            this.testService.getTest("diagnosisTests").then((res) => {
+                this.allTests = res;
+            });
+        } else {
+            const promise = new Promise((resolve) => {
+                this.teamsService
+                    .getTeamById(this.selectedPatient.teamId)
+                    .subscribe((result) => {
+                        resolve(result);
+                    });
+            });
+            promise.then((data: any) => {
+                const id = data.departmentId;
+                this.testService.getTest("diagnosisTests").then((res) => {
+                    for (const r of res) {
+                        for (const dep of r.departments) {
+                            if (dep.id === id) {
+                                this.allTests.push(r);
+                            }
+                        }
+                    }
+                });
+            });
+        }
     }
     getAllEquipments() {
         this.testService.getTest("equipments").then((res) => {
