@@ -61,7 +61,19 @@
             </div>
         </div>
         <div class="ui-g-12 ui-md-12">
-            <label for="notes">Conclusion</label>
+            <label class="ui-g-12 ui-md-9" for="notes">Conclusion</label>
+            <div class="ui-g-12 ui-md-3" *ngIf="session.ended === 'false'">
+                <span *ngIf="showAllButtons">
+                    <button
+                        *ngIf="showGenerateConclusion"
+                        pButton
+                        type="button"
+                        label="Generate Conclusion"
+                        (click)="generateConclusion()"
+                        class="ui-button-info ui-button-raised"
+                    ></button>
+                </span>
+            </div>
             <div class="labelMarginTop">
                 <textarea
                     [rows]="5"

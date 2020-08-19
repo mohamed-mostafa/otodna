@@ -1,3 +1,8 @@
+import { TreatmentTestsService } from "./../treatments/services/treatment-tests.service";
+import { CandidacyService } from "./../diagnosis/services/candidacy.service";
+import { PathologyService } from "./../diagnosis/services/pathology.service";
+import { TestsService } from "./../diagnosis/services/tests.service";
+import { SymptomsService } from "./../diagnosis/services/symptoms.service";
 import { PatientSessionService } from "./../services/patient-session.service";
 import { Session } from "./session";
 import { Router } from "@angular/router";
@@ -21,10 +26,17 @@ export class PatientSessionComponent implements OnInit {
     public href: string = "";
     selectedSession;
     showAllButtons = true;
+    symptoms = [];
+    showGenerateConclusion = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private patientSession: PatientSessionService,
+        private symptomsService: SymptomsService,
+        private testService: TestsService,
+        private pathologyService: PathologyService,
+        private candidacyService: CandidacyService,
+        private treatmentService: TreatmentTestsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -84,6 +96,7 @@ export class PatientSessionComponent implements OnInit {
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
         this.checkLoggedInUserTeamWithPatient();
+        this.getALlSymptoms();
     }
     checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -256,5 +269,104 @@ export class PatientSessionComponent implements OnInit {
             this.session = new Session();
             this.goToPatientPage("a");
         });
+    }
+    getALlSymptoms() {
+        this.spinner.show();
+        this.symptomsService.getAllSymptoms().subscribe(async (result) => {
+            this.symptoms = result;
+            this.spinner.hide();
+        });
+    }
+    generateConclusion() {
+        this.showGenerateConclusion = false;
+        if (this.router.url === "/dashboard/addTreatment") {
+            this.spinner.show();
+            this.treatmentService
+                .getSessionTreatments(this.selectedSession.id)
+                .subscribe((result) => {
+                    if (result && result.length > 0) {
+                        if (this.session.notes !== null) {
+                            this.session.notes += "Selected Treatments Is";
+                        } else {
+                            this.session.notes = "Selected Treatments Is";
+                        }
+                        for (const r of result) {
+                            this.session.notes += ` ${r.treatmentName}, `;
+                        }
+                        this.session.notes += `\n`;
+                    }
+                    this.spinner.hide();
+                });
+        } else {
+            this.spinner.show();
+            this.symptomsService
+                .getPatientSessionSymptoms(this.selectedSession.id)
+                .subscribe(async (result) => {
+                    if (result && result.length > 0) {
+                        if (this.session.notes !== null) {
+                            this.session.notes += "Selected Symptoms Is";
+                        } else {
+                            this.session.notes = "Selected Symptoms Is";
+                        }
+                        for (const r of result) {
+                            for (const sym of this.symptoms) {
+                                if (sym.id === r.symptomId) {
+                                    this.session.notes += ` ${sym.name}, `;
+                                }
+                            }
+                        }
+                        this.session.notes += `\n`;
+                    }
+                    this.spinner.hide();
+                });
+            this.testService
+                .getSessionTests(this.selectedSession.id)
+                .subscribe((result) => {
+                    if (result && result.length > 0) {
+                        if (this.session.notes !== null) {
+                            this.session.notes += "Selected Tests Is";
+                        } else {
+                            this.session.notes = "Selected Tests Is";
+                        }
+                        for (const r of result) {
+                            this.session.notes += ` ${r.testName}, `;
+                        }
+                        this.session.notes += `\n`;
+                    }
+                    this.spinner.hide();
+                });
+            this.pathologyService
+                .getAllPathologies(this.selectedSession.id)
+                .subscribe((result) => {
+                    if (result && result.length > 0) {
+                        if (this.session.notes !== null) {
+                            this.session.notes += "Selected Pathologies Is";
+                        } else {
+                            this.session.notes = "Selected Pathologies Is";
+                        }
+                        for (const r of result) {
+                            this.session.notes += ` ${r.deseaseName}, `;
+                        }
+                        this.session.notes += `\n`;
+                    }
+                    this.spinner.hide();
+                });
+            this.candidacyService
+                .getAllCandidacies(this.selectedSession.id)
+                .subscribe((result) => {
+                    if (result && result.length > 0) {
+                        if (this.session.notes !== null) {
+                            this.session.notes += "Selected Treatments Is";
+                        } else {
+                            this.session.notes = "Selected Treatments Is";
+                        }
+                        for (const r of result) {
+                            this.session.notes += ` ${r.treatmentName}, `;
+                        }
+                        this.session.notes += `\n`;
+                    }
+                    this.spinner.hide();
+                });
+        }
     }
 }
