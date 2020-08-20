@@ -542,7 +542,7 @@
     <div class="ui-g-12">
         <h2 class="centerHeader">Diagnosis Pathologies</h2>
     </div>
-    <div class="ui-g-3" *ngFor="let pathology of pathologies">
+    <div class="ui-g-6 ui-md-3" *ngFor="let pathology of pathologies">
         <p-card
             class="centerHeader pointerCursor"
             [style]="{ height: '70px' }"
@@ -559,13 +559,13 @@
                 </a>
             </p-header>
             <div (click)="retrieveTestData(pathology)">
-                <div class="ui-g-12 ui-md-12 bold">
+                <div class="ui-g-12 ui-md-12 testStyle">
                     {{ pathology.deseaseName }}
                 </div>
             </div>
         </p-card>
     </div>
-    <div class="ui-g-3" *ngIf="showAllButtons">
+    <div class="ui-g-6 ui-md-3" *ngIf="showAllButtons">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"

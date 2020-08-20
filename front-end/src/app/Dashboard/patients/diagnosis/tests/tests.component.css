@@ -92,8 +92,8 @@
         font-weight: bold;
     }
     .testStyle {
-        font-size: 10px !important;
-        font-weight: bold;
+        font-size: 11px !important;
+        font-weight: bold !important;
     }
 }
 .testStyle {
