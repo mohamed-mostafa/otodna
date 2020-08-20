@@ -56,11 +56,11 @@
 <p-dialog
     header="Add New Team"
     [(visible)]="displayTeamDialog"
-    [style]="{ width: '35vw' }"
+    [style]="{ width: '55vw' }"
     [baseZIndex]="10000"
     [maximizable]="true"
 >
-    <p-card [style]="{ height: '300px' }">
+    <p-card [style]="{ height: '250px' }">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12">
                 <label for="name">Team Name</label>
@@ -74,7 +74,7 @@
                     />
                 </div>
             </div>
-            <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-12 ui-md-6">
                 <label for="name">Team Owner</label>
                 <div class="ui-inputgroup labelMarginTop">
                     <input
@@ -86,7 +86,7 @@
                     />
                 </div>
             </div>
-            <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-12 ui-md-6">
                 <label for="name">Team Department</label>
                 <div class="labelMarginTop">
                     <p-dropdown
