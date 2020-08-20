@@ -86,3 +86,17 @@
     float: right;
     padding: 5px;
 }
+@media screen and (max-width: 40em) {
+    .addTestStyle {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .testStyle {
+        font-size: 10px !important;
+        font-weight: bold;
+    }
+}
+.testStyle {
+    font-size: 15px;
+    font-weight: bold;
+}
