@@ -73,7 +73,7 @@
     font-weight: bold;
 }
 .addTestStyle {
-    padding-top: 5px;
+    padding-top: 10px;
     font-size: 16px;
     font-weight: bold;
 }
@@ -88,15 +88,7 @@
 }
 @media screen and (max-width: 40em) {
     .addTestStyle {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
     }
-    .testStyle {
-        font-size: 11px !important;
-        font-weight: bold !important;
-    }
-}
-.testStyle {
-    font-size: 15px;
-    font-weight: bold;
 }

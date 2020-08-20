@@ -595,7 +595,7 @@
     <div class="ui-g-6 ui-md-3" *ngFor="let test of tests">
         <p-card
             class="centerHeader pointerCursor"
-            [style]="{ height: '70px' }"
+            [style]="{ height: '80px' }"
             styleClass="ui-card-shadow"
         >
             <p-header *ngIf="showAllButtons">
@@ -609,7 +609,7 @@
                 </a>
             </p-header>
             <div (click)="retrieveTestData(test)">
-                <div class="ui-g-12 ui-md-12 testStyle">
+                <div class="ui-g-12 ui-md-12 bold">
                     {{ test.testName }}
                 </div>
             </div>
@@ -619,7 +619,7 @@
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '65px' }"
+                [style]="{ height: '75px' }"
                 (click)="showTestDialog()"
             >
                 <div class="addTestStyle">

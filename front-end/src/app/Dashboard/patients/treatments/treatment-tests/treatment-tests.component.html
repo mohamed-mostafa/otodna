@@ -563,10 +563,10 @@
 </p-dialog>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12"><h2 class="centerHeader">Treatment Tests</h2></div>
-    <div class="ui-g-3" *ngFor="let treatment of treatments">
+    <div class="ui-g-6 ui-md-3" *ngFor="let treatment of treatments">
         <p-card
             class="centerHeader pointerCursor"
-            [style]="{ height: '70px' }"
+            [style]="{ height: '80px' }"
             styleClass="ui-card-shadow"
         >
             <p-header *ngIf="showAllButtons">
@@ -586,11 +586,11 @@
             </div>
         </p-card>
     </div>
-    <div class="ui-g-3" *ngIf="showAllButtons">
+    <div class="ui-g-6 ui-md-3" *ngIf="showAllButtons">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '65px' }"
+                [style]="{ height: '75px' }"
                 (click)="showTestDialog()"
             >
                 <div class="addTestStyle">
