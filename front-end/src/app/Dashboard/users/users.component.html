@@ -16,7 +16,7 @@
 <p-dialog
     header="Invite User"
     [(visible)]="displayInviteUserDialog"
-    [style]="{ width: '35vw' }"
+    [style]="{ width: '55vw' }"
     [baseZIndex]="10000"
     [maximizable]="true"
 >
@@ -32,7 +32,7 @@
                     />
                 </div>
             </div>
-            <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-12 ui-md-8">
                 <div class="ui-inputgroup">
                     <input
                         type="text"
@@ -42,7 +42,7 @@
                     />
                 </div>
             </div>
-            <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-12 ui-md-4">
                 <p-dropdown
                     [options]="roles"
                     [(ngModel)]="inviteUser.role"
