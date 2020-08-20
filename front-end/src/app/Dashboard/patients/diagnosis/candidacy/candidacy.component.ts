@@ -259,6 +259,7 @@ export class CandidacyComponent implements OnInit {
         );
     }
     saveWithoutParams(test) {
+        delete test.departments;
         this.candidacyService.createCandidacy(test).subscribe((u: any) => {
             this.selectedTest = "";
             this.filteredTests = [];

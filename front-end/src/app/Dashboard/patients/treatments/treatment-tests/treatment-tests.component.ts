@@ -294,6 +294,7 @@ export class TreatmentTestsComponent implements OnInit {
         );
     }
     saveWithoutParams(treatment) {
+        delete treatment.departments;
         this.treatmentService.createTreatment(treatment).subscribe((u: any) => {
             this.selectedTreatment = "";
             this.filteredTreatments = [];

@@ -257,6 +257,7 @@ export class PathologyComponent implements OnInit {
         );
     }
     saveWithoutParams(test) {
+        delete test.departments;
         this.pathologyService.createPathology(test).subscribe((u: any) => {
             this.selectedTest = "";
             this.filteredTests = [];

@@ -309,6 +309,7 @@ export class TestsComponent implements OnInit {
         );
     }
     saveWithoutParams(test) {
+        delete test.departments;
         this.testService.createSessionTest(test).subscribe((u: any) => {
             this.selectedTest = "";
             this.filteredTests = [];
