@@ -3,7 +3,7 @@
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12"><h2 class="centerHeader">Team Members</h2></div>
-    <div class="ui-g-3" *ngFor="let m of members">
+    <div class="ui-g-12 ui-md-3" *ngFor="let m of members">
         <p-card
             class="centerHeader"
             [style]="{ height: '120px' }"
@@ -21,7 +21,7 @@
                 </a>
             </p-header>
             <div>
-                <div class="ui-g-12 ui-md-4">
+                <div class="ui-g-6 ui-md-4">
                     <img
                         src="assets/layout/images/doctor.png"
                         height="50px"
@@ -29,13 +29,13 @@
                         style="border-radius: 15px;"
                     />
                 </div>
-                <div class="ui-g-12 ui-md-8 bold marginTop">
+                <div class="ui-g-6 ui-md-8 bold marginTop">
                     {{ m.role.name }}
                 </div>
             </div>
         </p-card>
     </div>
-    <div class="ui-g-3">
+    <div class="ui-g-12 ui-md-3">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"
