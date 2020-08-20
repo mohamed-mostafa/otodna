@@ -29,3 +29,10 @@
 .pointerCursor {
     cursor: pointer;
 }
+@media screen and (max-width: 40em) {
+    .title {
+        font-size: 1.2em !important;
+        font-weight: bold;
+        margin-bottom: 0.2em !important;
+    }
+}

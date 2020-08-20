@@ -2,7 +2,7 @@
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12"><h2 class="centerHeader">My Teams</h2></div>
-    <div class="ui-g-6" *ngFor="let t of teams">
+    <div class="ui-g-12 ui-md-6" *ngFor="let t of teams">
         <p-card
             class="centerHeader pointerCursor"
             [style]="{ height: '110px' }"
@@ -23,10 +23,10 @@
                 <div class="ui-g-12 ui-md-4 bold">
                     Since {{ t.creationDate | date }}
                 </div>
-                <div class="ui-g-5 ui-md-4 bold">
+                <div class="ui-g-6 ui-md-4 bold">
                     {{ getDepartmentById(t.departmentId) }}
                 </div>
-                <div class="ui-g-5 ui-md-4 bold">
+                <div class="ui-g-6 ui-md-4 bold">
                     {{ t.membersCount }} Member<span *ngIf="t.membersCount > 1"
                         >s</span
                     >
@@ -34,7 +34,7 @@
             </div>
         </p-card>
     </div>
-    <div class="ui-g-6">
+    <div class="ui-g-12 ui-md-6">
         <div style="border-style: dotted;">
             <p-card
                 class="centerHeader pointerCursor"
