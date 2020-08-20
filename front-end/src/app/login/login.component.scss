@@ -94,7 +94,7 @@
 @media screen and (max-width: 40em) {
     .login-body {
         .login-topbar {
-            padding: 15px 70px 15px 70px;
+            padding: 0px 0px 0px 0px;
         }
 
         .login-panel {
@@ -107,6 +107,11 @@
             input {
                 width: 100%;
             }
+        }
+
+        .logoStyle {
+            margin-left: 100px;
+            width: 27% !important;
         }
     }
 }
