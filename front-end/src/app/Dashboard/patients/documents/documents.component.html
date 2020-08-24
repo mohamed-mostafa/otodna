@@ -1,27 +1,19 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-toast></p-toast>
-<div class="ui-g ui-fluid">
-    <div class="card ui-g-12">
-        <h1>Upload Documents</h1>
-        <div class="ui-g-12 ui-md-10">
-            <div class="p-inputgroup">
-                <input
-                    type="file"
-                    multiple
-                    pInputText
-                    [(ngModel)]="file"
-                    (change)="onChange($event)"
-                />
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-2">
-            <button
-                pButton
-                type="button"
-                label="Upload"
-                (click)="submit()"
-                [disabled]="!toFile"
-            ></button>
+<div class="ui-g">
+    <div class="ui-g-12">
+        <div class="card">
+            <h1>Upload Documents</h1>
+            <p-fileUpload
+                multiple="multiple"
+                maxFileSize="100000000"
+                customUpload="true"
+                name="file"
+                ngDefaultControl
+                [(ngModel)]="file"
+                (uploadHandler)="uploadFiles($event)"
+            >
+            </p-fileUpload>
         </div>
     </div>
 </div>

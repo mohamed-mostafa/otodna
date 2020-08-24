@@ -15,7 +15,7 @@ export class DocumentsComponent implements OnInit {
     items: MenuItem[];
     home: MenuItem;
     selectedPatient;
-    toFile;
+    toFile: any[] = [];
     file;
     constructor(
         private router: Router,
@@ -51,10 +51,11 @@ export class DocumentsComponent implements OnInit {
                 this.router.navigate(["/dashboard"]);
             });
     }
-    submit() {
+    uploadFiles(event) {
         this.spinner.show();
+        this.toFile = event.files;
         this.uploadService
-            .fileUpload(this.toFile)
+            .fileUpload(this.toFile, `Patient/${this.selectedPatient.id}`)
             .then((data) => {
                 this.spinner.hide();
                 this.showMessage(
@@ -62,8 +63,7 @@ export class DocumentsComponent implements OnInit {
                     "Updated",
                     "File uploaded successfully"
                 );
-                this.file = "";
-                this.toFile = "";
+                this.toFile.splice(0, this.toFile.length);
             })
             .catch((err) => {
                 this.showMessage(
@@ -72,10 +72,6 @@ export class DocumentsComponent implements OnInit {
                     "Something went wrong,Please try again"
                 );
             });
-    }
-
-    onChange(event) {
-        this.toFile = event.target.files;
     }
     showMessage(type, title, message) {
         this.messageService.add({

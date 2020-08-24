@@ -7,10 +7,11 @@ import * as S3 from "aws-sdk/clients/s3";
 })
 export class UploadFilesService {
     constructor() {}
-    fileUpload(files): Promise<any> {
+    fileUpload(files, filePath): Promise<any> {
         return new Promise((resolve, reject) => {
             Array.from(files).forEach((file: any) => {
                 const contentType = file.type;
+                const path = `${filePath}/${file.name}`;
                 const bucket = new S3({
                     accessKeyId: "AKIAJIOWDS66QFPZS52A",
                     secretAccessKey: "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",
@@ -18,7 +19,7 @@ export class UploadFilesService {
                 });
                 const params = {
                     Bucket: "otonda-upload-file",
-                    Key: file.name,
+                    Key: path,
                     Body: file,
                     ACL: "public-read",
                     ContentType: contentType,
@@ -31,14 +32,5 @@ export class UploadFilesService {
                 });
             });
         });
-        // promise
-        //     .then((data) => {
-        //         console.log(data);
-        //         return data;
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //         return err;
-        //     });
     }
 }
