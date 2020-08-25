@@ -286,9 +286,9 @@ export class PatientSessionComponent implements OnInit {
                 .subscribe((result) => {
                     if (result && result.length > 0) {
                         if (this.session.notes !== null) {
-                            this.session.notes += "Selected Treatments Is";
+                            this.session.notes += "Performed Treatments:";
                         } else {
-                            this.session.notes = "Selected Treatments Is";
+                            this.session.notes = "Performed Treatments:";
                         }
                         for (const r of result) {
                             this.session.notes += ` ${r.treatmentName}, `;
@@ -304,9 +304,9 @@ export class PatientSessionComponent implements OnInit {
                 .subscribe(async (result) => {
                     if (result && result.length > 0) {
                         if (this.session.notes !== null) {
-                            this.session.notes += "Selected Symptoms Is";
+                            this.session.notes += "Patient suffers:";
                         } else {
-                            this.session.notes = "Selected Symptoms Is";
+                            this.session.notes = "Patient suffers:";
                         }
                         for (const r of result) {
                             for (const sym of this.symptoms) {
@@ -324,9 +324,9 @@ export class PatientSessionComponent implements OnInit {
                 .subscribe((result) => {
                     if (result && result.length > 0) {
                         if (this.session.notes !== null) {
-                            this.session.notes += "Selected Tests Is";
+                            this.session.notes += "Performed Tests:";
                         } else {
-                            this.session.notes = "Selected Tests Is";
+                            this.session.notes = "Performed Tests:";
                         }
                         for (const r of result) {
                             this.session.notes += ` ${r.testName}, `;
@@ -340,9 +340,9 @@ export class PatientSessionComponent implements OnInit {
                 .subscribe((result) => {
                     if (result && result.length > 0) {
                         if (this.session.notes !== null) {
-                            this.session.notes += "Selected Pathologies Is";
+                            this.session.notes += "Pathology:";
                         } else {
-                            this.session.notes = "Selected Pathologies Is";
+                            this.session.notes = "Pathology:";
                         }
                         for (const r of result) {
                             this.session.notes += ` ${r.deseaseName}, `;
@@ -356,9 +356,9 @@ export class PatientSessionComponent implements OnInit {
                 .subscribe((result) => {
                     if (result && result.length > 0) {
                         if (this.session.notes !== null) {
-                            this.session.notes += "Selected Treatments Is";
+                            this.session.notes += "Recommendations:";
                         } else {
-                            this.session.notes = "Selected Treatments Is";
+                            this.session.notes = "Recommendations:";
                         }
                         for (const r of result) {
                             this.session.notes += ` ${r.treatmentName}, `;
