@@ -1,3 +1,4 @@
+import { DocumentsService } from "./services/documents.service";
 import { TreatmentTestsService } from "./patients/treatments/services/treatment-tests.service";
 import { ParameterValueService } from "./patients/services/parameter-value.service";
 import { CandidacyService } from "./patients/diagnosis/services/candidacy.service";
@@ -54,4 +55,5 @@ export const SERVICES = [
     CandidacyService,
     ParameterValueService,
     TreatmentTestsService,
+    DocumentsService,
 ];

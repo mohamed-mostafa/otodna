@@ -1,3 +1,15 @@
-.labelMarginTop {
-    margin-top: 7px;
+.marginBottomAndTop {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.iconStyle {
+    color: red;
+    float: right;
+    padding: 5px;
+}
+.centerHeader {
+    text-align: center;
 }

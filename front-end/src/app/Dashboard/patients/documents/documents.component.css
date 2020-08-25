@@ -5,3 +5,11 @@
 .pointerCursor {
     cursor: pointer;
 }
+.iconStyle {
+    color: red;
+    float: right;
+    padding: 5px;
+}
+.centerHeader {
+    text-align: center;
+}
