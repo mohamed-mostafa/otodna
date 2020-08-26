@@ -168,4 +168,7 @@ export class SessionDocumentsComponent implements OnInit {
     removeKey(text) {
         return text.replace(`${this.filePath}/`, "");
     }
+    viewDocument(document) {
+        this.documentService.getFileUrl(document.Key).then((data) => {});
+    }
 }

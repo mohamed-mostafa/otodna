@@ -36,7 +36,7 @@
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </p-header>
-            <div>
+            <div (click)="viewDocument(document)" class="pointerCursor">
                 <div class="ui-g-12 ui-md-12 bold">
                     {{ removeKey(document.Key) }}
                 </div>

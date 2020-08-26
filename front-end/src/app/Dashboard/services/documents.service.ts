@@ -65,4 +65,23 @@ export class DocumentsService {
             });
         });
     }
+    getFileUrl(filePath): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const bucket = this.secret;
+            const params = {
+                Bucket: "otonda-upload-file",
+                Key: filePath,
+            };
+            bucket.getObject(params, function (err, data) {
+                if (err) {
+                    reject(JSON.stringify(err));
+                }
+                let blob = new Blob([data.Body], { type: data.ContentType });
+                let link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filePath;
+                link.click();
+            });
+        });
+    }
 }

@@ -135,4 +135,7 @@ export class DocumentsComponent implements OnInit {
     removeKey(text) {
         return text.replace(`Patient/${this.selectedPatient.id}/`, "");
     }
+    viewDocument(document) {
+        this.documentService.getFileUrl(document.Key).then((data) => {});
+    }
 }

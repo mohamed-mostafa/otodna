@@ -41,6 +41,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
             patientSessionId: data[0].sessionTestId,
           };
           let res = await this.sessionTestRepository.create(sessionTestObj);
+          data[0].id = res.id;
           let handledData = await this.handleData(
             data,
             res.id,
@@ -73,6 +74,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           let res = await this.sessionTreatmentRepository.create(
             sessionTestObj,
           );
+          data[0].id = res.id;
           let handledData = await this.handleData(
             data,
             res.id,
@@ -105,6 +107,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           let res = await this.patientSessionPathologyRepository.create(
             sessionTestObj,
           );
+          data[0].id = res.id;
           let handledData = await this.handleData(
             data,
             res.id,

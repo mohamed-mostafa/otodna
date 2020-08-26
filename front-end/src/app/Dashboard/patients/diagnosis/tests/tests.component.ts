@@ -1,3 +1,4 @@
+import { DocumentsService } from "./../../../services/documents.service";
 import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { Router } from "@angular/router";
@@ -28,8 +29,6 @@ export class TestsComponent implements OnInit {
     showTests = true;
     selected;
     selectedTestData = [];
-    uploadedFiles: any[] = [];
-    uploadedImages: any[] = [];
     selectedSession;
     dialogHeader;
     filteredEquipments: any[];
@@ -38,6 +37,8 @@ export class TestsComponent implements OnInit {
     graphData: any;
     showAllButtons = true;
     selectedPatient;
+    rightFiles: any[] = [];
+    leftFiles: any[] = [];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -46,6 +47,7 @@ export class TestsComponent implements OnInit {
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
         private teamsService: TeamsService,
+        private documentService: DocumentsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -117,6 +119,23 @@ export class TestsComponent implements OnInit {
         }
         return allSelectedEquipments;
     }
+    uploadFiles(id, data, side) {
+        this.spinner.show();
+        let filePath;
+        if (this.selectedSession.sessionTypeId === 0) {
+            filePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${id}/${side}`;
+        } else {
+            filePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${id}/${side}`;
+        }
+        this.documentService.fileUpload(data, filePath).then((data) => {
+            this.spinner.hide();
+            if (side === "Right") {
+                this.rightFiles.splice(0, this.rightFiles.length);
+            } else {
+                this.leftFiles.splice(0, this.leftFiles.length);
+            }
+        });
+    }
     saveTest() {
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
             const equipmentsAllData = this.getEquipmentsAllData(
@@ -136,6 +155,15 @@ export class TestsComponent implements OnInit {
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightFiles.length > 0) {
+                    this.uploadFiles(u[0].id, this.rightFiles, "Right");
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadFiles(u[0].id, this.leftFiles, "Left");
+                }
+                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                    this.spinner.hide();
+                }
                 this.selectedTest = "";
                 this.filteredTests = [];
                 this.selectedEquipments = [];
@@ -145,7 +173,6 @@ export class TestsComponent implements OnInit {
                 this.dialogHeader = "Add New Test";
                 this.getSessionTests();
                 this.showMessage("success", "Saved", "Data saved successfully");
-                this.spinner.hide();
             });
     }
     updateTest() {
@@ -323,17 +350,11 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         });
     }
-    uploadImages(event) {
-        for (const file of event.files) {
-            this.uploadedImages.push(file);
-        }
-        this.showMessage("info", "Success", "Upload Completed");
+    selectedRightFiles(event) {
+        this.rightFiles = event.currentFiles;
     }
-    uploadFiles(event) {
-        for (const file of event.files) {
-            this.uploadedFiles.push(file);
-        }
-        this.showMessage("info", "Success", "Upload Completed");
+    selectedLeftFiles(event) {
+        this.leftFiles = event.currentFiles;
     }
     filterEquipments(event) {
         this.filteredEquipments = [];

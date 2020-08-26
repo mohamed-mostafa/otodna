@@ -1,3 +1,4 @@
+import { DocumentsService } from "./../../../services/documents.service";
 import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { CandidacyService } from "./../services/candidacy.service";
@@ -29,12 +30,12 @@ export class CandidacyComponent implements OnInit {
     showTests = true;
     selected;
     selectedTestData = [];
-    uploadedFiles: any[] = [];
-    uploadedImages: any[] = [];
     selectedSession;
     dialogHeader;
     showSaveButton = true;
     showAllButtons = true;
+    rightFiles: any[] = [];
+    leftFiles: any[] = [];
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -43,6 +44,7 @@ export class CandidacyComponent implements OnInit {
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
         private teamsService: TeamsService,
+        private documentService: DocumentsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -95,6 +97,23 @@ export class CandidacyComponent implements OnInit {
             }
         }
     }
+    uploadFiles(id, data, side) {
+        this.spinner.show();
+        let filePath;
+        if (this.selectedSession.sessionTypeId === 0) {
+            filePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${id}/${side}`;
+        } else {
+            filePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${id}/${side}`;
+        }
+        this.documentService.fileUpload(data, filePath).then((data) => {
+            this.spinner.hide();
+            if (side === "Right") {
+                this.rightFiles.splice(0, this.rightFiles.length);
+            } else {
+                this.leftFiles.splice(0, this.leftFiles.length);
+            }
+        });
+    }
     save() {
         this.selectedTestData.forEach((element) => {
             element.testId = this.selected.treatmentId;
@@ -107,6 +126,15 @@ export class CandidacyComponent implements OnInit {
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightFiles.length > 0) {
+                    this.uploadFiles(u[0].id, this.rightFiles, "Right");
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadFiles(u[0].id, this.leftFiles, "Left");
+                }
+                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                    this.spinner.hide();
+                }
                 this.selectedTest = "";
                 this.filteredTests = [];
                 this.selected = "";
@@ -115,7 +143,6 @@ export class CandidacyComponent implements OnInit {
                 this.dialogHeader = "Add New Recommendation";
                 this.getAllCandidacies();
                 this.showMessage("success", "Saved", "Data saved successfully");
-                this.spinner.hide();
             });
     }
     updateTest() {
@@ -272,17 +299,11 @@ export class CandidacyComponent implements OnInit {
             this.spinner.hide();
         });
     }
-    uploadImages(event) {
-        for (const file of event.files) {
-            this.uploadedImages.push(file);
-        }
-        this.showMessage("info", "Success", "Upload Completed");
+    selectedRightFiles(event) {
+        this.rightFiles = event.currentFiles;
     }
-    uploadFiles(event) {
-        for (const file of event.files) {
-            this.uploadedFiles.push(file);
-        }
-        this.showMessage("info", "Success", "Upload Completed");
+    selectedLeftFiles(event) {
+        this.leftFiles = event.currentFiles;
     }
     async retrieveTestData(test) {
         await this.openTest(test);

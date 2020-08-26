@@ -1,3 +1,4 @@
+import { DocumentsService } from "./../../../services/documents.service";
 import { TeamsService } from "./../../../services/teams.service";
 import { TreatmentTestsService } from "./../services/treatment-tests.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
@@ -28,8 +29,6 @@ export class TreatmentTestsComponent implements OnInit {
     showTests = true;
     selected;
     selectedTestData = [];
-    uploadedFiles: any[] = [];
-    uploadedImages: any[] = [];
     selectedSession;
     dialogHeader;
     filteredEquipments: any[];
@@ -37,6 +36,8 @@ export class TreatmentTestsComponent implements OnInit {
     showSaveButton = true;
     showAllButtons = true;
     selectedPatient;
+    rightFiles: any[] = [];
+    leftFiles: any[] = [];
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -45,6 +46,7 @@ export class TreatmentTestsComponent implements OnInit {
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
         private teamsService: TeamsService,
+        private documentService: DocumentsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -107,6 +109,19 @@ export class TreatmentTestsComponent implements OnInit {
         }
         return allSelectedEquipments;
     }
+    uploadFiles(id, data, side) {
+        this.spinner.show();
+        let filePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${id}/${side}`;
+
+        this.documentService.fileUpload(data, filePath).then((data) => {
+            this.spinner.hide();
+            if (side === "Right") {
+                this.rightFiles.splice(0, this.rightFiles.length);
+            } else {
+                this.leftFiles.splice(0, this.leftFiles.length);
+            }
+        });
+    }
     saveTreatment() {
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
             const equipmentsAllData = this.getEquipmentsAllData(
@@ -126,6 +141,15 @@ export class TreatmentTestsComponent implements OnInit {
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightFiles.length > 0) {
+                    this.uploadFiles(u[0].id, this.rightFiles, "Right");
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadFiles(u[0].id, this.leftFiles, "Left");
+                }
+                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                    this.spinner.hide();
+                }
                 this.selectedTreatment = "";
                 this.filteredTreatments = [];
                 this.selectedEquipments = [];
@@ -135,7 +159,6 @@ export class TreatmentTestsComponent implements OnInit {
                 this.dialogHeader = "Add New Treatment";
                 this.getSessionTreatments();
                 this.showMessage("success", "Saved", "Data saved successfully");
-                this.spinner.hide();
             });
     }
     updateTreatment() {
@@ -314,17 +337,11 @@ export class TreatmentTestsComponent implements OnInit {
             this.dialogHeader = res.map((r) => r.name);
         });
     }
-    uploadImages(event) {
-        for (const file of event.files) {
-            this.uploadedImages.push(file);
-        }
-        this.showMessage("info", "Success", "Upload Completed");
+    selectedRightFiles(event) {
+        this.rightFiles = event.currentFiles;
     }
-    uploadFiles(event) {
-        for (const file of event.files) {
-            this.uploadedFiles.push(file);
-        }
-        this.showMessage("info", "Success", "Upload Completed");
+    selectedLeftFiles(event) {
+        this.leftFiles = event.currentFiles;
     }
     filterEquipments(event) {
         this.filteredEquipments = [];
