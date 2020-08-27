@@ -38,6 +38,10 @@ export class TreatmentTestsComponent implements OnInit {
     selectedPatient;
     rightFiles: any[] = [];
     leftFiles: any[] = [];
+    savedRightFiles = [];
+    savedLeftFiles = [];
+    rightPath;
+    leftPath;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -366,8 +370,16 @@ export class TreatmentTestsComponent implements OnInit {
     }
     async retrieveTestData(treatment) {
         await this.openTest(treatment);
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
         this.showTests = false;
         this.spinner.show();
+        this.rightPath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Right`;
+        const right = await this.documentService.getAllFiles(this.rightPath);
+        this.savedRightFiles = right.Contents;
+        this.leftPath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Left`;
+        const left = await this.documentService.getAllFiles(this.leftPath);
+        this.savedLeftFiles = left.Contents;
         this.treatmentService
             .getSessionTreatmentEquipment(treatment.id)
             .subscribe((res) => {
@@ -508,5 +520,14 @@ export class TreatmentTestsComponent implements OnInit {
                 this.showMessage("info", "Rejected", "You have rejected");
             },
         });
+    }
+    removeRightKey(text) {
+        return text.replace(`${this.rightPath}/`, "");
+    }
+    removeLeftKey(text) {
+        return text.replace(`${this.leftPath}/`, "");
+    }
+    viewDocument(document) {
+        this.documentService.getFileUrl(document.Key).then((data) => {});
     }
 }
