@@ -328,7 +328,7 @@
                             <ng-container
                                 *ngIf="
                                     savedLeftFiles.length > 0;
-                                    else elseTemplate
+                                    else elseTemplate2
                                 "
                             >
                                 <div class="ui-g-12 ui-md-6">
@@ -360,7 +360,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <ng-template #elseTemplate>
+                            <ng-template #elseTemplate2>
                                 <div class="ui-g-12 ui-md-6">
                                     <label for="img">Choose {{ t.name }}</label>
                                     <div class="labelMarginTop">

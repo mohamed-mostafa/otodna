@@ -160,6 +160,23 @@ export class PathologyComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightFiles.length > 0) {
+                    this.uploadFiles(
+                        this.selectedTestData[0].id,
+                        this.rightFiles,
+                        "Right"
+                    );
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadFiles(
+                        this.selectedTestData[0].id,
+                        this.leftFiles,
+                        "Left"
+                    );
+                }
+                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                    this.spinner.hide();
+                }
                 this.pathology = new Pathology();
                 this.selectedTest = "";
                 this.filteredTests = [];
@@ -168,7 +185,6 @@ export class PathologyComponent implements OnInit {
                 this.dialogHeader = "Add New Recommendation";
                 this.getAllPathologies();
                 this.showMessage("success", "Saved", "Data saved successfully");
-                this.spinner.hide();
             });
     }
     onHide() {
@@ -270,6 +286,8 @@ export class PathologyComponent implements OnInit {
     }
     async openTest(test) {
         this.selected = test;
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
         this.pathologyService.getTest(test.deseaseId).then(
             (res) => {
                 this.selectedTestData = res;

@@ -161,6 +161,23 @@ export class CandidacyComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightFiles.length > 0) {
+                    this.uploadFiles(
+                        this.selectedTestData[0].id,
+                        this.rightFiles,
+                        "Right"
+                    );
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadFiles(
+                        this.selectedTestData[0].id,
+                        this.leftFiles,
+                        "Left"
+                    );
+                }
+                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                    this.spinner.hide();
+                }
                 this.selectedTest = "";
                 this.filteredTests = [];
                 this.selected = "";
@@ -173,7 +190,6 @@ export class CandidacyComponent implements OnInit {
                     "Saved",
                     "Data updated successfully"
                 );
-                this.spinner.hide();
             });
     }
     onHide() {
@@ -272,6 +288,8 @@ export class CandidacyComponent implements OnInit {
     }
     async openTest(test) {
         this.selected = test;
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
         this.candidacyService.getTest(test.treatmentId).then(
             (res) => {
                 this.selectedTestData = res;

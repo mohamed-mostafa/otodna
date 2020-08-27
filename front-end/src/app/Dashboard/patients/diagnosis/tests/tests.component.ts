@@ -197,6 +197,23 @@ export class TestsComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightFiles.length > 0) {
+                    this.uploadFiles(
+                        this.selectedTestData[0].id,
+                        this.rightFiles,
+                        "Right"
+                    );
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadFiles(
+                        this.selectedTestData[0].id,
+                        this.leftFiles,
+                        "Left"
+                    );
+                }
+                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                    this.spinner.hide();
+                }
                 this.selectedTest = "";
                 this.filteredTests = [];
                 this.selectedEquipments = [];
@@ -210,7 +227,6 @@ export class TestsComponent implements OnInit {
                     "Saved",
                     "Data updated successfully"
                 );
-                this.spinner.hide();
             });
     }
     onHide() {
@@ -303,6 +319,8 @@ export class TestsComponent implements OnInit {
     }
     async openTest(test) {
         this.selected = test;
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
         this.testService.getTest(test.testId).then(
             (res) => {
                 this.selectedTestData = res;
