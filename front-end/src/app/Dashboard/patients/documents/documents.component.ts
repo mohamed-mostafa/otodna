@@ -73,7 +73,7 @@ export class DocumentsComponent implements OnInit {
                 this.showMessage(
                     "error",
                     "Error",
-                    "Something went wrong,Please try again"
+                    "An error occured while processing your request. Please Contact the system administrator."
                 );
             });
     }
@@ -89,8 +89,9 @@ export class DocumentsComponent implements OnInit {
                 this.showMessage(
                     "error",
                     "Error",
-                    "Something went wrong,Please try again"
+                    "An error occured while processing your request. Please Contact the system administrator."
                 );
+                this.spinner.hide();
             });
     }
     showMessage(type, title, message) {
@@ -123,7 +124,7 @@ export class DocumentsComponent implements OnInit {
                         this.showMessage(
                             "error",
                             "Error",
-                            "Something went wrong,Please try again"
+                            "An error occured while processing your request. Please Contact the system administrator."
                         );
                     });
             },

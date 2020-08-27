@@ -271,36 +271,114 @@
                             class="removeMarginAndPadding"
                             *ngIf="t.type === 'image'"
                         >
-                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop">
-                                    <p-fileUpload
-                                        multiple="multiple"
-                                        maxFileSize="100000000"
-                                        customUpload="true"
-                                        name="file"
-                                        ngDefaultControl
-                                        [showUploadButton]="false"
-                                        (onSelect)="selectedRightFiles($event)"
+                            <ng-container
+                                *ngIf="
+                                    savedRightFiles.length > 0;
+                                    else elseTemplate
+                                "
+                            >
+                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                    <label> {{ t.name }}</label>
+                                    <div
+                                        class="ui-g-12"
+                                        *ngFor="let document of savedRightFiles"
                                     >
-                                    </p-fileUpload>
+                                        <p-card
+                                            class="centerHeader"
+                                            [style]="{ height: '90px' }"
+                                            styleClass="ui-card-shadow"
+                                        >
+                                            <div
+                                                (click)="viewDocument(document)"
+                                                class="pointerCursor"
+                                            >
+                                                <div
+                                                    class="ui-g-12 ui-md-12 bold"
+                                                >
+                                                    {{
+                                                        removeRightKey(
+                                                            document.Key
+                                                        )
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </p-card>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="ui-g-12 ui-md-6">
-                                <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop">
-                                    <p-fileUpload
-                                        multiple="multiple"
-                                        maxFileSize="100000000"
-                                        customUpload="true"
-                                        name="file"
-                                        ngDefaultControl
-                                        [showUploadButton]="false"
-                                        (onSelect)="selectedLeftFiles($event)"
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                    <label for="img">Choose {{ t.name }}</label>
+                                    <div class="labelMarginTop">
+                                        <p-fileUpload
+                                            multiple="multiple"
+                                            maxFileSize="100000000"
+                                            customUpload="true"
+                                            name="file"
+                                            ngDefaultControl
+                                            [showUploadButton]="false"
+                                            (onSelect)="
+                                                selectedRightFiles($event)
+                                            "
+                                        >
+                                        </p-fileUpload>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-container
+                                *ngIf="
+                                    savedLeftFiles.length > 0;
+                                    else elseTemplate
+                                "
+                            >
+                                <div class="ui-g-12 ui-md-6">
+                                    <label> {{ t.name }}</label>
+                                    <div
+                                        class="ui-g-12"
+                                        *ngFor="let document of savedLeftFiles"
                                     >
-                                    </p-fileUpload>
+                                        <p-card
+                                            class="centerHeader"
+                                            [style]="{ height: '90px' }"
+                                            styleClass="ui-card-shadow"
+                                        >
+                                            <div
+                                                (click)="viewDocument(document)"
+                                                class="pointerCursor"
+                                            >
+                                                <div
+                                                    class="ui-g-12 ui-md-12 bold"
+                                                >
+                                                    {{
+                                                        removeLeftKey(
+                                                            document.Key
+                                                        )
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </p-card>
+                                    </div>
                                 </div>
-                            </div>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <div class="ui-g-12 ui-md-6">
+                                    <label for="img">Choose {{ t.name }}</label>
+                                    <div class="labelMarginTop">
+                                        <p-fileUpload
+                                            multiple="multiple"
+                                            maxFileSize="100000000"
+                                            customUpload="true"
+                                            name="file"
+                                            ngDefaultControl
+                                            [showUploadButton]="false"
+                                            (onSelect)="
+                                                selectedLeftFiles($event)
+                                            "
+                                        >
+                                        </p-fileUpload>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                         <!-- <div
                             class="removeMarginAndPadding"

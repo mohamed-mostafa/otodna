@@ -35,6 +35,10 @@ export class PathologyComponent implements OnInit {
     showAllButtons = true;
     rightFiles: any[] = [];
     leftFiles: any[] = [];
+    savedRightFiles = [];
+    savedLeftFiles = [];
+    rightPath;
+    leftPath;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -305,8 +309,29 @@ export class PathologyComponent implements OnInit {
     }
     async retrieveTestData(test) {
         await this.openTest(test);
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
         this.showTests = false;
         this.spinner.show();
+        if (this.selectedSession.sessionTypeId === 0) {
+            this.rightPath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Pathology/${test.id}/Right`;
+            const right = await this.documentService.getAllFiles(
+                this.rightPath
+            );
+            this.savedRightFiles = right.Contents;
+            this.leftPath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Pathology/${test.id}/Left`;
+            const left = await this.documentService.getAllFiles(this.leftPath);
+            this.savedLeftFiles = left.Contents;
+        } else {
+            this.rightPath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Pathology/${test.id}/Right`;
+            const right = await this.documentService.getAllFiles(
+                this.rightPath
+            );
+            this.savedRightFiles = right.Contents;
+            this.leftPath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Pathology/${test.id}/Left`;
+            const left = await this.documentService.getAllFiles(this.leftPath);
+            this.savedLeftFiles = left.Contents;
+        }
         this.pathologyService
             .getTestParametersValues(test.id)
             .subscribe((result) => {
@@ -446,5 +471,14 @@ export class PathologyComponent implements OnInit {
                 this.showMessage("info", "Rejected", "You have rejected");
             },
         });
+    }
+    removeRightKey(text) {
+        return text.replace(`${this.rightPath}/`, "");
+    }
+    removeLeftKey(text) {
+        return text.replace(`${this.leftPath}/`, "");
+    }
+    viewDocument(document) {
+        this.documentService.getFileUrl(document.Key).then((data) => {});
     }
 }

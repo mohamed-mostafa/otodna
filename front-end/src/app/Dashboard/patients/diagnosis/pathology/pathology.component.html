@@ -268,9 +268,45 @@
                             </div>
                         </div>
                         <div
-                            class="removeMarginAndPadding"
-                            *ngIf="t.type === 'image'"
+                        class="removeMarginAndPadding"
+                        *ngIf="t.type === 'image'"
+                    >
+                        <ng-container
+                            *ngIf="
+                                savedRightFiles.length > 0;
+                                else elseTemplate
+                            "
                         >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                <label> {{ t.name }}</label>
+                                <div
+                                    class="ui-g-12"
+                                    *ngFor="let document of savedRightFiles"
+                                >
+                                    <p-card
+                                        class="centerHeader"
+                                        [style]="{ height: '90px' }"
+                                        styleClass="ui-card-shadow"
+                                    >
+                                        <div
+                                            (click)="viewDocument(document)"
+                                            class="pointerCursor"
+                                        >
+                                            <div
+                                                class="ui-g-12 ui-md-12 bold"
+                                            >
+                                                {{
+                                                    removeRightKey(
+                                                        document.Key
+                                                    )
+                                                }}
+                                            </div>
+                                        </div>
+                                    </p-card>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #elseTemplate>
                             <div class="ui-g-12 ui-md-6 rightVerticalLine">
                                 <label for="img">Choose {{ t.name }}</label>
                                 <div class="labelMarginTop">
@@ -281,11 +317,50 @@
                                         name="file"
                                         ngDefaultControl
                                         [showUploadButton]="false"
-                                        (onSelect)="selectedRightFiles($event)"
+                                        (onSelect)="
+                                            selectedRightFiles($event)
+                                        "
                                     >
                                     </p-fileUpload>
                                 </div>
                             </div>
+                        </ng-template>
+                        <ng-container
+                            *ngIf="
+                                savedLeftFiles.length > 0;
+                                else elseTemplate
+                            "
+                        >
+                            <div class="ui-g-12 ui-md-6">
+                                <label> {{ t.name }}</label>
+                                <div
+                                    class="ui-g-12"
+                                    *ngFor="let document of savedLeftFiles"
+                                >
+                                    <p-card
+                                        class="centerHeader"
+                                        [style]="{ height: '90px' }"
+                                        styleClass="ui-card-shadow"
+                                    >
+                                        <div
+                                            (click)="viewDocument(document)"
+                                            class="pointerCursor"
+                                        >
+                                            <div
+                                                class="ui-g-12 ui-md-12 bold"
+                                            >
+                                                {{
+                                                    removeLeftKey(
+                                                        document.Key
+                                                    )
+                                                }}
+                                            </div>
+                                        </div>
+                                    </p-card>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #elseTemplate>
                             <div class="ui-g-12 ui-md-6">
                                 <label for="img">Choose {{ t.name }}</label>
                                 <div class="labelMarginTop">
@@ -296,12 +371,15 @@
                                         name="file"
                                         ngDefaultControl
                                         [showUploadButton]="false"
-                                        (onSelect)="selectedLeftFiles($event)"
+                                        (onSelect)="
+                                            selectedLeftFiles($event)
+                                        "
                                     >
                                     </p-fileUpload>
                                 </div>
                             </div>
-                        </div>
+                        </ng-template>
+                    </div>
                         <!-- <div
                             class="removeMarginAndPadding"
                             *ngIf="t.type === 'file'"
