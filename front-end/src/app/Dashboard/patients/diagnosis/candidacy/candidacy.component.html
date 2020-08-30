@@ -295,11 +295,95 @@
                                                 <div
                                                     class="ui-g-12 ui-md-12 bold"
                                                 >
-                                                    {{
-                                                        removeRightKey(
-                                                            document.Key
-                                                        )
-                                                    }}
+                                                    <div
+                                                        class="ui-g-12 ui-md-2"
+                                                    >
+                                                        <ng-container
+                                                            *ngIf="
+                                                                document.Key.includes(
+                                                                    '.pdf'.toLowerCase()
+                                                                );
+                                                                else elseTemplate
+                                                            "
+                                                        >
+                                                            <i
+                                                                class="fa fa-2x fa-file-pdf-o"
+                                                            ></i>
+                                                        </ng-container>
+                                                        <ng-template
+                                                            #elseTemplate
+                                                        >
+                                                            <ng-container
+                                                                *ngIf="
+                                                                    document.Key.includes(
+                                                                        '.png'.toLowerCase()
+                                                                    ) ||
+                                                                        document.Key.includes(
+                                                                            '.jpg'.toLowerCase()
+                                                                        ) ||
+                                                                        document.Key.includes(
+                                                                            '.jpeg'.toLowerCase()
+                                                                        );
+                                                                    else elseTemplate2
+                                                                "
+                                                            >
+                                                                <i
+                                                                    class="fa fa-2x fa-file-image-o"
+                                                                ></i>
+                                                            </ng-container>
+                                                            <ng-template
+                                                                #elseTemplate2
+                                                            >
+                                                                <ng-container
+                                                                    *ngIf="
+                                                                        document.Key.includes(
+                                                                            '.docx'.toLowerCase()
+                                                                        );
+                                                                        else elseTemplate3
+                                                                    "
+                                                                >
+                                                                    <i
+                                                                        class="fa fa-2x fa-file-word-o"
+                                                                    ></i>
+                                                                </ng-container>
+                                                                <ng-template
+                                                                    #elseTemplate3
+                                                                >
+                                                                    <ng-container
+                                                                        *ngIf="
+                                                                            document.Key.includes(
+                                                                                '.csv'.toLowerCase()
+                                                                            );
+                                                                            else elseTemplate4
+                                                                        "
+                                                                    >
+                                                                        <i
+                                                                            class="fa fa-2x fa-file-excel-o"
+                                                                        ></i>
+                                                                    </ng-container>
+                                                                    <ng-template
+                                                                        #elseTemplate4
+                                                                    >
+                                                                        <i
+                                                                            class="fa fa-2x fa-file"
+                                                                        ></i
+                                                                    ></ng-template>
+                                                                </ng-template>
+                                                            </ng-template>
+                                                        </ng-template>
+                                                    </div>
+                                                    <div
+                                                        class="ui-g-12 ui-md-10"
+                                                    >
+                                                        {{
+                                                            removeRightKey(
+                                                                document.Key
+                                                            )
+                                                        }}
+                                                        <br />
+                                                        {{ document.Size }}
+                                                        Bytes
+                                                    </div>
                                                 </div>
                                             </div>
                                         </p-card>
@@ -349,11 +433,95 @@
                                                 <div
                                                     class="ui-g-12 ui-md-12 bold"
                                                 >
-                                                    {{
-                                                        removeLeftKey(
-                                                            document.Key
-                                                        )
-                                                    }}
+                                                    <div
+                                                        class="ui-g-12 ui-md-2"
+                                                    >
+                                                        <ng-container
+                                                            *ngIf="
+                                                                document.Key.includes(
+                                                                    '.pdf'.toLowerCase()
+                                                                );
+                                                                else elseTemplate
+                                                            "
+                                                        >
+                                                            <i
+                                                                class="fa fa-2x fa-file-pdf-o"
+                                                            ></i>
+                                                        </ng-container>
+                                                        <ng-template
+                                                            #elseTemplate
+                                                        >
+                                                            <ng-container
+                                                                *ngIf="
+                                                                    document.Key.includes(
+                                                                        '.png'.toLowerCase()
+                                                                    ) ||
+                                                                        document.Key.includes(
+                                                                            '.jpg'.toLowerCase()
+                                                                        ) ||
+                                                                        document.Key.includes(
+                                                                            '.jpeg'.toLowerCase()
+                                                                        );
+                                                                    else elseTemplate2
+                                                                "
+                                                            >
+                                                                <i
+                                                                    class="fa fa-2x fa-file-image-o"
+                                                                ></i>
+                                                            </ng-container>
+                                                            <ng-template
+                                                                #elseTemplate2
+                                                            >
+                                                                <ng-container
+                                                                    *ngIf="
+                                                                        document.Key.includes(
+                                                                            '.docx'.toLowerCase()
+                                                                        );
+                                                                        else elseTemplate3
+                                                                    "
+                                                                >
+                                                                    <i
+                                                                        class="fa fa-2x fa-file-word-o"
+                                                                    ></i>
+                                                                </ng-container>
+                                                                <ng-template
+                                                                    #elseTemplate3
+                                                                >
+                                                                    <ng-container
+                                                                        *ngIf="
+                                                                            document.Key.includes(
+                                                                                '.csv'.toLowerCase()
+                                                                            );
+                                                                            else elseTemplate4
+                                                                        "
+                                                                    >
+                                                                        <i
+                                                                            class="fa fa-2x fa-file-excel-o"
+                                                                        ></i>
+                                                                    </ng-container>
+                                                                    <ng-template
+                                                                        #elseTemplate4
+                                                                    >
+                                                                        <i
+                                                                            class="fa fa-2x fa-file"
+                                                                        ></i
+                                                                    ></ng-template>
+                                                                </ng-template>
+                                                            </ng-template>
+                                                        </ng-template>
+                                                    </div>
+                                                    <div
+                                                        class="ui-g-12 ui-md-10"
+                                                    >
+                                                        {{
+                                                            removeLeftKey(
+                                                                document.Key
+                                                            )
+                                                        }}
+                                                        <br />
+                                                        {{ document.Size }}
+                                                        Bytes
+                                                    </div>
                                                 </div>
                                             </div>
                                         </p-card>
