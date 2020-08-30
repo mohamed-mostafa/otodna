@@ -43,6 +43,8 @@ export class TestsComponent implements OnInit {
     savedLeftFiles = [];
     rightPath;
     leftPath;
+    leftDocument;
+    rightDocument;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -197,6 +199,12 @@ export class TestsComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightDocument) {
+                    this.documentService.deleteFile(this.rightDocument.Key);
+                }
+                if (this.leftDocument) {
+                    this.documentService.deleteFile(this.leftDocument.Key);
+                }
                 if (this.rightFiles.length > 0) {
                     this.uploadFiles(
                         this.selectedTestData[0].id,
@@ -218,6 +226,8 @@ export class TestsComponent implements OnInit {
                 this.filteredTests = [];
                 this.selectedEquipments = [];
                 this.selected = "";
+                this.rightDocument = "";
+                this.leftDocument = "";
                 this.displayTest = false;
                 this.test = new Test();
                 this.dialogHeader = "Add New Test";
@@ -235,6 +245,8 @@ export class TestsComponent implements OnInit {
         this.selectedTest = "";
         this.selectedEquipments = [];
         this.showSaveButton = true;
+        this.rightDocument = "";
+        this.leftDocument = "";
     }
     cancelTest() {
         this.selectedTest = "";
@@ -242,6 +254,8 @@ export class TestsComponent implements OnInit {
         this.filteredTests = [];
         this.showTests = true;
         this.displayTest = false;
+        this.rightDocument = "";
+        this.leftDocument = "";
         this.dialogHeader = "Add New Test";
     }
     showMessage(type, title, message) {
@@ -578,5 +592,17 @@ export class TestsComponent implements OnInit {
     }
     viewDocument(document) {
         this.documentService.getFileUrl(document.Key).then((data) => {});
+    }
+    deleteRightDocument(document) {
+        this.rightDocument = document;
+        this.savedRightFiles = this.savedRightFiles.filter(
+            (obj) => obj !== document
+        );
+    }
+    deleteLeftDocument(document) {
+        this.leftDocument = document;
+        this.savedLeftFiles = this.savedLeftFiles.filter(
+            (obj) => obj !== document
+        );
     }
 }

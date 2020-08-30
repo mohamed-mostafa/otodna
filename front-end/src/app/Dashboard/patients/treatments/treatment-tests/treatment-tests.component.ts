@@ -42,6 +42,8 @@ export class TreatmentTestsComponent implements OnInit {
     savedLeftFiles = [];
     rightPath;
     leftPath;
+    leftDocument;
+    rightDocument;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -184,6 +186,12 @@ export class TreatmentTestsComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightDocument) {
+                    this.documentService.deleteFile(this.rightDocument.Key);
+                }
+                if (this.leftDocument) {
+                    this.documentService.deleteFile(this.leftDocument.Key);
+                }
                 if (this.rightFiles.length > 0) {
                     this.uploadFiles(
                         this.selectedTestData[0].id,
@@ -205,6 +213,8 @@ export class TreatmentTestsComponent implements OnInit {
                 this.filteredTreatments = [];
                 this.selectedEquipments = [];
                 this.selected = "";
+                this.rightDocument = "";
+                this.leftDocument = "";
                 this.displayTest = false;
                 this.treatment = new Treatment();
                 this.dialogHeader = "Add New Treatment";
@@ -222,6 +232,8 @@ export class TreatmentTestsComponent implements OnInit {
         this.selectedTreatment = "";
         this.selectedEquipments = [];
         this.showSaveButton = true;
+        this.rightDocument = "";
+        this.leftDocument = "";
     }
     cancelTreatment() {
         this.selectedTreatment = "";
@@ -229,6 +241,8 @@ export class TreatmentTestsComponent implements OnInit {
         this.filteredTreatments = [];
         this.showTests = true;
         this.displayTest = false;
+        this.rightDocument = "";
+        this.leftDocument = "";
         this.dialogHeader = "Add New Treatment";
     }
     showMessage(type, title, message) {
@@ -547,5 +561,17 @@ export class TreatmentTestsComponent implements OnInit {
     }
     viewDocument(document) {
         this.documentService.getFileUrl(document.Key).then((data) => {});
+    }
+    deleteRightDocument(document) {
+        this.rightDocument = document;
+        this.savedRightFiles = this.savedRightFiles.filter(
+            (obj) => obj !== document
+        );
+    }
+    deleteLeftDocument(document) {
+        this.leftDocument = document;
+        this.savedLeftFiles = this.savedLeftFiles.filter(
+            (obj) => obj !== document
+        );
     }
 }
