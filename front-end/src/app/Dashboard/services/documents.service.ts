@@ -79,7 +79,9 @@ export class DocumentsService {
                 let blob = new Blob([data.Body], { type: data.ContentType });
                 let link = document.createElement("a");
                 link.href = window.URL.createObjectURL(blob);
-                link.download = filePath;
+                const n = filePath.lastIndexOf("/");
+                const result = filePath.substring(n + 1);
+                link.download = result;
                 link.click();
             });
         });
