@@ -271,6 +271,15 @@
                             class="removeMarginAndPadding"
                             *ngIf="t.type === 'image'"
                         >
+                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                                Right
+                            </div>
+                            <div class="ui-g-12 ui-md-6">Left</div>
+                        </div>
+                        <div
+                            class="removeMarginAndPadding"
+                            *ngIf="t.type === 'file'"
+                        >
                             <ng-container
                                 *ngIf="
                                     savedRightFiles.length > 0;
@@ -586,61 +595,6 @@
                                 </div>
                             </ng-template>
                         </div>
-                        <!-- <div
-                            class="removeMarginAndPadding"
-                            *ngIf="t.type === 'file'"
-                        >
-                            <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                                <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop">
-                                    <p-fileUpload
-                                        name="demo[]"
-                                        url="./upload.php"
-                                        (onUpload)="uploadFiles($event)"
-                                        multiple="multiple"
-                                        maxFileSize="100000000"
-                                    >
-                                        <ng-template pTemplate="content">
-                                            <ul *ngIf="uploadedFiles.length">
-                                                <li
-                                                    *ngFor="
-                                                        let file of uploadedFiles
-                                                    "
-                                                >
-                                                    {{ file.name }} -
-                                                    {{ file.size }} bytes
-                                                </li>
-                                            </ul>
-                                        </ng-template>
-                                    </p-fileUpload>
-                                </div>
-                            </div>
-                            <div class="ui-g-12 ui-md-6">
-                                <label for="img">Choose {{ t.name }}</label>
-                                <div class="labelMarginTop">
-                                    <p-fileUpload
-                                        name="demo[]"
-                                        url="./upload.php"
-                                        (onUpload)="uploadFiles($event)"
-                                        multiple="multiple"
-                                        maxFileSize="100000000"
-                                    >
-                                        <ng-template pTemplate="content">
-                                            <ul *ngIf="uploadedFiles.length">
-                                                <li
-                                                    *ngFor="
-                                                        let file of uploadedFiles
-                                                    "
-                                                >
-                                                    {{ file.name }} -
-                                                    {{ file.size }} bytes
-                                                </li>
-                                            </ul>
-                                        </ng-template>
-                                    </p-fileUpload>
-                                </div>
-                            </div>
-                        </div> -->
                         <div
                             class="ui-g-12 ui-md-12"
                             *ngIf="t.type === 'textarea'"
