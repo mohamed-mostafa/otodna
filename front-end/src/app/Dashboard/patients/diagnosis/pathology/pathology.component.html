@@ -398,8 +398,11 @@
                                                             )
                                                         }}
                                                         <br />
-                                                        {{ document.Size }}
-                                                        Bytes
+                                                        {{
+                                                            formatBytes(
+                                                                document.Size
+                                                            )
+                                                        }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -442,23 +445,23 @@
                                             [style]="{ height: '90px' }"
                                             styleClass="ui-card-shadow"
                                         >
-                                        <p-header>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="iconStyle"
-                                                (click)="
-                                                    deleteLeftDocument(
-                                                        document
-                                                    )
-                                                "
-                                                title="Remove"
-                                            >
-                                                <i
-                                                    class="fa fa-trash-o"
-                                                    aria-hidden="true"
-                                                ></i>
-                                            </a>
-                                        </p-header>
+                                            <p-header>
+                                                <a
+                                                    href="javascript:void(0)"
+                                                    class="iconStyle"
+                                                    (click)="
+                                                        deleteLeftDocument(
+                                                            document
+                                                        )
+                                                    "
+                                                    title="Remove"
+                                                >
+                                                    <i
+                                                        class="fa fa-trash-o"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                </a>
+                                            </p-header>
                                             <div
                                                 (click)="viewDocument(document)"
                                                 class="pointerCursor"
@@ -552,8 +555,11 @@
                                                             )
                                                         }}
                                                         <br />
-                                                        {{ document.Size }}
-                                                        Bytes
+                                                        {{
+                                                            formatBytes(
+                                                                document.Size
+                                                            )
+                                                        }}
                                                     </div>
                                                 </div>
                                             </div>
