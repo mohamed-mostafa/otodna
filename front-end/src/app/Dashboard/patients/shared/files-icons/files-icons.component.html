@@ -1,0 +1,32 @@
+<ng-container *ngIf="key.includes('.PDF'.toLowerCase()); else elseTemplate">
+    <i class="fa fa-2x fa-file-pdf-o"></i>
+</ng-container>
+<ng-template #elseTemplate>
+    <ng-container
+        *ngIf="
+            key.includes('.PNG'.toLowerCase()) ||
+                key.includes('.JPG'.toLowerCase()) ||
+                key.includes('.JPEG'.toLowerCase());
+            else elseTemplate2
+        "
+    >
+        <i class="fa fa-2x fa-file-image-o"></i>
+    </ng-container>
+    <ng-template #elseTemplate2>
+        <ng-container
+            *ngIf="key.includes('.DOCX'.toLowerCase()); else elseTemplate3"
+        >
+            <i class="fa fa-2x fa-file-word-o"></i>
+        </ng-container>
+        <ng-template #elseTemplate3>
+            <ng-container
+                *ngIf="key.includes('.CSV'.toLowerCase()); else elseTemplate4"
+            >
+                <i class="fa fa-2x fa-file-excel-o"></i>
+            </ng-container>
+            <ng-template #elseTemplate4>
+                <i class="fa fa-2x fa-file"></i
+            ></ng-template>
+        </ng-template>
+    </ng-template>
+</ng-template>

@@ -39,59 +39,7 @@
             <div (click)="viewDocument(document)" class="pointerCursor">
                 <div class="ui-g-12 ui-md-12 bold">
                     <div class="ui-g-12 ui-md-2">
-                        <ng-container
-                            *ngIf="
-                                document.Key.includes('.PDF'.toLowerCase());
-                                else elseTemplate
-                            "
-                        >
-                            <i class="fa fa-2x fa-file-pdf-o"></i>
-                        </ng-container>
-                        <ng-template #elseTemplate>
-                            <ng-container
-                                *ngIf="
-                                    document.Key.includes(
-                                        '.PNG'.toLowerCase()
-                                    ) ||
-                                        document.Key.includes(
-                                            '.JPG'.toLowerCase()
-                                        ) ||
-                                        document.Key.includes(
-                                            '.JPEG'.toLowerCase()
-                                        );
-                                    else elseTemplate2
-                                "
-                            >
-                                <i class="fa fa-2x fa-file-image-o"></i>
-                            </ng-container>
-                            <ng-template #elseTemplate2>
-                                <ng-container
-                                    *ngIf="
-                                        document.Key.includes(
-                                            '.DOCX'.toLowerCase()
-                                        );
-                                        else elseTemplate3
-                                    "
-                                >
-                                    <i class="fa fa-2x fa-file-word-o"></i>
-                                </ng-container>
-                                <ng-template #elseTemplate3>
-                                    <ng-container
-                                        *ngIf="
-                                            document.Key.includes(
-                                                '.CSV'.toLowerCase()
-                                            );
-                                            else elseTemplate4
-                                        "
-                                    >
-                                        <i class="fa fa-2x fa-file-excel-o"></i>
-                                    </ng-container>
-                                    <ng-template #elseTemplate4>
-                                        <i class="fa fa-2x fa-file"></i
-                                    ></ng-template>
-                                </ng-template>
-                            </ng-template>
-                        </ng-template>
+                        <app-files-icons [key]="document.Key"></app-files-icons>
                     </div>
                     <div class="ui-g-12 ui-md-10">
                         {{ removeKey(document.Key) }}

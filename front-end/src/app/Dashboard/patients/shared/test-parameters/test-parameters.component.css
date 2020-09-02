@@ -1,0 +1,111 @@
+.centerClass {
+    text-align: center;
+    margin-top: 12%;
+}
+
+.labelMarginTop {
+    margin-top: 7px;
+}
+
+.equipmentCenterClass {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.FullWidth {
+    width: 100%;
+}
+.labelMarginTop {
+    margin-top: 7px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.centerHeader {
+    text-align: center;
+}
+.marginTop28 {
+    margin-top: 28px;
+}
+.removeMarginAndPadding {
+    margin: 0px;
+    padding: 0px;
+}
+.rightVerticalLine {
+    border-right: 2px solid #e0e0e0;
+}
+.leftVerticalColor {
+    border-left: 5px solid #1e88e5;
+    padding-left: 5px;
+}
+.leftColor {
+    color: #1e88e5 !important;
+}
+.rightColor {
+    color: #c62828 !important;
+}
+.equipmentStyle {
+    font-size: 18px;
+    float: left;
+    margin: 10px 10px 0 0;
+}
+.rightBackgroundColor {
+    background-color: #c62828 !important;
+    color: white !important;
+}
+.leftBackgroundColor {
+    background-color: #1e88e5 !important;
+    color: white !important;
+}
+.ui-fluid .ui-dropdown,
+.ui-fluid p-dropdown {
+    width: 100%;
+    min-width: 90%;
+}
+.lineHeight {
+    line-height: 5px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.bold {
+    font-weight: bold;
+}
+.addTestStyle {
+    padding-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.testStyle {
+    padding-top: 12px;
+    font-size: 15px;
+}
+.iconStyle {
+    color: red;
+    float: right;
+    padding: 5px;
+}
+@media screen and (max-width: 40em) {
+    .addTestStyle {
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+.photoStyle {
+    border: 3px solid #b3eee0;
+    height: 120px;
+}
+.buttonStyle {
+    border: 3px solid #b3eee0;
+    border-top: 0;
+}
+.centerText {
+    text-align: center;
+    margin-top: 12%;
+    font-weight: bold;
+    font-size: medium;
+}
+.noPadding {
+    padding: 0px;
+}

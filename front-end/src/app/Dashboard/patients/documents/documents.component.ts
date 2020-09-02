@@ -4,6 +4,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
+import { SharedClass } from "../shared/sharedFunctions";
 
 @Component({
     selector: "app-documents",
@@ -12,6 +13,7 @@ import { Component, OnInit } from "@angular/core";
     providers: [MessageService, ConfirmationService],
 })
 export class DocumentsComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     items: MenuItem[];
     home: MenuItem;
     selectedPatient;
@@ -48,11 +50,7 @@ export class DocumentsComponent implements OnInit {
         this.getAllFiles();
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     uploadFiles(event) {
         this.spinner.show();
@@ -140,17 +138,6 @@ export class DocumentsComponent implements OnInit {
         this.documentService.getFileUrl(document.Key).then((data) => {});
     }
     formatBytes(bytes, decimals = 2) {
-        if (bytes === 0) {
-            return "0 Bytes";
-        }
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-        return (
-            parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
-        );
+        return this.sharedClass.formatBytes(bytes);
     }
 }

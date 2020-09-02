@@ -5,6 +5,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Symptom } from "./symptom";
+import { SharedClass } from "../../shared/sharedFunctions";
 
 @Component({
     selector: "app-symptoms",
@@ -13,6 +14,7 @@ import { Symptom } from "./symptom";
     providers: [MessageService],
 })
 export class SymptomsComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     selectedPatient;
     symptom: Symptom = new Symptom();
     selectedSymptoms;
@@ -61,18 +63,12 @@ export class SymptomsComponent implements OnInit {
         this.getPatientSessionSymptoms();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     getALlSymptoms() {
         this.spinner.show();
@@ -152,18 +148,10 @@ export class SymptomsComponent implements OnInit {
         });
     }
     goToPatientPage(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/patient"]);
-            });
+        this.sharedClass.goToPatientPage(this.router);
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     getPatientSessionSymptoms() {
         this.spinner.show();
@@ -183,22 +171,6 @@ export class SymptomsComponent implements OnInit {
             });
     }
     endSession() {
-        if (this.router.url === "/dashboard/symptoms") {
-            this.router
-                .navigateByUrl("/RefreshComponent", {
-                    skipLocationChange: true,
-                })
-                .then(() => {
-                    this.router.navigate(["/dashboard/addDiagnosis"]);
-                });
-        } else {
-            this.router
-                .navigateByUrl("/RefreshComponent", {
-                    skipLocationChange: true,
-                })
-                .then(() => {
-                    this.router.navigate(["/dashboard/addFollowup"]);
-                });
-        }
+        this.sharedClass.endSession(this.router.url, this.router);
     }
 }

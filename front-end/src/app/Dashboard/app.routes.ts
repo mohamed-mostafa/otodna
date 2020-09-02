@@ -1,3 +1,5 @@
+import { TestParametersComponent } from './patients/shared/test-parameters/test-parameters.component';
+import { FilesIconsComponent } from "./patients/shared/files-icons/files-icons.component";
 import { SessionDocumentsComponent } from "./patients/session-documents/session-documents.component";
 import { DocumentsComponent } from "./patients/documents/documents.component";
 import { TreatmentTestsComponent } from "./patients/treatments/treatment-tests/treatment-tests.component";
@@ -105,6 +107,7 @@ export const routes: Routes = [
                 component: SessionDocumentsComponent,
             },
             { path: "followupDocuments", component: SessionDocumentsComponent },
+            { path: "filesIcons", component: FilesIconsComponent },
         ],
     },
 ];
@@ -150,6 +153,8 @@ export const COMPONENTS = [
     TreatmentTestsComponent,
     DocumentsComponent,
     SessionDocumentsComponent,
+    FilesIconsComponent,
+    TestParametersComponent
 ];
 @NgModule({
     exports: [RouterModule],

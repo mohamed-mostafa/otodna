@@ -92,3 +92,17 @@
         font-weight: bold;
     }
 }
+.photoStyle {
+    border: 3px solid #b3eee0;
+    height: 120px;
+}
+.buttonStyle {
+    border: 3px solid #b3eee0;
+    border-top: 0;
+}
+.centerText {
+    text-align: center;
+    margin-top: 12%;
+    font-weight: bold;
+    font-size: medium;
+}

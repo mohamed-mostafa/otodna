@@ -1,3 +1,5 @@
+import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
+import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
 import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
@@ -6,9 +8,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Candidacy } from "./candidacy";
-
 @Component({
     selector: "app-candidacy",
     templateUrl: "./candidacy.component.html",
@@ -16,6 +17,8 @@ import { Candidacy } from "./candidacy";
     providers: [MessageService, ConfirmationService],
 })
 export class CandidacyComponent implements OnInit {
+    @ViewChild(TestParametersComponent) testParameterComponent;
+    sharedClass: SharedClass = new SharedClass();
     selectedPatient;
     cols: any[];
     candidacies: any[] = [];
@@ -26,7 +29,6 @@ export class CandidacyComponent implements OnInit {
     selectedTest;
     filteredTests: any[];
     allTests = [];
-    allEquipments = [];
     showTests = true;
     selected;
     selectedTestData = [];
@@ -38,10 +40,18 @@ export class CandidacyComponent implements OnInit {
     leftFiles: any[] = [];
     savedRightFiles = [];
     savedLeftFiles = [];
-    rightPath;
-    leftPath;
+    rightFilePath;
+    leftFilePath;
+    savedRightImage = [];
+    savedLeftImage = [];
+    rightImagePath;
+    leftImagePath;
     leftDocument;
     rightDocument;
+    rightImage;
+    leftImage;
+    leftDeletedImage;
+    rightDeletedImage;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -90,26 +100,20 @@ export class CandidacyComponent implements OnInit {
         this.getAllCandidacies();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
-    uploadFiles(id, data, side) {
+    uploadFiles(id, data, side, type) {
         this.spinner.show();
         let filePath;
         if (this.selectedSession.sessionTypeId === 0) {
-            filePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${id}/${side}`;
+            filePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${id}/${type}/${side}`;
         } else {
-            filePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${id}/${side}`;
+            filePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${id}/${type}/${side}`;
         }
         this.documentService.fileUpload(data, filePath).then((data) => {
             this.spinner.hide();
@@ -121,6 +125,10 @@ export class CandidacyComponent implements OnInit {
         });
     }
     save() {
+        this.rightImage = this.testParameterComponent.rightImage;
+        this.leftImage = this.testParameterComponent.leftImage;
+        this.rightFiles = this.testParameterComponent.rightFiles;
+        this.leftFiles = this.testParameterComponent.leftFiles;
         this.selectedTestData.forEach((element) => {
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
@@ -132,26 +140,50 @@ export class CandidacyComponent implements OnInit {
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightImage.length > 0) {
+                    this.uploadFiles(
+                        u[0].id,
+                        this.rightImage,
+                        "Right",
+                        "Images"
+                    );
+                }
                 if (this.rightFiles.length > 0) {
-                    this.uploadFiles(u[0].id, this.rightFiles, "Right");
+                    this.uploadFiles(
+                        u[0].id,
+                        this.rightFiles,
+                        "Right",
+                        "Files"
+                    );
+                }
+                if (this.leftImage.length > 0) {
+                    this.uploadFiles(u[0].id, this.leftImage, "Left", "Images");
                 }
                 if (this.leftFiles.length > 0) {
-                    this.uploadFiles(u[0].id, this.leftFiles, "Left");
+                    this.uploadFiles(u[0].id, this.leftFiles, "Left", "Files");
                 }
-                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                if (
+                    this.leftFiles.length < 0 &&
+                    this.rightFiles.length < 0 &&
+                    this.rightImage.length < 0 &&
+                    this.leftImage.length < 0
+                ) {
                     this.spinner.hide();
                 }
-                this.selectedTest = "";
-                this.filteredTests = [];
-                this.selected = "";
-                this.displayTest = false;
-                this.candidacy = new Candidacy();
-                this.dialogHeader = "Add New Recommendation";
+                this.reset();
                 this.getAllCandidacies();
                 this.showMessage("success", "Saved", "Data saved successfully");
             });
     }
     updateTest() {
+        this.rightImage = this.testParameterComponent.rightImage;
+        this.leftImage = this.testParameterComponent.leftImage;
+        this.rightFiles = this.testParameterComponent.rightFiles;
+        this.leftFiles = this.testParameterComponent.leftFiles;
+        this.rightDocument = this.testParameterComponent.rightDocument;
+        this.leftDocument = this.testParameterComponent.leftDocument;
+        this.rightDeletedImage = this.testParameterComponent.rightDeletedImage;
+        this.leftDeletedImage = this.testParameterComponent.leftDeletedImage;
         this.selectedTestData.forEach((element) => {
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
@@ -163,37 +195,49 @@ export class CandidacyComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
+                if (this.rightDeletedImage) {
+                    this.documentService.deleteFile(this.rightDeletedImage.Key);
+                }
+                if (this.leftDeletedImage) {
+                    this.documentService.deleteFile(this.leftDeletedImage.Key);
+                }
                 if (this.rightDocument) {
                     this.documentService.deleteFile(this.rightDocument.Key);
                 }
                 if (this.leftDocument) {
                     this.documentService.deleteFile(this.leftDocument.Key);
                 }
+                if (this.rightImage.length > 0) {
+                    this.uploadFiles(
+                        u[0].id,
+                        this.rightImage,
+                        "Right",
+                        "Images"
+                    );
+                }
                 if (this.rightFiles.length > 0) {
                     this.uploadFiles(
-                        this.selectedTestData[0].id,
+                        u[0].id,
                         this.rightFiles,
-                        "Right"
+                        "Right",
+                        "Files"
                     );
+                }
+                if (this.leftImage.length > 0) {
+                    this.uploadFiles(u[0].id, this.leftImage, "Left", "Images");
                 }
                 if (this.leftFiles.length > 0) {
-                    this.uploadFiles(
-                        this.selectedTestData[0].id,
-                        this.leftFiles,
-                        "Left"
-                    );
+                    this.uploadFiles(u[0].id, this.leftFiles, "Left", "Files");
                 }
-                if (this.leftFiles.length < 0 && this.rightFiles.length < 0) {
+                if (
+                    this.leftFiles.length < 0 &&
+                    this.rightFiles.length < 0 &&
+                    this.rightImage.length < 0 &&
+                    this.leftImage.length < 0
+                ) {
                     this.spinner.hide();
                 }
-                this.selectedTest = "";
-                this.filteredTests = [];
-                this.selected = "";
-                this.displayTest = false;
-                this.rightDocument = "";
-                this.leftDocument = "";
-                this.candidacy = new Candidacy();
-                this.dialogHeader = "Add New Recommendation";
+                this.reset();
                 this.getAllCandidacies();
                 this.showMessage(
                     "success",
@@ -202,22 +246,16 @@ export class CandidacyComponent implements OnInit {
                 );
             });
     }
-    onHide() {
-        this.showTests = true;
-        this.filteredTests = [];
+    reset() {
         this.selectedTest = "";
         this.showSaveButton = true;
-        this.rightDocument = "";
-        this.leftDocument = "";
-    }
-    cancelTest() {
-        this.selectedTest = "";
         this.selected = "";
         this.filteredTests = [];
         this.showTests = true;
         this.displayTest = false;
         this.rightDocument = "";
         this.leftDocument = "";
+        this.candidacy = new Candidacy();
         this.dialogHeader = "Add New Recommendation";
     }
     showMessage(type, title, message) {
@@ -228,20 +266,11 @@ export class CandidacyComponent implements OnInit {
             life: 3000,
         });
     }
-
     goToPatientPage(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/patient"]);
-            });
+        this.sharedClass.goToPatientPage(this.router);
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     getAllTests() {
         if (this.selectedPatient.teamId === 0) {
@@ -274,19 +303,14 @@ export class CandidacyComponent implements OnInit {
     }
     filterTest(event) {
         const query = event.query;
-        this.candidacyService.getTest("diagnosisCandidacy").then((tests) => {
-            this.filteredTests = this.searchTest(query, tests);
-        });
+        this.candidacyService
+            .getTest("diagnosisCandidacy")
+            .then(async (tests) => {
+                this.filteredTests = await this.searchTest(query, tests);
+            });
     }
-    searchTest(query, tests: any[]): any[] {
-        const filtered: any[] = [];
-        for (const item of tests) {
-            const test = item;
-            if (test.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-                filtered.push(test);
-            }
-        }
-        return filtered;
+    async searchTest(query, tests) {
+        return await this.sharedClass.searchTest(query, tests, "treatmentName");
     }
     showTestDialog() {
         this.displayTest = true;
@@ -304,6 +328,8 @@ export class CandidacyComponent implements OnInit {
         this.selected = test;
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
+        this.savedLeftImage = [];
+        this.savedRightImage = [];
         this.candidacyService.getTest(test.treatmentId).then(
             (res) => {
                 this.selectedTestData = res;
@@ -324,138 +350,75 @@ export class CandidacyComponent implements OnInit {
     saveWithoutParams(test) {
         delete test.departments;
         this.candidacyService.createCandidacy(test).subscribe((u: any) => {
-            this.selectedTest = "";
-            this.filteredTests = [];
-            this.selected = "";
-            this.displayTest = false;
-            this.candidacy = new Candidacy();
-            this.dialogHeader = "Add New Recommendation";
+            this.reset();
             this.getAllCandidacies();
             this.showMessage("success", "Saved", "Data saved successfully");
             this.spinner.hide();
         });
     }
-    selectedRightFiles(event) {
-        this.rightFiles = event.currentFiles;
-    }
-    selectedLeftFiles(event) {
-        this.leftFiles = event.currentFiles;
-    }
     async retrieveTestData(test) {
         await this.openTest(test);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
+        this.savedLeftImage = [];
+        this.savedRightImage = [];
         this.showTests = false;
         this.spinner.show();
         if (this.selectedSession.sessionTypeId === 0) {
-            this.rightPath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Right`;
+            this.rightFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Files/Right`;
             const right = await this.documentService.getAllFiles(
-                this.rightPath
+                this.rightFilePath
             );
             this.savedRightFiles = right.Contents;
-            this.leftPath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Left`;
-            const left = await this.documentService.getAllFiles(this.leftPath);
+            this.leftFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Files/Left`;
+            const left = await this.documentService.getAllFiles(
+                this.leftFilePath
+            );
             this.savedLeftFiles = left.Contents;
+            this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Images/Right`;
+            const rightImage = await this.documentService.getAllFiles(
+                this.rightImagePath
+            );
+            this.savedRightImage = rightImage.Contents;
+            this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Images/Left`;
+            const leftImage = await this.documentService.getAllFiles(
+                this.leftImagePath
+            );
+            this.savedLeftImage = leftImage.Contents;
         } else {
-            this.rightPath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${test.id}/Right`;
+            this.rightFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${test.id}/Files/Right`;
             const right = await this.documentService.getAllFiles(
-                this.rightPath
+                this.rightFilePath
             );
             this.savedRightFiles = right.Contents;
-            this.leftPath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${test.id}/Left`;
-            const left = await this.documentService.getAllFiles(this.leftPath);
+            this.leftFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${test.id}/Files/Left`;
+            const left = await this.documentService.getAllFiles(
+                this.leftFilePath
+            );
             this.savedLeftFiles = left.Contents;
+            this.rightImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${test.id}/Images/Right`;
+            const rightImage = await this.documentService.getAllFiles(
+                this.rightImagePath
+            );
+            this.savedRightImage = rightImage.Contents;
+            this.leftImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Recommendation/${test.id}/Images/Left`;
+            const leftImage = await this.documentService.getAllFiles(
+                this.leftImagePath
+            );
+            this.savedLeftImage = leftImage.Contents;
         }
         this.candidacyService
             .getTestParametersValues(test.id)
-            .subscribe((result) => {
+            .subscribe(async (result) => {
                 if (result && result.length > 0) {
                     this.showSaveButton = false;
                     this.selectedTestData[0].id = test.id;
-                    const parameters = this.selectedTestData[0].parameters;
+                    let parameters = this.selectedTestData[0].parameters;
                     if (parameters && parameters.length > 0) {
-                        for (const element of parameters) {
-                            for (const item of result) {
-                                if (
-                                    element.name === item.parameterName &&
-                                    element.type === "table"
-                                ) {
-                                    for (const cell of element.cells) {
-                                        if (
-                                            cell.name ===
-                                                item.subParameterName &&
-                                            item.ear === "left"
-                                        ) {
-                                            if (
-                                                element.cellType === "boolean"
-                                            ) {
-                                                cell.left = {
-                                                    name: item.value,
-                                                };
-                                            } else {
-                                                cell.left = item.value;
-                                            }
-                                        }
-                                        if (
-                                            cell.name ===
-                                                item.subParameterName &&
-                                            item.ear === "right"
-                                        ) {
-                                            if (
-                                                element.cellType === "boolean"
-                                            ) {
-                                                cell.right = {
-                                                    name: item.value,
-                                                };
-                                            } else {
-                                                cell.right = item.value;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (
-                                    element.name === item.parameterName &&
-                                    element.type === "textarea"
-                                ) {
-                                    element.textareaVal = item.value;
-                                }
-                                if (
-                                    element.name === item.parameterName &&
-                                    element.type === "list"
-                                ) {
-                                    if (item.ear === "left") {
-                                        const found = element.values.filter(
-                                            (val) => val.name === item.value
-                                        );
-                                        element.leftVal = found[0];
-                                    }
-                                    if (item.ear === "right") {
-                                        const found = element.values.filter(
-                                            (val) => val.name === item.value
-                                        );
-                                        element.rightVal = found[0];
-                                    }
-                                }
-                                if (
-                                    element.type === "text" ||
-                                    element.type === "number" ||
-                                    element.type === "boolean"
-                                ) {
-                                    if (
-                                        element.name === item.parameterName &&
-                                        item.ear === "left"
-                                    ) {
-                                        element.leftVal = item.value;
-                                    }
-                                    if (
-                                        element.name === item.parameterName &&
-                                        item.ear === "right"
-                                    ) {
-                                        element.rightVal = item.value;
-                                    }
-                                }
-                            }
-                        }
+                        parameters = await this.sharedClass.handleTestData(
+                            result,
+                            parameters
+                        );
                     }
                     this.displayTest = true;
                     this.cdref.detectChanges();
@@ -464,23 +427,7 @@ export class CandidacyComponent implements OnInit {
             });
     }
     endSession() {
-        if (this.router.url === "/dashboard/diagnosisCandidacy") {
-            this.router
-                .navigateByUrl("/RefreshComponent", {
-                    skipLocationChange: true,
-                })
-                .then(() => {
-                    this.router.navigate(["/dashboard/addDiagnosis"]);
-                });
-        } else {
-            this.router
-                .navigateByUrl("/RefreshComponent", {
-                    skipLocationChange: true,
-                })
-                .then(() => {
-                    this.router.navigate(["/dashboard/addFollowup"]);
-                });
-        }
+        this.sharedClass.endSession(this.router.url, this.router);
     }
     deleteCandidacy(data) {
         this.confirmationService.confirm({
@@ -505,40 +452,5 @@ export class CandidacyComponent implements OnInit {
                 this.showMessage("info", "Rejected", "You have rejected");
             },
         });
-    }
-    removeRightKey(text) {
-        return text.replace(`${this.rightPath}/`, "");
-    }
-    removeLeftKey(text) {
-        return text.replace(`${this.leftPath}/`, "");
-    }
-    viewDocument(document) {
-        this.documentService.getFileUrl(document.Key).then((data) => {});
-    }
-    deleteRightDocument(document) {
-        this.rightDocument = document;
-        this.savedRightFiles = this.savedRightFiles.filter(
-            (obj) => obj !== document
-        );
-    }
-    deleteLeftDocument(document) {
-        this.leftDocument = document;
-        this.savedLeftFiles = this.savedLeftFiles.filter(
-            (obj) => obj !== document
-        );
-    }
-    formatBytes(bytes, decimals = 2) {
-        if (bytes === 0) {
-            return "0 Bytes";
-        }
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-        return (
-            parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
-        );
     }
 }
