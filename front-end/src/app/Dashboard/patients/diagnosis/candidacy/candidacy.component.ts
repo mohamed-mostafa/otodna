@@ -364,6 +364,29 @@ export class CandidacyComponent implements OnInit {
         this.savedRightImage = [];
         this.showTests = false;
         this.spinner.show();
+        this.candidacyService
+            .getTestParametersValues(test.id)
+            .subscribe(async (result) => {
+                if (result && result.length > 0) {
+                    this.showSaveButton = false;
+                    this.selectedTestData[0].id = test.id;
+                    let parameters = this.selectedTestData[0].parameters;
+                    if (parameters && parameters.length > 0) {
+                        parameters = await this.sharedClass.handleTestData(
+                            result,
+                            parameters
+                        );
+                        await this.checkForImagesAndFiles(test);
+                    }
+                    this.displayTest = true;
+                    this.cdref.detectChanges();
+                } else {
+                    this.showTests = true;
+                }
+                this.spinner.hide();
+            });
+    }
+    async checkForImagesAndFiles(test) {
         if (this.selectedSession.sessionTypeId === 0) {
             this.rightFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Recommendation/${test.id}/Files/Right`;
             const right = await this.documentService.getAllFiles(
@@ -407,24 +430,6 @@ export class CandidacyComponent implements OnInit {
             );
             this.savedLeftImage = leftImage.Contents;
         }
-        this.candidacyService
-            .getTestParametersValues(test.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    this.showSaveButton = false;
-                    this.selectedTestData[0].id = test.id;
-                    let parameters = this.selectedTestData[0].parameters;
-                    if (parameters && parameters.length > 0) {
-                        parameters = await this.sharedClass.handleTestData(
-                            result,
-                            parameters
-                        );
-                    }
-                    this.displayTest = true;
-                    this.cdref.detectChanges();
-                }
-                this.spinner.hide();
-            });
     }
     endSession() {
         this.sharedClass.endSession(this.router.url, this.router);

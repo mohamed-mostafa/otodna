@@ -417,24 +417,6 @@ export class TreatmentTestsComponent implements OnInit {
         this.savedRightImage = [];
         this.showTests = false;
         this.spinner.show();
-        this.rightFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Files/Right`;
-        const right = await this.documentService.getAllFiles(
-            this.rightFilePath
-        );
-        this.savedRightFiles = right.Contents;
-        this.leftFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Files/Left`;
-        const left = await this.documentService.getAllFiles(this.leftFilePath);
-        this.savedLeftFiles = left.Contents;
-        this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Right`;
-        const rightImage = await this.documentService.getAllFiles(
-            this.rightImagePath
-        );
-        this.savedRightImage = rightImage.Contents;
-        this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Left`;
-        const leftImage = await this.documentService.getAllFiles(
-            this.leftImagePath
-        );
-        this.savedLeftImage = leftImage.Contents;
         this.treatmentService
             .getSessionTreatmentEquipment(treatment.id)
             .subscribe((res) => {
@@ -458,12 +440,35 @@ export class TreatmentTestsComponent implements OnInit {
                             result,
                             parameters
                         );
+                        await this.checkForImagesAndFiles(treatment);
                     }
                     this.displayTest = true;
                     this.cdref.detectChanges();
+                } else {
+                    this.showTests = true;
                 }
                 this.spinner.hide();
             });
+    }
+    async checkForImagesAndFiles(treatment) {
+        this.rightFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Files/Right`;
+        const right = await this.documentService.getAllFiles(
+            this.rightFilePath
+        );
+        this.savedRightFiles = right.Contents;
+        this.leftFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Files/Left`;
+        const left = await this.documentService.getAllFiles(this.leftFilePath);
+        this.savedLeftFiles = left.Contents;
+        this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Right`;
+        const rightImage = await this.documentService.getAllFiles(
+            this.rightImagePath
+        );
+        this.savedRightImage = rightImage.Contents;
+        this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Left`;
+        const leftImage = await this.documentService.getAllFiles(
+            this.leftImagePath
+        );
+        this.savedLeftImage = leftImage.Contents;
     }
     endSession() {
         this.sharedClass.endSession(this.router.url, this.router);

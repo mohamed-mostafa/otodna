@@ -431,6 +431,38 @@ export class TestsComponent implements OnInit {
         this.savedRightImage = [];
         this.showTests = false;
         this.spinner.show();
+        this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
+            if (res && res.length > 0) {
+                this.showSaveButton = false;
+                this.selectedTestData[0].id = test.id;
+                res.forEach((element) => {
+                    this.selectedEquipments.push(element.equipmentName);
+                });
+            }
+        });
+        this.testService
+            .getTestParametersValues(test.id)
+            .subscribe(async (result) => {
+                if (result && result.length > 0) {
+                    this.selectedTestData[0].id = test.id;
+                    this.showSaveButton = false;
+                    let parameters = this.selectedTestData[0].parameters;
+                    if (parameters && parameters.length > 0) {
+                        parameters = await this.sharedClass.handleTestData(
+                            result,
+                            parameters
+                        );
+                        await this.checkForImagesAndFiles(test);
+                    }
+                    this.displayTest = true;
+                    this.cdref.detectChanges();
+                } else {
+                    this.showTests = true;
+                }
+                this.spinner.hide();
+            });
+    }
+    async checkForImagesAndFiles(test) {
         if (this.selectedSession.sessionTypeId === 0) {
             this.rightFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Files/Right`;
             const right = await this.documentService.getAllFiles(
@@ -474,33 +506,6 @@ export class TestsComponent implements OnInit {
             );
             this.savedLeftImage = leftImage.Contents;
         }
-        this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
-            if (res && res.length > 0) {
-                this.showSaveButton = false;
-                this.selectedTestData[0].id = test.id;
-                res.forEach((element) => {
-                    this.selectedEquipments.push(element.equipmentName);
-                });
-            }
-        });
-        this.testService
-            .getTestParametersValues(test.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    this.selectedTestData[0].id = test.id;
-                    this.showSaveButton = false;
-                    let parameters = this.selectedTestData[0].parameters;
-                    if (parameters && parameters.length > 0) {
-                        parameters = await this.sharedClass.handleTestData(
-                            result,
-                            parameters
-                        );
-                    }
-                    this.displayTest = true;
-                    this.cdref.detectChanges();
-                }
-                this.spinner.hide();
-            });
     }
     endSession() {
         this.sharedClass.endSession(this.router.url, this.router);
