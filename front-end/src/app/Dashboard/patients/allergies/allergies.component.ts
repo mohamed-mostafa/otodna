@@ -5,7 +5,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Allergies } from "./allergies";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-allergies",
     templateUrl: "./allergies.component.html",
@@ -13,6 +13,7 @@ import { Allergies } from "./allergies";
     providers: [MessageService, ConfirmationService],
 })
 export class AllergiesComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     cols: any[];
     allergies: any[] = [];
     items: MenuItem[];
@@ -71,18 +72,12 @@ export class AllergiesComponent implements OnInit {
         this.getALlStatuses();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     showDialog() {
         this.displayBasic = true;
@@ -208,11 +203,7 @@ export class AllergiesComponent implements OnInit {
         }
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     getALlAllergies() {
         this.spinner.show();

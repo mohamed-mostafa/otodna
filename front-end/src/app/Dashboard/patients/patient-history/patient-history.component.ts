@@ -3,13 +3,14 @@ import { PatientSessionService } from "./../services/patient-session.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-patient-history",
     templateUrl: "./patient-history.component.html",
     styleUrls: ["./patient-history.component.css"],
 })
 export class PatientHistoryComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     items: MenuItem[];
     home: MenuItem;
     events: any[];
@@ -45,49 +46,24 @@ export class PatientHistoryComponent implements OnInit {
         this.getAllData();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     addDiagnosis() {
-        localStorage.setItem("sessionTypeId", JSON.stringify(0));
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/addDiagnosis"]);
-            });
+        this.sharedClass.goToAddDiagnosis(this.router);
     }
     addTreatment() {
-        localStorage.setItem("sessionTypeId", JSON.stringify(1));
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/addTreatment"]);
-            });
+        this.sharedClass.goToAddTreatment(this.router);
     }
     addFollowup() {
-        localStorage.setItem("sessionTypeId", JSON.stringify(2));
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/addFollowup"]);
-            });
+        this.sharedClass.goToAddFollowup(this.router);
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     getAllData() {
         this.spinner.show();

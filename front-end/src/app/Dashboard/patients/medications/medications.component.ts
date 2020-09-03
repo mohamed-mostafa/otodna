@@ -5,7 +5,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Medication } from "./medication";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-medications",
     templateUrl: "./medications.component.html",
@@ -13,6 +13,7 @@ import { Medication } from "./medication";
     providers: [MessageService, ConfirmationService],
 })
 export class MedicationsComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     cols: any[];
     medications: any[] = [];
     statuses = [];
@@ -65,18 +66,12 @@ export class MedicationsComponent implements OnInit {
         this.getMedicationStatuses();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     showDialog() {
         this.displayBasic = true;
@@ -199,11 +194,7 @@ export class MedicationsComponent implements OnInit {
         }
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     getALlMedications() {
         this.spinner.show();

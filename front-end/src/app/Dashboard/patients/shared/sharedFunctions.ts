@@ -67,6 +67,30 @@ export class SharedClass {
                 router.navigate(["/dashboard"]);
             });
     }
+    goToAddDiagnosis(router) {
+        localStorage.setItem("sessionTypeId", JSON.stringify(0));
+        router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                router.navigate(["/dashboard/addDiagnosis"]);
+            });
+    }
+    goToAddTreatment(router) {
+        localStorage.setItem("sessionTypeId", JSON.stringify(1));
+        router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                router.navigate(["/dashboard/addTreatment"]);
+            });
+    }
+    goToAddFollowup(router) {
+        localStorage.setItem("sessionTypeId", JSON.stringify(2));
+        router
+            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
+            .then(() => {
+                router.navigate(["/dashboard/addFollowup"]);
+            });
+    }
     endSession(url, router) {
         if (url.includes("followup")) {
             router

@@ -10,6 +10,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-patient-session",
     templateUrl: "./patient-session.component.html",
@@ -17,6 +18,7 @@ import { Component, OnInit } from "@angular/core";
     providers: [MessageService],
 })
 export class PatientSessionComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     items: MenuItem[];
     home: MenuItem;
     session: Session = new Session();
@@ -98,18 +100,12 @@ export class PatientSessionComponent implements OnInit {
         this.checkLoggedInUserTeamWithPatient();
         this.getALlSymptoms();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     loadData() {
         this.selectedSession = JSON.parse(
@@ -242,18 +238,10 @@ export class PatientSessionComponent implements OnInit {
         }
     }
     goToPatientPage(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/patient"]);
-            });
+        this.sharedClass.goToPatientPage(this.router);
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     endSession() {
         if (!this.session.notes) {

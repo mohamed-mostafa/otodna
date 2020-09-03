@@ -5,7 +5,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { LabResult } from "./labResult";
 import { Component, OnInit } from "@angular/core";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-lab-results",
     templateUrl: "./lab-results.component.html",
@@ -13,6 +13,7 @@ import { Component, OnInit } from "@angular/core";
     providers: [MessageService, ConfirmationService],
 })
 export class LabResultsComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     cols: any[];
     items: MenuItem[];
     home: MenuItem;
@@ -59,18 +60,12 @@ export class LabResultsComponent implements OnInit {
         this.getALlLabResults();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     showDialog() {
         this.displayBasic = true;
@@ -164,11 +159,7 @@ export class LabResultsComponent implements OnInit {
         }
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     getALlLabResults() {
         this.spinner.show();

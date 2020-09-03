@@ -6,7 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "./patient";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-patient-basic-info",
     templateUrl: "./patient-basic-info.component.html",
@@ -14,6 +14,7 @@ import { Patient } from "./patient";
     providers: [MessageService],
 })
 export class PatientBasicInfoComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     gender = [];
     teams = [];
     editMode = false;
@@ -50,7 +51,7 @@ export class PatientBasicInfoComponent implements OnInit {
         } else if (LoggedInUser.teams.length === 1) {
             this.patient.teamId = LoggedInUser.teams[0].id;
         } else {
-            this.patient.teamId = 0;
+            this.showAllButtons = false;
         }
         this.patient.createdBy = LoggedInUser.fullName;
         this.patient.lastModifiedBy = LoggedInUser.fullName;
@@ -94,18 +95,12 @@ export class PatientBasicInfoComponent implements OnInit {
         }
         this.home = { icon: "fa fa-user-md" };
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.patient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.patient.teamId
+        );
     }
     reset() {
         this.patient = new Patient();
@@ -114,13 +109,7 @@ export class PatientBasicInfoComponent implements OnInit {
     }
     discard() {
         this.reset();
-        this.router
-            .navigateByUrl("/RefreshComponent", {
-                skipLocationChange: true,
-            })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     save() {
         this.validatePatient((callback) => {
@@ -262,46 +251,22 @@ export class PatientBasicInfoComponent implements OnInit {
         }
     }
     addDiagnosis() {
-        localStorage.setItem("sessionTypeId", JSON.stringify(0));
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/addDiagnosis"]);
-            });
+        this.sharedClass.goToAddDiagnosis(this.router);
     }
     addTreatment() {
-        localStorage.setItem("sessionTypeId", JSON.stringify(1));
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/addTreatment"]);
-            });
+        this.sharedClass.goToAddTreatment(this.router);
     }
     addFollowup() {
-        localStorage.setItem("sessionTypeId", JSON.stringify(2));
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard/addFollowup"]);
-            });
+        this.sharedClass.goToAddFollowup(this.router);
     }
     filterCountry(event) {
         const query = event.query;
-        this.countryService.getCountries().then((countries) => {
-            this.filteredCountries = this.searchCountry(query, countries);
+        this.countryService.getCountries().then(async (countries) => {
+            this.filteredCountries = await this.searchCountry(query, countries);
         });
     }
-    searchCountry(query, countries: any[]): any[] {
-        // in a real application, make a request to a remote url with the query and return filtered results,
-        // for demo we filter at client side
-        const filtered: any[] = [];
-        for (const item of countries) {
-            const country = item;
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-                filtered.push(country);
-            }
-        }
-        return filtered;
+    async searchCountry(query, countries) {
+        return await this.sharedClass.searchTest(query, countries, "name");
     }
     getPatientMedicalInfoById(patientId) {
         this.spinner.show();
@@ -317,10 +282,6 @@ export class PatientBasicInfoComponent implements OnInit {
             });
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
 }

@@ -5,7 +5,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Family } from "./family";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-family",
     templateUrl: "./family.component.html",
@@ -13,6 +13,7 @@ import { Family } from "./family";
     providers: [MessageService, ConfirmationService],
 })
 export class FamilyComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     cols: any[];
     families: any[] = [];
     relations: any[] = [];
@@ -59,18 +60,12 @@ export class FamilyComponent implements OnInit {
         this.getAllPatientMemberRelationType();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     getALlFamilies() {
         this.spinner.show();
@@ -192,11 +187,7 @@ export class FamilyComponent implements OnInit {
         }
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     deleteFamilyMember(family) {
         this.confirmationService.confirm({

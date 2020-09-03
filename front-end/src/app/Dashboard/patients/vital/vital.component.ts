@@ -5,7 +5,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Vital } from "./vital";
-
+import { SharedClass } from "../shared/sharedFunctions";
 @Component({
     selector: "app-vital",
     templateUrl: "./vital.component.html",
@@ -13,6 +13,7 @@ import { Vital } from "./vital";
     providers: [MessageService, ConfirmationService],
 })
 export class VitalComponent implements OnInit {
+    sharedClass: SharedClass = new SharedClass();
     cols: any[];
     vitals: any[] = [];
     items: MenuItem[];
@@ -62,18 +63,12 @@ export class VitalComponent implements OnInit {
         this.getAllVitalRecordTypes();
         this.checkLoggedInUserTeamWithPatient();
     }
-    checkLoggedInUserTeamWithPatient() {
+    async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === this.selectedPatient.teamId
-            );
-            if (found) {
-                this.showAllButtons = true;
-            } else {
-                this.showAllButtons = false;
-            }
-        }
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient.teamId
+        );
     }
     showDialog() {
         this.displayBasic = true;
@@ -167,11 +162,7 @@ export class VitalComponent implements OnInit {
         }
     }
     goToDashboard(event) {
-        this.router
-            .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
-            .then(() => {
-                this.router.navigate(["/dashboard"]);
-            });
+        this.sharedClass.goToDashboard(this.router);
     }
     reset() {
         this.vital = new Vital();
