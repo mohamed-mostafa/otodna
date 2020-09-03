@@ -27,16 +27,20 @@ export class TestParametersComponent implements OnInit {
     rightDocument;
     leftDeletedImage;
     rightDeletedImage;
+    showRightButtons = true;
+    showLeftButtons = true;
     constructor(private documentService: DocumentsService) {}
 
     ngOnInit(): void {}
     async previewRightImage(event) {
         this.rightImage = event.currentFiles;
         this.previewRightImageUrl = await this.sharedClass.previewImage(event);
+        this.showRightButtons = false;
     }
     async previewLeftImage(event) {
         this.leftImage = event.currentFiles;
         this.previewLeftImageUrl = await this.sharedClass.previewImage(event);
+        this.showLeftButtons = false;
     }
     viewDocument(document) {
         this.documentService.getFileUrl(document.Key).then((data) => {});
@@ -89,6 +93,24 @@ export class TestParametersComponent implements OnInit {
     }
     replaceLeftImage(event, image) {
         this.removeLeftImage(image);
+        this.previewLeftImage(event);
+    }
+    removeChoosedRightImage() {
+        this.rightImage = [];
+        this.previewRightImageUrl = "";
+        this.showRightButtons = true;
+    }
+    removeChoosedLeftImage() {
+        this.leftImage = [];
+        this.previewLeftImageUrl = "";
+        this.showLeftButtons = true;
+    }
+    replaceChoosedRightImage(event) {
+        this.removeChoosedRightImage();
+        this.previewRightImage(event);
+    }
+    replaceChoosedLeftImage(event) {
+        this.removeChoosedLeftImage();
         this.previewLeftImage(event);
     }
 }

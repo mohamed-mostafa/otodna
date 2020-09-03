@@ -224,14 +224,46 @@
                             </ng-template>
                         </div>
                         <div class="buttonStyle">
-                            <p-fileUpload
-                                mode="basic"
-                                name="demo[]"
-                                accept="image/*"
-                                maxFileSize="100000000"
-                                chooseLabel="Choose Image"
-                                (onSelect)="previewRightImage($event)"
-                            ></p-fileUpload>
+                            <ng-container
+                                *ngIf="showRightButtons; else noUploadRight"
+                            >
+                                <p-fileUpload
+                                    mode="basic"
+                                    name="demo[]"
+                                    accept="image/*"
+                                    maxFileSize="100000000"
+                                    chooseLabel="Choose Image"
+                                    (onSelect)="previewRightImage($event)"
+                                ></p-fileUpload>
+                            </ng-container>
+                            <ng-template #noUploadRight>
+                                <div
+                                    class="buttonStyle ui-g-12 ui-md-12 noPadding"
+                                >
+                                    <div class="ui-g-12 ui-md-6 noPadding">
+                                        <p-fileUpload
+                                            mode="basic"
+                                            name="demo[]"
+                                            accept="image/*"
+                                            maxFileSize="100000000"
+                                            chooseLabel="Replace"
+                                            (onSelect)="
+                                                replaceChoosedRightImage($event)
+                                            "
+                                        ></p-fileUpload>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 noPadding">
+                                        <button
+                                            type="button"
+                                            pButton
+                                            icon="pi pi-times"
+                                            label="Remove"
+                                            class="ui-button-danger"
+                                            (click)="removeChoosedRightImage()"
+                                        ></button>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </ng-template>
@@ -294,14 +326,46 @@
                             </ng-template>
                         </div>
                         <div class="buttonStyle">
-                            <p-fileUpload
-                                mode="basic"
-                                name="demo[]"
-                                accept="image/*"
-                                maxFileSize="100000000"
-                                chooseLabel="Choose Image"
-                                (onSelect)="previewLeftImage($event)"
-                            ></p-fileUpload>
+                            <ng-container
+                                *ngIf="showLeftButtons; else noLeftUpload"
+                            >
+                                <p-fileUpload
+                                    mode="basic"
+                                    name="demo[]"
+                                    accept="image/*"
+                                    maxFileSize="100000000"
+                                    chooseLabel="Choose Image"
+                                    (onSelect)="previewLeftImage($event)"
+                                ></p-fileUpload>
+                            </ng-container>
+                            <ng-template #noLeftUpload>
+                                <div
+                                    class="buttonStyle ui-g-12 ui-md-12 noPadding"
+                                >
+                                    <div class="ui-g-12 ui-md-6 noPadding">
+                                        <p-fileUpload
+                                            mode="basic"
+                                            name="demo[]"
+                                            accept="image/*"
+                                            maxFileSize="100000000"
+                                            chooseLabel="Replace"
+                                            (onSelect)="
+                                                replaceChoosedLeftImage($event)
+                                            "
+                                        ></p-fileUpload>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 noPadding">
+                                        <button
+                                            type="button"
+                                            pButton
+                                            icon="pi pi-times"
+                                            label="Remove"
+                                            class="ui-button-danger"
+                                            (click)="removeChoosedLeftImage()"
+                                        ></button>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </ng-template>
