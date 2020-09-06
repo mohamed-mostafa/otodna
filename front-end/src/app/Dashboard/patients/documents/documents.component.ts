@@ -17,8 +17,6 @@ export class DocumentsComponent implements OnInit {
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
-    items: MenuItem[];
-    home: MenuItem;
     selectedPatient;
     toFile: any[] = [];
     file;
@@ -35,21 +33,6 @@ export class DocumentsComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
-        this.home = { icon: "fa fa-user-md" };
         this.getAllFiles();
     }
     goToDashboard(event) {

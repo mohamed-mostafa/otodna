@@ -1,6 +1,9 @@
 <p-toast></p-toast>
-<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+<app-patient-breadcrumb
+    [firstName]="selectedPatient.firstName"
+    [lastName]="selectedPatient.lastName"
+></app-patient-breadcrumb
+><p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <p-dialog
     header="Medication"
     [(visible)]="displayBasic"
@@ -152,17 +155,17 @@
         </p-card>
     </div>
     <div class="ui-g-3" *ngIf="showAllButtons">
-        <div style="border-style: dotted;">
+        <div style="border-style: dotted">
             <p-card
                 class="centerHeader pointerCursor"
                 [style]="{ height: '155px' }"
                 (click)="showDialog()"
             >
-                <h3 style="margin-top: 30px;">
+                <h3 style="margin-top: 30px">
                     <i
                         class="fa fa-plus"
                         aira-hidden="true"
-                        style="margin: 5px;"
+                        style="margin: 5px"
                     ></i>
                     Add Medication
                 </h3>

@@ -19,8 +19,6 @@ export class LabResultsComponent implements OnInit {
         this.messageService
     );
     cols: any[];
-    items: MenuItem[];
-    home: MenuItem;
     labResults: any[] = [];
     displayBasic: boolean;
     labResult: LabResult = new LabResult();
@@ -39,20 +37,6 @@ export class LabResultsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.labResult.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
         this.cols = [
             { field: "labTest", header: "Lab Test" },
             { field: "value", header: "Value" },
@@ -60,7 +44,6 @@ export class LabResultsComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comment", header: "Comment" },
         ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlLabResults();
         this.checkLoggedInUserTeamWithPatient();
     }

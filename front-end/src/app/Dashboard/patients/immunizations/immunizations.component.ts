@@ -21,8 +21,6 @@ export class ImmunizationsComponent implements OnInit {
     cols: any[];
     immunizations: any[] = [];
     immunizationsStatus = [];
-    items: MenuItem[];
-    home: MenuItem;
     displayBasic: boolean;
     immunization: Immunizations = new Immunizations();
     selectedPatient;
@@ -41,20 +39,6 @@ export class ImmunizationsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.immunization.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
         this.cols = [
             { field: "vaccineName", header: "Vaccine Name" },
             { field: "status", header: "Status" },
@@ -62,7 +46,6 @@ export class ImmunizationsComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comment", header: "Comment" },
         ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlImmunizations();
         this.getImmunizationStatuses();
         this.checkLoggedInUserTeamWithPatient();

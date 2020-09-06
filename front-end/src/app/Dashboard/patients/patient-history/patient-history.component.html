@@ -1,4 +1,7 @@
-<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<app-patient-breadcrumb
+    [firstName]="selectedPatient.firstName"
+    [lastName]="selectedPatient.lastName"
+></app-patient-breadcrumb>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-6"></div>
     <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
@@ -48,19 +51,19 @@
                             *ngIf="data.sessionTypeId === 0"
                             class="fa fa-stethoscope marginBottomAndTop pointerCursor"
                             (click)="openDataPage(data)"
-                            style="color: #61b5a1;"
+                            style="color: #61b5a1"
                         ></i>
                         <i
                             *ngIf="data.sessionTypeId === 1"
                             class="fa fa-medkit marginBottomAndTop pointerCursor"
                             (click)="openDataPage(data)"
-                            style="color: #61b5a1;"
+                            style="color: #61b5a1"
                         ></i>
                         <i
                             *ngIf="data.sessionTypeId === 2"
                             class="fa fa-ambulance marginBottomAndTop pointerCursor"
                             (click)="openDataPage(data)"
-                            style="color: #61b5a1;"
+                            style="color: #61b5a1"
                         ></i>
                     </div>
                     <div class="ui-g-9">

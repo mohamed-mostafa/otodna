@@ -9,6 +9,7 @@ import { COMPONENTS, AppRoutes } from "./app.routes";
 import { DashboardComponent } from "./dashboard.component";
 import { JwtInterceptor } from "../Auth/jwt.interceptor";
 import { ErrorInterceptor } from "../Auth/error.interceptor";
+import { PatientBreadcrumbComponent } from './patients/shared/patient-breadcrumb/patient-breadcrumb.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -18,7 +19,7 @@ import { ErrorInterceptor } from "../Auth/error.interceptor";
         PrimeNgComponents,
         NgxSpinnerModule,
     ],
-    declarations: [COMPONENTS],
+    declarations: [COMPONENTS, PatientBreadcrumbComponent],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         SERVICES,

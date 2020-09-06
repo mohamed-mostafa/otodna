@@ -20,8 +20,6 @@ export class VitalComponent implements OnInit {
     );
     cols: any[];
     vitals: any[] = [];
-    items: MenuItem[];
-    home: MenuItem;
     recordTypes = [];
     displayBasic: boolean;
     vital: Vital = new Vital();
@@ -41,20 +39,6 @@ export class VitalComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.vital.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
         this.cols = [
             { field: "recordType", header: "Record Type" },
             { field: "recordUnit", header: "Record Unit" },
@@ -62,7 +46,6 @@ export class VitalComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comment", header: "Comment" },
         ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlVitals();
         this.getAllVitalRecordTypes();
         this.checkLoggedInUserTeamWithPatient();

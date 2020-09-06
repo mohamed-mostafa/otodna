@@ -1,5 +1,8 @@
 <p-toast></p-toast>
-<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<app-patient-breadcrumb
+    [firstName]="selectedPatient.firstName"
+    [lastName]="selectedPatient.lastName"
+></app-patient-breadcrumb>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <p-dialog
     header="Family Member"

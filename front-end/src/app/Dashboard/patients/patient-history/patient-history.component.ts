@@ -11,8 +11,6 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class PatientHistoryComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
-    items: MenuItem[];
-    home: MenuItem;
     events: any[];
     fullcalendarOptions: any;
     selectedPatient;
@@ -28,21 +26,6 @@ export class PatientHistoryComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
-        this.home = { icon: "fa fa-user-md" };
         this.getAllData();
         this.checkLoggedInUserTeamWithPatient();
     }

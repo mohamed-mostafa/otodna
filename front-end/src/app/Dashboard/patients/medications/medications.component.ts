@@ -21,8 +21,6 @@ export class MedicationsComponent implements OnInit {
     cols: any[];
     medications: any[] = [];
     statuses = [];
-    items: MenuItem[];
-    home: MenuItem;
     displayBasic: boolean;
     medication: Medication = new Medication();
     selectedPatient;
@@ -42,20 +40,6 @@ export class MedicationsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.medication.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
         this.cols = [
             { field: "medication", header: "Medication" },
             { field: "date", header: "Start Date" },
@@ -65,7 +49,6 @@ export class MedicationsComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comment", header: "Comment" },
         ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlMedications();
         this.getMedicationStatuses();
         this.checkLoggedInUserTeamWithPatient();

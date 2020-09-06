@@ -22,8 +22,6 @@ export class FamilyComponent implements OnInit {
     families: any[] = [];
     relations: any[] = [];
     familyMemberRelation;
-    items: MenuItem[];
-    home: MenuItem;
     displayBasic: boolean;
     family: Family = new Family();
     selectedPatient;
@@ -41,25 +39,10 @@ export class FamilyComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.family.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
         this.cols = [
             { field: "familyMemberName", header: "Family Member Name" },
             { field: "relation", header: "Relation" },
         ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlFamilies();
         this.getAllPatientMemberRelationType();
         this.checkLoggedInUserTeamWithPatient();

@@ -19,8 +19,6 @@ export class ProblemsComponent implements OnInit {
         this.messageService
     );
     cols: any[];
-    items: MenuItem[];
-    home: MenuItem;
     problems: any[] = [];
     statuses = [];
     displayBasic: boolean;
@@ -47,21 +45,6 @@ export class ProblemsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.problem.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlProblems();
         this.getProblemStatuses();
         this.checkLoggedInUserTeamWithPatient();

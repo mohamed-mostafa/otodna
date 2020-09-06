@@ -20,8 +20,6 @@ export class AllergiesComponent implements OnInit {
     );
     cols: any[];
     allergies: any[] = [];
-    items: MenuItem[];
-    home: MenuItem;
     displayBasic: boolean;
     allergy: Allergies = new Allergies();
     allergyTypes = [];
@@ -45,21 +43,6 @@ export class AllergiesComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.allergy.patientId = this.selectedPatient.id;
-        this.items = [
-            {
-                label: "Patients",
-                command: (event) => {
-                    this.goToDashboard(event);
-                },
-            },
-            {
-                label:
-                    this.selectedPatient.firstName +
-                    " " +
-                    this.selectedPatient.lastName,
-            },
-        ];
-
         this.cols = [
             { field: "allergyType", header: "Allergy Type" },
             { field: "substance", header: "Substance" },
@@ -69,7 +52,6 @@ export class AllergiesComponent implements OnInit {
             { field: "notedDate", header: "Noted Date" },
             { field: "comment", header: "Comment" },
         ];
-        this.home = { icon: "fa fa-user-md" };
         this.getALlAllergies();
         this.getALlTypes();
         this.getALlSeverities();
