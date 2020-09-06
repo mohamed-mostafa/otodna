@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Allergies } from "./allergies";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-allergies",
     templateUrl: "./allergies.component.html",
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class AllergiesComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     allergies: any[] = [];
     items: MenuItem[];
@@ -107,14 +111,18 @@ export class AllergiesComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlAllergies();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -135,28 +143,25 @@ export class AllergiesComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlAllergies();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     validateAllergy(callback) {
         if (!this.type) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Allergy type is required"
@@ -164,7 +169,7 @@ export class AllergiesComponent implements OnInit {
             return false;
         }
         if (!this.allergy.substance) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Substance is required"
@@ -172,7 +177,7 @@ export class AllergiesComponent implements OnInit {
             return false;
         }
         if (!this.allergy.reaction) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Reaction is required"
@@ -180,7 +185,7 @@ export class AllergiesComponent implements OnInit {
             return false;
         }
         if (!this.severity) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Severity is required"
@@ -188,11 +193,15 @@ export class AllergiesComponent implements OnInit {
             return false;
         }
         if (!this.status) {
-            this.showMessage("error", "Validation Error", "Status is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Status is required"
+            );
             return false;
         }
         if (!this.allergy.notedDate) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Noted date is required"
@@ -289,14 +298,18 @@ export class AllergiesComponent implements OnInit {
                         this.getALlAllergies();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Allergy has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

@@ -10,6 +10,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Candidacy } from "./candidacy";
+import { ShowMessageComponent } from "../../../shared/show-message/show-message.component";
 @Component({
     selector: "app-candidacy",
     templateUrl: "./candidacy.component.html",
@@ -19,6 +20,9 @@ import { Candidacy } from "./candidacy";
 export class CandidacyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     selectedPatient;
     cols: any[];
     candidacies: any[] = [];
@@ -172,7 +176,11 @@ export class CandidacyComponent implements OnInit {
                 }
                 this.reset();
                 this.getAllCandidacies();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
             });
     }
     updateTest() {
@@ -239,7 +247,7 @@ export class CandidacyComponent implements OnInit {
                 }
                 this.reset();
                 this.getAllCandidacies();
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
                     "Data updated successfully"
@@ -258,14 +266,7 @@ export class CandidacyComponent implements OnInit {
         this.candidacy = new Candidacy();
         this.dialogHeader = "Add New Recommendation";
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
     }
@@ -352,7 +353,11 @@ export class CandidacyComponent implements OnInit {
         this.candidacyService.createCandidacy(test).subscribe((u: any) => {
             this.reset();
             this.getAllCandidacies();
-            this.showMessage("success", "Saved", "Data saved successfully");
+            this.showMessageComponent.showMessage(
+                "success",
+                "Saved",
+                "Data saved successfully"
+            );
             this.spinner.hide();
         });
     }
@@ -447,14 +452,18 @@ export class CandidacyComponent implements OnInit {
                         this.getAllCandidacies();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Candidacy has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

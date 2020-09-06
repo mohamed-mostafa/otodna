@@ -11,6 +11,7 @@ import { MessageService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-patient-session",
     templateUrl: "./patient-session.component.html",
@@ -19,6 +20,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class PatientSessionComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     items: MenuItem[];
     home: MenuItem;
     session: Session = new Session();
@@ -147,7 +151,11 @@ export class PatientSessionComponent implements OnInit {
                             "sessionBasicInfo",
                             JSON.stringify(u)
                         );
-                        this.showMessage("success", "Saved", "Session Started");
+                        this.showMessageComponent.showMessage(
+                            "success",
+                            "Saved",
+                            "Session Started"
+                        );
                         setTimeout(() => {
                             this.router
                                 .navigateByUrl("/RefreshComponent", {
@@ -159,7 +167,11 @@ export class PatientSessionComponent implements OnInit {
                         }, 1000);
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -178,28 +190,24 @@ export class PatientSessionComponent implements OnInit {
                             "sessionBasicInfo",
                             JSON.stringify(this.session)
                         );
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
-        });
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
         });
     }
     validateSession(callback) {
         if (!this.session.displayName) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Display Name is required"
@@ -207,11 +215,15 @@ export class PatientSessionComponent implements OnInit {
             return false;
         }
         if (!this.session.date) {
-            this.showMessage("error", "Validation Error", "Date is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Date is required"
+            );
             return false;
         }
         if (!this.session.createdBy) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Created By is required"
@@ -219,7 +231,7 @@ export class PatientSessionComponent implements OnInit {
             return false;
         }
         if (!this.session.createdAt) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Created At is required"
@@ -227,7 +239,7 @@ export class PatientSessionComponent implements OnInit {
             return false;
         }
         if (!this.session.performer) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Performer is required"
@@ -245,7 +257,7 @@ export class PatientSessionComponent implements OnInit {
     }
     endSession() {
         if (!this.session.notes) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Conclusion is required"

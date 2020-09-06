@@ -1,3 +1,4 @@
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { FamilyService } from "./../services/family.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class FamilyComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     families: any[] = [];
     relations: any[] = [];
@@ -123,14 +127,18 @@ export class FamilyComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlFamilies();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -147,28 +155,24 @@ export class FamilyComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlFamilies();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
-        });
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
         });
     }
     validateFamily(callback) {
         if (!this.family.familyMemberName) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Family member name is required"
@@ -176,7 +180,7 @@ export class FamilyComponent implements OnInit {
             return false;
         }
         if (!this.familyMemberRelation) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Family Member Relation Type is required"
@@ -202,14 +206,18 @@ export class FamilyComponent implements OnInit {
                         this.getALlFamilies();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Family member has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

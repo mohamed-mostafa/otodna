@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Pathology } from "./pathology";
+import { ShowMessageComponent } from "../../../shared/show-message/show-message.component";
 @Component({
     selector: "app-pathology",
     templateUrl: "./pathology.component.html",
@@ -19,6 +20,9 @@ import { Pathology } from "./pathology";
 export class PathologyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     selectedPatient;
     cols: any[];
     pathologies: any[] = [];
@@ -172,7 +176,11 @@ export class PathologyComponent implements OnInit {
                 }
                 this.reset();
                 this.getAllPathologies();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
             });
     }
     update() {
@@ -239,7 +247,11 @@ export class PathologyComponent implements OnInit {
                 }
                 this.reset();
                 this.getAllPathologies();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
             });
     }
     reset() {
@@ -253,14 +265,6 @@ export class PathologyComponent implements OnInit {
         this.leftDocument = "";
         this.pathology = new Pathology();
         this.dialogHeader = "Add New Pathology";
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
@@ -348,7 +352,11 @@ export class PathologyComponent implements OnInit {
         this.pathologyService.createPathology(test).subscribe((u: any) => {
             this.reset();
             this.getAllPathologies();
-            this.showMessage("success", "Saved", "Data saved successfully");
+            this.showMessageComponent.showMessage(
+                "success",
+                "Saved",
+                "Data saved successfully"
+            );
             this.spinner.hide();
         });
     }
@@ -443,14 +451,18 @@ export class PathologyComponent implements OnInit {
                         this.getAllPathologies();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Pathology test has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

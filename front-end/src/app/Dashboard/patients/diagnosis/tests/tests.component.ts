@@ -10,7 +10,7 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Test } from "./test";
 import { TestsService } from "../services/tests.service";
-
+import { ShowMessageComponent } from "../../../shared/show-message/show-message.component";
 @Component({
     selector: "app-tests",
     templateUrl: "./tests.component.html",
@@ -20,6 +20,9 @@ import { TestsService } from "../services/tests.service";
 export class TestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     tests: any[] = [];
     test: Test = new Test();
@@ -203,7 +206,11 @@ export class TestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTests();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
             });
     }
     updateTest() {
@@ -276,7 +283,7 @@ export class TestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTests();
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
                     "Data updated successfully"
@@ -296,14 +303,7 @@ export class TestsComponent implements OnInit {
         this.leftDocument = "";
         this.dialogHeader = "Add New Test";
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     showTestDialog() {
         this.displayTest = true;
     }
@@ -401,7 +401,11 @@ export class TestsComponent implements OnInit {
         this.testService.createSessionTest(test).subscribe((u: any) => {
             this.reset();
             this.getSessionTests();
-            this.showMessage("success", "Saved", "Data saved successfully");
+            this.showMessageComponent.showMessage(
+                "success",
+                "Saved",
+                "Data saved successfully"
+            );
             this.spinner.hide();
         });
     }
@@ -523,14 +527,18 @@ export class TestsComponent implements OnInit {
                         this.getSessionTests();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Test has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

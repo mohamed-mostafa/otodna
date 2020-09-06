@@ -7,6 +7,7 @@ import { MessageService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "./patient";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-patient-basic-info",
     templateUrl: "./patient-basic-info.component.html",
@@ -15,6 +16,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class PatientBasicInfoComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     gender = [];
     teams = [];
     editMode = false;
@@ -116,7 +120,7 @@ export class PatientBasicInfoComponent implements OnInit {
             if (callback === "valid") {
                 if (this.showTeams) {
                     if (!this.selectedTeam) {
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "error",
                             "Validation Error",
                             "Please select a team"
@@ -159,7 +163,7 @@ export class PatientBasicInfoComponent implements OnInit {
                                 "selectedPatient",
                                 JSON.stringify(this.patient)
                             );
-                            this.showMessage(
+                            this.showMessageComponent.showMessage(
                                 "success",
                                 "Confirmed",
                                 "patient Updated Successfully"
@@ -186,7 +190,7 @@ export class PatientBasicInfoComponent implements OnInit {
                                 });
                             // this.reset();
                             this.spinner.hide();
-                            this.showMessage(
+                            this.showMessageComponent.showMessage(
                                 "success",
                                 "Saved",
                                 "Data saved successfully"
@@ -194,21 +198,17 @@ export class PatientBasicInfoComponent implements OnInit {
                         });
                 }
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
-        });
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
         });
     }
     validatePatient(callback) {
         if (!this.patient.firstName) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "First name is required"
@@ -216,7 +216,7 @@ export class PatientBasicInfoComponent implements OnInit {
             return false;
         }
         if (!this.patient.lastName) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Last Name is required"
@@ -224,11 +224,15 @@ export class PatientBasicInfoComponent implements OnInit {
             return false;
         }
         if (!this.patient.mobile) {
-            this.showMessage("error", "Validation Error", "Mobile is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Mobile is required"
+            );
             return false;
         }
         if (!this.patient.dateOfBirth) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Date of birth is required"
@@ -236,11 +240,15 @@ export class PatientBasicInfoComponent implements OnInit {
             return false;
         }
         if (!this.genderType) {
-            this.showMessage("error", "Validation Error", "Gender is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Gender is required"
+            );
             return false;
         }
         if (!this.selectedCountry) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Country is required"

@@ -6,7 +6,7 @@ import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 import { TeamsService } from "../../services/teams.service";
 import { UsersService } from "../../services/users.service";
-
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-team-members",
     templateUrl: "./team-members.component.html",
@@ -14,6 +14,9 @@ import { UsersService } from "../../services/users.service";
     providers: [MessageService, ConfirmationService],
 })
 export class TeamMembersComponent implements OnInit {
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     items: MenuItem[];
     member: Member = new Member();
     home: MenuItem;
@@ -90,23 +93,19 @@ export class TeamMembersComponent implements OnInit {
                         this.spinner.hide();
                         this.ngOnInit();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Member has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
-        });
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
         });
     }
     openMemberDialog() {
@@ -123,20 +122,24 @@ export class TeamMembersComponent implements OnInit {
                         this.getAllMembers();
                         this.displayMemberDialog = false;
                         this.spinner.hide();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
     validateMemberDialog(callback) {
         if (!this.member.member) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Member name is required"

@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Problem } from "./problem";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-problems",
     templateUrl: "./problems.component.html",
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class ProblemsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     items: MenuItem[];
     home: MenuItem;
@@ -93,14 +97,18 @@ export class ProblemsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlProblems();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -117,28 +125,25 @@ export class ProblemsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlProblems();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data Updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     validateProblem(callback) {
         // if (!this.problem.problem) {
-        //     this.showMessage(
+        //     this.showMessageComponent.showMessage(
         //         "error",
         //         "Validation Error",
         //         "Problem is required"
@@ -146,11 +151,15 @@ export class ProblemsComponent implements OnInit {
         //     return false;
         // }
         if (!this.status) {
-            this.showMessage("error", "Validation Error", "Status is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Status is required"
+            );
             return false;
         }
         if (!this.problem.notedDate) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Noted date is required"
@@ -207,14 +216,18 @@ export class ProblemsComponent implements OnInit {
                         this.getALlProblems();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Problem has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

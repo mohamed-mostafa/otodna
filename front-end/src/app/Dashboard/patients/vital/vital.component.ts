@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Vital } from "./vital";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-vital",
     templateUrl: "./vital.component.html",
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class VitalComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     vitals: any[] = [];
     items: MenuItem[];
@@ -89,14 +93,18 @@ export class VitalComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlVitals();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -114,28 +122,25 @@ export class VitalComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlVitals();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     validateVital(callback) {
         if (!this.recordType) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Record type is required"
@@ -143,7 +148,7 @@ export class VitalComponent implements OnInit {
             return false;
         }
         if (!this.vital.vitalRecordValue) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Record value is required"
@@ -151,7 +156,7 @@ export class VitalComponent implements OnInit {
             return false;
         }
         if (!this.vital.notedDate) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Noted date is required"
@@ -212,14 +217,18 @@ export class VitalComponent implements OnInit {
                     this.getALlVitals();
                     this.spinner.hide();
                 });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Vital has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

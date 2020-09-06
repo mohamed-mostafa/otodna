@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Medication } from "./medication";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-medications",
     templateUrl: "./medications.component.html",
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class MedicationsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     medications: any[] = [];
     statuses = [];
@@ -100,14 +104,18 @@ export class MedicationsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlMedications();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -126,28 +134,24 @@ export class MedicationsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlMedications();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data Updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
-        });
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
         });
     }
     validateMedication(callback) {
         if (!this.medication.medication) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Medication is required"
@@ -155,7 +159,7 @@ export class MedicationsComponent implements OnInit {
             return false;
         }
         if (!this.date) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Start Date is required"
@@ -163,7 +167,7 @@ export class MedicationsComponent implements OnInit {
             return false;
         }
         if (!this.date[1] || this.date[1] === null) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "End Date is required"
@@ -171,7 +175,7 @@ export class MedicationsComponent implements OnInit {
             return false;
         }
         if (!this.medication.quantity) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Quantity is required"
@@ -179,11 +183,15 @@ export class MedicationsComponent implements OnInit {
             return false;
         }
         if (!this.status) {
-            this.showMessage("error", "Validation Error", "Status is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Status is required"
+            );
             return false;
         }
         if (!this.medication.notedDate) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Noted date is required"
@@ -242,14 +250,18 @@ export class MedicationsComponent implements OnInit {
                         this.getALlMedications();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Medication has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

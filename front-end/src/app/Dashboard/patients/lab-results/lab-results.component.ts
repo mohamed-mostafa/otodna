@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { LabResult } from "./labResult";
 import { Component, OnInit } from "@angular/core";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-lab-results",
     templateUrl: "./lab-results.component.html",
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class LabResultsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     items: MenuItem[];
     home: MenuItem;
@@ -89,14 +93,18 @@ export class LabResultsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlLabResults();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -111,28 +119,25 @@ export class LabResultsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlLabResults();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data Updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     validateLabResult(callback) {
         if (!this.labResult.labTest) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Lab test is required"
@@ -140,15 +145,23 @@ export class LabResultsComponent implements OnInit {
             return false;
         }
         if (!this.labResult.value) {
-            this.showMessage("error", "Validation Error", "Value is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Value is required"
+            );
             return false;
         }
         if (!this.labResult.unit) {
-            this.showMessage("error", "Validation Error", "Unit is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Unit is required"
+            );
             return false;
         }
         if (!this.labResult.notedDate) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Noted date is required"
@@ -188,14 +201,18 @@ export class LabResultsComponent implements OnInit {
                         this.getALlLabResults();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Lab result has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

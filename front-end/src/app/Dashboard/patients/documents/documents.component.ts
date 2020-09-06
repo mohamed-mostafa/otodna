@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 import { SharedClass } from "../shared/sharedFunctions";
-
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-documents",
     templateUrl: "./documents.component.html",
@@ -14,6 +14,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class DocumentsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     items: MenuItem[];
     home: MenuItem;
     selectedPatient;
@@ -59,7 +62,7 @@ export class DocumentsComponent implements OnInit {
             .fileUpload(this.toFile, `Patient/${this.selectedPatient.id}`)
             .then((data) => {
                 this.spinner.hide();
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Updated",
                     "File uploaded successfully"
@@ -68,7 +71,7 @@ export class DocumentsComponent implements OnInit {
                 this.getAllFiles();
             })
             .catch((err) => {
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "error",
                     "Error",
                     "An error occured while processing your request. Please Contact the system administrator."
@@ -84,21 +87,13 @@ export class DocumentsComponent implements OnInit {
                 this.spinner.hide();
             })
             .catch((err) => {
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "error",
                     "Error",
                     "An error occured while processing your request. Please Contact the system administrator."
                 );
                 this.spinner.hide();
             });
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
     }
     deleteDocument(document) {
         this.confirmationService.confirm({
@@ -112,14 +107,14 @@ export class DocumentsComponent implements OnInit {
                     .then((u: any) => {
                         this.getAllFiles();
                         this.spinner.hide();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Confirmed",
                             "Document has been deleted"
                         );
                     })
                     .catch((err) => {
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "error",
                             "Error",
                             "An error occured while processing your request. Please Contact the system administrator."
@@ -127,7 +122,11 @@ export class DocumentsComponent implements OnInit {
                     });
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

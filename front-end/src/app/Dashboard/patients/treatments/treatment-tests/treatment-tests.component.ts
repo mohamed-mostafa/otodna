@@ -10,7 +10,7 @@ import { MenuItem } from "primeng/primeng";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Treatment } from "./treatment";
-
+import { ShowMessageComponent } from "../../../shared/show-message/show-message.component";
 @Component({
     selector: "app-treatment-tests",
     templateUrl: "./treatment-tests.component.html",
@@ -20,6 +20,9 @@ import { Treatment } from "./treatment";
 export class TreatmentTestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     treatments: any[] = [];
     treatment: Treatment = new Treatment();
@@ -188,7 +191,11 @@ export class TreatmentTestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTreatments();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
             });
     }
     updateTreatment() {
@@ -262,7 +269,7 @@ export class TreatmentTestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTreatments();
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
                     "Data updated successfully"
@@ -282,14 +289,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatment = new Treatment();
         this.dialogHeader = "Add New Treatment";
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     showTestDialog() {
         this.displayTest = true;
     }
@@ -381,7 +381,11 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatmentService.createTreatment(treatment).subscribe((u: any) => {
             this.reset();
             this.getSessionTreatments();
-            this.showMessage("success", "Saved", "Data saved successfully");
+            this.showMessageComponent.showMessage(
+                "success",
+                "Saved",
+                "Data saved successfully"
+            );
             this.spinner.hide();
         });
     }
@@ -486,14 +490,18 @@ export class TreatmentTestsComponent implements OnInit {
                         this.getSessionTreatments();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Treatment has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

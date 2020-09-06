@@ -1,3 +1,4 @@
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { Router } from "@angular/router";
 import { Team } from "./team";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -5,7 +6,6 @@ import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, NgZone } from "@angular/core";
 import { TeamsService } from "../../services/teams.service";
 import { DepartmentsService } from "../../services/departments.service";
-
 @Component({
     selector: "app-my-teams",
     templateUrl: "./my-teams.component.html",
@@ -13,6 +13,9 @@ import { DepartmentsService } from "../../services/departments.service";
     providers: [MessageService, ConfirmationService],
 })
 export class MyTeamsComponent implements OnInit {
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     departments: any[];
     teams: any[];
     team: Team = new Team();
@@ -67,15 +70,6 @@ export class MyTeamsComponent implements OnInit {
         );
         return result.name;
     }
-
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
     saveTeam() {
         this.validateTeamDialog((callback) => {
             if (callback === "valid") {
@@ -88,14 +82,18 @@ export class MyTeamsComponent implements OnInit {
                     this.getMyTeams();
                     this.displayTeamDialog = false;
                     this.spinner.hide();
-                    this.showMessage(
+                    this.showMessageComponent.showMessage(
                         "success",
                         "Saved",
                         "Data saved successfully"
                     );
                 });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -109,7 +107,7 @@ export class MyTeamsComponent implements OnInit {
     }
     validateTeamDialog(callback) {
         if (!this.team.name) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Team name is required"
@@ -117,11 +115,15 @@ export class MyTeamsComponent implements OnInit {
             return false;
         }
         if (!this.team.owner) {
-            this.showMessage("error", "Validation Error", "Owner is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Owner is required"
+            );
             return false;
         }
         if (!this.team.department) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Department is required"
@@ -142,14 +144,18 @@ export class MyTeamsComponent implements OnInit {
                     this.spinner.hide();
                     this.getMyTeams();
                 });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Team has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

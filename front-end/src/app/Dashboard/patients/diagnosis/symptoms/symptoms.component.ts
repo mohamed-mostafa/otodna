@@ -6,7 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Symptom } from "./symptom";
 import { SharedClass } from "../../shared/sharedFunctions";
-
+import { ShowMessageComponent } from "../../../shared/show-message/show-message.component";
 @Component({
     selector: "app-symptoms",
     templateUrl: "./symptoms.component.html",
@@ -15,6 +15,9 @@ import { SharedClass } from "../../shared/sharedFunctions";
 })
 export class SymptomsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     selectedPatient;
     symptom: Symptom = new Symptom();
     selectedSymptoms;
@@ -79,7 +82,7 @@ export class SymptomsComponent implements OnInit {
     }
     save() {
         if (!this.selectedSymptoms || this.selectedSymptoms.length < 1) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Please select at least one symptom"
@@ -100,12 +103,16 @@ export class SymptomsComponent implements OnInit {
             .subscribe((u: any) => {
                 this.showButtons = false;
                 this.spinner.hide();
-                this.showMessage("success", "Saved", "Data saved successfully");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
             });
     }
     update() {
         if (!this.selectedSymptoms || this.selectedSymptoms.length < 1) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Please select at least one symptom"
@@ -125,7 +132,7 @@ export class SymptomsComponent implements OnInit {
             .updateSymptoms(this.symptom.patientSessionId, symptomsArray)
             .subscribe((u: any) => {
                 this.spinner.hide();
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
                     "Data updated successfully"
@@ -138,14 +145,6 @@ export class SymptomsComponent implements OnInit {
     reset() {
         this.selectedSymptoms = "";
         this.goToPatientPage("a");
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);

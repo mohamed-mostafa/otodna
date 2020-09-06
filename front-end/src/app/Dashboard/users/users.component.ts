@@ -1,3 +1,4 @@
+import { ShowMessageComponent } from "./../shared/show-message/show-message.component";
 import { InviteUser } from "./inviteUser";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
@@ -5,7 +6,6 @@ import { Component, OnInit } from "@angular/core";
 import { User } from "./user";
 import { UsersService } from "../services/users.service";
 import { RolesService } from "../services/roles.service";
-
 @Component({
     selector: "app-users",
     templateUrl: "./users.component.html",
@@ -13,6 +13,9 @@ import { RolesService } from "../services/roles.service";
     providers: [MessageService, ConfirmationService],
 })
 export class UsersComponent implements OnInit {
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     users: any[];
     user: User = new User();
@@ -72,11 +75,15 @@ export class UsersComponent implements OnInit {
     }
     saveEditUser() {
         if (!this.role) {
-            this.showMessage("error", "Validation Error", "Role is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Role is required"
+            );
             return false;
         }
         if (!this.userType) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "User Type is required"
@@ -91,27 +98,27 @@ export class UsersComponent implements OnInit {
             this.getAllUsers();
             this.displayBasic = false;
         });
-        this.showMessage("success", "Confirmed", "User Updated Successfully");
+        this.showMessageComponent.showMessage(
+            "success",
+            "Confirmed",
+            "User Updated Successfully"
+        );
     }
     save() {
         this.spinner.show();
         setTimeout(() => {
             this.displayBasic = false;
             this.user = new User();
-            this.showMessage("success", "Saved", "Data saved successfully");
+            this.showMessageComponent.showMessage(
+                "success",
+                "Saved",
+                "Data saved successfully"
+            );
             this.spinner.hide();
         }, 2000);
     }
     cancel() {
         this.displayBasic = false;
-    }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
     }
     showInviteUserDialog() {
         this.displayInviteUserDialog = true;
@@ -123,7 +130,7 @@ export class UsersComponent implements OnInit {
                 setTimeout(() => {
                     this.displayInviteUserDialog = false;
                     this.inviteUser = new InviteUser();
-                    this.showMessage(
+                    this.showMessageComponent.showMessage(
                         "success",
                         "Saved",
                         "Invitation sent successfully"
@@ -131,13 +138,17 @@ export class UsersComponent implements OnInit {
                     this.spinner.hide();
                 }, 2000);
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
     validateInviteUserDialog(callback) {
         if (!this.inviteUser.fullName) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Full name is required"
@@ -145,11 +156,15 @@ export class UsersComponent implements OnInit {
             return false;
         }
         if (!this.inviteUser.email) {
-            this.showMessage("error", "Validation Error", "Email is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Email is required"
+            );
             return false;
         }
         if (!this.validateMail(this.inviteUser.email)) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "warn",
                 "Invalid Mail",
                 "email is not a valid mail"
@@ -157,7 +172,11 @@ export class UsersComponent implements OnInit {
             return false;
         }
         if (!this.inviteUser.role) {
-            this.showMessage("error", "Validation Error", "Role is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Role is required"
+            );
             return false;
         } else {
             callback("valid");
@@ -179,10 +198,18 @@ export class UsersComponent implements OnInit {
                     this.spinner.hide();
                     this.getAllUsers();
                 });
-                this.showMessage("success", "Confirmed", "User Approvved");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Confirmed",
+                    "User Approvved"
+                );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }
@@ -198,10 +225,18 @@ export class UsersComponent implements OnInit {
                     this.getAllUsers();
                 });
                 this.getAllUsers();
-                this.showMessage("success", "Confirmed", "User Rejected");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Confirmed",
+                    "User Rejected"
+                );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }
@@ -217,10 +252,18 @@ export class UsersComponent implements OnInit {
                     this.spinner.hide();
                     this.getAllUsers();
                 });
-                this.showMessage("success", "Confirmed", "User Activated");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Confirmed",
+                    "User Activated"
+                );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }
@@ -236,10 +279,18 @@ export class UsersComponent implements OnInit {
                     this.spinner.hide();
                     this.getAllUsers();
                 });
-                this.showMessage("success", "Confirmed", "User deActivated");
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Confirmed",
+                    "User deActivated"
+                );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }

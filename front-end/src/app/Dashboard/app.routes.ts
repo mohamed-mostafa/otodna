@@ -1,3 +1,4 @@
+import { ShowMessageComponent } from './shared/show-message/show-message.component';
 import { TestParametersComponent } from './patients/shared/test-parameters/test-parameters.component';
 import { FilesIconsComponent } from "./patients/shared/files-icons/files-icons.component";
 import { SessionDocumentsComponent } from "./patients/session-documents/session-documents.component";
@@ -154,7 +155,8 @@ export const COMPONENTS = [
     DocumentsComponent,
     SessionDocumentsComponent,
     FilesIconsComponent,
-    TestParametersComponent
+    TestParametersComponent,
+    ShowMessageComponent
 ];
 @NgModule({
     exports: [RouterModule],

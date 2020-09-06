@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
 import { Immunizations } from "./immunizations";
 import { SharedClass } from "../shared/sharedFunctions";
+import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
     selector: "app-immunizations",
     templateUrl: "./immunizations.component.html",
@@ -14,6 +15,9 @@ import { SharedClass } from "../shared/sharedFunctions";
 })
 export class ImmunizationsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass();
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     cols: any[];
     immunizations: any[] = [];
     immunizationsStatus = [];
@@ -94,14 +98,18 @@ export class ImmunizationsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlImmunizations();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Saved",
                             "Data saved successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
@@ -118,28 +126,25 @@ export class ImmunizationsComponent implements OnInit {
                         this.spinner.hide();
                         this.getALlImmunizations();
                         this.reset();
-                        this.showMessage(
+                        this.showMessageComponent.showMessage(
                             "success",
                             "Updated",
                             "Data Updated successfully"
                         );
                     });
             } else {
-                this.showMessage("warn", "Error", "Please try again");
+                this.showMessageComponent.showMessage(
+                    "warn",
+                    "Error",
+                    "Please try again"
+                );
             }
         });
     }
-    showMessage(type, title, message) {
-        this.messageService.add({
-            severity: type,
-            summary: title,
-            detail: message,
-            life: 3000,
-        });
-    }
+
     validateImmunization(callback) {
         if (!this.immunization.vaccineName) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Vaccine name is required"
@@ -147,11 +152,15 @@ export class ImmunizationsComponent implements OnInit {
             return false;
         }
         if (!this.status) {
-            this.showMessage("error", "Validation Error", "Status is required");
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Status is required"
+            );
             return false;
         }
         if (!this.immunization.notedDate) {
-            this.showMessage(
+            this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
                 "Noted date is required"
@@ -212,14 +221,18 @@ export class ImmunizationsComponent implements OnInit {
                         this.getALlImmunizations();
                         this.spinner.hide();
                     });
-                this.showMessage(
+                this.showMessageComponent.showMessage(
                     "success",
                     "Confirmed",
                     "Immunization has been deleted"
                 );
             },
             reject: () => {
-                this.showMessage("info", "Rejected", "You have rejected");
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
             },
         });
     }
