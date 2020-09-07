@@ -1,0 +1,16 @@
+<div class="ui-g-12 ui-md-6 rightVerticalLine">
+    <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+    <p-chart
+        type="line"
+        [data]="rightGraphData"
+        (onDataSelect)="selectRightData($event)"
+    ></p-chart>
+</div>
+<div class="ui-g-12 ui-md-6">
+    <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+    <p-chart
+        type="line"
+        [data]="leftGraphData"
+        (onDataSelect)="selectLeftData($event)"
+    ></p-chart>
+</div>

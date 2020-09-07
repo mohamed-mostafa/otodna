@@ -41,7 +41,6 @@ export class TestsComponent implements OnInit {
     filteredEquipments: any[];
     selectedEquipments = [];
     showSaveButton = true;
-    graphData: any;
     showAllButtons = true;
     selectedPatient;
     rightFiles: any[] = [];
@@ -113,15 +112,6 @@ export class TestsComponent implements OnInit {
             LoggedInUser,
             this.selectedPatient.teamId
         );
-    }
-    selectData(event) {
-        this.messageService.add({
-            severity: "info",
-            summary: "Data Selected",
-            detail: this.graphData.datasets[event.element._datasetIndex].data[
-                event.element._index
-            ],
-        });
     }
     getEquipmentsAllData(data) {
         const allSelectedEquipments = [];
@@ -365,25 +355,6 @@ export class TestsComponent implements OnInit {
                 this.selectedTestData = res;
                 this.showTests = false;
                 this.dialogHeader = res.map((r) => r.name);
-                res.forEach((r) => {
-                    if (r.parameters) {
-                        r.parameters.forEach((element) => {
-                            if (element.type === "graph") {
-                                this.graphData = {
-                                    labels: element.xAxis,
-                                    datasets: [
-                                        {
-                                            label: element.name,
-                                            data: element.yAxis,
-                                            fill: true,
-                                            borderColor: "#4bc0c0",
-                                        },
-                                    ],
-                                };
-                            }
-                        });
-                    }
-                });
             },
             (err) => {
                 if (this.showTests) {

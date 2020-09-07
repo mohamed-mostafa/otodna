@@ -110,3 +110,6 @@
 .noPadding {
     padding: 0px;
 }
+.floatRight {
+    float: right;
+}

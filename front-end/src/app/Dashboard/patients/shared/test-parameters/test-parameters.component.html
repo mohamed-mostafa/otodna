@@ -513,6 +513,15 @@
         </div>
         <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'table'">
             <label> {{ t.name }}</label>
+            <div class="floatRight" *ngIf="showGraphButton">
+                <p-checkbox
+                    [(ngModel)]="showGraph"
+                    binary="true"
+                    inputId="binary"
+                ></p-checkbox>
+                <label for="binary"> Show Graph</label>
+            </div>
+
             <div class="labelMarginTop">
                 <p-table>
                     <ng-template pTemplate="header">
@@ -537,7 +546,10 @@
                                 </th>
                             </ng-container>
                             <ng-container *ngIf="t.cellType === 'number'">
-                                <th *ngFor="let freq of t.cells">
+                                <th
+                                    *ngFor="let freq of t.cells"
+                                    (change)="drawRightGraph(t.cells)"
+                                >
                                     <input
                                         type="number"
                                         pInputText
@@ -560,7 +572,10 @@
                                 </th>
                             </ng-container>
                             <ng-container *ngIf="t.cellType === 'number'">
-                                <th *ngFor="let freq of t.cells">
+                                <th
+                                    *ngFor="let freq of t.cells"
+                                    (change)="drawLeftGraph(t.cells)"
+                                >
                                     <input
                                         type="number"
                                         pInputText
@@ -572,6 +587,15 @@
                     </ng-template>
                 </p-table>
             </div>
+        </div>
+        <div
+            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+            *ngIf="t.type === 'graph' && showGraph"
+        >
+            <app-graph
+                [rightGraphData]="rightGraphData"
+                [leftGraphData]="leftGraphData"
+            ></app-graph>
         </div>
     </div>
 </div>

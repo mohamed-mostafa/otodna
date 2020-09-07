@@ -1,5 +1,7 @@
-import { ShowMessageComponent } from './shared/show-message/show-message.component';
-import { TestParametersComponent } from './patients/shared/test-parameters/test-parameters.component';
+import { GraphComponent } from './patients/shared/graph/graph.component';
+import { PatientBreadcrumbComponent } from './patients/shared/patient-breadcrumb/patient-breadcrumb.component';
+import { ShowMessageComponent } from "./shared/show-message/show-message.component";
+import { TestParametersComponent } from "./patients/shared/test-parameters/test-parameters.component";
 import { FilesIconsComponent } from "./patients/shared/files-icons/files-icons.component";
 import { SessionDocumentsComponent } from "./patients/session-documents/session-documents.component";
 import { DocumentsComponent } from "./patients/documents/documents.component";
@@ -156,7 +158,9 @@ export const COMPONENTS = [
     SessionDocumentsComponent,
     FilesIconsComponent,
     TestParametersComponent,
-    ShowMessageComponent
+    ShowMessageComponent,
+    PatientBreadcrumbComponent,
+    GraphComponent,
 ];
 @NgModule({
     exports: [RouterModule],

@@ -16,6 +16,8 @@ export class TestParametersComponent implements OnInit {
     @Input() leftFilePath;
     @Input() savedRightImage;
     @Input() savedLeftImage;
+    showGraph = true;
+    showGraphButton = false;
     sharedClass: SharedClass = new SharedClass();
     previewRightImageUrl: any = null;
     previewLeftImageUrl: any = null;
@@ -23,15 +25,46 @@ export class TestParametersComponent implements OnInit {
     leftImage: any[] = [];
     rightFiles: any[] = [];
     leftFiles: any[] = [];
+    rightGraphValues = [];
+    leftGraphValues = [];
     leftDocument;
     rightDocument;
     leftDeletedImage;
     rightDeletedImage;
     showRightButtons = true;
     showLeftButtons = true;
+    rightGraphData: any;
+    leftGraphData: any;
     constructor(private documentService: DocumentsService) {}
-
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.parameters.forEach((element) => {
+            if (element.type === "graph") {
+                this.showGraphButton = true;
+                this.rightGraphData = {
+                    labels: element.xAxis,
+                    datasets: [
+                        {
+                            label: element.name,
+                            data: this.rightGraphValues,
+                            fill: true,
+                            borderColor: "#4bc0c0",
+                        },
+                    ],
+                };
+                this.leftGraphData = {
+                    labels: element.xAxis,
+                    datasets: [
+                        {
+                            label: element.name,
+                            data: this.leftGraphValues,
+                            fill: true,
+                            borderColor: "#4bc0c0",
+                        },
+                    ],
+                };
+            }
+        });
+    }
     async previewRightImage(event) {
         this.rightImage = event.currentFiles;
         this.previewRightImageUrl = await this.sharedClass.previewImage(event);
@@ -112,5 +145,51 @@ export class TestParametersComponent implements OnInit {
     replaceChoosedLeftImage(event) {
         this.removeChoosedLeftImage();
         this.previewLeftImage(event);
+    }
+    drawRightGraph(cells) {
+        const found = cells.every((cell) => cell.right !== "");
+        if (found) {
+            cells.forEach((cell) => {
+                this.rightGraphValues.push(cell.right);
+                this.parameters.forEach((element) => {
+                    if (element.type === "graph") {
+                        this.rightGraphData = {
+                            labels: element.xAxis,
+                            datasets: [
+                                {
+                                    label: element.name,
+                                    data: this.rightGraphValues,
+                                    fill: true,
+                                    borderColor: "#4bc0c0",
+                                },
+                            ],
+                        };
+                    }
+                });
+            });
+        }
+    }
+    drawLeftGraph(cells) {
+        const found = cells.every((cell) => cell.left !== "");
+        if (found) {
+            cells.forEach((cell) => {
+                this.leftGraphValues.push(cell.left);
+                this.parameters.forEach((element) => {
+                    if (element.type === "graph") {
+                        this.leftGraphData = {
+                            labels: element.xAxis,
+                            datasets: [
+                                {
+                                    label: element.name,
+                                    data: this.leftGraphValues,
+                                    fill: true,
+                                    borderColor: "#4bc0c0",
+                                },
+                            ],
+                        };
+                    }
+                });
+            });
+        }
     }
 }
