@@ -167,7 +167,7 @@ export class TestParametersComponent implements OnInit {
                     }
                 });
             } else {
-                this.rightGraphValues.push(0);
+                this.rightGraphValues.push(null);
             }
         });
     }
@@ -192,7 +192,7 @@ export class TestParametersComponent implements OnInit {
                     }
                 });
             } else {
-                this.leftGraphValues.push(0);
+                this.leftGraphValues.push(null);
             }
         });
     }
