@@ -382,6 +382,21 @@ export class CandidacyComponent implements OnInit {
                             parameters
                         );
                         await this.checkForImagesAndFiles(test);
+                        const found = parameters.some(
+                            (param) => param.type === "graph"
+                        );
+                        if (found) {
+                            parameters.forEach((p) => {
+                                if (p.type === "table") {
+                                    this.testParameterComponent.drawRightGraph(
+                                        p.cells
+                                    );
+                                    this.testParameterComponent.drawLeftGraph(
+                                        p.cells
+                                    );
+                                }
+                            });
+                        }
                     }
                     this.displayTest = true;
                     this.cdref.detectChanges();
