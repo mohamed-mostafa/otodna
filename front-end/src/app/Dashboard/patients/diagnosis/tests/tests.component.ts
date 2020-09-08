@@ -438,48 +438,53 @@ export class TestsComponent implements OnInit {
             });
     }
     async checkForImagesAndFiles(test) {
-        if (this.selectedSession.sessionTypeId === 0) {
-            this.rightFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Files/Right`;
-            const right = await this.documentService.getAllFiles(
-                this.rightFilePath
-            );
-            this.savedRightFiles = right.Contents;
-            this.leftFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Files/Left`;
-            const left = await this.documentService.getAllFiles(
-                this.leftFilePath
-            );
-            this.savedLeftFiles = left.Contents;
-            this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Images/Right`;
-            const rightImage = await this.documentService.getAllFiles(
-                this.rightImagePath
-            );
-            this.savedRightImage = rightImage.Contents;
-            this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Images/Left`;
-            const leftImage = await this.documentService.getAllFiles(
-                this.leftImagePath
-            );
-            this.savedLeftImage = leftImage.Contents;
-        } else {
-            this.rightFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Files/Right`;
-            const right = await this.documentService.getAllFiles(
-                this.rightFilePath
-            );
-            this.savedRightFiles = right.Contents;
-            this.leftFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Files/Left`;
-            const left = await this.documentService.getAllFiles(
-                this.leftFilePath
-            );
-            this.savedLeftFiles = left.Contents;
-            this.rightImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Images/Right`;
-            const rightImage = await this.documentService.getAllFiles(
-                this.rightImagePath
-            );
-            this.savedRightImage = rightImage.Contents;
-            this.leftImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Images/Left`;
-            const leftImage = await this.documentService.getAllFiles(
-                this.leftImagePath
-            );
-            this.savedLeftImage = leftImage.Contents;
+        const found = this.selectedTestData[0].parameters.some(
+            (param) => param.type === "image" || param.type === "file"
+        );
+        if (found) {
+            if (this.selectedSession.sessionTypeId === 0) {
+                this.rightFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Files/Right`;
+                const right = await this.documentService.getAllFiles(
+                    this.rightFilePath
+                );
+                this.savedRightFiles = right.Contents;
+                this.leftFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Files/Left`;
+                const left = await this.documentService.getAllFiles(
+                    this.leftFilePath
+                );
+                this.savedLeftFiles = left.Contents;
+                this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Images/Right`;
+                const rightImage = await this.documentService.getAllFiles(
+                    this.rightImagePath
+                );
+                this.savedRightImage = rightImage.Contents;
+                this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/${test.id}/Images/Left`;
+                const leftImage = await this.documentService.getAllFiles(
+                    this.leftImagePath
+                );
+                this.savedLeftImage = leftImage.Contents;
+            } else {
+                this.rightFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Files/Right`;
+                const right = await this.documentService.getAllFiles(
+                    this.rightFilePath
+                );
+                this.savedRightFiles = right.Contents;
+                this.leftFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Files/Left`;
+                const left = await this.documentService.getAllFiles(
+                    this.leftFilePath
+                );
+                this.savedLeftFiles = left.Contents;
+                this.rightImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Images/Right`;
+                const rightImage = await this.documentService.getAllFiles(
+                    this.rightImagePath
+                );
+                this.savedRightImage = rightImage.Contents;
+                this.leftImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/${test.id}/Images/Left`;
+                const leftImage = await this.documentService.getAllFiles(
+                    this.leftImagePath
+                );
+                this.savedLeftImage = leftImage.Contents;
+            }
         }
     }
     endSession() {

@@ -147,9 +147,9 @@ export class TestParametersComponent implements OnInit {
         this.previewLeftImage(event);
     }
     drawRightGraph(cells) {
-        const found = cells.every((cell) => cell.right !== "");
-        if (found) {
-            cells.forEach((cell) => {
+        this.rightGraphValues = [];
+        cells.forEach((cell) => {
+            if (cell.right !== "") {
                 this.rightGraphValues.push(cell.right);
                 this.parameters.forEach((element) => {
                     if (element.type === "graph") {
@@ -166,13 +166,15 @@ export class TestParametersComponent implements OnInit {
                         };
                     }
                 });
-            });
-        }
+            } else {
+                this.rightGraphValues.push(0);
+            }
+        });
     }
     drawLeftGraph(cells) {
-        const found = cells.every((cell) => cell.left !== "");
-        if (found) {
-            cells.forEach((cell) => {
+        this.leftGraphValues = [];
+        cells.forEach((cell) => {
+            if (cell.left !== "") {
                 this.leftGraphValues.push(cell.left);
                 this.parameters.forEach((element) => {
                     if (element.type === "graph") {
@@ -189,7 +191,9 @@ export class TestParametersComponent implements OnInit {
                         };
                     }
                 });
-            });
-        }
+            } else {
+                this.leftGraphValues.push(0);
+            }
+        });
     }
 }
