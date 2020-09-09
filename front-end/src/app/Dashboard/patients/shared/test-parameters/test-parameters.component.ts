@@ -161,6 +161,7 @@ export class TestParametersComponent implements OnInit {
                                     data: this.rightGraphValues,
                                     fill: true,
                                     borderColor: "#4bc0c0",
+                                    pointStyle: "triangle",
                                 },
                             ],
                         };
@@ -186,6 +187,7 @@ export class TestParametersComponent implements OnInit {
                                     data: this.leftGraphValues,
                                     fill: true,
                                     borderColor: "#4bc0c0",
+                                    pointStyle: "crossRot",
                                 },
                             ],
                         };
