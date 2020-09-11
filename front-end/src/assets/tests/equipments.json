@@ -1,32 +1,36 @@
 {
     "data": [
         {
-            "id": 1,
-            "name": "Otoscopes"
+            "equipmentId": "equipmentDemo",
+            "equipmentName": "Equipment Demo"
         },
         {
-            "id": 2,
-            "name": "Auditory Brain Stem Implants"
+            "equipmentId": 1,
+            "equipmentName": "Otoscopes"
         },
         {
-            "id": 3,
-            "name": "Cochlear Implants"
+            "equipmentId": 2,
+            "equipmentName": "Auditory Brain Stem Implants"
         },
         {
-            "id": 4,
-            "name": "Ossicular Prosthesis"
+            "equipmentId": 3,
+            "equipmentName": "Cochlear Implants"
         },
         {
-            "id": 5,
-            "name": "Bone conduction implant"
+            "equipmentId": 4,
+            "equipmentName": "Ossicular Prosthesis"
         },
         {
-            "id": 6,
-            "name": "Tympanometer"
+            "equipmentId": 5,
+            "equipmentName": "Bone conduction implant"
         },
         {
-            "id": 7,
-            "name": "Audiometer"
+            "equipmentId": 6,
+            "equipmentName": "Tympanometer"
+        },
+        {
+            "equipmentId": 7,
+            "equipmentName": "Audiometer"
         }
     ]
 }

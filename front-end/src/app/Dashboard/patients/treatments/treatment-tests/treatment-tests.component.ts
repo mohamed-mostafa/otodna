@@ -59,6 +59,14 @@ export class TreatmentTestsComponent implements OnInit {
     leftImage;
     leftDeletedImage;
     rightDeletedImage;
+    displayEquipmentTest: boolean;
+    showEquipments = true;
+    selectedEquipment;
+    selectedTreatmentId;
+    showViewEquipments = false;
+    viewedEquipments = [];
+    position;
+    selectedEquipmentData = [];
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -396,13 +404,22 @@ export class TreatmentTestsComponent implements OnInit {
         });
     }
     filterEquipments(event) {
-        this.filteredEquipments = [];
-        for (const item of this.allEquipments) {
-            const brand = item.name;
-            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
-                this.filteredEquipments.push(brand);
-            }
-        }
+        const query = event.query;
+        this.treatmentService
+            .getTreatmentTest("equipments")
+            .then(async (equipments) => {
+                this.filteredEquipments = await this.searchEquipments(
+                    query,
+                    equipments
+                );
+            });
+    }
+    async searchEquipments(query, equipments) {
+        return await this.sharedClass.searchTest(
+            query,
+            equipments,
+            "equipmentName"
+        );
     }
     getSessionTreatments() {
         this.spinner.show();
@@ -410,6 +427,23 @@ export class TreatmentTestsComponent implements OnInit {
             .getSessionTreatments(this.selectedSession.id)
             .subscribe((result) => {
                 this.treatments = result;
+                result.forEach((treatment) => {
+                    this.treatmentService
+                        .getTreatmentTest(treatment.treatmentId)
+                        .then(
+                            (res) => {
+                                treatment.showEquipment = true;
+                                this.treatmentService
+                                    .getTreatmentEquipmentCount(treatment.id)
+                                    .subscribe(async (result) => {
+                                        treatment.equipmentCount = result.count;
+                                    });
+                            },
+                            (err) => {
+                                treatment.showEquipment = false;
+                            }
+                        );
+                });
                 this.spinner.hide();
             });
     }
@@ -517,6 +551,95 @@ export class TreatmentTestsComponent implements OnInit {
                     "Confirmed",
                     "Treatment has been deleted"
                 );
+            },
+            reject: () => {
+                this.showMessageComponent.showMessage(
+                    "info",
+                    "Rejected",
+                    "You have rejected"
+                );
+            },
+        });
+    }
+    showEquipmentDialog(treatmentId) {
+        this.selectedTreatmentId = treatmentId;
+        this.displayEquipmentTest = true;
+    }
+    viewEquipments(treatmentId) {
+        this.treatmentService
+            .getSessionTreatmentEquipment(treatmentId)
+            .subscribe((res) => {
+                if (res.length > 0) {
+                    this.viewedEquipments = res;
+                    this.showViewEquipments = true;
+                }
+            });
+    }
+    resetEquipment() {
+        this.showEquipments = true;
+        this.filteredEquipments = [];
+        this.selectedEquipments = [];
+    }
+    saveEquipmentsWithoutParams(equipment) {
+        this.treatmentService
+            .createTreatmentEquipment(equipment)
+            .subscribe((u: any) => {
+                this.displayEquipmentTest = false;
+                this.resetEquipment();
+                this.getSessionTreatments();
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
+            });
+    }
+    async openEquipment(equipment) {
+        this.selectedEquipment = equipment;
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
+        this.savedLeftImage = [];
+        this.savedRightImage = [];
+        this.treatmentService.getTreatmentTest(equipment.equipmentId).then(
+            (res) => {
+                this.selectedEquipmentData = res;
+                this.showEquipments = false;
+            },
+            (err) => {
+                if (this.showEquipments) {
+                    equipment.sessionTreatmentId = this.selectedTreatmentId;
+                    this.saveEquipmentsWithoutParams(equipment);
+                } else {
+                    this.showEquipments = true;
+                    return false;
+                }
+            }
+        );
+    }
+    deleteEquipment(equipment, position) {
+        this.position = position;
+        this.confirmationService.confirm({
+            message: "Do you want to delete this equipment?",
+            header: "Delete Equipment Confirmation",
+            icon: "pi pi-info-circle",
+            accept: () => {
+                this.treatmentService
+                    .deleteTreatmentEquipment(equipment.id)
+                    .subscribe((u: any) => {
+                        this.viewedEquipments = this.viewedEquipments.filter(
+                            (eq) => eq !== equipment
+                        );
+                        if (this.viewedEquipments.length === 0) {
+                            this.showViewEquipments = false;
+                        }
+                        this.getSessionTreatments();
+                        this.showMessageComponent.showMessage(
+                            "success",
+                            "Confirmed",
+                            "Equipment has been deleted"
+                        );
+                        this.spinner.hide();
+                    });
             },
             reject: () => {
                 this.showMessageComponent.showMessage(

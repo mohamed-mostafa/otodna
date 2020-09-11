@@ -117,7 +117,7 @@ export class TestsComponent implements OnInit {
         const allSelectedEquipments = [];
         for (const d of data) {
             for (const a of this.allEquipments) {
-                if (a.name === d) {
+                if (a.equipmentName === d) {
                     allSelectedEquipments.push(a);
                 }
             }
@@ -383,7 +383,7 @@ export class TestsComponent implements OnInit {
     filterEquipments(event) {
         this.filteredEquipments = [];
         for (const item of this.allEquipments) {
-            const brand = item.name;
+            const brand = item.equipmentName;
             if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
                 this.filteredEquipments.push(brand);
             }

@@ -11,6 +11,7 @@ export class TreatmentTestsService {
     sessionTestsLink = "session-treatments";
     parameterValueLink = "parameterValue";
     sessionTestEquipmentLink = "/sessionTreatmentEquipment";
+    sessionTreatmentEquipment = "/sessionTreatmentEquipment";
     constructor(private http: HttpClient) {}
 
     getTreatmentTest(test) {
@@ -44,6 +45,22 @@ export class TreatmentTestsService {
     getSessionTreatmentEquipment(sessionTreatmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.sessionTestEquipmentLink}?filter[where][sessionTreatmentId][eq]=${sessionTreatmentId}`
+        );
+    }
+    createTreatmentEquipment(data): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/${this.sessionTreatmentEquipment}`,
+            data
+        );
+    }
+    getTreatmentEquipmentCount(sessionTreatmentId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTreatmentEquipment}/count?[where][sessionTreatmentId][eq]=${sessionTreatmentId}`
+        );
+    }
+    deleteTreatmentEquipment(id: String): Observable<void> {
+        return this.http.delete<void>(
+            `${this.apiUrl}/${this.sessionTreatmentEquipment}/${id}`
         );
     }
 }

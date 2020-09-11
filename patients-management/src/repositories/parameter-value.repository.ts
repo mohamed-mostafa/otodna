@@ -56,8 +56,8 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           if (equipments && equipments.length > 0) {
             for (const e of equipments) {
               let obj = {
-                equipmentId: e.id,
-                equipmentName: e.name,
+                equipmentId: e.equipmentId,
+                equipmentName: e.equipmentName,
                 sessionTestId: res.id,
               };
               await this.sessionTestEquipmentRepository.create(obj, {
@@ -89,8 +89,8 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           if (equipments && equipments.length > 0) {
             for (const e of equipments) {
               let obj = {
-                equipmentId: e.id,
-                equipmentName: e.name,
+                equipmentId: e.equipmentId,
+                equipmentName: e.equipmentName,
                 sessionTreatmentId: res.id,
               };
               await this.sessionTreatmentEquipmentRepository.create(obj, {
@@ -152,8 +152,8 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           if (equipments && equipments.length > 0) {
             for (const e of equipments) {
               let obj = {
-                equipmentId: e.id,
-                equipmentName: e.name,
+                equipmentId: e.equipmentId,
+                equipmentName: e.equipmentName,
                 sessionTestId: data[0].id,
               };
               await this.sessionTestEquipmentRepository.create(obj, {
@@ -184,8 +184,8 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           if (equipments && equipments.length > 0) {
             for (const e of equipments) {
               let obj = {
-                equipmentId: e.id,
-                equipmentName: e.name,
+                equipmentId: e.equipmentId,
+                equipmentName: e.equipmentName,
                 sessionTreatmentId: data[0].id,
               };
               await this.sessionTreatmentEquipmentRepository.create(obj, {
