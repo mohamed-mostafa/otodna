@@ -1,3 +1,5 @@
+import { EquipmentParameterValueService } from "./../../services/equipment-parameter-value.service";
+import { EquipmentTestParametersComponent } from "./../../shared/equipment-test-parameters/equipment-test-parameters.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
@@ -19,6 +21,8 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 })
 export class TreatmentTestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
+    @ViewChild(EquipmentTestParametersComponent)
+    equipmentTestParametersComponent;
     sharedClass: SharedClass = new SharedClass();
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -67,10 +71,12 @@ export class TreatmentTestsComponent implements OnInit {
     viewedEquipments = [];
     position;
     selectedEquipmentData = [];
+    showSaveEquipmentButton = true;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
         private parameterValueService: ParameterValueService,
+        private equipmentParameterValueService: EquipmentParameterValueService,
         private router: Router,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
@@ -518,12 +524,12 @@ export class TreatmentTestsComponent implements OnInit {
                 this.leftFilePath
             );
             this.savedLeftFiles = left.Contents;
-            this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Right`;
+            this.rightImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Right`;
             const rightImage = await this.documentService.getAllFiles(
                 this.rightImagePath
             );
             this.savedRightImage = rightImage.Contents;
-            this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Left`;
+            this.leftImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Left`;
             const leftImage = await this.documentService.getAllFiles(
                 this.leftImagePath
             );
@@ -579,6 +585,9 @@ export class TreatmentTestsComponent implements OnInit {
         this.showEquipments = true;
         this.filteredEquipments = [];
         this.selectedEquipments = [];
+        this.displayEquipmentTest = false;
+        this.selectedEquipment = "";
+        this.showSaveEquipmentButton = true;
     }
     saveEquipmentsWithoutParams(equipment) {
         this.treatmentService
@@ -594,7 +603,7 @@ export class TreatmentTestsComponent implements OnInit {
                 );
             });
     }
-    async openEquipment(equipment) {
+    openEquipment(equipment) {
         this.selectedEquipment = equipment;
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
@@ -649,5 +658,235 @@ export class TreatmentTestsComponent implements OnInit {
                 );
             },
         });
+    }
+    uploadEquipmentsFiles(id, data, side, type) {
+        this.spinner.show();
+        let filePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/Equipments/${id}/${type}/${side}`;
+        this.documentService.fileUpload(data, filePath).then((data) => {
+            this.spinner.hide();
+            if (side === "Right") {
+                this.rightFiles.splice(0, this.rightFiles.length);
+            } else {
+                this.leftFiles.splice(0, this.leftFiles.length);
+            }
+        });
+    }
+    saveEquipment() {
+        this.rightImage = this.equipmentTestParametersComponent.rightImage;
+        this.leftImage = this.equipmentTestParametersComponent.leftImage;
+        this.rightFiles = this.equipmentTestParametersComponent.rightFiles;
+        this.leftFiles = this.equipmentTestParametersComponent.leftFiles;
+        this.selectedEquipmentData.forEach((element) => {
+            element.equipmentId = this.selectedEquipment.equipmentId;
+            element.equipmentName = this.selectedEquipment.equipmentName;
+            element.sessionTreatmentId = this.selectedTreatmentId;
+        });
+        this.spinner.show();
+        this.equipmentParameterValueService
+            .createEquipmentParametersValues(this.selectedEquipmentData)
+            .subscribe((u: any) => {
+                if (this.rightImage.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        this.selectedTreatmentId,
+                        this.rightImage,
+                        "Right",
+                        "Images"
+                    );
+                }
+                if (this.rightFiles.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        this.selectedTreatmentId,
+                        this.rightFiles,
+                        "Right",
+                        "Files"
+                    );
+                }
+                if (this.leftImage.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        this.selectedTreatmentId,
+                        this.leftImage,
+                        "Left",
+                        "Images"
+                    );
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        this.selectedTreatmentId,
+                        this.leftFiles,
+                        "Left",
+                        "Files"
+                    );
+                }
+                if (
+                    this.leftFiles.length < 0 &&
+                    this.rightFiles.length < 0 &&
+                    this.rightImage.length < 0 &&
+                    this.leftImage.length < 0
+                ) {
+                    this.spinner.hide();
+                }
+                this.reset();
+                this.resetEquipment();
+                this.getSessionTreatments();
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data saved successfully"
+                );
+            });
+    }
+    async retrieveEquipmentData(equipment) {
+        await this.openEquipment(equipment);
+        this.savedRightFiles = [];
+        this.savedLeftFiles = [];
+        this.savedLeftImage = [];
+        this.savedRightImage = [];
+        this.showEquipments = false;
+        this.spinner.show();
+        this.equipmentParameterValueService
+            .getEquipmentParametersValues(equipment.id)
+            .subscribe(async (result) => {
+                if (result && result.length > 0) {
+                    this.showSaveEquipmentButton = false;
+                    this.selectedEquipmentData[0].id = equipment.id;
+                    let parameters = this.selectedEquipmentData[0].parameters;
+                    if (parameters && parameters.length > 0) {
+                        parameters = await this.sharedClass.handleTestData(
+                            result,
+                            parameters
+                        );
+                        await this.checkEquipmentForImagesAndFiles(equipment);
+                        const found = parameters.some(
+                            (param) => param.type === "graph"
+                        );
+                        if (found) {
+                            parameters.forEach((p) => {
+                                if (p.type === "table") {
+                                    this.testParameterComponent.drawRightGraph(
+                                        p.cells
+                                    );
+                                    this.testParameterComponent.drawLeftGraph(
+                                        p.cells
+                                    );
+                                }
+                            });
+                        }
+                    }
+                    this.displayEquipmentTest = true;
+                    this.cdref.detectChanges();
+                } else {
+                    this.showTests = true;
+                }
+                this.spinner.hide();
+            });
+    }
+    async checkEquipmentForImagesAndFiles(equipment) {
+        const found = this.selectedEquipmentData[0].parameters.some(
+            (param) => param.type === "image" || param.type === "file"
+        );
+        if (found) {
+            this.rightFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/Equipments/${equipment.id}/Files/Right`;
+            const right = await this.documentService.getAllFiles(
+                this.rightFilePath
+            );
+            this.savedRightFiles = right.Contents;
+            this.leftFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/Equipments/${equipment.id}/Files/Left`;
+            const left = await this.documentService.getAllFiles(
+                this.leftFilePath
+            );
+            this.savedLeftFiles = left.Contents;
+            this.rightImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/Equipments/${equipment.id}/Images/Right`;
+            const rightImage = await this.documentService.getAllFiles(
+                this.rightImagePath
+            );
+            this.savedRightImage = rightImage.Contents;
+            this.leftImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/Equipments/${equipment.id}/Images/Left`;
+            const leftImage = await this.documentService.getAllFiles(
+                this.leftImagePath
+            );
+            this.savedLeftImage = leftImage.Contents;
+        }
+    }
+    updateEquipment() {
+        this.rightImage = this.equipmentTestParametersComponent.rightImage;
+        this.leftImage = this.equipmentTestParametersComponent.leftImage;
+        this.rightFiles = this.equipmentTestParametersComponent.rightFiles;
+        this.leftFiles = this.equipmentTestParametersComponent.leftFiles;
+        this.rightDocument = this.equipmentTestParametersComponent.rightDocument;
+        this.leftDocument = this.equipmentTestParametersComponent.leftDocument;
+        this.rightDeletedImage = this.equipmentTestParametersComponent.rightDeletedImage;
+        this.leftDeletedImage = this.equipmentTestParametersComponent.leftDeletedImage;
+        this.selectedTestData.forEach((element) => {
+            element.equipmentId = this.selectedEquipment.equipmentId;
+            element.equipmentName = this.selectedEquipment.equipmentName;
+            element.sessionTreatmentId = this.selectedTreatmentId;
+        });
+        this.spinner.show();
+        this.equipmentParameterValueService
+            .updateEquipmentParametersValues(this.selectedEquipmentData)
+            .subscribe((u: any) => {
+                if (this.rightDeletedImage) {
+                    this.documentService.deleteFile(this.rightDeletedImage.Key);
+                }
+                if (this.leftDeletedImage) {
+                    this.documentService.deleteFile(this.leftDeletedImage.Key);
+                }
+                if (this.rightDocument) {
+                    this.documentService.deleteFile(this.rightDocument.Key);
+                }
+                if (this.leftDocument) {
+                    this.documentService.deleteFile(this.leftDocument.Key);
+                }
+                if (this.rightImage.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        u[0].id,
+                        this.rightImage,
+                        "Right",
+                        "Images"
+                    );
+                }
+                if (this.rightFiles.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        u[0].id,
+                        this.rightFiles,
+                        "Right",
+                        "Files"
+                    );
+                }
+                if (this.leftImage.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        u[0].id,
+                        this.leftImage,
+                        "Left",
+                        "Images"
+                    );
+                }
+                if (this.leftFiles.length > 0) {
+                    this.uploadEquipmentsFiles(
+                        u[0].id,
+                        this.leftFiles,
+                        "Left",
+                        "Files"
+                    );
+                }
+                if (
+                    this.leftFiles.length < 0 &&
+                    this.rightFiles.length < 0 &&
+                    this.rightImage.length < 0 &&
+                    this.leftImage.length < 0
+                ) {
+                    this.spinner.hide();
+                }
+                this.reset();
+                this.getSessionTreatments();
+                this.resetEquipment();
+                this.displayEquipmentTest = false;
+                this.showViewEquipments = false;
+                this.showMessageComponent.showMessage(
+                    "success",
+                    "Saved",
+                    "Data updated successfully"
+                );
+            });
     }
 }

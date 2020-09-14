@@ -3,8 +3,8 @@ import {Entity, model, property} from '@loopback/repository';
 @model({
   settings: {
     idInjection: false,
-    mysql: {schema: 'otodna-patients', table: 'session_test_equipment'}
-  }
+    mysql: {schema: 'otodna-patients', table: 'session_test_equipment'},
+  },
 })
 export class SessionTestEquipment extends Entity {
   @property({
@@ -13,16 +13,30 @@ export class SessionTestEquipment extends Entity {
     precision: 10,
     scale: 0,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   id: number;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'equipment_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'equipment_id',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   equipmentId: number;
 
@@ -30,7 +44,14 @@ export class SessionTestEquipment extends Entity {
     type: 'string',
     required: true,
     length: 45,
-    mysql: {columnName: 'equipment_name', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {
+      columnName: 'equipment_name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
   })
   equipmentName: string;
 
@@ -39,7 +60,14 @@ export class SessionTestEquipment extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'session_test_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {
+      columnName: 'session_test_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
   })
   sessionTestId: number;
 
@@ -58,4 +86,5 @@ export interface SessionTestEquipmentRelations {
   // describe navigational properties here
 }
 
-export type SessionTestEquipmentWithRelations = SessionTestEquipment & SessionTestEquipmentRelations;
+export type SessionTestEquipmentWithRelations = SessionTestEquipment &
+  SessionTestEquipmentRelations;

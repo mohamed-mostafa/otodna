@@ -208,6 +208,24 @@ CREATE TABLE `parameter_value` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `equipment_parameter_value`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `equipment_parameter_value` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `parameter_name` varchar(45) NOT NULL,
+  `sub_parameter_name` varchar(45) DEFAULT NULL,
+  `parameter_type` varchar(45) NOT NULL,
+  `value` varchar(45) NOT NULL,
+  `unit` varchar(45) DEFAULT NULL,
+  `ear` char(5) NOT NULL,
+  `equipment_test_id` int DEFAULT NULL,
+  `equipment_treatment_id` int DEFAULT NULL,
+  `equipment_pathology_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
 -- Table structure for table `patient`
 --
@@ -488,7 +506,7 @@ DROP TABLE IF EXISTS `session_test_equipment`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `session_test_equipment` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `equipment_id` int NOT NULL,
+  `equipment_id` varchar(45) NOT NULL,
   `equipment_name` varchar(45) NOT NULL,
   `session_test_id` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -522,7 +540,7 @@ DROP TABLE IF EXISTS `session_treatment_equipment`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `session_treatment_equipment` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `equipment_id` int NOT NULL,
+  `equipment_id` varchar(45) NOT NULL,
   `equipment_name` varchar(45) NOT NULL,
   `session_treatment_id` int NOT NULL,
   PRIMARY KEY (`id`)

@@ -207,17 +207,17 @@
             <div class="ui-g-12 ui-md-12" *ngIf="!showEquipments">
                 <div
                     class="ui-g ui-fluid"
-                    *ngFor="let treatment of selectedEquipmentData"
+                    *ngFor="let equip of selectedEquipmentData"
                 >
-                    <app-test-parameters
-                        [parameters]="treatment.parameters"
+                    <app-equipment-test-parameters
+                        [parameters]="equip.parameters"
                         [savedRightFiles]="savedRightFiles"
                         [savedLeftFiles]="savedLeftFiles"
                         [rightFilePath]="rightFilePath"
                         [leftFilePath]="leftFilePath"
                         [savedRightImage]="savedRightImage"
                         [savedLeftImage]="savedLeftImage"
-                    ></app-test-parameters>
+                    ></app-equipment-test-parameters>
                     <div class="ui-g-12 ui-md-8"></div>
                     <div class="ui-g-12 ui-md-4">
                         <p-footer *ngIf="showAllButtons">
@@ -231,12 +231,29 @@
                                     class="ui-button-secondary"
                                 ></button>
                             </div>
-                            <div class="ui-g-12 ui-md-6">
+                            <div
+                                class="ui-g-12 ui-md-6"
+                                *ngIf="showSaveEquipmentButton"
+                            >
                                 <button
                                     type="submit"
                                     pButton
+                                    (click)="saveEquipment()"
                                     icon="pi pi-check"
-                                    label="Ok"
+                                    label="Save"
+                                    class="ui-button-icon-primary"
+                                ></button>
+                            </div>
+                            <div
+                                class="ui-g-12 ui-md-6"
+                                *ngIf="!showSaveEquipmentButton"
+                            >
+                                <button
+                                    type="submit"
+                                    pButton
+                                    (click)="updateEquipment()"
+                                    icon="pi pi-check"
+                                    label="Update"
                                     class="ui-button-icon-primary"
                                 ></button>
                             </div>
@@ -349,7 +366,9 @@
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </a>
                         </p-header>
-                        {{ equipment.equipmentName }}
+                        <div (click)="retrieveEquipmentData(equipment)">
+                            {{ equipment.equipmentName }}
+                        </div>
                     </p-card>
                 </div>
             </div>

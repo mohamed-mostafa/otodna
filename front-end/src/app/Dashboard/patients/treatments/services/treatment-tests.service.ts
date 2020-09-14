@@ -10,8 +10,8 @@ export class TreatmentTestsService {
     apiUrl = environment.patientApiUrl;
     sessionTestsLink = "session-treatments";
     parameterValueLink = "parameterValue";
-    sessionTestEquipmentLink = "/sessionTreatmentEquipment";
-    sessionTreatmentEquipment = "/sessionTreatmentEquipment";
+    sessionTestEquipmentLink = "sessionTreatmentEquipment";
+    sessionTreatmentEquipment = "sessionTreatmentEquipment";
     constructor(private http: HttpClient) {}
 
     getTreatmentTest(test) {
