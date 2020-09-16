@@ -52,6 +52,7 @@
             "testId": "E01.370.382.375.060.060",
             "testName": "Audiometry Speech",
             "departments": [
+                { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]

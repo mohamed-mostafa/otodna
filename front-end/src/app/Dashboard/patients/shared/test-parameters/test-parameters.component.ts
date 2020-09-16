@@ -162,6 +162,8 @@ export class TestParametersComponent implements OnInit {
                                     fill: true,
                                     borderColor: "#4bc0c0",
                                     pointStyle: "triangle",
+                                    spanGaps: true,
+                                    pointBorderWidth: 7,
                                 },
                             ],
                         };
@@ -179,6 +181,9 @@ export class TestParametersComponent implements OnInit {
                 this.leftGraphValues.push(cell.left);
                 this.parameters.forEach((element) => {
                     if (element.type === "graph") {
+                        let img;
+                        (img = new Image(20, 20)),
+                            (img.src = "assets/tests/images/sympol.PNG");
                         this.leftGraphData = {
                             labels: element.xAxis,
                             datasets: [
@@ -187,7 +192,9 @@ export class TestParametersComponent implements OnInit {
                                     data: this.leftGraphValues,
                                     fill: true,
                                     borderColor: "#4bc0c0",
-                                    pointStyle: "crossRot",
+                                    pointStyle: img,
+                                    spanGaps: true,
+                                    pointBorderWidth: 7,
                                 },
                             ],
                         };
