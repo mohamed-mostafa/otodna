@@ -344,7 +344,7 @@ export class TestsComponent implements OnInit {
             this.allEquipments = res;
         });
     }
-    async openTest(test) {
+    openTest(test) {
         this.selected = test;
         this.savedRightFiles = [];
         this.savedLeftFiles = [];

@@ -137,6 +137,20 @@
                     ],
                     "leftVal": "",
                     "rightVal": ""
+                },
+                {
+                    "type": "graph",
+                    "xAxis": [
+                        "125 Hz",
+                        "250 Hz",
+                        "500 Hz",
+                        "1000 Hz",
+                        "2000 Hz",
+                        "3000 Hz",
+                        "4000 Hz",
+                        "6000 Hz"
+                    ],
+                    "name": "Audiometry Pure-Tone"
                 }
             ]
         }

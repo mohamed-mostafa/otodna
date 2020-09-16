@@ -4,15 +4,15 @@
             "name": "Acoustic Impedance",
             "parameters": [
                 {
-                    "type": "list",
+                    "type": "listWithImage",
                     "name": "Tympanogram",
                     "required": true,
                     "values": [
-                        { "id": 1, "name": "Type A" },
-                        { "id": 2, "name": "Type B" },
-                        { "id": 3, "name": "Type C" },
-                        { "id": 4, "name": "Type AS" },
-                        { "id": 5, "name": "Type AD" }
+                        { "id": 1, "name": "Type A", "image": "typeA.PNG" },
+                        { "id": 2, "name": "Type B", "image": "typeB.PNG" },
+                        { "id": 3, "name": "Type C", "image": "typeC.PNG" },
+                        { "id": 4, "name": "Type AS", "image": "typeAS.PNG" },
+                        { "id": 5, "name": "Type AD", "image": "typeAD.PNG" }
                     ],
                     "leftVal": "",
                     "rightVal": ""
@@ -59,12 +59,6 @@
                     ],
                     "cellValues": [{ "name": "Yes" }, { "name": "No" }],
                     "cellType": "boolean"
-                },
-                {
-                    "type": "graph",
-                    "xAxis": [-400, -200, 0, 200],
-                    "yAxis": [0.5, 0.7, 1, 0.6],
-                    "name": "Type A"
                 }
             ]
         }

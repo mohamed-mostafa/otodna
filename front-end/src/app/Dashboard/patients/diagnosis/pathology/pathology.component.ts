@@ -324,7 +324,7 @@ export class PathologyComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    async openTest(test) {
+    openTest(test) {
         this.selected = test;
         this.savedRightFiles = [];
         this.savedLeftFiles = [];

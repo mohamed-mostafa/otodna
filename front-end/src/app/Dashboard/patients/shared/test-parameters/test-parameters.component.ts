@@ -147,32 +147,40 @@ export class TestParametersComponent implements OnInit {
         this.previewLeftImage(event);
     }
     drawRightGraph(cells) {
-        this.rightGraphValues = [];
-        cells.forEach((cell) => {
-            if (cell.right !== "") {
-                this.rightGraphValues.push(cell.right);
-                this.parameters.forEach((element) => {
-                    if (element.type === "graph") {
-                        this.rightGraphData = {
-                            labels: element.xAxis,
-                            datasets: [
-                                {
-                                    label: element.name,
-                                    data: this.rightGraphValues,
-                                    fill: true,
-                                    borderColor: "#4bc0c0",
-                                    pointStyle: "triangle",
-                                    spanGaps: true,
-                                    pointBorderWidth: 7,
-                                },
-                            ],
-                        };
-                    }
-                });
-            } else {
-                this.rightGraphValues.push(null);
-            }
-        });
+        const drawGraph = this.parameters.some((p) => p.type === "graph");
+        if (drawGraph) {
+            const foundedTables = this.parameters.filter(
+                (p) => p.type === "table"
+            );
+            const graphData = this.parameters.filter((p) => p.type === "graph");
+            this.rightGraphValues = [];
+            let data = [];
+            this.parameters.forEach((param) => {
+                if (param.type === "table") {
+                    param.cells.forEach((cell) => {
+                        if (cell.right !== "") {
+                            this.rightGraphValues.push(cell.right);
+                            this.rightGraphData = {
+                                labels: graphData[0].xAxis,
+                                datasets: [
+                                    {
+                                        label: graphData[0].name,
+                                        data: this.rightGraphValues,
+                                        fill: true,
+                                        borderColor: "#4bc0c0",
+                                        pointStyle: "triangle",
+                                        spanGaps: true,
+                                        pointBorderWidth: 7,
+                                    },
+                                ],
+                            };
+                        } else {
+                            this.rightGraphValues.push(null);
+                        }
+                    });
+                }
+            });
+        }
     }
     drawLeftGraph(cells) {
         this.leftGraphValues = [];

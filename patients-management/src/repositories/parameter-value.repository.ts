@@ -221,7 +221,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
     let AllData = [];
     for (const d of data) {
       for (const item of d.parameters) {
-        if (item.type === 'list') {
+        if (item.type === 'list' || item.type === 'listWithImage') {
           if (item.leftVal.name) {
             let leftObj: any = {
               parameterName: item.name,

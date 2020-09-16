@@ -161,7 +161,8 @@ export class SharedClass {
                     }
                     if (
                         element.name === item.parameterName &&
-                        element.type === "list"
+                        (element.type === "list" ||
+                            element.type === "listWithImage")
                     ) {
                         if (item.ear === "left") {
                             const found = element.values.filter(
