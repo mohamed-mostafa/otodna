@@ -35,6 +35,8 @@ export class TestParametersComponent implements OnInit {
     showLeftButtons = true;
     rightGraphData: any;
     leftGraphData: any;
+    rightCellsData = [];
+    leftCellsData = [];
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
@@ -146,71 +148,101 @@ export class TestParametersComponent implements OnInit {
         this.removeChoosedLeftImage();
         this.previewLeftImage(event);
     }
-    drawRightGraph(cells) {
+    drawRightGraph(cells, name, color, pointStyle) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
         if (drawGraph) {
-            const foundedTables = this.parameters.filter(
-                (p) => p.type === "table"
-            );
             const graphData = this.parameters.filter((p) => p.type === "graph");
             this.rightGraphValues = [];
-            let data = [];
-            this.parameters.forEach((param) => {
-                if (param.type === "table") {
-                    param.cells.forEach((cell) => {
-                        if (cell.right !== "") {
-                            this.rightGraphValues.push(cell.right);
-                            this.rightGraphData = {
-                                labels: graphData[0].xAxis,
-                                datasets: [
-                                    {
-                                        label: graphData[0].name,
-                                        data: this.rightGraphValues,
-                                        fill: true,
-                                        borderColor: "#4bc0c0",
-                                        pointStyle: "triangle",
-                                        spanGaps: true,
-                                        pointBorderWidth: 7,
-                                    },
-                                ],
-                            };
-                        } else {
-                            this.rightGraphValues.push(null);
-                        }
+            cells.forEach((cell) => {
+                if (cell.right !== "") {
+                    this.rightGraphValues.push(cell.right);
+                    this.rightCellsData.push({
+                        label: name,
+                        data: this.rightGraphValues,
+                        fill: false,
+                        borderColor: color,
+                        pointStyle: `${pointStyle}`,
+                        spanGaps: true,
+                        pointBorderWidth: 7,
                     });
+                    this.rightCellsData.reduceRight((acc, obj, i) => {
+                        acc[obj.borderColor]
+                            ? this.rightCellsData.splice(i, 1)
+                            : (acc[obj.borderColor] = true);
+                        return acc;
+                    }, Object.create(null));
+                    this.rightGraphData = {
+                        labels: graphData[0].xAxis,
+                        datasets: this.rightCellsData,
+                    };
+                } else {
+                    this.rightGraphValues.push(null);
                 }
             });
         }
     }
-    drawLeftGraph(cells) {
-        this.leftGraphValues = [];
-        cells.forEach((cell) => {
-            if (cell.left !== "") {
-                this.leftGraphValues.push(cell.left);
-                this.parameters.forEach((element) => {
-                    if (element.type === "graph") {
-                        let img;
-                        (img = new Image(20, 20)),
-                            (img.src = "assets/tests/images/sympol.PNG");
-                        this.leftGraphData = {
-                            labels: element.xAxis,
-                            datasets: [
-                                {
-                                    label: element.name,
-                                    data: this.leftGraphValues,
-                                    fill: true,
-                                    borderColor: "#4bc0c0",
-                                    pointStyle: img,
-                                    spanGaps: true,
-                                    pointBorderWidth: 7,
-                                },
-                            ],
-                        };
-                    }
-                });
-            } else {
-                this.leftGraphValues.push(null);
-            }
-        });
+    drawLeftGraph(cells, name, color, pointStyle) {
+        const drawGraph = this.parameters.some((p) => p.type === "graph");
+        if (drawGraph) {
+            const graphData = this.parameters.filter((p) => p.type === "graph");
+            this.leftGraphValues = [];
+            cells.forEach((cell) => {
+                if (cell.left !== "") {
+                    this.leftGraphValues.push(cell.left);
+                    this.leftCellsData.push({
+                        label: name,
+                        data: this.leftGraphValues,
+                        fill: false,
+                        borderColor: color,
+                        pointStyle: `${pointStyle}`,
+                        spanGaps: true,
+                        pointBorderWidth: 7,
+                    });
+                    this.leftCellsData.reduceRight((acc, obj, i) => {
+                        acc[obj.borderColor]
+                            ? this.leftCellsData.splice(i, 1)
+                            : (acc[obj.borderColor] = true);
+                        return acc;
+                    }, Object.create(null));
+                    this.leftGraphData = {
+                        labels: graphData[0].xAxis,
+                        datasets: this.leftCellsData,
+                    };
+                } else {
+                    this.leftGraphValues.push(null);
+                }
+            });
+        }
     }
+    // drawLeftGraph(cells) {
+    //     this.leftGraphValues = [];
+    //     cells.forEach((cell) => {
+    //         if (cell.left !== "") {
+    //             this.leftGraphValues.push(cell.left);
+    //             this.parameters.forEach((element) => {
+    //                 if (element.type === "graph") {
+    //                     let img;
+    //                     (img = new Image(20, 20)),
+    //                         (img.src = "assets/tests/images/sympol.PNG");
+    //                     this.leftGraphData = {
+    //                         labels: element.xAxis,
+    //                         datasets: [
+    //                             {
+    //                                 label: element.name,
+    //                                 data: this.leftGraphValues,
+    //                                 fill: true,
+    //                                 borderColor: "#4bc0c0",
+    //                                 pointStyle: img,
+    //                                 spanGaps: true,
+    //                                 pointBorderWidth: 7,
+    //                             },
+    //                         ],
+    //                     };
+    //                 }
+    //             });
+    //         } else {
+    //             this.leftGraphValues.push(null);
+    //         }
+    //     });
+    // }
 }

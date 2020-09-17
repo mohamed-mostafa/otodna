@@ -617,7 +617,14 @@
                             <ng-container *ngIf="t.cellType === 'number'">
                                 <th
                                     *ngFor="let freq of t.cells"
-                                    (change)="drawRightGraph(t.cells)"
+                                    (change)="
+                                        drawRightGraph(
+                                            t.cells,
+                                            t.name,
+                                            t.color,
+                                            t.pointStyle
+                                        )
+                                    "
                                 >
                                     <input
                                         type="number"
@@ -643,7 +650,14 @@
                             <ng-container *ngIf="t.cellType === 'number'">
                                 <th
                                     *ngFor="let freq of t.cells"
-                                    (change)="drawLeftGraph(t.cells)"
+                                    (change)="
+                                        drawLeftGraph(
+                                            t.cells,
+                                            t.name,
+                                            t.color,
+                                            t.pointStyle
+                                        )
+                                    "
                                 >
                                     <input
                                         type="number"
