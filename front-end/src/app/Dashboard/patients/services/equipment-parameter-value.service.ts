@@ -18,9 +18,9 @@ export class EquipmentParameterValueService {
     updateEquipmentParametersValues(data): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${this.link}`, data);
     }
-    getEquipmentParametersValues(equipmentTreatmentId): Observable<any> {
+    getEquipmentParametersValues(name, value): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.parameterValueLink}?filter[where][equipmentTreatmentId][eq]=${equipmentTreatmentId}`
+            `${this.apiUrl}/${this.parameterValueLink}?filter[where][${name}][eq]=${value}`
         );
     }
 }

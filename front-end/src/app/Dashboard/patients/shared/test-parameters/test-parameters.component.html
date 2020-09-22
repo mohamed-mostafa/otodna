@@ -182,6 +182,23 @@
                         [required]="t.required"
                         [(ngModel)]="t.rightVal"
                     >
+                        <ng-template pTemplate="selectedItem">
+                            <div
+                                class="country-item country-item-value"
+                                *ngIf="t.rightVal"
+                            >
+                                <img
+                                    src="assets/tests/images/{{
+                                        t.rightVal.image
+                                    }}"
+                                    width="120px"
+                                    height="30px"
+                                />
+                                <span style="font-weight: bold">
+                                    {{ t.rightVal.name }}
+                                </span>
+                            </div>
+                        </ng-template>
                         <ng-template let-item pTemplate="item">
                             <div>
                                 <img
@@ -214,6 +231,23 @@
                         [required]="t.required"
                         [(ngModel)]="t.leftVal"
                     >
+                        <ng-template pTemplate="selectedItem">
+                            <div
+                                class="country-item country-item-value"
+                                *ngIf="t.leftVal"
+                            >
+                                <img
+                                    src="assets/tests/images/{{
+                                        t.leftVal.image
+                                    }}"
+                                    width="120px"
+                                    height="30px"
+                                />
+                                <span style="font-weight: bold">
+                                    {{ t.leftVal.name }}
+                                </span>
+                            </div>
+                        </ng-template>
                         <ng-template let-item pTemplate="item">
                             <div>
                                 <img
@@ -582,15 +616,6 @@
         </div>
         <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'table'">
             <label> {{ t.name }}</label>
-            <div class="floatRight" *ngIf="showGraphButton">
-                <p-checkbox
-                    [(ngModel)]="showGraph"
-                    binary="true"
-                    inputId="binary"
-                ></p-checkbox>
-                <label for="binary"> Show Graph</label>
-            </div>
-
             <div class="labelMarginTop">
                 <p-table>
                     <ng-template pTemplate="header">
@@ -673,7 +698,7 @@
         </div>
         <div
             class="ui-g-12 ui-md-12 removeMarginAndPadding"
-            *ngIf="t.type === 'graph' && showGraph"
+            *ngIf="t.type === 'graph'"
         >
             <app-graph
                 [rightGraphData]="rightGraphData"

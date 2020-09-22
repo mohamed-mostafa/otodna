@@ -16,8 +16,6 @@ export class TestParametersComponent implements OnInit {
     @Input() leftFilePath;
     @Input() savedRightImage;
     @Input() savedLeftImage;
-    showGraph = true;
-    showGraphButton = false;
     sharedClass: SharedClass = new SharedClass();
     previewRightImageUrl: any = null;
     previewLeftImageUrl: any = null;
@@ -41,7 +39,6 @@ export class TestParametersComponent implements OnInit {
     ngOnInit(): void {
         this.parameters.forEach((element) => {
             if (element.type === "graph") {
-                this.showGraphButton = true;
                 this.rightGraphData = {
                     labels: element.xAxis,
                     datasets: [
@@ -155,13 +152,17 @@ export class TestParametersComponent implements OnInit {
             this.rightGraphValues = [];
             cells.forEach((cell) => {
                 if (cell.right !== "") {
+                    let img;
+                    if (pointStyle.startsWith("assets")) {
+                        (img = new Image(20, 20)), (img.src = pointStyle);
+                    }
                     this.rightGraphValues.push(cell.right);
                     this.rightCellsData.push({
                         label: name,
                         data: this.rightGraphValues,
                         fill: false,
                         borderColor: color,
-                        pointStyle: `${pointStyle}`,
+                        pointStyle: img && img !== undefined ? img : pointStyle,
                         spanGaps: true,
                         pointBorderWidth: 7,
                     });
@@ -188,13 +189,17 @@ export class TestParametersComponent implements OnInit {
             this.leftGraphValues = [];
             cells.forEach((cell) => {
                 if (cell.left !== "") {
+                    let img;
+                    if (pointStyle.startsWith("assets")) {
+                        (img = new Image(20, 20)), (img.src = pointStyle);
+                    }
                     this.leftGraphValues.push(cell.left);
                     this.leftCellsData.push({
                         label: name,
                         data: this.leftGraphValues,
                         fill: false,
                         borderColor: color,
-                        pointStyle: `${pointStyle}`,
+                        pointStyle: img && img !== undefined ? img : pointStyle,
                         spanGaps: true,
                         pointBorderWidth: 7,
                     });

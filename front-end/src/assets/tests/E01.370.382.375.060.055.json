@@ -7,7 +7,7 @@
                     "type": "table",
                     "name": "AC (Air Conduction)",
                     "color": "#4bc0c0",
-                    "pointStyle":"circle",
+                    "pointStyle": "circle",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -25,7 +25,7 @@
                     "type": "table",
                     "name": "BC ( Bone Conduction)",
                     "color": "#e53935",
-                    "pointStyle":"triangle",
+                    "pointStyle": "triangle",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -43,7 +43,7 @@
                     "type": "table",
                     "name": "AC Masked",
                     "color": "#1976D2",
-                    "pointStyle":"rect",
+                    "pointStyle": "rect",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -61,7 +61,7 @@
                     "type": "table",
                     "name": "BC Masked",
                     "color": "#424242",
-                    "pointStyle":"rectRot",
+                    "pointStyle": "rectRot",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -79,7 +79,7 @@
                     "type": "table",
                     "name": "Aided",
                     "color": "#FDD835",
-                    "pointStyle":"cross",
+                    "pointStyle": "cross",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -97,7 +97,7 @@
                     "type": "table",
                     "name": "Sound Field",
                     "color": "#8E24AA",
-                    "pointStyle":"star",
+                    "pointStyle": "star",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -115,7 +115,7 @@
                     "type": "table",
                     "name": "Loudness",
                     "color": "#26C6DA",
-                    "pointStyle":"crossRot",
+                    "pointStyle": "crossRot",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },

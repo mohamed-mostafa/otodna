@@ -37,6 +37,11 @@ export class TreatmentTestsService {
             `${this.apiUrl}/${this.sessionTestsLink}/${id}`
         );
     }
+    getTreatmentById(id: String): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTestsLink}/${id}`
+        );
+    }
     getTestParametersValues(sessionTreatmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTreatmentId][eq]=${sessionTreatmentId}`

@@ -72,6 +72,8 @@ export class TreatmentTestsComponent implements OnInit {
     position;
     selectedEquipmentData = [];
     showSaveEquipmentButton = true;
+    addEquipmentDialogHeader;
+    viewEquipmentDialogHeader;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -210,6 +212,25 @@ export class TreatmentTestsComponent implements OnInit {
                     "Saved",
                     "Data saved successfully"
                 );
+                this.confirmationService.confirm({
+                    message: "Do you want to add equipment for this treatment?",
+                    header: "Add Equipment Confirmation",
+                    icon: "pi pi-info-circle",
+                    accept: () => {
+                        this.treatmentService
+                            .getTreatmentById(u[0].id)
+                            .subscribe((res) => {
+                                this.showEquipmentDialog(res);
+                            });
+                    },
+                    reject: () => {
+                        this.showMessageComponent.showMessage(
+                            "info",
+                            "Rejected",
+                            "You have rejected"
+                        );
+                    },
+                });
             });
     }
     updateTreatment() {
@@ -492,10 +513,16 @@ export class TreatmentTestsComponent implements OnInit {
                             parameters.forEach((p) => {
                                 if (p.type === "table") {
                                     this.testParameterComponent.drawRightGraph(
-                                        p.cells
+                                        p.cells,
+                                        p.name,
+                                        p.color,
+                                        p.pointStyle
                                     );
                                     this.testParameterComponent.drawLeftGraph(
-                                        p.cells
+                                        p.cells,
+                                        p.name,
+                                        p.color,
+                                        p.pointStyle
                                     );
                                 }
                             });
@@ -567,13 +594,15 @@ export class TreatmentTestsComponent implements OnInit {
             },
         });
     }
-    showEquipmentDialog(treatmentId) {
-        this.selectedTreatmentId = treatmentId;
+    showEquipmentDialog(treatment) {
+        this.addEquipmentDialogHeader = `Add Equipment For ${treatment.treatmentName}`;
+        this.selectedTreatmentId = treatment.id;
         this.displayEquipmentTest = true;
     }
-    viewEquipments(treatmentId) {
+    viewEquipments(treatment) {
+        this.viewEquipmentDialogHeader = `View Equipments Of ${treatment.treatmentName}`;
         this.treatmentService
-            .getSessionTreatmentEquipment(treatmentId)
+            .getSessionTreatmentEquipment(treatment.id)
             .subscribe((res) => {
                 if (res.length > 0) {
                     this.viewedEquipments = res;
@@ -601,6 +630,25 @@ export class TreatmentTestsComponent implements OnInit {
                     "Saved",
                     "Data saved successfully"
                 );
+                this.confirmationService.confirm({
+                    message: "Do you want to add more equipment?",
+                    header: "Add Equipment Confirmation",
+                    icon: "pi pi-info-circle",
+                    accept: () => {
+                        this.treatmentService
+                            .getTreatmentById(equipment.sessionTreatmentId)
+                            .subscribe((res) => {
+                                this.showEquipmentDialog(res);
+                            });
+                    },
+                    reject: () => {
+                        this.showMessageComponent.showMessage(
+                            "info",
+                            "Rejected",
+                            "You have rejected"
+                        );
+                    },
+                });
             });
     }
     openEquipment(equipment) {
@@ -687,7 +735,7 @@ export class TreatmentTestsComponent implements OnInit {
             .subscribe((u: any) => {
                 if (this.rightImage.length > 0) {
                     this.uploadEquipmentsFiles(
-                        this.selectedTreatmentId,
+                        u[0].id,
                         this.rightImage,
                         "Right",
                         "Images"
@@ -695,7 +743,7 @@ export class TreatmentTestsComponent implements OnInit {
                 }
                 if (this.rightFiles.length > 0) {
                     this.uploadEquipmentsFiles(
-                        this.selectedTreatmentId,
+                        u[0].id,
                         this.rightFiles,
                         "Right",
                         "Files"
@@ -703,7 +751,7 @@ export class TreatmentTestsComponent implements OnInit {
                 }
                 if (this.leftImage.length > 0) {
                     this.uploadEquipmentsFiles(
-                        this.selectedTreatmentId,
+                        u[0].id,
                         this.leftImage,
                         "Left",
                         "Images"
@@ -711,7 +759,7 @@ export class TreatmentTestsComponent implements OnInit {
                 }
                 if (this.leftFiles.length > 0) {
                     this.uploadEquipmentsFiles(
-                        this.selectedTreatmentId,
+                        u[0].id,
                         this.leftFiles,
                         "Left",
                         "Files"
@@ -733,9 +781,34 @@ export class TreatmentTestsComponent implements OnInit {
                     "Saved",
                     "Data saved successfully"
                 );
+                this.confirmationService.confirm({
+                    message: "Do you want to add more equipment?",
+                    header: "Add Equipment Confirmation",
+                    icon: "pi pi-info-circle",
+                    accept: () => {
+                        this.treatmentService
+                            .getTreatmentById(this.selectedTreatmentId)
+                            .subscribe((res) => {
+                                this.showEquipmentDialog(res);
+                            });
+                    },
+                    reject: () => {
+                        this.showMessageComponent.showMessage(
+                            "info",
+                            "Rejected",
+                            "You have rejected"
+                        );
+                    },
+                });
             });
     }
     async retrieveEquipmentData(equipment) {
+        let sessionTreatment;
+        this.treatmentService
+            .getTreatmentById(equipment.sessionTreatmentId)
+            .subscribe((res) => {
+                sessionTreatment = res;
+            });
         await this.openEquipment(equipment);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
@@ -744,7 +817,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.showEquipments = false;
         this.spinner.show();
         this.equipmentParameterValueService
-            .getEquipmentParametersValues(equipment.id)
+            .getEquipmentParametersValues("equipmentTreatmentId", equipment.id)
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
                     this.showSaveEquipmentButton = false;
@@ -772,7 +845,7 @@ export class TreatmentTestsComponent implements OnInit {
                             });
                         }
                     }
-                    this.displayEquipmentTest = true;
+                    this.showEquipmentDialog(sessionTreatment);
                     this.cdref.detectChanges();
                 } else {
                     this.showTests = true;
@@ -816,7 +889,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.leftDocument = this.equipmentTestParametersComponent.leftDocument;
         this.rightDeletedImage = this.equipmentTestParametersComponent.rightDeletedImage;
         this.leftDeletedImage = this.equipmentTestParametersComponent.leftDeletedImage;
-        this.selectedTestData.forEach((element) => {
+        this.selectedEquipmentData.forEach((element) => {
             element.equipmentId = this.selectedEquipment.equipmentId;
             element.equipmentName = this.selectedEquipment.equipmentName;
             element.sessionTreatmentId = this.selectedTreatmentId;

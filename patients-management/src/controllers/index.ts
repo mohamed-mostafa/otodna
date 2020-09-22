@@ -15,3 +15,4 @@ export * from './session-treatment.controller';
 export * from './session-test.controller';
 export * from './session-treatment-equipment.controller';
 export * from './equipment-parameter-value.controller';
+export * from './session-test-equipment.controller';

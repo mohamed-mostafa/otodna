@@ -389,10 +389,16 @@ export class CandidacyComponent implements OnInit {
                             parameters.forEach((p) => {
                                 if (p.type === "table") {
                                     this.testParameterComponent.drawRightGraph(
-                                        p.cells
+                                        p.cells,
+                                        p.name,
+                                        p.color,
+                                        p.pointStyle
                                     );
                                     this.testParameterComponent.drawLeftGraph(
-                                        p.cells
+                                        p.cells,
+                                        p.name,
+                                        p.color,
+                                        p.pointStyle
                                     );
                                 }
                             });

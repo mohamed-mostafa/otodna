@@ -146,7 +146,7 @@
     </div>
 </p-dialog>
 <p-dialog
-    header="Equipments"
+    [header]="addEquipmentDialogHeader"
     [(visible)]="displayEquipmentTest"
     [style]="{ width: '90vw' }"
     [baseZIndex]="10000"
@@ -266,10 +266,10 @@
 </p-dialog>
 <div class="ui-g ui-fluid">
     <div class="ui-g-12"><h2 class="centerHeader">Treatment Tests</h2></div>
-    <div class="ui-g-6 ui-md-3" *ngFor="let treatment of treatments">
+    <div class="ui-g-6 ui-md-4" *ngFor="let treatment of treatments">
         <p-card
             class="centerHeader pointerCursor"
-            [style]="{ height: '130px' }"
+            [style]="{ height: '100px' }"
             styleClass="ui-card-shadow"
         >
             <p-header *ngIf="showAllButtons">
@@ -290,20 +290,19 @@
                     {{ treatment.treatmentName }}
                 </div>
                 <div
-                    class="ui-g-12 ui-md-12 bold equipmentColor"
-                    (click)="showEquipmentDialog(treatment.id)"
+                    class="ui-g-12 ui-md-6 bold equipmentColor equipmentSpan"
+                    (click)="showEquipmentDialog(treatment)"
                     *ngIf="treatment.showEquipment"
                 >
-                    <i class="fa fa-plus" aira-hidden="true"></i>
-                    Add Equipment
+                    <i class="fa fa-plus" aira-hidden="true"></i> Add Equipment
                 </div>
                 <div
-                    class="ui-g-12 ui-md-12 bold equipmentColor"
-                    (click)="viewEquipments(treatment.id)"
+                    class="ui-g-12 ui-md-6 bold equipmentColor equipmentSpan"
+                    (click)="viewEquipments(treatment)"
                     *ngIf="treatment.showEquipment"
                 >
-                    <i class="fa fa-eye" aira-hidden="true"></i>
-                    View Equipment<span
+                    <i class="fa fa-desktop" aira-hidden="true"></i>
+                    Equipment<span
                         *ngIf="
                             treatment.equipmentCount &&
                             treatment.equipmentCount > 1
@@ -315,18 +314,18 @@
             </div>
         </p-card>
     </div>
-    <div class="ui-g-6 ui-md-3" *ngIf="showAllButtons">
+    <div class="ui-g-6 ui-md-4" *ngIf="showAllButtons">
         <div style="border-style: dotted">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '125px' }"
+                [style]="{ height: '95px' }"
                 (click)="showTestDialog()"
             >
                 <div class="addTestStyle">
                     <i
                         class="fa fa-plus"
                         aira-hidden="true"
-                        style="margin-top: 35px"
+                        style="margin-top: 20px"
                     ></i>
                     Add Treatment
                 </div>
@@ -335,7 +334,7 @@
     </div>
 </div>
 <p-dialog
-    header="Equipments"
+    [header]="viewEquipmentDialogHeader"
     [(visible)]="showViewEquipments"
     [style]="{ width: '70vw' }"
     [baseZIndex]="10000"

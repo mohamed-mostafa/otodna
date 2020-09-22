@@ -2,12 +2,12 @@
 <div class="body"></div>
 <div class="login-body">
     <div class="login-topbar">
-        <img src="assets/layout/images/image.png" alt="Otodna-layout" />
-        <img
+        <img src="assets/layout/images/logo.png" alt="Otodna-layout" />
+        <!-- <img
             src="assets/layout/images/logo.png"
             class="logoStyle"
             alt="olympia-layout"
-        />
+        /> -->
     </div>
     <div class="login-panel">
         <h1>Create An Account</h1>
@@ -68,16 +68,16 @@
         <div class="inputMargin">
             <select name="roles" id="role" [(ngModel)]="user.role_id">
                 <option [ngValue]="" selected>Select Role</option>
-                <option *ngFor="let r of roles" [ngValue]="r.id">{{
-                    r.name
-                }}</option>
+                <option *ngFor="let r of roles" [ngValue]="r.id">
+                    {{ r.name }}
+                </option>
             </select>
         </div>
 
         <button
             type="button"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only color"
-            style="display: inline;"
+            style="display: inline"
         >
             <i class="fa fa-fw fa-user-plus"></i>
             <span class="ui-button-text ui-c" (click)="register()"

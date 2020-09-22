@@ -11,6 +11,7 @@ export class TestsService {
     sessionTestsLink = "session-tests";
     parameterValueLink = "parameterValue";
     sessionTestEquipmentLink = "sessionTestEquipment";
+    sessionTestEquipment = "session-test-equipments";
     constructor(private http: HttpClient) {}
 
     getTest(test) {
@@ -36,6 +37,11 @@ export class TestsService {
             `${this.apiUrl}/${this.sessionTestsLink}/${id}`
         );
     }
+    getTestById(id: String): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTestsLink}/${id}`
+        );
+    }
     getTestParametersValues(sessionTestId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.parameterValueLink}?filter[where][sessionTestId][eq]=${sessionTestId}`
@@ -44,6 +50,22 @@ export class TestsService {
     getSessionTestEquipment(sessionTestId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.sessionTestEquipmentLink}?filter[where][sessionTestId][eq]=${sessionTestId}`
+        );
+    }
+    createTestEquipment(data): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/${this.sessionTestEquipment}`,
+            data
+        );
+    }
+    getTestEquipmentCount(sessionTestId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTestEquipment}/count?[where][sessionTestId][eq]=${sessionTestId}`
+        );
+    }
+    deleteTestEquipment(id: String): Observable<void> {
+        return this.http.delete<void>(
+            `${this.apiUrl}/${this.sessionTestEquipment}/${id}`
         );
     }
 }
