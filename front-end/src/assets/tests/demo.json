@@ -71,15 +71,28 @@
                 {
                     "type": "table",
                     "name": "Test Numbers",
+                    "color": "#4bc0c0",
+                    "pointStyle": [
+                        "circle",
+                        "triangle",
+                        "rect",
+                        "rectRounded",
+                        "star"
+                    ],
                     "xAxisName": "Freq",
-                    "cellType": "number",
                     "cells": [
                         { "name": "10", "left": "", "right": "" },
                         { "name": "20", "left": "", "right": "" },
                         { "name": "30", "left": "", "right": "" },
                         { "name": "40", "left": "", "right": "" },
                         { "name": "50", "left": "", "right": "" }
-                    ]
+                    ],
+                    "cellType": "number"
+                },
+                {
+                    "type": "graph",
+                    "xAxis": ["10", "20", "30", "40", "50"],
+                    "name": "Freq"
                 }
             ]
         }

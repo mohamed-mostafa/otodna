@@ -513,8 +513,9 @@ a {
     vertical-align: middle;
 }
 .layout-wrapper .layout-topbar .layout-topbar-logo img {
-    height: 90px;
-    width: 170px;
+    height: 70px;
+    width: 140px;
+    margin-top: 10px;
 }
 .layout-wrapper .layout-topbar .layout-menu-button {
     display: inline-block;

@@ -153,8 +153,16 @@ export class TestParametersComponent implements OnInit {
             cells.forEach((cell) => {
                 if (cell.right !== "") {
                     let img;
-                    if (pointStyle.startsWith("assets")) {
-                        (img = new Image(20, 20)), (img.src = pointStyle);
+                    if (Array.isArray(pointStyle)) {
+                        pointStyle.forEach((element) => {
+                            if (element.startsWith("assets")) {
+                                (img = new Image(20, 20)), (img.src = element);
+                            }
+                        });
+                    } else {
+                        if (pointStyle.startsWith("assets")) {
+                            (img = new Image(20, 20)), (img.src = pointStyle);
+                        }
                     }
                     this.rightGraphValues.push(cell.right);
                     this.rightCellsData.push({
@@ -190,8 +198,16 @@ export class TestParametersComponent implements OnInit {
             cells.forEach((cell) => {
                 if (cell.left !== "") {
                     let img;
-                    if (pointStyle.startsWith("assets")) {
-                        (img = new Image(20, 20)), (img.src = pointStyle);
+                    if (Array.isArray(pointStyle)) {
+                        pointStyle.forEach((element) => {
+                            if (element.startsWith("assets")) {
+                                (img = new Image(20, 20)), (img.src = element);
+                            }
+                        });
+                    } else {
+                        if (pointStyle.startsWith("assets")) {
+                            (img = new Image(20, 20)), (img.src = pointStyle);
+                        }
                     }
                     this.leftGraphValues.push(cell.left);
                     this.leftCellsData.push({
