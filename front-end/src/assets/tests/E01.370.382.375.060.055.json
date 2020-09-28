@@ -7,7 +7,8 @@
                     "type": "table",
                     "name": "AC (Air Conduction)",
                     "color": "#4bc0c0",
-                    "pointStyle": "circle",
+                    "rightPointStyle": "circle",
+                    "leftPointStyle": "triangle",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -25,7 +26,8 @@
                     "type": "table",
                     "name": "BC ( Bone Conduction)",
                     "color": "#e53935",
-                    "pointStyle": "triangle",
+                    "rightPointStyle": "triangle",
+                    "leftPointStyle": "circle",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -43,7 +45,8 @@
                     "type": "table",
                     "name": "AC Masked",
                     "color": "#1976D2",
-                    "pointStyle": "rect",
+                    "rightPointStyle": "rect",
+                    "leftPointStyle": "circle",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -61,7 +64,8 @@
                     "type": "table",
                     "name": "BC Masked",
                     "color": "#424242",
-                    "pointStyle": "rectRot",
+                    "rightPointStyle": "triangle",
+                    "leftPointStyle": "rectRot",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -79,7 +83,8 @@
                     "type": "table",
                     "name": "Aided",
                     "color": "#FDD835",
-                    "pointStyle": "cross",
+                    "rightPointStyle": "cross",
+                    "leftPointStyle": "rect",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -97,7 +102,8 @@
                     "type": "table",
                     "name": "Sound Field",
                     "color": "#8E24AA",
-                    "pointStyle": "star",
+                    "rightPointStyle": "star",
+                    "leftPointStyle": "rectRot",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
@@ -115,7 +121,8 @@
                     "type": "table",
                     "name": "Loudness",
                     "color": "#26C6DA",
-                    "pointStyle": "crossRot",
+                    "rightPointStyle": "triangle",
+                    "leftPointStyle": "crossRot",
                     "xAxisName": "Freq",
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },

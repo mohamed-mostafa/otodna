@@ -37,7 +37,8 @@
                     "type": "table",
                     "name": "Score",
                     "color": "#4bc0c0",
-                    "pointStyle": "assets/tests/images/symbol.PNG",
+                    "rightPointStyle": "assets/tests/images/right.png",
+                    "leftPointStyle": "assets/tests/images/left.png",
                     "xAxisName": "Intensity db",
                     "cells": [
                         { "name": "10", "left": "", "right": "" },

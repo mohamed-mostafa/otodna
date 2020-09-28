@@ -647,7 +647,8 @@
                                             t.cells,
                                             t.name,
                                             t.color,
-                                            t.pointStyle
+                                            t.rightPointStyle,
+                                            null
                                         )
                                     "
                                 >
@@ -656,6 +657,40 @@
                                         pInputText
                                         [(ngModel)]="freq.right"
                                     />
+                                </th>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="t.cellType === 'numberWithCheckbox'"
+                            >
+                                <th
+                                    *ngFor="let freq of t.cells"
+                                    (change)="
+                                        drawRightGraph(
+                                            t.cells,
+                                            t.name,
+                                            t.color,
+                                            t.rightPointStyle,
+                                            t.noResponseRightPointStyle
+                                        )
+                                    "
+                                >
+                                    <div class="ui-inputgroup">
+                                        <span class="labelMarginTop">NR</span>
+                                        <span
+                                            class="ui-inputgroup-addon ui-inputgroup-addon-checkbox"
+                                        >
+                                            <p-checkbox
+                                                binary="true"
+                                                [(ngModel)]="freq.rightCheckbox"
+                                            ></p-checkbox>
+                                        </span>
+                                        <input
+                                            type="number"
+                                            pInputText
+                                            [(ngModel)]="freq.right"
+                                            style="border-left: 0"
+                                        />
+                                    </div>
                                 </th>
                             </ng-container>
                         </tr>
@@ -680,7 +715,8 @@
                                             t.cells,
                                             t.name,
                                             t.color,
-                                            t.pointStyle
+                                            t.leftPointStyle,
+                                            null
                                         )
                                     "
                                 >
@@ -689,6 +725,40 @@
                                         pInputText
                                         [(ngModel)]="freq.left"
                                     />
+                                </th>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="t.cellType === 'numberWithCheckbox'"
+                            >
+                                <th
+                                    *ngFor="let freq of t.cells"
+                                    (change)="
+                                        drawLeftGraph(
+                                            t.cells,
+                                            t.name,
+                                            t.color,
+                                            t.leftPointStyle,
+                                            t.noResponseLeftPointStyle
+                                        )
+                                    "
+                                >
+                                    <div class="ui-inputgroup">
+                                        <span class="labelMarginTop">NR</span>
+                                        <span
+                                            class="ui-inputgroup-addon ui-inputgroup-addon-checkbox"
+                                        >
+                                            <p-checkbox
+                                                binary="true"
+                                                [(ngModel)]="freq.leftCheckbox"
+                                            ></p-checkbox>
+                                        </span>
+                                        <input
+                                            type="number"
+                                            pInputText
+                                            [(ngModel)]="freq.left"
+                                            style="border-left: 0"
+                                        />
+                                    </div>
                                 </th>
                             </ng-container>
                         </tr>

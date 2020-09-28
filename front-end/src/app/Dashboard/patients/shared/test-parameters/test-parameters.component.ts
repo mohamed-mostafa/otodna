@@ -35,6 +35,8 @@ export class TestParametersComponent implements OnInit {
     leftGraphData: any;
     rightCellsData = [];
     leftCellsData = [];
+    rightPointStyles = [];
+    leftPointStyles = [];
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
@@ -145,24 +147,23 @@ export class TestParametersComponent implements OnInit {
         this.removeChoosedLeftImage();
         this.previewLeftImage(event);
     }
-    drawRightGraph(cells, name, color, pointStyle) {
+    drawRightGraph(cells, name, color, pointStyle, noResponse) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
         if (drawGraph) {
             const graphData = this.parameters.filter((p) => p.type === "graph");
             this.rightGraphValues = [];
+            this.rightPointStyles = [];
             cells.forEach((cell) => {
-                if (cell.right !== "") {
+                if (cell.right) {
                     let img;
-                    if (Array.isArray(pointStyle)) {
-                        pointStyle.forEach((element) => {
-                            if (element.startsWith("assets")) {
-                                (img = new Image(20, 20)), (img.src = element);
-                            }
-                        });
+                    if (cell.rightCheckbox) {
+                        (img = new Image(20, 20)), (img.src = noResponse);
+                        this.rightPointStyles.push(img);
+                    } else if (pointStyle.startsWith("assets")) {
+                        (img = new Image(20, 20)), (img.src = pointStyle);
+                        this.rightPointStyles.push(img);
                     } else {
-                        if (pointStyle.startsWith("assets")) {
-                            (img = new Image(20, 20)), (img.src = pointStyle);
-                        }
+                        this.rightPointStyles.push(pointStyle);
                     }
                     this.rightGraphValues.push(cell.right);
                     this.rightCellsData.push({
@@ -170,7 +171,7 @@ export class TestParametersComponent implements OnInit {
                         data: this.rightGraphValues,
                         fill: false,
                         borderColor: color,
-                        pointStyle: img && img !== undefined ? img : pointStyle,
+                        pointStyle: this.rightPointStyles,
                         spanGaps: true,
                         pointBorderWidth: 7,
                     });
@@ -186,28 +187,28 @@ export class TestParametersComponent implements OnInit {
                     };
                 } else {
                     this.rightGraphValues.push(null);
+                    this.rightPointStyles.push(null);
                 }
             });
         }
     }
-    drawLeftGraph(cells, name, color, pointStyle) {
+    drawLeftGraph(cells, name, color, pointStyle,noResponse) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
         if (drawGraph) {
             const graphData = this.parameters.filter((p) => p.type === "graph");
             this.leftGraphValues = [];
+            this.leftPointStyles = [];
             cells.forEach((cell) => {
-                if (cell.left !== "") {
+                if (cell.left) {
                     let img;
-                    if (Array.isArray(pointStyle)) {
-                        pointStyle.forEach((element) => {
-                            if (element.startsWith("assets")) {
-                                (img = new Image(20, 20)), (img.src = element);
-                            }
-                        });
+                    if (cell.leftCheckbox) {
+                        (img = new Image(20, 20)), (img.src = noResponse);
+                        this.leftPointStyles.push(img);
+                    } else if (pointStyle.startsWith("assets")) {
+                        (img = new Image(20, 20)), (img.src = pointStyle);
+                        this.leftPointStyles.push(img);
                     } else {
-                        if (pointStyle.startsWith("assets")) {
-                            (img = new Image(20, 20)), (img.src = pointStyle);
-                        }
+                        this.leftPointStyles.push(pointStyle);
                     }
                     this.leftGraphValues.push(cell.left);
                     this.leftCellsData.push({
@@ -215,7 +216,7 @@ export class TestParametersComponent implements OnInit {
                         data: this.leftGraphValues,
                         fill: false,
                         borderColor: color,
-                        pointStyle: img && img !== undefined ? img : pointStyle,
+                        pointStyle: this.leftPointStyles,
                         spanGaps: true,
                         pointBorderWidth: 7,
                     });
@@ -231,39 +232,9 @@ export class TestParametersComponent implements OnInit {
                     };
                 } else {
                     this.leftGraphValues.push(null);
+                    this.leftPointStyles.push(null);
                 }
             });
         }
     }
-    // drawLeftGraph(cells) {
-    //     this.leftGraphValues = [];
-    //     cells.forEach((cell) => {
-    //         if (cell.left !== "") {
-    //             this.leftGraphValues.push(cell.left);
-    //             this.parameters.forEach((element) => {
-    //                 if (element.type === "graph") {
-    //                     let img;
-    //                     (img = new Image(20, 20)),
-    //                         (img.src = "assets/tests/images/sympol.PNG");
-    //                     this.leftGraphData = {
-    //                         labels: element.xAxis,
-    //                         datasets: [
-    //                             {
-    //                                 label: element.name,
-    //                                 data: this.leftGraphValues,
-    //                                 fill: true,
-    //                                 borderColor: "#4bc0c0",
-    //                                 pointStyle: img,
-    //                                 spanGaps: true,
-    //                                 pointBorderWidth: 7,
-    //                             },
-    //                         ],
-    //                     };
-    //                 }
-    //             });
-    //         } else {
-    //             this.leftGraphValues.push(null);
-    //         }
-    //     });
-    // }
 }

@@ -72,22 +72,49 @@
                     "type": "table",
                     "name": "Test Numbers",
                     "color": "#4bc0c0",
-                    "pointStyle": [
-                        "circle",
-                        "triangle",
-                        "rect",
-                        "rectRounded",
-                        "star"
-                    ],
+                    "rightPointStyle": "circle",
+                    "leftPointStyle": "triangle",
+                    "noResponseRightPointStyle": "assets/tests/images/right.png",
+                    "noResponseLeftPointStyle": "assets/tests/images/left.png",
                     "xAxisName": "Freq",
                     "cells": [
-                        { "name": "10", "left": "", "right": "" },
-                        { "name": "20", "left": "", "right": "" },
-                        { "name": "30", "left": "", "right": "" },
-                        { "name": "40", "left": "", "right": "" },
-                        { "name": "50", "left": "", "right": "" }
+                        {
+                            "name": "10",
+                            "left": "",
+                            "right": "",
+                            "leftCheckbox": "",
+                            "rightCheckbox": ""
+                        },
+                        {
+                            "name": "20",
+                            "left": "",
+                            "right": "",
+                            "leftCheckbox": "",
+                            "rightCheckbox": ""
+                        },
+                        {
+                            "name": "30",
+                            "left": "",
+                            "right": "",
+                            "leftCheckbox": "",
+                            "rightCheckbox": ""
+                        },
+                        {
+                            "name": "40",
+                            "left": "",
+                            "right": "",
+                            "leftCheckbox": "",
+                            "rightCheckbox": ""
+                        },
+                        {
+                            "name": "50",
+                            "left": "",
+                            "right": "",
+                            "leftCheckbox": "",
+                            "rightCheckbox": ""
+                        }
                     ],
-                    "cellType": "number"
+                    "cellType": "numberWithCheckbox"
                 },
                 {
                     "type": "graph",
