@@ -689,6 +689,10 @@
                                             pInputText
                                             [(ngModel)]="freq.right"
                                             style="border-left: 0"
+                                            min="-10"
+                                            step="5"
+                                            max="100"
+                                            [pKeyFilter]="noSpecial"
                                         />
                                     </div>
                                 </th>
@@ -757,6 +761,10 @@
                                             pInputText
                                             [(ngModel)]="freq.left"
                                             style="border-left: 0"
+                                            min="-10"
+                                            step="5"
+                                            max="100"
+                                            [pKeyFilter]="noSpecial"
                                         />
                                     </div>
                                 </th>

@@ -37,6 +37,7 @@ export class TestParametersComponent implements OnInit {
     leftCellsData = [];
     rightPointStyles = [];
     leftPointStyles = [];
+    noSpecial: RegExp = /^([^0-9]*)$/;
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
@@ -192,7 +193,7 @@ export class TestParametersComponent implements OnInit {
             });
         }
     }
-    drawLeftGraph(cells, name, color, pointStyle,noResponse) {
+    drawLeftGraph(cells, name, color, pointStyle, noResponse) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
         if (drawGraph) {
             const graphData = this.parameters.filter((p) => p.type === "graph");
