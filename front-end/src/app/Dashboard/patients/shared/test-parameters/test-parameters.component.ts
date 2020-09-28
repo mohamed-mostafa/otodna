@@ -37,7 +37,6 @@ export class TestParametersComponent implements OnInit {
     leftCellsData = [];
     rightPointStyles = [];
     leftPointStyles = [];
-    noSpecial: RegExp = /^([^0-9]*)$/;
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
