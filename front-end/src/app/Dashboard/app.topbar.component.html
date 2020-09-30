@@ -1,11 +1,11 @@
 <div class="layout-topbar">
-    <a href="/dashboard" class="layout-topbar-logo">
+    <a href="/dashboard" class="layout-topbar-logo otoStyle">
         <img id="Otodna-logo" src="assets/layout/images/logo.png" />
     </a>
 
     <a
         href="#"
-        class="layout-menu-button"
+        class="layout-menu-button show"
         (click)="app.onMenuButtonClick($event)"
     >
         <i class="fa fa-bars"></i>
@@ -17,12 +17,24 @@
             src="assets/layout/images/logo.png"
         />
     </a> -->
+
+    <div class="welcomeStyle">
+        <div>
+            {{ welcomeTime }} {{ fullName }}
+            <span class="intro-box-detail">({{ job }})</span>
+        </div>
+    </div>
+
     <a
         href="#"
         class="layout-topbar-user"
         (click)="app.onTopbarMenuButtonClick($event)"
     >
-        <img src="assets/layout/images/avatar.png" alt="olympia-layout" />
+        <img
+            src="assets/layout/images/avatar.png"
+            style="margin-top: 10px"
+            alt="olympia-layout"
+        />
     </a>
 
     <ul

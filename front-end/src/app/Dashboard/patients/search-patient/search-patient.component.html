@@ -1,44 +1,9 @@
 <p-toast></p-toast>
 <div class="layout-dashboard">
     <div class="ui-g">
-        <div class="ui-g-12 ui-md-3">
-            <div class="intro-box">
-                <div class="intro-box-name intro-box-greeting">
-                    {{ welcomeTime }} <br />{{ fullName }}
-                </div>
-                <div class="intro-box-detail">{{ job }}</div>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-9 intro-box-detail-container">
-            <div class="intro-box">
-                <div class="intro-box-name">New Patients This Month</div>
-                <div class="intro-box-detail textCenter">
-                    {{ patientsLength ? patientsLength : 0 }}
-                </div>
-            </div>
-            <div class="intro-box">
-                <div class="intro-box-name">Diagnosis This Month</div>
-                <div class="intro-box-detail textCenter">
-                    {{ diagnosisCount ? diagnosisCount : 0 }}
-                </div>
-            </div>
-            <div class="intro-box">
-                <div class="intro-box-name">Treatments This Month</div>
-                <div class="intro-box-detail textCenter">
-                    {{ treatmentsCount ? treatmentsCount : 0 }}
-                </div>
-            </div>
-            <div class="intro-box">
-                <div class="intro-box-name">Followups This Month</div>
-                <div class="intro-box-detail textCenter">
-                    {{ followupCount ? followupCount : 0 }}
-                </div>
-            </div>
-        </div>
+        <div class="ui-g-12"></div>
         <div class="ui-g-12 ui-md-12 ui-xl-12">
-            <div class="titleFont">
-                This Month Information
-            </div>
+            <div class="titleFont">This Month Information</div>
         </div>
         <div class="ui-g-12 ui-md-3 ui-xl-3">
             <div class="overview-box overview-box-checkins">
@@ -246,7 +211,7 @@
                         type="button"
                         label="Search"
                         (click)="searchAdvanced()"
-                        style="margin-bottom: 10px;"
+                        style="margin-bottom: 10px"
                         class="ui-button-icon-primary ui-button-raised"
                     ></button>
                 </div>

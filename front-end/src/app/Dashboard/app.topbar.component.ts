@@ -11,6 +11,7 @@ import { DashboardComponent } from "./dashboard.component";
 export class AppTopBarComponent {
     fullName;
     job;
+    welcomeTime;
     constructor(
         public app: DashboardComponent,
         private router: Router,
@@ -25,6 +26,15 @@ export class AppTopBarComponent {
                 selectedUser.role.name === "None"
                     ? selectedUser.type.name
                     : selectedUser.role.name;
+        }
+        var today = new Date();
+        var curHr = today.getHours();
+        if (curHr < 12) {
+            this.welcomeTime = "Good Morning";
+        } else if (curHr < 18) {
+            this.welcomeTime = "Good Afternoon";
+        } else {
+            this.welcomeTime = "Good Evening";
         }
     }
 

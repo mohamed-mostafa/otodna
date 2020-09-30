@@ -9,3 +9,32 @@
     margin-right: auto;
     width: 50%;
 }
+.show {
+    visibility: hidden;
+}
+.otoStyle {
+    background-color: #ffffff;
+    width: 197px;
+    height: 102px;
+    padding: 25px;
+    margin: -12px;
+}
+.welcomeStyle {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -60px;
+}
+@media screen and (max-width: 897px) {
+    .show {
+        visibility: visible;
+    }
+    .otoStyle {
+        background-color: #f4f4f4;
+    }
+    .welcomeStyle {
+        display: none;
+    }
+}
