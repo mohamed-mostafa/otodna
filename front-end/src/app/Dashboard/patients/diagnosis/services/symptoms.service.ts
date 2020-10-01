@@ -12,8 +12,12 @@ export class SymptomsService {
     sessionLink = "patientSessionSymptoms";
     constructor(private http: HttpClient) {}
 
-    getAllSymptoms(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.diagnosisLink}`);
+    getAllSymptoms() {
+        return this.http
+            .get<any>(`assets/tests/symptoms.json`)
+            .toPromise()
+            .then((res) => res.data as any[])
+            .then((data) => data);
     }
     createSymptoms(data): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.sessionLink}`, data);

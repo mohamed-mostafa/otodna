@@ -272,7 +272,7 @@ export class PatientSessionComponent implements OnInit {
     }
     getALlSymptoms() {
         this.spinner.show();
-        this.symptomsService.getAllSymptoms().subscribe(async (result) => {
+        this.symptomsService.getAllSymptoms().then(async (result) => {
             this.symptoms = result;
             this.spinner.hide();
         });

@@ -12,24 +12,173 @@
         ></button>
     </div>
 </div>
-<p-fieldset legend="Symptoms">
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6" *ngFor="let sym of symptoms">
-            <div class="p-grid" style="margin-bottom: 5px;">
-                <div class="p-col-12">
-                    <p-checkbox
-                        name="group1"
-                        [value]="sym.id"
-                        [label]="sym.name"
-                        [inputId]="sym"
-                        [(ngModel)]="selectedSymptoms"
-                    ></p-checkbox>
+<div *ngFor="let symptom of symptoms">
+    <p-fieldset [legend]="symptom.name">
+        <ng-container
+            *ngIf="
+                symptom.name === 'General Symptoms (Global)';
+                else elseTemplate
+            "
+        >
+            <div class="ui-g ui-fluid">
+                <div
+                    class="ui-g-12 ui-md-4"
+                    *ngFor="let sym of symptom.symptoms"
+                >
+                    <div class="p-grid" style="margin-bottom: 5px">
+                        <div class="p-col-12">
+                            <p-checkbox
+                                name="group1"
+                                [value]="sym.id"
+                                [label]="sym.name"
+                                [inputId]="sym"
+                                [(ngModel)]="selectedSymptoms"
+                            ></p-checkbox>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</p-fieldset>
-<div class="ui-g ui-fluid" style="margin-top: 15px;" *ngIf="showAllButtons">
+        </ng-container>
+        <ng-template #elseTemplate>
+            <div class="ui-g ui-fluid">
+                <div
+                    class="ui-g-12 ui-md-12"
+                    *ngFor="let sym of symptom.symptoms"
+                >
+                    <p-accordion>
+                        <p-accordionTab [header]="sym.name">
+                            <span *ngFor="let item of sym.items">
+                                <span class="ui-g-12 ui-md-3 itemStyle"
+                                    >{{ item.name }}
+                                </span>
+                                <span class="ui-g-12 ui-md-9">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <ng-container
+                                            *ngIf="
+                                                item.items;
+                                                else rightTemplate
+                                            "
+                                        >
+                                            <div
+                                                class="ui-g-12 fontSize"
+                                                *ngFor="let it of item.items"
+                                            >
+                                                <div
+                                                    class="p-grid"
+                                                    style="margin-bottom: 5px"
+                                                >
+                                                    <div
+                                                        class="p-col-12 rightColor"
+                                                    >
+                                                        <p-checkbox
+                                                            name="group1"
+                                                            value="right_{{
+                                                                it.id
+                                                            }}"
+                                                            [label]="it.name"
+                                                            inputId="right_{{
+                                                                it.id
+                                                            }}"
+                                                            [(ngModel)]="
+                                                                selectedSymptoms
+                                                            "
+                                                        ></p-checkbox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #rightTemplate>
+                                            <div
+                                                class="ui-g-12 ui-md-6 fontSize"
+                                            >
+                                                <div
+                                                    class="p-col-12 rightColor"
+                                                >
+                                                    <p-checkbox
+                                                        name="group1"
+                                                        value="right_{{
+                                                            item.id
+                                                        }}"
+                                                        [label]="item.name"
+                                                        inputId="right_{{
+                                                            item.id
+                                                        }}"
+                                                        [(ngModel)]="
+                                                            selectedSymptoms
+                                                        "
+                                                    ></p-checkbox>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6">
+                                        <ng-container
+                                            *ngIf="
+                                                item.items;
+                                                else leftTemplate
+                                            "
+                                        >
+                                            <div
+                                                class="ui-g-12 fontSize"
+                                                *ngFor="let it of item.items"
+                                            >
+                                                <div
+                                                    class="p-grid"
+                                                    style="margin-bottom: 5px"
+                                                >
+                                                    <div
+                                                        class="p-col-12 leftColor"
+                                                    >
+                                                        <p-checkbox
+                                                            name="group1"
+                                                            value="left_{{
+                                                                it.id
+                                                            }}"
+                                                            [label]="it.name"
+                                                            inputId="left_{{
+                                                                it.id
+                                                            }}"
+                                                            [(ngModel)]="
+                                                                selectedSymptoms
+                                                            "
+                                                        ></p-checkbox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #leftTemplate>
+                                            <div
+                                                class="ui-g-12 ui-md-6 fontSize"
+                                            >
+                                                <div class="p-col-12 leftColor">
+                                                    <p-checkbox
+                                                        name="group1"
+                                                        value="left_{{
+                                                            item.id
+                                                        }}"
+                                                        [label]="item.name"
+                                                        inputId="left_{{
+                                                            item.id
+                                                        }}"
+                                                        [(ngModel)]="
+                                                            selectedSymptoms
+                                                        "
+                                                    ></p-checkbox>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </span>
+                            </span>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+        </ng-template>
+    </p-fieldset>
+</div>
+
+<div class="ui-g ui-fluid" style="margin-top: 15px" *ngIf="showAllButtons">
     <div class="ui-g-12 ui-md-8"></div>
     <ng-container *ngIf="showButtons; else elseTemplate">
         <div class="ui-g-12 ui-md-2">
@@ -38,7 +187,7 @@
                 type="button"
                 label="Discard"
                 (click)="reset()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-danger ui-button-raised"
             ></button>
         </div>
@@ -48,7 +197,7 @@
                 type="button"
                 label="Save"
                 (click)="save()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-icon-primary ui-button-raised"
             ></button></div
     ></ng-container>
@@ -59,7 +208,7 @@
                 type="button"
                 label="Back"
                 (click)="back()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-danger ui-button-raised"
             ></button>
         </div>
@@ -69,7 +218,7 @@
                 type="button"
                 label="Update"
                 (click)="update()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-icon-primary ui-button-raised"
             ></button>
         </div>

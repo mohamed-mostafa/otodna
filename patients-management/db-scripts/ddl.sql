@@ -433,7 +433,7 @@ CREATE TABLE `patient_session_symptom` (
   `id` int NOT NULL AUTO_INCREMENT,
   `patient_session_id` int NOT NULL,
   `ear` varchar(5) NOT NULL DEFAULT 'BOTH',
-  `symptom_id` int NOT NULL,
+  `symptom_id` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

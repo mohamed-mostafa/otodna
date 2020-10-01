@@ -1,0 +1,15 @@
+.itemStyle {
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 14px;
+}
+.leftColor {
+    color: #0a63b1 !important;
+}
+.rightColor {
+    color: #aa0909 !important;
+}
+.fontSize {
+    font-size: 13px;
+    font-weight: bold;
+}

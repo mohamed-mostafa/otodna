@@ -56,20 +56,20 @@ export class PatientSessionSymptom extends Entity {
   ear: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     precision: 10,
     scale: 0,
     mysql: {
       columnName: 'symptom_id',
-      dataType: 'int',
-      dataLength: null,
-      dataPrecision: 10,
-      dataScale: 0,
+      dataType: 'varchar',
+      dataLength: 150,
+      dataPrecision: null,
+      dataScale: null,
       nullable: 'N',
     },
   })
-  symptomId: number;
+  symptomId: string;
 
   // Define well-known properties here
 

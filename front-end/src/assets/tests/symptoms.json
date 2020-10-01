@@ -1,0 +1,386 @@
+{
+    "data": [
+        {
+            "name": "General Symptoms (Global)",
+            "symptoms": [
+                { "id": "general.ear_hearing", "name": "Ear Hearing" },
+                { "id": "general.hear_screening", "name": "Hear screening" },
+                { "id": "general.earache", "name": "Earache" },
+                { "id": "general.fever", "name": "Fever" },
+                {
+                    "id": "general.fluid_draining_from_the_ear",
+                    "name": "Fluid draining from the ear"
+                },
+                { "id": "general.headache", "name": "Headache" },
+                { "id": "general.loss_of_balance", "name": "Loss of balance" },
+                { "id": "general.loss_of_hearing", "name": "Loss of hearing" },
+                {
+                    "id": "general.nausea_and_vomiting",
+                    "name": "Nausea and vomiting"
+                },
+                {
+                    "id": "general.pus_filled_or_bloody_drainage_from_the_ear",
+                    "name": "Pus-filled or bloody drainage from the ear"
+                },
+                {
+                    "id": "general.redness_and_swelling_of_the_outer_ear",
+                    "name": "Redness and swelling of the outer ear"
+                },
+                { "id": "general.vertigo", "name": "Vertigo" },
+                {
+                    "id": "general.ear_pain_especially_when_lying_down",
+                    "name": "Ear pain, especially when lying down"
+                },
+                {
+                    "id": "general.tugging_or_pulling_at_an_ear",
+                    "name": "Tugging or pulling at an ear"
+                },
+                {
+                    "id": "general.difficulty_sleeping",
+                    "name": "Difficulty sleeping"
+                },
+                {
+                    "id": "general.difficulty_hearing_or_responding_to_sounds",
+                    "name": "Difficulty hearing or responding to sounds"
+                },
+                {
+                    "id": "general.fever_of_100_f_(37.8c)_or_higher",
+                    "name": "Fever of 100 F (37.8 C) or higher"
+                },
+                {
+                    "id": "general.crying_or_acting_more_irritable_than_usual",
+                    "name": "Crying or acting more irritable than usual"
+                },
+                { "id": "general.loss_of_appetite", "name": "Loss of appetite" }
+            ]
+        },
+        {
+            "name": "Ear Physical",
+            "symptoms": [
+                {
+                    "id": "ear_physical.auricle_pinna",
+                    "name": "Auricle (Pinna)",
+                    "items": [
+                        {
+                            "id": "ear_physical.auricle_pinna.gouty_tophus",
+                            "name": "Gouty tophus",
+                            "items": [
+                                {
+                                    "id": "ear_physical.auricle_pinna.gouty_tophus.small_white_growth",
+                                    "name": "Small white growth"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.auricle_pinna.keloid_scar",
+                            "name": "Keloid scar"
+                        },
+                        {
+                            "id": "ear_physical.auricle_pinna.auricular_chondritis",
+                            "name": "Auricular chondritis",
+                            "items": [
+                                {
+                                    "id": "ear_physical.auricle_pinna.auricular_chondritis.redness",
+                                    "name": "Redness"
+                                },
+                                {
+                                    "id": "ear_physical.auricle_pinna.auricular_chondritis.pain",
+                                    "name": "Pain"
+                                },
+                                {
+                                    "id": "ear_physical.auricle_pinna.auricular_chondritis.infection",
+                                    "name": "Infection"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.auricle_pinna.auricular_hematoma",
+                            "name": "Auricular hematoma",
+                            "items": [
+                                {
+                                    "id": "ear_physical.auricle_pinna.auricular_hematoma.swelling",
+                                    "name": "Swelling"
+                                },
+                                {
+                                    "id": "ear_physical.auricle_pinna.auricular_hematoma.pain",
+                                    "name": "Pain"
+                                },
+                                {
+                                    "id": "ear_physical.auricle_pinna.auricular_hematoma.bleeding",
+                                    "name": "Bleeding"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "ear_physical.outer_ear",
+                    "name": "Outer Ear",
+                    "items": [
+                        {
+                            "id": "ear_physical.outer_ear.otitis_externa",
+                            "name": "Otitis externa",
+                            "items": [
+                                {
+                                    "id": "ear_physical.outer_ear.otitis_externa.itching",
+                                    "name": "Itching"
+                                },
+                                {
+                                    "id": "ear_physical.outer_ear.otitis_externa.pain",
+                                    "name": "Pain"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.outer_ear.contact_dermatitis",
+                            "name": "Contact dermatitis",
+                            "items": [
+                                {
+                                    "id": "ear_physical.outer_ear.contact_dermatitis.red",
+                                    "name": "Red"
+                                },
+                                {
+                                    "id": "ear_physical.outer_ear.contact_dermatitis.itchy",
+                                    "name": "Itchy"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.outer_ear.shingles",
+                            "name": "Shingles",
+                            "items": [
+                                {
+                                    "id": "ear_physical.outer_ear.shingles.pain",
+                                    "name": "Pain"
+                                },
+                                {
+                                    "id": "ear_physical.outer_ear.shingles.drooping_of_one_side_of_face",
+                                    "name": "Drooping of one side of face"
+                                },
+                                {
+                                    "id": "ear_physical.outer_ear.shingles.deafness",
+                                    "name": "Deafness"
+                                },
+                                {
+                                    "id": "ear_physical.outer_ear.shingles.vertigo",
+                                    "name": "Vertigo"
+                                },
+                                {
+                                    "id": "ear_physical.outer_ear.shingles.tinnitus",
+                                    "name": "Tinnitus"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "ear_physical.eardrum",
+                    "name": "Eardrum",
+                    "items": [
+                        {
+                            "id": "ear_physical.eardrum.earwax",
+                            "name": "Earwax",
+                            "items": [
+                                {
+                                    "id": "ear_physical.eardrum.earwax.reduction_in_hearing",
+                                    "name": "Reduction in hearing"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.eardrum.otitis_media_middle_ear_infection",
+                            "name": "Otitis media (middle ear infection)",
+                            "items": [
+                                {
+                                    "id": "ear_physical.eardrum.otitis_media_middle_ear_infection.fever",
+                                    "name": "Fever"
+                                },
+                                {
+                                    "id": "ear_physical.eardrum.otitis_media_middle_ear_infection.discharge_from_ear",
+                                    "name": "Discharge from ear"
+                                },
+                                {
+                                    "id": "ear_physical.eardrum.otitis_media_middle_ear_infection.pain",
+                                    "name": "Pain"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.eardrum.eustachian_tube_dysfunction",
+                            "name": "Eustachian tube dysfunction",
+                            "items": [
+                                {
+                                    "id": "ear_physical.eardrum.eustachian_tube_dysfunction.popping_in_ear",
+                                    "name": "Popping in ear"
+                                },
+                                {
+                                    "id": "ear_physical.eardrum.eustachian_tube_dysfunction.feeling_of_being_blocked",
+                                    "name": "Feeling of being blocked"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_physical.eardrum.barotrauma",
+                            "name": "Barotrauma",
+                            "items": [
+                                {
+                                    "id": "ear_physical.eardrum.barotrauma.pain",
+                                    "name": "Pain"
+                                },
+                                {
+                                    "id": "ear_physical.eardrum.barotrauma.reduction_in_hearing",
+                                    "name": "Reduction in hearing"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Ear Hearing",
+            "symptoms": [
+                {
+                    "id": "ear_hearing.hearing_loss",
+                    "name": "HEARING LOSS",
+                    "items": [
+                        {
+                            "id": "ear_hearing.hearing_loss.presbycusis",
+                            "name": "Presbycusis"
+                        },
+                        {
+                            "id": "ear_hearing.hearing_loss.otitis_media_with_effusion",
+                            "name": "Otitis media with effusion",
+                            "items": [
+                                {
+                                    "id": "ear_hearing.hearing_loss.otitis_media_with_effusion.quiet_speech",
+                                    "name": "Quiet speech"
+                                },
+                                {
+                                    "id": "ear_hearing.hearing_loss.otitis_media_with_effusion.cold",
+                                    "name": "Cold"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_hearing.hearing_loss.earwax",
+                            "name": "Earwax"
+                        },
+                        {
+                            "id": "ear_hearing.hearing_loss.otosclerosis",
+                            "name": "Otosclerosis",
+                            "items": [
+                                {
+                                    "id": "ear_hearing.hearing_loss.otosclerosis.vertigo",
+                                    "name": "Vertigo"
+                                },
+                                {
+                                    "id": "ear_hearing.hearing_loss.otosclerosis.tinnitus",
+                                    "name": "Tinnitus"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_hearing.hearing_loss.acoustic_neuroma",
+                            "name": "Acoustic neuroma",
+                            "items": [
+                                {
+                                    "id": "ear_hearing.hearing_loss.acoustic_neuroma.tinnitus",
+                                    "name": "Tinnitus"
+                                },
+                                {
+                                    "id": "ear_hearing.hearing_loss.acoustic_neuroma.loss_of_balance",
+                                    "name": "Loss of balance"
+                                },
+                                {
+                                    "id": "ear_hearing.hearing_loss.acoustic_neuroma.headache",
+                                    "name": "Headache"
+                                },
+                                {
+                                    "id": "ear_hearing.hearing_loss.acoustic_neuroma.weakness_of_face",
+                                    "name": "Weakness of face"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_hearing.hearing_loss.sensorineural_hearing_loss",
+                            "name": "Sensorineural hearing loss"
+                        },
+                        {
+                            "id": "ear_hearing.hearing_loss.ruptured_eardrum",
+                            "name": "Ruptured eardrum",
+                            "items": [
+                                {
+                                    "id": "ear_hearing.hearing_loss.ruptured_eardrum.pain",
+                                    "name": "Pain"
+                                },
+                                {
+                                    "id": "ear_hearing.hearing_loss.ruptured_eardrum.discharge_from_ear",
+                                    "name": "Discharge from ear"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "ear_hearing.with_dizziness",
+                    "name": "WITH DIZZINESS",
+                    "items": [
+                        {
+                            "id": "ear_hearing.with_dizziness.labyrinthitis",
+                            "name": "Labyrinthitis",
+                            "items": [
+                                {
+                                    "id": "ear_hearing.with_dizziness.labyrinthitis.vertigo",
+                                    "name": "Vertigo"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.labyrinthitis.tinnitus",
+                                    "name": "Tinnitus"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.labyrinthitis.fever",
+                                    "name": "Fever"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.labyrinthitis.hearing_of_loss",
+                                    "name": "Hearing loss"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.labyrinthitis.fullness_or_pressure_in_ear",
+                                    "name": "Fullness or pressure in ear"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ear_hearing.with_dizziness.Ménière’s_disease",
+                            "name": "Ménière’s disease"
+                        },
+                        {
+                            "id": "ear_hearing.with_dizziness.vestibular_neuritis",
+                            "name": "Vestibular neuritis",
+                            "items": [
+                                {
+                                    "id": "ear_hearing.with_dizziness.vestibular_neuritis.dizziness",
+                                    "name": "Dizziness"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.vestibular_neuritis.nausea",
+                                    "name": "Nausea"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.vestibular_neuritis.vomiting",
+                                    "name": "Vomiting"
+                                },
+                                {
+                                    "id": "ear_hearing.with_dizziness.vestibular_neuritis.unsteady",
+                                    "name": "Unsteady"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
