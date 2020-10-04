@@ -17,30 +17,6 @@ USE `otodna-patients`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `symptoms`
---
-
-DROP TABLE IF EXISTS `symptoms`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
-CREATE TABLE `symptoms` (
-  `id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `symptoms`
---
-
-LOCK TABLES `symptoms` WRITE;
-/*!40000 ALTER TABLE `symptoms` DISABLE KEYS */;
-INSERT INTO `symptoms` VALUES (1,'Earache'),(2,'Fever'),(3,'Fluid draining from the ear'),(4,'Headache'),(5,'Loss of balance'),(6,'Loss of hearing'),(7,'Nausea and vomiting'),(8,'Pus-filled or bloody drainage from the ear'),(9,'Redness and swelling of the outer ear'),(10,'Vertigo');
-/*!40000 ALTER TABLE `symptoms` ENABLE KEYS */;
-UNLOCK TABLES;
-
 
 --
 -- Table structure for table `allergy_severity`

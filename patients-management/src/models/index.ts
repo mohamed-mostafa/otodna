@@ -25,4 +25,3 @@ export * from './session-treatment-equipment.model';
 export * from './vital-record-type.model';
 export * from './patient-and-medical-info.model';
 export * from './patient-search.model';
-export * from './patient-diagnosis-symptoms.model';

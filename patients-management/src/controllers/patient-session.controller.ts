@@ -2,8 +2,6 @@ import {SessionTestEquipment} from './../models/session-test-equipment.model';
 import {SessionTestEquipmentRepository} from './../repositories/session-test-equipment.repository';
 import {PatientSessionSymptom} from './../models/patient-session-symptom.model';
 import {PatientSessionSymptomRepository} from './../repositories/patient-session-symptom.repository';
-import {PatientDiagnosisSymptomsRepository} from './../repositories/patient-diagnosis-symptoms.repository';
-import {PatientDiagnosisSymptoms} from './../models/patient-diagnosis-symptoms.model';
 import {
   Count,
   CountSchema,
@@ -29,8 +27,6 @@ export class PatientSessionController {
   constructor(
     @repository(PatientSessionRepository)
     public patientSessionRepository: PatientSessionRepository,
-    @repository(PatientDiagnosisSymptomsRepository)
-    public patientDiagnosisSymptomsRepository: PatientDiagnosisSymptomsRepository,
     @repository(PatientSessionSymptomRepository)
     public patientSessionSymptomRepository: PatientSessionSymptomRepository,
     @repository(SessionTestEquipmentRepository)
@@ -141,29 +137,29 @@ export class PatientSessionController {
     return this.sessionTestEquipmentRepository.find(filter);
   }
 
-  @get('/patientDiagnosisSymptoms', {
-    responses: {
-      '200': {
-        description: 'Array of PatientDiagnosisSymptoms model instances',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'array',
-              items: getModelSchemaRef(PatientDiagnosisSymptoms, {
-                includeRelations: true,
-              }),
-            },
-          },
-        },
-      },
-    },
-  })
-  async findSymptoms(
-    @param.filter(PatientDiagnosisSymptoms)
-    filter?: Filter<PatientDiagnosisSymptoms>,
-  ): Promise<PatientDiagnosisSymptoms[]> {
-    return this.patientDiagnosisSymptomsRepository.find(filter);
-  }
+  // @get('/patientDiagnosisSymptoms', {
+  //   responses: {
+  //     '200': {
+  //       description: 'Array of PatientDiagnosisSymptoms model instances',
+  //       content: {
+  //         'application/json': {
+  //           schema: {
+  //             type: 'array',
+  //             items: getModelSchemaRef(PatientDiagnosisSymptoms, {
+  //               includeRelations: true,
+  //             }),
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // })
+  // async findSymptoms(
+  //   @param.filter(PatientDiagnosisSymptoms)
+  //   filter?: Filter<PatientDiagnosisSymptoms>,
+  // ): Promise<PatientDiagnosisSymptoms[]> {
+  //   return this.patientDiagnosisSymptomsRepository.find(filter);
+  // }
 
   @get('/patientSessionSymptoms', {
     responses: {
