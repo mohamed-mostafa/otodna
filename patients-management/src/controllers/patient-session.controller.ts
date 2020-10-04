@@ -137,30 +137,6 @@ export class PatientSessionController {
     return this.sessionTestEquipmentRepository.find(filter);
   }
 
-  // @get('/patientDiagnosisSymptoms', {
-  //   responses: {
-  //     '200': {
-  //       description: 'Array of PatientDiagnosisSymptoms model instances',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'array',
-  //             items: getModelSchemaRef(PatientDiagnosisSymptoms, {
-  //               includeRelations: true,
-  //             }),
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // async findSymptoms(
-  //   @param.filter(PatientDiagnosisSymptoms)
-  //   filter?: Filter<PatientDiagnosisSymptoms>,
-  // ): Promise<PatientDiagnosisSymptoms[]> {
-  //   return this.patientDiagnosisSymptomsRepository.find(filter);
-  // }
-
   @get('/patientSessionSymptoms', {
     responses: {
       '200': {
