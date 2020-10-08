@@ -193,47 +193,11 @@
                     <span class="ui-inputgroup-addon rightBackgroundColor"
                         >R</span
                     >
-                    <p-dropdown
-                        [options]="t.values"
-                        placeholder="Select Value"
-                        optionLabel="name"
-                        id="right-{{ t.name }}"
-                        [showClear]="true"
-                        [required]="t.required"
-                        [(ngModel)]="t.rightVal"
-                    >
-                        <ng-template pTemplate="selectedItem">
-                            <div
-                                class="country-item country-item-value"
-                                *ngIf="t.rightVal"
-                            >
-                                <img
-                                    src="assets/tests/images/{{
-                                        t.rightVal.image
-                                    }}"
-                                    width="120px"
-                                    height="30px"
-                                />
-                                <span style="font-weight: bold">
-                                    {{ t.rightVal.name }}
-                                </span>
-                            </div>
-                        </ng-template>
-                        <ng-template let-item pTemplate="item">
-                            <div>
-                                <img
-                                    src="assets/tests/images/{{
-                                        item.value.image
-                                    }}"
-                                    width="120px"
-                                    height="40px"
-                                />
-                                <span style="font-weight: bold">
-                                    {{ item.value.name }}
-                                </span>
-                            </div>
-                        </ng-template>
-                    </p-dropdown>
+                    <app-list-with-image
+                        [value]="t"
+                        class="width100"
+                        type="right"
+                    ></app-list-with-image>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -242,47 +206,11 @@
                     <span class="ui-inputgroup-addon leftBackgroundColor"
                         >L</span
                     >
-                    <p-dropdown
-                        [options]="t.values"
-                        placeholder="Select Value"
-                        optionLabel="name"
-                        id="left-{{ t.name }}"
-                        [showClear]="true"
-                        [required]="t.required"
-                        [(ngModel)]="t.leftVal"
-                    >
-                        <ng-template pTemplate="selectedItem">
-                            <div
-                                class="country-item country-item-value"
-                                *ngIf="t.leftVal"
-                            >
-                                <img
-                                    src="assets/tests/images/{{
-                                        t.leftVal.image
-                                    }}"
-                                    width="120px"
-                                    height="30px"
-                                />
-                                <span style="font-weight: bold">
-                                    {{ t.leftVal.name }}
-                                </span>
-                            </div>
-                        </ng-template>
-                        <ng-template let-item pTemplate="item">
-                            <div>
-                                <img
-                                    src="assets/tests/images/{{
-                                        item.value.image
-                                    }}"
-                                    width="120px"
-                                    height="40px"
-                                />
-                                <span style="font-weight: bold">
-                                    {{ item.value.name }}
-                                </span>
-                            </div>
-                        </ng-template></p-dropdown
-                    >
+                    <app-list-with-image
+                        [value]="t"
+                        class="width100"
+                        type="left"
+                    ></app-list-with-image>
                 </div>
             </div>
         </div>

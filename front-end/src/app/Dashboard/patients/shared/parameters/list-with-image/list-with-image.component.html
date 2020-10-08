@@ -1,0 +1,72 @@
+<ng-container *ngIf="type === 'right'; else elseTemplate">
+    <p-dropdown
+        [options]="value.values"
+        placeholder="Select Value"
+        optionLabel="name"
+        id="right-{{ value.name }}"
+        [showClear]="true"
+        [required]="value.required"
+        [(ngModel)]="value.rightVal"
+    >
+        <ng-template pTemplate="selectedItem">
+            <div class="country-item country-item-value" *ngIf="value.rightVal">
+                <img
+                    src="assets/tests/images/{{ value.rightVal.image }}"
+                    width="120px"
+                    height="30px"
+                />
+                <span style="font-weight: bold">
+                    {{ value.rightVal.name }}
+                </span>
+            </div>
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+            <div>
+                <img
+                    src="assets/tests/images/{{ item.value.image }}"
+                    width="120px"
+                    height="40px"
+                />
+                <span style="font-weight: bold">
+                    {{ item.value.name }}
+                </span>
+            </div>
+        </ng-template>
+    </p-dropdown>
+</ng-container>
+<ng-template #elseTemplate>
+    <p-dropdown
+        [options]="value.values"
+        placeholder="Select Value"
+        optionLabel="name"
+        id="left-{{ value.name }}"
+        [showClear]="true"
+        [required]="value.required"
+        [(ngModel)]="value.leftVal"
+    >
+        <ng-template pTemplate="selectedItem">
+            <div class="country-item country-item-value" *ngIf="value.leftVal">
+                <img
+                    src="assets/tests/images/{{ value.leftVal.image }}"
+                    width="120px"
+                    height="30px"
+                />
+                <span style="font-weight: bold">
+                    {{ value.leftVal.name }}
+                </span>
+            </div>
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+            <div>
+                <img
+                    src="assets/tests/images/{{ item.value.image }}"
+                    width="120px"
+                    height="40px"
+                />
+                <span style="font-weight: bold">
+                    {{ item.value.name }}
+                </span>
+            </div>
+        </ng-template></p-dropdown
+    >
+</ng-template>
