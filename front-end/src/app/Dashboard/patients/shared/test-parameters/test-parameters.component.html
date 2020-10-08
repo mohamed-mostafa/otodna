@@ -19,14 +19,11 @@
                     <span class="ui-inputgroup-addon rightBackgroundColor"
                         >R</span
                     >
-                    <input
-                        type="text"
-                        pInputText
-                        id="right-{{ t.name }}"
-                        [placeholder]="t.name"
-                        [required]="t.required"
-                        [(ngModel)]="t.rightVal"
-                    />
+                    <app-string
+                        [value]="t"
+                        class="width100"
+                        type="right"
+                    ></app-string>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -35,14 +32,11 @@
                     <span class="ui-inputgroup-addon leftBackgroundColor"
                         >L</span
                     >
-                    <input
-                        type="text"
-                        pInputText
-                        id="left-{{ t.name }}"
-                        [placeholder]="t.name"
-                        [required]="t.required"
-                        [(ngModel)]="t.leftVal"
-                    />
+                    <app-string
+                        [value]="t"
+                        class="width100"
+                        type="left"
+                    ></app-string>
                 </div>
             </div>
         </div>
@@ -56,14 +50,11 @@
                     <span class="ui-inputgroup-addon rightBackgroundColor"
                         >R</span
                     >
-                    <input
-                        type="number"
-                        pInputText
-                        id="right-{{ t.name }}"
-                        [placeholder]="t.name"
-                        [required]="t.required"
-                        [(ngModel)]="t.rightVal"
-                    />
+                    <app-number
+                        [value]="t"
+                        class="width100"
+                        type="right"
+                    ></app-number>
                     <span class="ui-inputgroup-addon">{{
                         t.unit ? t.unit : ""
                     }}</span>
@@ -75,16 +66,11 @@
                     <span class="ui-inputgroup-addon leftBackgroundColor"
                         >L</span
                     >
-                    <input
-                        type="number"
-                        pInputText
-                        [min]="t.minimum"
-                        [max]="t.maximum"
-                        id="left-{{ t.name }}"
-                        [placeholder]="t.name"
-                        [required]="t.required"
-                        [(ngModel)]="t.leftVal"
-                    />
+                    <app-number
+                        [value]="t"
+                        class="width100"
+                        type="left"
+                    ></app-number>
                     <span class="ui-inputgroup-addon">
                         {{ t.unit ? t.unit : "" }}</span
                     >
@@ -216,52 +202,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div
-            class="ui-g-12 ui-md-12 removeMarginAndPadding"
-            *ngIf="t.type === 'dependsOnList'"
-        >
-            <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                <label for="right-{{ t.name }}" *ngIf="t.showRight">
-                    {{ t.name }}</label
-                >
-                <div class="ui-inputgroup labelMarginTop" *ngIf="t.showRight">
-                    <span class="ui-inputgroup-addon rightBackgroundColor"
-                        >R</span
-                    >
-                    <p-dropdown
-                        [options]="t.values"
-                        placeholder="Select Value"
-                        optionLabel="name"
-                        id="right-{{ t.name }}"
-                        [showClear]="true"
-                        [required]="t.required"
-                        [(ngModel)]="t.rightVal"
-                        (onChange)="checkRightListItem(t)"
-                    ></p-dropdown>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-6">
-                <label for="left-{{ t.name }}" *ngIf="t.showLeft">
-                    {{ t.name }}</label
-                >
-                <div class="ui-inputgroup labelMarginTop" *ngIf="t.showLeft">
-                    <span class="ui-inputgroup-addon leftBackgroundColor"
-                        >L</span
-                    >
-                    <p-dropdown
-                        [options]="t.values"
-                        placeholder="Select Value"
-                        optionLabel="name"
-                        id="left-{{ t.name }}"
-                        [showClear]="true"
-                        [required]="t.required"
-                        [(ngModel)]="t.leftVal"
-                        (onChange)="checkLeftListItem(t)"
-                    ></p-dropdown>
-                </div>
-            </div>
-        </div> -->
-
         <div
             class="ui-g-12 ui-md-12 removeMarginAndPadding"
             *ngIf="t.type === 'listWithImage'"

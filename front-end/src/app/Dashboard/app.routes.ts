@@ -1,3 +1,5 @@
+import { NumberComponent } from "./patients/shared/parameters/number/number.component";
+import { StringComponent } from "./patients/shared/parameters/string/string.component";
 import { EquipmentTestParametersComponent } from "./patients/shared/equipment-test-parameters/equipment-test-parameters.component";
 import { GraphComponent } from "./patients/shared/graph/graph.component";
 import { PatientBreadcrumbComponent } from "./patients/shared/patient-breadcrumb/patient-breadcrumb.component";
@@ -163,6 +165,8 @@ export const COMPONENTS = [
     PatientBreadcrumbComponent,
     GraphComponent,
     EquipmentTestParametersComponent,
+    StringComponent,
+    NumberComponent,
 ];
 @NgModule({
     exports: [RouterModule],

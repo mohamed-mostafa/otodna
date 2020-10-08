@@ -1,0 +1,20 @@
+<ng-container *ngIf="type === 'right'; else elseTemplate">
+    <input
+        type="number"
+        pInputText
+        id="right-{{ value.name }}"
+        [placeholder]="value.name"
+        [required]="value.required"
+        [(ngModel)]="value.rightVal"
+    />
+</ng-container>
+<ng-template #elseTemplate>
+    <input
+        type="number"
+        pInputText
+        id="left-{{ value.name }}"
+        [placeholder]="value.name"
+        [required]="value.required"
+        [(ngModel)]="value.leftVal"
+    />
+</ng-template>
