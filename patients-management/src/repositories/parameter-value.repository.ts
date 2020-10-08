@@ -221,7 +221,109 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
     let AllData = [];
     for (const d of data) {
       for (const item of d.parameters) {
-        if (item.type === 'list' || item.type === 'listWithImage') {
+        if (item.type === 'list') {
+          if (item.leftVal.name) {
+            let leftObj: any = {
+              parameterName: item.name,
+              ear: 'left',
+              parameterType: item.type,
+              value: item.leftVal.name,
+            };
+            leftObj[type] = id;
+            AllData.push(leftObj);
+            let arr: any = [];
+            let leftVal = item.leftVal.leftVal;
+            if (leftVal) {
+              delete leftVal.values;
+              const checkLeftList = (obj: any) => {
+                Object.entries(obj).forEach(([key, val]) => {
+                  if (val && typeof val === 'object') {
+                    let x: any = val;
+                    delete x.values;
+                    val = x;
+                    checkLeftList(val);
+                  } else {
+                    if (key === 'name') {
+                      if (arr.length === 0) {
+                        arr.push({
+                          parameterName: item.leftVal.name,
+                          value: val,
+                        });
+                      } else {
+                        arr.push({
+                          parameterName: arr[arr.length - 1].value,
+                          value: val,
+                        });
+                      }
+                    }
+                  }
+                });
+              };
+              checkLeftList(leftVal);
+              arr.forEach((a: any) => {
+                let leftObj: any = {
+                  parameterName: a.parameterName,
+                  ear: 'left',
+                  parameterType: 'listInsideList',
+                  value: a.value,
+                };
+                leftObj[type] = id;
+                AllData.push(leftObj);
+              });
+            }
+          }
+          if (item.rightVal.name) {
+            let rightObj: any = {
+              parameterName: item.name,
+              ear: 'right',
+              parameterType: item.type,
+              value: item.rightVal.name,
+            };
+            rightObj[type] = id;
+            AllData.push(rightObj);
+            let arr: any = [];
+            let rightVal = item.rightVal.rightVal;
+            if (rightVal) {
+              delete rightVal.values;
+              const checkRightList = (obj: any) => {
+                Object.entries(obj).forEach(([key, val]) => {
+                  if (val && typeof val === 'object') {
+                    let x: any = val;
+                    delete x.values;
+                    val = x;
+                    checkRightList(val);
+                  } else {
+                    if (key === 'name') {
+                      if (arr.length === 0) {
+                        arr.push({
+                          parameterName: item.rightVal.name,
+                          value: val,
+                        });
+                      } else {
+                        arr.push({
+                          parameterName: arr[arr.length - 1].value,
+                          value: val,
+                        });
+                      }
+                    }
+                  }
+                });
+              };
+              checkRightList(rightVal);
+              arr.forEach((a: any) => {
+                let rightObj: any = {
+                  parameterName: a.parameterName,
+                  ear: 'right',
+                  parameterType: 'listInsideList',
+                  value: a.value,
+                };
+                rightObj[type] = id;
+                AllData.push(rightObj);
+              });
+            }
+          }
+        }
+        if (item.type === 'listWithImage') {
           if (item.leftVal.name) {
             let leftObj: any = {
               parameterName: item.name,

@@ -129,8 +129,102 @@
             *ngIf="t.type === 'list'"
         >
             <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                <label for="right-{{ t.name }}"> {{ t.name }}</label>
-                <div class="ui-inputgroup labelMarginTop">
+                <div class="ui-g-12 ui-md-12">
+                    <label for="right-{{ t.name }}"> {{ t.name }}</label>
+                    <div class="ui-inputgroup labelMarginTop">
+                        <span class="ui-inputgroup-addon rightBackgroundColor"
+                            >R</span
+                        >
+                        <p-dropdown
+                            [options]="t.values"
+                            placeholder="Select Value"
+                            optionLabel="name"
+                            id="right-{{ t.name }}"
+                            [showClear]="true"
+                            [(ngModel)]="t.rightVal"
+                            (onChange)="checkRightListItem(t)"
+                        ></p-dropdown>
+                    </div>
+                </div>
+                <div *ngFor="let item of rightListItems">
+                    <div *ngFor="let it of item">
+                        <div class="ui-g-12 ui-md-12" *ngIf="it.showRight">
+                            <label for="right-{{ it.name }}">
+                                {{ it.name }}</label
+                            >
+                            <div class="ui-inputgroup labelMarginTop">
+                                <span
+                                    class="ui-inputgroup-addon rightBackgroundColor"
+                                    >R</span
+                                >
+                                <p-dropdown
+                                    [options]="it.values"
+                                    placeholder="Select Value"
+                                    optionLabel="name"
+                                    id="right-{{ it.name }}"
+                                    [showClear]="true"
+                                    [(ngModel)]="it.rightVal"
+                                    (onChange)="checkRightListItem(it)"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-12 ui-md-12">
+                    <label for="left-{{ t.name }}"> {{ t.name }}</label>
+                    <div class="ui-inputgroup labelMarginTop">
+                        <span class="ui-inputgroup-addon leftBackgroundColor"
+                            >L</span
+                        >
+                        <p-dropdown
+                            [options]="t.values"
+                            placeholder="Select Value"
+                            optionLabel="name"
+                            id="left-{{ t.name }}"
+                            [showClear]="true"
+                            [required]="t.required"
+                            [(ngModel)]="t.leftVal"
+                            (onChange)="checkLeftListItem(t)"
+                        ></p-dropdown>
+                    </div>
+                </div>
+                <div *ngFor="let item of leftListItems">
+                    <div *ngFor="let it of item">
+                        <div class="ui-g-12 ui-md-12" *ngIf="it.showLeft">
+                            <label for="right-{{ it.name }}">
+                                {{ it.name }}</label
+                            >
+                            <div class="ui-inputgroup labelMarginTop">
+                                <span
+                                    class="ui-inputgroup-addon leftBackgroundColor"
+                                    >L</span
+                                >
+                                <p-dropdown
+                                    [options]="it.values"
+                                    placeholder="Select Value"
+                                    optionLabel="name"
+                                    id="right-{{ it.name }}"
+                                    [showClear]="true"
+                                    [(ngModel)]="it.leftVal"
+                                    (onChange)="checkLeftListItem(it)"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div
+            class="ui-g-12 ui-md-12 removeMarginAndPadding"
+            *ngIf="t.type === 'dependsOnList'"
+        >
+            <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <label for="right-{{ t.name }}" *ngIf="t.showRight">
+                    {{ t.name }}</label
+                >
+                <div class="ui-inputgroup labelMarginTop" *ngIf="t.showRight">
                     <span class="ui-inputgroup-addon rightBackgroundColor"
                         >R</span
                     >
@@ -142,12 +236,15 @@
                         [showClear]="true"
                         [required]="t.required"
                         [(ngModel)]="t.rightVal"
+                        (onChange)="checkRightListItem(t)"
                     ></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
-                <label for="left-{{ t.name }}"> {{ t.name }}</label>
-                <div class="ui-inputgroup labelMarginTop">
+                <label for="left-{{ t.name }}" *ngIf="t.showLeft">
+                    {{ t.name }}</label
+                >
+                <div class="ui-inputgroup labelMarginTop" *ngIf="t.showLeft">
                     <span class="ui-inputgroup-addon leftBackgroundColor"
                         >L</span
                     >
@@ -159,10 +256,12 @@
                         [showClear]="true"
                         [required]="t.required"
                         [(ngModel)]="t.leftVal"
+                        (onChange)="checkLeftListItem(t)"
                     ></p-dropdown>
                 </div>
             </div>
-        </div>
+        </div> -->
+
         <div
             class="ui-g-12 ui-md-12 removeMarginAndPadding"
             *ngIf="t.type === 'listWithImage'"

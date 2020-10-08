@@ -34,9 +34,108 @@
                     "rightVal": "",
                     "required": true,
                     "values": [
-                        { "id": 1, "name": "Severe" },
-                        { "id": 2, "name": "Moderate" },
-                        { "id": 3, "name": "Mild" }
+                        {
+                            "id": 1,
+                            "name": "Severe",
+                            "values": [
+                                { "id": 1, "name": "New Severe 1" },
+                                { "id": 2, "name": "New Severe 2" },
+                                {
+                                    "id": 3,
+                                    "name": "New Severe 3",
+                                    "values": [
+                                        {
+                                            "id": 1,
+                                            "name": 1,
+                                            "values": [
+                                                { "id": 1, "name": 10 },
+                                                { "id": 2, "name": 20 },
+                                                { "id": 3, "name": 30 }
+                                            ],
+                                            "showRight": false,
+                                            "showLeft": false,
+                                            "leftVal": "",
+                                            "rightVal": ""
+                                        },
+                                        { "id": 2, "name": 2 },
+                                        { "id": 3, "name": 3 }
+                                    ],
+                                    "showRight": false,
+                                    "showLeft": false,
+                                    "leftVal": "",
+                                    "rightVal": ""
+                                }
+                            ],
+                            "showRight": false,
+                            "showLeft": false,
+                            "leftVal": "",
+                            "rightVal": ""
+                        },
+                        {
+                            "id": 2,
+                            "name": "Moderate",
+                            "values": [
+                                { "id": 1, "name": "New Moderate 1" },
+                                { "id": 2, "name": "New Moderate 2" },
+                                { "id": 3, "name": "New Moderate 3" }
+                            ],
+                            "showRight": false,
+                            "showLeft": false,
+                            "leftVal": "",
+                            "rightVal": ""
+                        },
+                        {
+                            "id": 3,
+                            "name": "Mild"
+                        }
+                    ]
+                },
+                {
+                    "type": "dependsOnList",
+                    "name": "new List",
+                    "dependsOn": "Severity",
+                    "dependOnValue": "Severe",
+                    "showRight": false,
+                    "showLeft": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": "New Severe" },
+                        { "id": 2, "name": "New Moderate" },
+                        { "id": 3, "name": "New Mild" }
+                    ]
+                },
+                {
+                    "type": "dependsOnList",
+                    "name": "new List 2",
+                    "dependsOn": "Severity",
+                    "dependOnValue": "Moderate",
+                    "showRight": false,
+                    "showLeft": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": "New S" },
+                        { "id": 2, "name": "New M" },
+                        { "id": 3, "name": "New Mi" }
+                    ]
+                },
+                {
+                    "type": "dependsOnList",
+                    "name": "Gedid",
+                    "dependsOn": "new List",
+                    "dependOnValue": "New Mild",
+                    "showRight": false,
+                    "showLeft": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        { "id": 1, "name": 1 },
+                        { "id": 2, "name": 2 },
+                        { "id": 3, "name": 4 }
                     ]
                 },
                 {
