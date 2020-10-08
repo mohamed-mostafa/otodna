@@ -1,0 +1,16 @@
+<ng-container *ngIf="type === 'right'; else elseTemplate">
+    <p-checkbox
+        label=" {{ value.name }}"
+        [value]="value.name"
+        [required]="value.required"
+        [(ngModel)]="value.rightVal"
+    ></p-checkbox>
+</ng-container>
+<ng-template #elseTemplate>
+    <p-checkbox
+        label="{{ value.name }}"
+        [value]="value.name"
+        [required]="value.required"
+        [(ngModel)]="value.leftVal"
+    ></p-checkbox>
+</ng-template>

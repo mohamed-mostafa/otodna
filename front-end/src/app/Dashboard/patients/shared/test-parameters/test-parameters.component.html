@@ -87,12 +87,7 @@
                         class="ui-inputgroup-addon rightBackgroundColor lineHeight"
                         >R</span
                     >
-                    <p-checkbox
-                        label=" {{ t.name }}"
-                        [value]="t.name"
-                        [required]="t.required"
-                        [(ngModel)]="t.rightVal"
-                    ></p-checkbox>
+                    <app-boolean [value]="t" type="right"></app-boolean>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -101,12 +96,7 @@
                         class="ui-inputgroup-addon leftBackgroundColor lineHeight"
                         >L</span
                     >
-                    <p-checkbox
-                        label="{{ t.name }}"
-                        [value]="t.name"
-                        [required]="t.required"
-                        [(ngModel)]="t.leftVal"
-                    ></p-checkbox>
+                    <app-boolean [value]="t" type="left"></app-boolean>
                 </div>
             </div>
         </div>
