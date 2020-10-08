@@ -111,18 +111,14 @@
                         <span class="ui-inputgroup-addon rightBackgroundColor"
                             >R</span
                         >
-                        <p-dropdown
-                            [options]="t.values"
-                            placeholder="Select Value"
-                            optionLabel="name"
-                            id="right-{{ t.name }}"
-                            [showClear]="true"
-                            [(ngModel)]="t.rightVal"
-                            (onChange)="checkRightListItem(t)"
-                        ></p-dropdown>
+                        <app-list
+                            [value]="t"
+                            class="width100"
+                            type="right"
+                        ></app-list>
                     </div>
                 </div>
-                <div *ngFor="let item of rightListItems">
+                <!-- <div *ngFor="let item of rightListItems">
                     <div *ngFor="let it of item">
                         <div class="ui-g-12 ui-md-12" *ngIf="it.showRight">
                             <label for="right-{{ it.name }}">
@@ -145,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="ui-g-12 ui-md-6">
                 <div class="ui-g-12 ui-md-12">
@@ -154,19 +150,14 @@
                         <span class="ui-inputgroup-addon leftBackgroundColor"
                             >L</span
                         >
-                        <p-dropdown
-                            [options]="t.values"
-                            placeholder="Select Value"
-                            optionLabel="name"
-                            id="left-{{ t.name }}"
-                            [showClear]="true"
-                            [required]="t.required"
-                            [(ngModel)]="t.leftVal"
-                            (onChange)="checkLeftListItem(t)"
-                        ></p-dropdown>
+                        <app-list
+                            [value]="t"
+                            class="width100"
+                            type="left"
+                        ></app-list>
                     </div>
                 </div>
-                <div *ngFor="let item of leftListItems">
+                <!-- <div *ngFor="let item of leftListItems">
                     <div *ngFor="let it of item">
                         <div class="ui-g-12 ui-md-12" *ngIf="it.showLeft">
                             <label for="right-{{ it.name }}">
@@ -189,7 +180,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div

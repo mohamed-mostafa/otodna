@@ -1,0 +1,22 @@
+<ng-container *ngIf="type === 'right'; else elseTemplate">
+    <p-dropdown
+        [options]="value.values"
+        placeholder="Select Value"
+        optionLabel="name"
+        id="right-{{ value.name }}"
+        [showClear]="true"
+        [(ngModel)]="value.rightVal"
+        (onChange)="checkRightListItem(value)"
+    ></p-dropdown>
+</ng-container>
+<ng-template #elseTemplate>
+    <p-dropdown
+        [options]="value.values"
+        placeholder="Select Value"
+        optionLabel="name"
+        id="left-{{ value.name }}"
+        [showClear]="true"
+        [(ngModel)]="value.leftVal"
+        (onChange)="checkRightListItem(value)"
+    ></p-dropdown>
+</ng-template>

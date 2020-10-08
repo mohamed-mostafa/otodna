@@ -1,3 +1,4 @@
+import { ListComponent } from './patients/shared/parameters/list/list.component';
 import { BooleanComponent } from "./patients/shared/parameters/boolean/boolean.component";
 import { NumberComponent } from "./patients/shared/parameters/number/number.component";
 import { StringComponent } from "./patients/shared/parameters/string/string.component";
@@ -169,6 +170,7 @@ export const COMPONENTS = [
     StringComponent,
     NumberComponent,
     BooleanComponent,
+    ListComponent
 ];
 @NgModule({
     exports: [RouterModule],
