@@ -1,3 +1,4 @@
+import { TextareaComponent } from "./patients/shared/parameters/textarea/textarea.component";
 import { ListWithImageComponent } from "./patients/shared/parameters/list-with-image/list-with-image.component";
 import { ListComponent } from "./patients/shared/parameters/list/list.component";
 import { BooleanComponent } from "./patients/shared/parameters/boolean/boolean.component";
@@ -173,6 +174,7 @@ export const COMPONENTS = [
     BooleanComponent,
     ListComponent,
     ListWithImageComponent,
+    TextareaComponent,
 ];
 @NgModule({
     exports: [RouterModule],

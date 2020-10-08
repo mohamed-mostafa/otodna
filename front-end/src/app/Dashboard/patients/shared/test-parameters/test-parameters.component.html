@@ -551,15 +551,7 @@
         <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'textarea'">
             <label>{{ t.name }}</label>
             <div class="labelMarginTop">
-                <textarea
-                    [rows]="5"
-                    [cols]="30"
-                    pInputTextarea
-                    autoResize="autoResize"
-                    [placeholder]="t.name"
-                    [required]="t.required"
-                    [(ngModel)]="t.textareaVal"
-                ></textarea>
+                <app-textarea [value]="t" class="width100"></app-textarea>
             </div>
         </div>
         <div class="ui-g-12 ui-md-12" *ngIf="t.type === 'table'">
