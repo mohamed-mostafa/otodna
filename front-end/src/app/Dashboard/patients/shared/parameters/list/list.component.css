@@ -1,0 +1,15 @@
+.rightBackgroundColor {
+    background-color: #c62828 !important;
+    color: white !important;
+}
+.labelMarginTop {
+    margin-top: 7px;
+}
+.leftBackgroundColor {
+    background-color: #1e88e5 !important;
+    color: white !important;
+}
+.removeMarginAndPadding {
+    margin: 0px;
+    padding: 0px;
+}

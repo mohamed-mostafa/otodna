@@ -105,82 +105,18 @@
             *ngIf="t.type === 'list'"
         >
             <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                <div class="ui-g-12 ui-md-12">
-                    <label for="right-{{ t.name }}"> {{ t.name }}</label>
-                    <div class="ui-inputgroup labelMarginTop">
-                        <span class="ui-inputgroup-addon rightBackgroundColor"
-                            >R</span
-                        >
-                        <app-list
-                            [value]="t"
-                            class="width100"
-                            type="right"
-                        ></app-list>
-                    </div>
-                </div>
-                <!-- <div *ngFor="let item of rightListItems">
-                    <div *ngFor="let it of item">
-                        <div class="ui-g-12 ui-md-12" *ngIf="it.showRight">
-                            <label for="right-{{ it.name }}">
-                                {{ it.name }}</label
-                            >
-                            <div class="ui-inputgroup labelMarginTop">
-                                <span
-                                    class="ui-inputgroup-addon rightBackgroundColor"
-                                    >R</span
-                                >
-                                <p-dropdown
-                                    [options]="it.values"
-                                    placeholder="Select Value"
-                                    optionLabel="name"
-                                    id="right-{{ it.name }}"
-                                    [showClear]="true"
-                                    [(ngModel)]="it.rightVal"
-                                    (onChange)="checkRightListItem(it)"
-                                ></p-dropdown>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                <app-list
+                    [value]="t"
+                    [parameters]="parameters"
+                    type="right"
+                ></app-list>
             </div>
             <div class="ui-g-12 ui-md-6">
-                <div class="ui-g-12 ui-md-12">
-                    <label for="left-{{ t.name }}"> {{ t.name }}</label>
-                    <div class="ui-inputgroup labelMarginTop">
-                        <span class="ui-inputgroup-addon leftBackgroundColor"
-                            >L</span
-                        >
-                        <app-list
-                            [value]="t"
-                            class="width100"
-                            type="left"
-                        ></app-list>
-                    </div>
-                </div>
-                <!-- <div *ngFor="let item of leftListItems">
-                    <div *ngFor="let it of item">
-                        <div class="ui-g-12 ui-md-12" *ngIf="it.showLeft">
-                            <label for="right-{{ it.name }}">
-                                {{ it.name }}</label
-                            >
-                            <div class="ui-inputgroup labelMarginTop">
-                                <span
-                                    class="ui-inputgroup-addon leftBackgroundColor"
-                                    >L</span
-                                >
-                                <p-dropdown
-                                    [options]="it.values"
-                                    placeholder="Select Value"
-                                    optionLabel="name"
-                                    id="right-{{ it.name }}"
-                                    [showClear]="true"
-                                    [(ngModel)]="it.leftVal"
-                                    (onChange)="checkLeftListItem(it)"
-                                ></p-dropdown>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                <app-list
+                    [value]="t"
+                    [parameters]="parameters"
+                    type="left"
+                ></app-list>
             </div>
         </div>
         <div

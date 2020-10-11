@@ -8,54 +8,109 @@ import { Component, OnInit, Input } from "@angular/core";
 export class ListComponent implements OnInit {
     @Input() value;
     @Input() type;
+    @Input() parameters;
+    dependsOnParameters = [];
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.parameters.forEach((element) => {
+            if (element.type === "dependsOnList") {
+                this.dependsOnParameters.push(element);
+            }
+        });
+    }
     checkRightListItem(item) {
-        // this.rightListItems.forEach((element) => {
-        //     if (element === item.values) {
-        //         this.rightListItems = [];
-        //     }
-        // });
-        // if (item.rightVal.values) {
-        //     this.rightListItems.push(item.values);
-        //     item.values.forEach((val) => {
-        //         if (val.values === item.rightVal.values) {
-        //             val.showRight = true;
-        //         } else {
-        //             val.showRight = false;
-        //             val.rightVal = "";
-        //         }
-        //     });
-        // } else {
-        //     item.values.forEach((val) => {
-        //         val.showRight = false;
-        //         val.rightVal = "";
-        //     });
-        // }
+        if (item.type === "list") {
+            this.parameters.forEach((element) => {
+                if (
+                    element.type === "dependsOnList" &&
+                    element.name === item.rightVal.childrenName
+                ) {
+                    element.showRight = true;
+                } else {
+                    element.showRight = false;
+                }
+            });
+        } else {
+            if (item.rightVal.childrenName) {
+                this.parameters.forEach((element) => {
+                    if (
+                        element.type === "dependsOnList" &&
+                        element.name === item.rightVal.childrenName
+                    ) {
+                        element.showRight = true;
+                    }
+                });
+            } else {
+                item.values.forEach((val) => {
+                    this.parameters.forEach((element) => {
+                        if (
+                            element.type === "dependsOnList" &&
+                            element.name === val.childrenName
+                        ) {
+                            element.showRight = false;
+                            element.rightVal = "";
+                            element.values.forEach((el) => {
+                                if (el.childrenName) {
+                                    this.parameters.forEach((param) => {
+                                        if (param.name === el.childrenName) {
+                                            param.showRight = false;
+                                            param.rightVal = "";
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        }
     }
     checkLeftListItem(item) {
-        // this.leftListItems.forEach((element) => {
-        //     if (element === item.values) {
-        //         this.leftListItems = [];
-        //     }
-        // });
-        // if (item.leftVal.values) {
-        //     this.leftListItems.push(item.values);
-        //     item.values.forEach((val) => {
-        //         if (val.values === item.leftVal.values) {
-        //             val.showLeft = true;
-        //         } else {
-        //             val.showLeft = false;
-        //             val.leftVal = "";
-        //         }
-        //     });
-        // } else {
-        //     this.leftListItems.filter((r) => r !== item.values);
-        //     item.values.forEach((val) => {
-        //         val.showLeft = false;
-        //         val.leftVal = "";
-        //     });
-        // }
+        if (item.type === "list") {
+            this.parameters.forEach((element) => {
+                if (
+                    element.type === "dependsOnList" &&
+                    element.name === item.leftVal.childrenName
+                ) {
+                    element.showLeft = true;
+                } else {
+                    element.showLeft = false;
+                }
+            });
+        } else {
+            if (item.leftVal.childrenName) {
+                this.parameters.forEach((element) => {
+                    if (
+                        element.type === "dependsOnList" &&
+                        element.name === item.leftVal.childrenName
+                    ) {
+                        element.showLeft = true;
+                    }
+                });
+            } else {
+                item.values.forEach((val) => {
+                    this.parameters.forEach((element) => {
+                        if (
+                            element.type === "dependsOnList" &&
+                            element.name === val.childrenName
+                        ) {
+                            element.showLeft = false;
+                            element.leftVal = "";
+                            element.values.forEach((el) => {
+                                if (el.childrenName) {
+                                    this.parameters.forEach((param) => {
+                                        if (param.name === el.childrenName) {
+                                            param.showLeft = false;
+                                            param.leftVal = "";
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        }
     }
 }

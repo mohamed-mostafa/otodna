@@ -29,113 +29,115 @@
                 },
                 {
                     "type": "list",
-                    "name": "Severity",
+                    "name": "Countries",
                     "leftVal": "",
                     "rightVal": "",
                     "required": true,
                     "values": [
                         {
                             "id": 1,
-                            "name": "Severe",
-                            "values": [
-                                { "id": 1, "name": "New Severe 1" },
-                                { "id": 2, "name": "New Severe 2" },
-                                {
-                                    "id": 3,
-                                    "name": "New Severe 3",
-                                    "values": [
-                                        {
-                                            "id": 1,
-                                            "name": 1,
-                                            "values": [
-                                                { "id": 1, "name": 10 },
-                                                { "id": 2, "name": 20 },
-                                                { "id": 3, "name": 30 }
-                                            ],
-                                            "showRight": false,
-                                            "showLeft": false,
-                                            "leftVal": "",
-                                            "rightVal": ""
-                                        },
-                                        { "id": 2, "name": 2 },
-                                        { "id": 3, "name": 3 }
-                                    ],
-                                    "showRight": false,
-                                    "showLeft": false,
-                                    "leftVal": "",
-                                    "rightVal": ""
-                                }
-                            ],
-                            "showRight": false,
-                            "showLeft": false,
-                            "leftVal": "",
-                            "rightVal": ""
+                            "name": "Egypt",
+                            "childrenName": "egyptCities"
                         },
                         {
                             "id": 2,
-                            "name": "Moderate",
-                            "values": [
-                                { "id": 1, "name": "New Moderate 1" },
-                                { "id": 2, "name": "New Moderate 2" },
-                                { "id": 3, "name": "New Moderate 3" }
-                            ],
-                            "showRight": false,
-                            "showLeft": false,
-                            "leftVal": "",
-                            "rightVal": ""
+                            "name": "Germany"
                         },
                         {
                             "id": 3,
-                            "name": "Mild"
+                            "name": "France",
+                            "childrenName": "franceCities"
                         }
                     ]
                 },
                 {
                     "type": "dependsOnList",
-                    "name": "new List",
-                    "dependsOn": "Severity",
-                    "dependOnValue": "Severe",
+                    "name": "egyptCities",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
                     "rightVal": "",
-                    "required": true,
                     "values": [
-                        { "id": 1, "name": "New Severe" },
-                        { "id": 2, "name": "New Moderate" },
-                        { "id": 3, "name": "New Mild" }
+                        {
+                            "id": 1,
+                            "name": "Cairo"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Giza",
+                            "childrenName": "gizaRegions"
+                        },
+                        {
+                            "id": 3,
+                            "name": "Alex"
+                        }
                     ]
                 },
                 {
                     "type": "dependsOnList",
-                    "name": "new List 2",
-                    "dependsOn": "Severity",
-                    "dependOnValue": "Moderate",
+                    "name": "franceCities",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
                     "rightVal": "",
-                    "required": true,
                     "values": [
-                        { "id": 1, "name": "New S" },
-                        { "id": 2, "name": "New M" },
-                        { "id": 3, "name": "New Mi" }
+                        {
+                            "id": 1,
+                            "name": "Paris"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Lyon"
+                        },
+                        {
+                            "id": 3,
+                            "name": "Nice"
+                        }
                     ]
                 },
                 {
                     "type": "dependsOnList",
-                    "name": "Gedid",
-                    "dependsOn": "new List",
-                    "dependOnValue": "New Mild",
+                    "name": "gizaRegions",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
                     "rightVal": "",
-                    "required": true,
                     "values": [
-                        { "id": 1, "name": 1 },
-                        { "id": 2, "name": 2 },
-                        { "id": 3, "name": 4 }
+                        {
+                            "id": 1,
+                            "name": "6 October",
+                            "childrenName": "octoberRegions"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Al Haram"
+                        },
+                        {
+                            "id": 3,
+                            "name": "Imbaba"
+                        }
+                    ]
+                },
+                {
+                    "type": "dependsOnList",
+                    "name": "octoberRegions",
+                    "showRight": false,
+                    "showLeft": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "values": [
+                        {
+                            "id": 1,
+                            "name": "Al Hossary"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Al 2ordnya"
+                        },
+                        {
+                            "id": 3,
+                            "name": "AL Amrkya"
+                        }
                     ]
                 },
                 {

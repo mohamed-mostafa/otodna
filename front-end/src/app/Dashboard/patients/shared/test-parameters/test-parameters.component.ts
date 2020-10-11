@@ -37,8 +37,6 @@ export class TestParametersComponent implements OnInit {
     leftCellsData = [];
     rightPointStyles = [];
     leftPointStyles = [];
-    rightListItems = [];
-    leftListItems = [];
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
@@ -236,53 +234,6 @@ export class TestParametersComponent implements OnInit {
                     this.leftGraphValues.push(null);
                     this.leftPointStyles.push(null);
                 }
-            });
-        }
-    }
-    checkRightListItem(item) {
-        this.rightListItems.forEach((element) => {
-            if (element === item.values) {
-                this.rightListItems = [];
-            }
-        });
-        if (item.rightVal.values) {
-            this.rightListItems.push(item.values);
-            item.values.forEach((val) => {
-                if (val.values === item.rightVal.values) {
-                    val.showRight = true;
-                } else {
-                    val.showRight = false;
-                    val.rightVal = "";
-                }
-            });
-        } else {
-            item.values.forEach((val) => {
-                val.showRight = false;
-                val.rightVal = "";
-            });
-        }
-    }
-    checkLeftListItem(item) {
-        this.leftListItems.forEach((element) => {
-            if (element === item.values) {
-                this.leftListItems = [];
-            }
-        });
-        if (item.leftVal.values) {
-            this.leftListItems.push(item.values);
-            item.values.forEach((val) => {
-                if (val.values === item.leftVal.values) {
-                    val.showLeft = true;
-                } else {
-                    val.showLeft = false;
-                    val.leftVal = "";
-                }
-            });
-        } else {
-            this.leftListItems.filter((r) => r !== item.values);
-            item.values.forEach((val) => {
-                val.showLeft = false;
-                val.leftVal = "";
             });
         }
     }

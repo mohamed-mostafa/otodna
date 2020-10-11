@@ -1,22 +1,68 @@
 <ng-container *ngIf="type === 'right'; else elseTemplate">
-    <p-dropdown
-        [options]="value.values"
-        placeholder="Select Value"
-        optionLabel="name"
-        id="right-{{ value.name }}"
-        [showClear]="true"
-        [(ngModel)]="value.rightVal"
-        (onChange)="checkRightListItem(value)"
-    ></p-dropdown>
+    <div class="ui-g-12 ui-md-11">
+        <label for="right-{{ value.name }}"> {{ value.name }}</label>
+        <div class="ui-inputgroup labelMarginTop">
+            <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
+            <p-dropdown
+                [options]="value.values"
+                placeholder="Select Value"
+                optionLabel="name"
+                id="right-{{ value.name }}"
+                [showClear]="true"
+                [(ngModel)]="value.rightVal"
+                (onChange)="checkRightListItem(value)"
+            ></p-dropdown>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-11" *ngFor="let param of dependsOnParameters">
+        <div *ngIf="param.type === 'dependsOnList' && param.showRight === true">
+            <label for="right-{{ param.name }}"> {{ param.name }}</label>
+            <div class="ui-inputgroup labelMarginTop">
+                <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
+                <p-dropdown
+                    [options]="param.values"
+                    placeholder="Select Value"
+                    optionLabel="name"
+                    id="right-{{ param.name }}"
+                    [showClear]="true"
+                    [(ngModel)]="param.rightVal"
+                    (onChange)="checkRightListItem(param)"
+                ></p-dropdown>
+            </div>
+        </div>
+    </div>
 </ng-container>
 <ng-template #elseTemplate>
-    <p-dropdown
-        [options]="value.values"
-        placeholder="Select Value"
-        optionLabel="name"
-        id="left-{{ value.name }}"
-        [showClear]="true"
-        [(ngModel)]="value.leftVal"
-        (onChange)="checkRightListItem(value)"
-    ></p-dropdown>
+    <div class="ui-g-12 ui-md-11">
+        <label for="right-{{ value.name }}"> {{ value.name }}</label>
+        <div class="ui-inputgroup labelMarginTop">
+            <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
+            <p-dropdown
+                [options]="value.values"
+                placeholder="Select Value"
+                optionLabel="name"
+                id="right-{{ value.name }}"
+                [showClear]="true"
+                [(ngModel)]="value.leftVal"
+                (onChange)="checkLeftListItem(value)"
+            ></p-dropdown>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-11" *ngFor="let param of dependsOnParameters">
+        <div *ngIf="param.type === 'dependsOnList' && param.showLeft === true">
+            <label for="right-{{ param.name }}"> {{ param.name }}</label>
+            <div class="ui-inputgroup labelMarginTop">
+                <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
+                <p-dropdown
+                    [options]="param.values"
+                    placeholder="Select Value"
+                    optionLabel="name"
+                    id="right-{{ param.name }}"
+                    [showClear]="true"
+                    [(ngModel)]="param.leftVal"
+                    (onChange)="checkLeftListItem(param)"
+                ></p-dropdown>
+            </div>
+        </div>
+    </div>
 </ng-template>
