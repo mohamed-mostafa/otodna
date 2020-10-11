@@ -9,51 +9,53 @@ export class ListComponent implements OnInit {
     @Input() value;
     @Input() type;
     @Input() parameters;
-    dependsOnParameters = [];
+    listParameters = [];
     constructor() {}
 
     ngOnInit(): void {
         this.parameters.forEach((element) => {
-            if (element.type === "dependsOnList") {
-                this.dependsOnParameters.push(element);
+            if (element.type === "list" && element.conditional) {
+                this.listParameters.push(element);
             }
         });
     }
     checkRightListItem(item) {
-        if (item.type === "list") {
-            this.parameters.forEach((element) => {
-                if (
-                    element.type === "dependsOnList" &&
-                    element.name === item.rightVal.childrenName
-                ) {
+        if (!item.conditional) {
+            this.listParameters.forEach((element) => {
+                if (element.name === item.rightVal.conditionalParameterName) {
                     element.showRight = true;
                 } else {
                     element.showRight = false;
+                    element.rightVal = "";
                 }
             });
         } else {
-            if (item.rightVal.childrenName) {
-                this.parameters.forEach((element) => {
+            if (item.rightVal.conditionalParameterName) {
+                this.listParameters.forEach((element) => {
                     if (
-                        element.type === "dependsOnList" &&
-                        element.name === item.rightVal.childrenName
+                        element.name ===
+                            item.rightVal.conditionalParameterName &&
+                        element.conditional
                     ) {
                         element.showRight = true;
                     }
                 });
             } else {
                 item.values.forEach((val) => {
-                    this.parameters.forEach((element) => {
+                    this.listParameters.forEach((element) => {
                         if (
-                            element.type === "dependsOnList" &&
-                            element.name === val.childrenName
+                            element.name === val.conditionalParameterName &&
+                            element.conditional
                         ) {
                             element.showRight = false;
                             element.rightVal = "";
                             element.values.forEach((el) => {
-                                if (el.childrenName) {
-                                    this.parameters.forEach((param) => {
-                                        if (param.name === el.childrenName) {
+                                if (el.conditionalParameterName) {
+                                    this.listParameters.forEach((param) => {
+                                        if (
+                                            param.name ===
+                                            el.conditionalParameterName
+                                        ) {
                                             param.showRight = false;
                                             param.rightVal = "";
                                         }
@@ -67,40 +69,42 @@ export class ListComponent implements OnInit {
         }
     }
     checkLeftListItem(item) {
-        if (item.type === "list") {
-            this.parameters.forEach((element) => {
-                if (
-                    element.type === "dependsOnList" &&
-                    element.name === item.leftVal.childrenName
-                ) {
+        if (!item.conditional) {
+            this.listParameters.forEach((element) => {
+                if (element.name === item.leftVal.conditionalParameterName) {
                     element.showLeft = true;
                 } else {
                     element.showLeft = false;
+                    element.leftVal = "";
                 }
             });
         } else {
-            if (item.leftVal.childrenName) {
-                this.parameters.forEach((element) => {
+            if (item.leftVal.conditionalParameterName) {
+                this.listParameters.forEach((element) => {
                     if (
-                        element.type === "dependsOnList" &&
-                        element.name === item.leftVal.childrenName
+                        element.name ===
+                            item.leftVal.conditionalParameterName &&
+                        element.conditional
                     ) {
                         element.showLeft = true;
                     }
                 });
             } else {
                 item.values.forEach((val) => {
-                    this.parameters.forEach((element) => {
+                    this.listParameters.forEach((element) => {
                         if (
-                            element.type === "dependsOnList" &&
-                            element.name === val.childrenName
+                            element.name === val.conditionalParameterName &&
+                            element.conditional
                         ) {
                             element.showLeft = false;
                             element.leftVal = "";
                             element.values.forEach((el) => {
-                                if (el.childrenName) {
-                                    this.parameters.forEach((param) => {
-                                        if (param.name === el.childrenName) {
+                                if (el.conditionalParameterName) {
+                                    this.listParameters.forEach((param) => {
+                                        if (
+                                            param.name ===
+                                            el.conditionalParameterName
+                                        ) {
                                             param.showLeft = false;
                                             param.leftVal = "";
                                         }

@@ -102,7 +102,7 @@
         </div>
         <div
             class="ui-g-12 ui-md-12 removeMarginAndPadding"
-            *ngIf="t.type === 'list'"
+            *ngIf="t.type === 'list' && !t.conditional"
         >
             <div class="ui-g-12 ui-md-6 rightVerticalLine">
                 <app-list

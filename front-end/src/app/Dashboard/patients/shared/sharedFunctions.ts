@@ -169,23 +169,6 @@ export class SharedClass {
                                 (val) => val.name === item.value
                             );
                             element.leftVal = found[0];
-                        }
-                        if (item.ear === "right") {
-                            const found = element.values.filter(
-                                (val) => val.name === item.value
-                            );
-                            element.rightVal = found[0];
-                        }
-                    }
-                    if (
-                        element.name === item.parameterName &&
-                        element.type === "dependsOnList"
-                    ) {
-                        if (item.ear === "left") {
-                            const found = element.values.filter(
-                                (val) => val.name === item.value
-                            );
-                            element.leftVal = found[0];
                             element.showLeft = true;
                         }
                         if (item.ear === "right") {

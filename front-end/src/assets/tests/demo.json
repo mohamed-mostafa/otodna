@@ -30,6 +30,7 @@
                 {
                     "type": "list",
                     "name": "Countries",
+                    "conditional": false,
                     "leftVal": "",
                     "rightVal": "",
                     "required": true,
@@ -37,7 +38,7 @@
                         {
                             "id": 1,
                             "name": "Egypt",
-                            "childrenName": "egyptCities"
+                            "conditionalParameterName": "egyptCities"
                         },
                         {
                             "id": 2,
@@ -46,12 +47,13 @@
                         {
                             "id": 3,
                             "name": "France",
-                            "childrenName": "franceCities"
+                            "conditionalParameterName": "franceCities"
                         }
                     ]
                 },
                 {
-                    "type": "dependsOnList",
+                    "type": "list",
+                    "conditional": true,
                     "name": "egyptCities",
                     "showRight": false,
                     "showLeft": false,
@@ -65,7 +67,7 @@
                         {
                             "id": 2,
                             "name": "Giza",
-                            "childrenName": "gizaRegions"
+                            "conditionalParameterName": "gizaRegions"
                         },
                         {
                             "id": 3,
@@ -74,7 +76,8 @@
                     ]
                 },
                 {
-                    "type": "dependsOnList",
+                    "type": "list",
+                    "conditional": true,
                     "name": "franceCities",
                     "showRight": false,
                     "showLeft": false,
@@ -96,7 +99,8 @@
                     ]
                 },
                 {
-                    "type": "dependsOnList",
+                    "type": "list",
+                    "conditional": true,
                     "name": "gizaRegions",
                     "showRight": false,
                     "showLeft": false,
@@ -106,7 +110,7 @@
                         {
                             "id": 1,
                             "name": "6 October",
-                            "childrenName": "octoberRegions"
+                            "conditionalParameterName": "octoberRegions"
                         },
                         {
                             "id": 2,
@@ -119,7 +123,8 @@
                     ]
                 },
                 {
-                    "type": "dependsOnList",
+                    "type": "list",
+                    "conditional": true,
                     "name": "octoberRegions",
                     "showRight": false,
                     "showLeft": false,

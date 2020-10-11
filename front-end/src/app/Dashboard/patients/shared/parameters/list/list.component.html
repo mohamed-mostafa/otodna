@@ -14,8 +14,8 @@
             ></p-dropdown>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-11" *ngFor="let param of dependsOnParameters">
-        <div *ngIf="param.type === 'dependsOnList' && param.showRight === true">
+    <div class="ui-g-12 ui-md-11" *ngFor="let param of listParameters">
+        <div *ngIf="param.showRight">
             <label for="right-{{ param.name }}"> {{ param.name }}</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
@@ -48,8 +48,8 @@
             ></p-dropdown>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-11" *ngFor="let param of dependsOnParameters">
-        <div *ngIf="param.type === 'dependsOnList' && param.showLeft === true">
+    <div class="ui-g-12 ui-md-11" *ngFor="let param of listParameters">
+        <div *ngIf="param.showLeft">
             <label for="right-{{ param.name }}"> {{ param.name }}</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
