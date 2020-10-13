@@ -14,35 +14,7 @@ export class ListComponent implements OnInit {
     notConditional = [];
     constructor() {}
 
-    ngOnInit(): void {
-        this.loadData();
-        console.log(this.parameters);
-    }
-    loadData() {
-        // setTimeout(() => {
-        //     this.parameters.forEach((e) => {
-        //         if (e.type === "list" && e.conditional && e.showRight) {
-        //             this.checkRightListItem(e);
-        //         }
-        //     });
-        // }, 100);
-        // this.parameters.forEach((element) => {
-        //     if (
-        //         element.type === "list" &&
-        //         element.showRight &&
-        //         element.conditional
-        //     ) {
-        //         this.checkRightListItem(element);
-        //     }
-        //     if (
-        //         element.type === "list" &&
-        //         element.showLeft &&
-        //         element.conditional
-        //     ) {
-        //         this.checkLeftListItem(element);
-        //     }
-        // });
-    }
+    ngOnInit(): void {}
     checkRightListItem(item) {
         if (
             item.rightVal.conditionalParameterName &&
