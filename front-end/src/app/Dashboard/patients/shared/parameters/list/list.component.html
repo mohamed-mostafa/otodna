@@ -14,7 +14,7 @@
             ></p-dropdown>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-11" *ngFor="let param of listParameters">
+    <div class="ui-g-12 ui-md-11" *ngFor="let param of rightListParameters">
         <div *ngIf="param.showRight">
             <label for="right-{{ param.name }}"> {{ param.name }}</label>
             <div class="ui-inputgroup labelMarginTop">
@@ -48,7 +48,7 @@
             ></p-dropdown>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-11" *ngFor="let param of listParameters">
+    <div class="ui-g-12 ui-md-11" *ngFor="let param of leftListParameters">
         <div *ngIf="param.showLeft">
             <label for="right-{{ param.name }}"> {{ param.name }}</label>
             <div class="ui-inputgroup labelMarginTop">

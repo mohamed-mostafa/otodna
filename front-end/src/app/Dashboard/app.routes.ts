@@ -1,3 +1,4 @@
+import { RadioComponent } from "./patients/shared/parameters/radio/radio.component";
 import { TextareaComponent } from "./patients/shared/parameters/textarea/textarea.component";
 import { ListWithImageComponent } from "./patients/shared/parameters/list-with-image/list-with-image.component";
 import { ListComponent } from "./patients/shared/parameters/list/list.component";
@@ -175,6 +176,7 @@ export const COMPONENTS = [
     ListComponent,
     ListWithImageComponent,
     TextareaComponent,
+    RadioComponent,
 ];
 @NgModule({
     exports: [RouterModule],

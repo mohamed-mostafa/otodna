@@ -245,7 +245,11 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
             AllData.push(rightObj);
           }
         }
-        if (item.type === 'number' || item.type === 'text') {
+        if (
+          item.type === 'number' ||
+          item.type === 'text' ||
+          item.type === 'radio'
+        ) {
           if (item.leftVal) {
             let leftObj: any = {
               parameterName: item.name,

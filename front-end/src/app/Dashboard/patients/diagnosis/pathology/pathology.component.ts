@@ -372,35 +372,40 @@ export class PathologyComponent implements OnInit {
             .getTestParametersValues(test.id)
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
-                    this.showSaveButton = false;
-                    this.selectedTestData[0].id = test.id;
-                    let parameters = this.selectedTestData[0].parameters;
-                    if (parameters && parameters.length > 0) {
-                        parameters = await this.sharedClass.handleTestData(
-                            result,
-                            parameters
-                        );
-                        await this.checkForImagesAndFiles(test);
-                        const found = parameters.some(
-                            (param) => param.type === "graph"
-                        );
-                        if (found) {
-                            parameters.forEach((p) => {
-                                if (p.type === "table") {
-                                    this.testParameterComponent.drawRightGraph(
-                                        p.cells,
-                                        p.name,
-                                        p.color,
-                                        p.pointStyle
-                                    );
-                                    this.testParameterComponent.drawLeftGraph(
-                                        p.cells,
-                                        p.name,
-                                        p.color,
-                                        p.pointStyle
-                                    );
-                                }
-                            });
+                    if (
+                        this.selectedTestData &&
+                        this.selectedTestData.length > 0
+                    ) {
+                        this.showSaveButton = false;
+                        this.selectedTestData[0].id = test.id;
+                        let parameters = this.selectedTestData[0].parameters;
+                        if (parameters && parameters.length > 0) {
+                            parameters = await this.sharedClass.handleTestData(
+                                result,
+                                parameters
+                            );
+                            await this.checkForImagesAndFiles(test);
+                            const found = parameters.some(
+                                (param) => param.type === "graph"
+                            );
+                            if (found) {
+                                parameters.forEach((p) => {
+                                    if (p.type === "table") {
+                                        this.testParameterComponent.drawRightGraph(
+                                            p.cells,
+                                            p.name,
+                                            p.color,
+                                            p.pointStyle
+                                        );
+                                        this.testParameterComponent.drawLeftGraph(
+                                            p.cells,
+                                            p.name,
+                                            p.color,
+                                            p.pointStyle
+                                        );
+                                    }
+                                });
+                            }
                         }
                     }
                     this.displayTest = true;

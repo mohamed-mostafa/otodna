@@ -38,7 +38,7 @@
                         {
                             "id": 1,
                             "name": "Egypt",
-                            "conditionalParameterName": "egyptCities"
+                            "conditionalParameterName": ["egyptCities"]
                         },
                         {
                             "id": 2,
@@ -47,7 +47,7 @@
                         {
                             "id": 3,
                             "name": "France",
-                            "conditionalParameterName": "franceCities"
+                            "conditionalParameterName": ["franceCities"]
                         }
                     ]
                 },
@@ -67,7 +67,7 @@
                         {
                             "id": 2,
                             "name": "Giza",
-                            "conditionalParameterName": "gizaRegions"
+                            "conditionalParameterName": ["gizaRegions"]
                         },
                         {
                             "id": 3,
@@ -110,7 +110,7 @@
                         {
                             "id": 1,
                             "name": "6 October",
-                            "conditionalParameterName": "octoberRegions"
+                            "conditionalParameterName": ["octoberRegions"]
                         },
                         {
                             "id": 2,

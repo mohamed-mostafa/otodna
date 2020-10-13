@@ -1,0 +1,22 @@
+<ng-container *ngIf="type === 'right'; else elseTemplate">
+    <div class="ui-g-12 ui-md-4" *ngFor="let item of value.items">
+        <p-radioButton
+            name="right-{{ item }}"
+            value="right-{{ item }}"
+            [label]="item"
+            [(ngModel)]="value.rightVal"
+            inputId="right-{{ item }}"
+        ></p-radioButton>
+    </div>
+</ng-container>
+<ng-template #elseTemplate>
+    <div class="ui-g-12 ui-md-4" *ngFor="let item of value.items">
+        <p-radioButton
+            name="left-{{ item }}"
+            value="left-{{ item }}"
+            [label]="item"
+            [(ngModel)]="value.leftVal"
+            inputId="left-{{ item }}"
+        ></p-radioButton>
+    </div>
+</ng-template>

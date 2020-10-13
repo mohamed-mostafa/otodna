@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "name": "Tuning Form",
+            "parameters": [
+                {
+                    "type": "text",
+                    "name": "Test",
+                    "maxLength": "100",
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true
+                },
+                {
+                    "type": "radio",
+                    "name": "Rinne",
+                    "items": ["+ve", "-ve", "False -ve"],
+                    "required": true,
+                    "leftVal": "",
+                    "rightVal": ""
+                }
+            ]
+        }
+    ]
+}

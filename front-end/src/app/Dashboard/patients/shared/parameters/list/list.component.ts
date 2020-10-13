@@ -9,55 +9,121 @@ export class ListComponent implements OnInit {
     @Input() value;
     @Input() type;
     @Input() parameters;
-    listParameters = [];
+    rightListParameters = [];
+    leftListParameters = [];
+    notConditional = [];
     constructor() {}
 
     ngOnInit(): void {
-        this.parameters.forEach((element) => {
-            if (element.type === "list" && element.conditional) {
-                this.listParameters.push(element);
-            }
-        });
+        this.loadData();
+        console.log(this.parameters);
+    }
+    loadData() {
+        // setTimeout(() => {
+        //     this.parameters.forEach((e) => {
+        //         if (e.type === "list" && e.conditional && e.showRight) {
+        //             this.checkRightListItem(e);
+        //         }
+        //     });
+        // }, 100);
+        // this.parameters.forEach((element) => {
+        //     if (
+        //         element.type === "list" &&
+        //         element.showRight &&
+        //         element.conditional
+        //     ) {
+        //         this.checkRightListItem(element);
+        //     }
+        //     if (
+        //         element.type === "list" &&
+        //         element.showLeft &&
+        //         element.conditional
+        //     ) {
+        //         this.checkLeftListItem(element);
+        //     }
+        // });
     }
     checkRightListItem(item) {
-        if (!item.conditional) {
-            this.listParameters.forEach((element) => {
-                if (element.name === item.rightVal.conditionalParameterName) {
-                    element.showRight = true;
-                } else {
-                    element.showRight = false;
-                    element.rightVal = "";
-                }
-            });
-        } else {
-            if (item.rightVal.conditionalParameterName) {
-                this.listParameters.forEach((element) => {
-                    if (
-                        element.name ===
-                            item.rightVal.conditionalParameterName &&
-                        element.conditional
-                    ) {
-                        element.showRight = true;
+        if (
+            item.rightVal.conditionalParameterName &&
+            item.rightVal.conditionalParameterName.length > 0
+        ) {
+            item.rightVal.conditionalParameterName.forEach((r) => {
+                this.parameters.forEach((param) => {
+                    if (r === param.name) {
+                        this.rightListParameters.push(param);
                     }
+                });
+            });
+        }
+        if (!item.conditional) {
+            if (
+                item.rightVal.conditionalParameterName &&
+                item.rightVal.conditionalParameterName.length > 0
+            ) {
+                item.rightVal.conditionalParameterName.forEach((right) => {
+                    this.rightListParameters.forEach((element) => {
+                        if (element.name === right) {
+                            element.showRight = true;
+                        } else {
+                            let res = item.rightVal.conditionalParameterName.some(
+                                (r) => r === element.name
+                            );
+                            if (!res) {
+                                element.showRight = false;
+                                element.rightVal = "";
+                            }
+                        }
+                    });
+                });
+            }
+        } else {
+            if (
+                item.rightVal.conditionalParameterName &&
+                item.rightVal.conditionalParameterName.length > 0
+            ) {
+                this.rightListParameters.forEach((element) => {
+                    item.rightVal.conditionalParameterName.forEach((right) => {
+                        if (element.name === right && element.conditional) {
+                            element.showRight = true;
+                        }
+                    });
                 });
             } else {
                 item.values.forEach((val) => {
-                    this.listParameters.forEach((element) => {
+                    this.rightListParameters.forEach((element) => {
                         if (
-                            element.name === val.conditionalParameterName &&
-                            element.conditional
+                            val.conditionalParameterName &&
+                            val.conditionalParameterName.length > 0
                         ) {
-                            element.showRight = false;
-                            element.rightVal = "";
-                            element.values.forEach((el) => {
-                                if (el.conditionalParameterName) {
-                                    this.listParameters.forEach((param) => {
+                            val.conditionalParameterName.forEach((right) => {
+                                if (
+                                    element.name === right &&
+                                    element.conditional
+                                ) {
+                                    element.showRight = false;
+                                    element.rightVal = "";
+                                    element.values.forEach((el) => {
                                         if (
-                                            param.name ===
-                                            el.conditionalParameterName
+                                            el.conditionalParameterName &&
+                                            el.conditionalParameterName.length >
+                                                0
                                         ) {
-                                            param.showRight = false;
-                                            param.rightVal = "";
+                                            this.rightListParameters.forEach(
+                                                (param) => {
+                                                    el.conditionalParameterName.forEach(
+                                                        (e) => {
+                                                            if (
+                                                                param.name === e
+                                                            ) {
+                                                                param.showRight = false;
+                                                                param.rightVal =
+                                                                    "";
+                                                            }
+                                                        }
+                                                    );
+                                                }
+                                            );
                                         }
                                     });
                                 }
@@ -69,44 +135,86 @@ export class ListComponent implements OnInit {
         }
     }
     checkLeftListItem(item) {
-        if (!item.conditional) {
-            this.listParameters.forEach((element) => {
-                if (element.name === item.leftVal.conditionalParameterName) {
-                    element.showLeft = true;
-                } else {
-                    element.showLeft = false;
-                    element.leftVal = "";
-                }
-            });
-        } else {
-            if (item.leftVal.conditionalParameterName) {
-                this.listParameters.forEach((element) => {
-                    if (
-                        element.name ===
-                            item.leftVal.conditionalParameterName &&
-                        element.conditional
-                    ) {
-                        element.showLeft = true;
+        if (
+            item.leftVal.conditionalParameterName &&
+            item.leftVal.conditionalParameterName.length > 0
+        ) {
+            item.leftVal.conditionalParameterName.forEach((r) => {
+                this.parameters.forEach((param) => {
+                    if (r === param.name) {
+                        this.leftListParameters.push(param);
                     }
+                });
+            });
+        }
+        if (!item.conditional) {
+            if (
+                item.leftVal.conditionalParameterName &&
+                item.leftVal.conditionalParameterName.length > 0
+            ) {
+                item.leftVal.conditionalParameterName.forEach((right) => {
+                    this.leftListParameters.forEach((element) => {
+                        if (element.name === right) {
+                            element.showLeft = true;
+                        } else {
+                            let res = item.leftVal.conditionalParameterName.some(
+                                (r) => r === element.name
+                            );
+                            if (!res) {
+                                element.showLeft = false;
+                                element.leftVal = "";
+                            }
+                        }
+                    });
+                });
+            }
+        } else {
+            if (
+                item.leftVal.conditionalParameterName &&
+                item.leftVal.conditionalParameterName.length > 0
+            ) {
+                this.leftListParameters.forEach((element) => {
+                    item.leftVal.conditionalParameterName.forEach((left) => {
+                        if (element.name === left && element.conditional) {
+                            element.showLeft = true;
+                        }
+                    });
                 });
             } else {
                 item.values.forEach((val) => {
-                    this.listParameters.forEach((element) => {
+                    this.leftListParameters.forEach((element) => {
                         if (
-                            element.name === val.conditionalParameterName &&
-                            element.conditional
+                            val.conditionalParameterName &&
+                            val.conditionalParameterName.length > 0
                         ) {
-                            element.showLeft = false;
-                            element.leftVal = "";
-                            element.values.forEach((el) => {
-                                if (el.conditionalParameterName) {
-                                    this.listParameters.forEach((param) => {
+                            val.conditionalParameterName.forEach((left) => {
+                                if (
+                                    element.name === left &&
+                                    element.conditional
+                                ) {
+                                    element.showLeft = false;
+                                    element.leftVal = "";
+                                    element.values.forEach((el) => {
                                         if (
-                                            param.name ===
-                                            el.conditionalParameterName
+                                            el.conditionalParameterName &&
+                                            el.conditionalParameterName.length >
+                                                0
                                         ) {
-                                            param.showLeft = false;
-                                            param.leftVal = "";
+                                            this.leftListParameters.forEach(
+                                                (param) => {
+                                                    el.conditionalParameterName.forEach(
+                                                        (e) => {
+                                                            if (
+                                                                param.name === e
+                                                            ) {
+                                                                param.showLeft = false;
+                                                                param.leftVal =
+                                                                    "";
+                                                            }
+                                                        }
+                                                    );
+                                                }
+                                            );
                                         }
                                     });
                                 }

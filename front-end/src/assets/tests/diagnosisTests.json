@@ -146,6 +146,24 @@
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
+        },
+        {
+            "testId": "tuning_fork",
+            "testName": "Tuning Fork",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
+        },
+        {
+            "testId": "otoscope_or_endoscope",
+            "testName": "Otoscope Or Endoscope",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
         }
     ]
 }
