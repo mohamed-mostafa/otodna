@@ -65,6 +65,31 @@ export class TestParametersComponent implements OnInit {
                 };
             }
         });
+        this.loadTableGraphData();
+    }
+    loadTableGraphData() {
+        this.parameters.forEach((element) => {
+            if (element.type === "table") {
+                this.drawRightGraph(
+                    element.cells,
+                    element.name,
+                    element.color,
+                    element.rightPointStyle,
+                    element.cellType === "numberWithCheckbox"
+                        ? element.noResponseRightPointStyle
+                        : null
+                );
+                this.drawLeftGraph(
+                    element.cells,
+                    element.name,
+                    element.color,
+                    element.leftPointStyle,
+                    element.cellType === "numberWithCheckbox"
+                        ? element.noResponseRightPointStyle
+                        : null
+                );
+            }
+        });
     }
     async previewRightImage(event) {
         this.rightImage = event.currentFiles;

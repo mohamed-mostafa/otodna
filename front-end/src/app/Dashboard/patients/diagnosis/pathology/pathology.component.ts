@@ -325,27 +325,31 @@ export class PathologyComponent implements OnInit {
             });
     }
     openTest(test) {
-        this.selected = test;
-        this.savedRightFiles = [];
-        this.savedLeftFiles = [];
-        this.savedLeftImage = [];
-        this.savedRightImage = [];
-        this.pathologyService.getTest(test.deseaseId).then(
-            (res) => {
-                this.selectedTestData = res;
-                this.showTests = false;
-                this.dialogHeader = res.map((r) => r.name);
-            },
-            (err) => {
-                if (this.showTests) {
-                    test.patientSessionId = this.selectedSession.id;
-                    this.saveWithoutParams(test);
-                } else {
-                    this.showTests = true;
-                    return false;
+        return new Promise((resolve, reject) => {
+            this.selected = test;
+            this.savedRightFiles = [];
+            this.savedLeftFiles = [];
+            this.savedLeftImage = [];
+            this.savedRightImage = [];
+            this.pathologyService.getTest(test.deseaseId).then(
+                (res) => {
+                    this.selectedTestData = res;
+                    this.showTests = false;
+                    this.dialogHeader = res.map((r) => r.name);
+                    resolve(this.selectedTestData);
+                },
+                (err) => {
+                    if (this.showTests) {
+                        test.patientSessionId = this.selectedSession.id;
+                        this.saveWithoutParams(test);
+                        resolve();
+                    } else {
+                        this.showTests = true;
+                        reject(false);
+                    }
                 }
-            }
-        );
+            );
+        });
     }
     saveWithoutParams(test) {
         delete test.departments;
@@ -366,7 +370,7 @@ export class PathologyComponent implements OnInit {
         this.savedLeftFiles = [];
         this.savedLeftImage = [];
         this.savedRightImage = [];
-        this.showTests = false;
+        this.showTests = true;
         this.spinner.show();
         this.pathologyService
             .getTestParametersValues(test.id)
@@ -385,30 +389,10 @@ export class PathologyComponent implements OnInit {
                                 parameters
                             );
                             await this.checkForImagesAndFiles(test);
-                            const found = parameters.some(
-                                (param) => param.type === "graph"
-                            );
-                            if (found) {
-                                parameters.forEach((p) => {
-                                    if (p.type === "table") {
-                                        this.testParameterComponent.drawRightGraph(
-                                            p.cells,
-                                            p.name,
-                                            p.color,
-                                            p.pointStyle
-                                        );
-                                        this.testParameterComponent.drawLeftGraph(
-                                            p.cells,
-                                            p.name,
-                                            p.color,
-                                            p.pointStyle
-                                        );
-                                    }
-                                });
-                            }
+                            this.showTests = false;
+                            this.displayTest = true;
                         }
                     }
-                    this.displayTest = true;
                     this.cdref.detectChanges();
                 } else {
                     this.showTests = true;

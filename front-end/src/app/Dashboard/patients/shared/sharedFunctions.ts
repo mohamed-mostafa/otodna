@@ -218,7 +218,6 @@ export class SharedClass {
                     }
                 }
             }
-
             resolve(parameters);
         });
     }

@@ -15,6 +15,8 @@ export class ListComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
+        this.checkRightListItem(this.value);
+        this.checkLeftListItem(this.value);
     }
     checkRightListItem(item) {
         if (

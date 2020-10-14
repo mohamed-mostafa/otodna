@@ -389,27 +389,31 @@ export class TreatmentTestsComponent implements OnInit {
         });
     }
     openTest(treatment) {
-        this.selected = treatment;
-        this.savedRightFiles = [];
-        this.savedLeftFiles = [];
-        this.savedLeftImage = [];
-        this.savedRightImage = [];
-        this.treatmentService.getTreatmentTest(treatment.treatmentId).then(
-            (res) => {
-                this.selectedTestData = res;
-                this.showTests = false;
-                this.dialogHeader = res.map((r) => r.name);
-            },
-            (err) => {
-                if (this.showTests) {
-                    treatment.patientSessionId = this.selectedSession.id;
-                    this.saveWithoutParams(treatment);
-                } else {
-                    this.showTests = true;
-                    return false;
+        return new Promise((resolve, reject) => {
+            this.selected = treatment;
+            this.savedRightFiles = [];
+            this.savedLeftFiles = [];
+            this.savedLeftImage = [];
+            this.savedRightImage = [];
+            this.treatmentService.getTreatmentTest(treatment.treatmentId).then(
+                (res) => {
+                    this.selectedTestData = res;
+                    this.showTests = false;
+                    this.dialogHeader = res.map((r) => r.name);
+                    resolve(this.selectedTestData);
+                },
+                (err) => {
+                    if (this.showTests) {
+                        treatment.patientSessionId = this.selectedSession.id;
+                        this.saveWithoutParams(treatment);
+                        resolve();
+                    } else {
+                        this.showTests = true;
+                        reject(false);
+                    }
                 }
-            }
-        );
+            );
+        });
     }
     saveWithoutParams(treatment) {
         delete treatment.departments;
@@ -480,7 +484,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.savedLeftFiles = [];
         this.savedLeftImage = [];
         this.savedRightImage = [];
-        this.showTests = false;
+        this.showTests = true;
         this.spinner.show();
         this.treatmentService
             .getSessionTreatmentEquipment(treatment.id)
@@ -497,38 +501,23 @@ export class TreatmentTestsComponent implements OnInit {
             .getTestParametersValues(treatment.id)
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
-                    this.showSaveButton = false;
-                    this.selectedTestData[0].id = treatment.id;
-                    let parameters = this.selectedTestData[0].parameters;
-                    if (parameters && parameters.length > 0) {
-                        parameters = await this.sharedClass.handleTestData(
-                            result,
-                            parameters
-                        );
-                        await this.checkForImagesAndFiles(treatment);
-                        const found = parameters.some(
-                            (param) => param.type === "graph"
-                        );
-                        if (found) {
-                            parameters.forEach((p) => {
-                                if (p.type === "table") {
-                                    this.testParameterComponent.drawRightGraph(
-                                        p.cells,
-                                        p.name,
-                                        p.color,
-                                        p.pointStyle
-                                    );
-                                    this.testParameterComponent.drawLeftGraph(
-                                        p.cells,
-                                        p.name,
-                                        p.color,
-                                        p.pointStyle
-                                    );
-                                }
-                            });
+                    if (
+                        this.selectedTestData &&
+                        this.selectedTestData.length > 0
+                    ) {
+                        this.showSaveButton = false;
+                        this.selectedTestData[0].id = treatment.id;
+                        let parameters = this.selectedTestData[0].parameters;
+                        if (parameters && parameters.length > 0) {
+                            parameters = await this.sharedClass.handleTestData(
+                                result,
+                                parameters
+                            );
+                            await this.checkForImagesAndFiles(treatment);
+                            this.showTests = false;
+                            this.displayTest = true;
                         }
                     }
-                    this.displayTest = true;
                     this.cdref.detectChanges();
                 } else {
                     this.showTests = true;

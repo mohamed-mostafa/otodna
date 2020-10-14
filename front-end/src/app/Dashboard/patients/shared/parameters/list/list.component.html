@@ -1,5 +1,5 @@
 <ng-container *ngIf="type === 'right'; else elseTemplate">
-    <div class="ui-g-12 ui-md-11">
+    <div class="ui-g-12 ui-md-11 minusMargin">
         <label for="right-{{ value.name }}"> {{ value.name }}</label>
         <div class="ui-inputgroup labelMarginTop">
             <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
@@ -25,7 +25,7 @@
     </div>
 </ng-container>
 <ng-template #elseTemplate>
-    <div class="ui-g-12 ui-md-11">
+    <div class="ui-g-12 ui-md-11 minusMargin">
         <label for="right-{{ value.name }}"> {{ value.name }}</label>
         <div class="ui-inputgroup labelMarginTop">
             <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
@@ -40,7 +40,7 @@
             ></p-dropdown>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-11" *ngFor="let param of leftListParameters">
+    <div class="ui-g-12 ui-md-12" *ngFor="let param of leftListParameters">
         <div *ngIf="param.showLeft">
             <app-list
                 [value]="param"
