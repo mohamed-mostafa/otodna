@@ -169,9 +169,6 @@ export class SharedClass {
                             );
                             element.leftVal = found[0];
                             element.showLeft = true;
-                            if (element.conditional) {
-                                element.showConditional = true;
-                            }
                         }
                         if (item.ear === "right") {
                             const found = element.values.filter(
@@ -179,9 +176,6 @@ export class SharedClass {
                             );
                             element.rightVal = found[0];
                             element.showRight = true;
-                            if (element.conditional) {
-                                element.showConditional = true;
-                            }
                         }
                     }
                     if (
@@ -224,6 +218,7 @@ export class SharedClass {
                     }
                 }
             }
+
             resolve(parameters);
         });
     }

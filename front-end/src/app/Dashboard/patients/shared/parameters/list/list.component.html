@@ -14,21 +14,13 @@
             ></p-dropdown>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-11" *ngFor="let param of rightListParameters">
+    <div class="ui-g-12 ui-md-12" *ngFor="let param of rightListParameters">
         <div *ngIf="param.showRight">
-            <label for="right-{{ param.name }}"> {{ param.name }}</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
-                <p-dropdown
-                    [options]="param.values"
-                    placeholder="Select Value"
-                    optionLabel="name"
-                    id="right-{{ param.name }}"
-                    [showClear]="true"
-                    [(ngModel)]="param.rightVal"
-                    (onChange)="checkRightListItem(param)"
-                ></p-dropdown>
-            </div>
+            <app-list
+                [value]="param"
+                [parameters]="parameters"
+                type="right"
+            ></app-list>
         </div>
     </div>
 </ng-container>
@@ -50,19 +42,11 @@
     </div>
     <div class="ui-g-12 ui-md-11" *ngFor="let param of leftListParameters">
         <div *ngIf="param.showLeft">
-            <label for="right-{{ param.name }}"> {{ param.name }}</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
-                <p-dropdown
-                    [options]="param.values"
-                    placeholder="Select Value"
-                    optionLabel="name"
-                    id="right-{{ param.name }}"
-                    [showClear]="true"
-                    [(ngModel)]="param.leftVal"
-                    (onChange)="checkLeftListItem(param)"
-                ></p-dropdown>
-            </div>
+            <app-list
+                [value]="param"
+                [parameters]="parameters"
+                type="left"
+            ></app-list>
         </div>
     </div>
 </ng-template>

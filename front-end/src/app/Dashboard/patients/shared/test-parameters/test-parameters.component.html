@@ -151,11 +151,12 @@
                     ></app-list>
                 </div>
             </div>
-            <div
+
+            <!-- <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'list' && t.showConditional"
+                *ngIf="t.type === 'list'"
             >
-                <ng-container *ngIf="t.showRight; else rightTempo">
+                <ng-container *ngIf="t.showRightConditional; else rightTempo">
                     <div class="ui-g-12 ui-md-6 rightVerticalLine">
                         <app-list
                             [value]="t"
@@ -167,7 +168,7 @@
                 <ng-template #rightTempo>
                     <div class="ui-g-12 ui-md-6 rightVerticalLine"></div>
                 </ng-template>
-                <ng-container *ngIf="t.showLeft; else leftTempo">
+                <ng-container *ngIf="t.showLeftConditional; else leftTempo">
                     <div class="ui-g-12 ui-md-6">
                         <app-list
                             [value]="t"
@@ -179,7 +180,7 @@
                 <ng-template #leftTempo>
                     <div class="ui-g-12 ui-md-6"></div>
                 </ng-template>
-            </div>
+            </div> -->
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'listWithImage'"

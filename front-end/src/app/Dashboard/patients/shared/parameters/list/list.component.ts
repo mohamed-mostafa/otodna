@@ -14,7 +14,8 @@ export class ListComponent implements OnInit {
     notConditional = [];
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
     checkRightListItem(item) {
         if (
             item.rightVal.conditionalParameterName &&
@@ -24,6 +25,15 @@ export class ListComponent implements OnInit {
                 this.parameters.forEach((param) => {
                     if (r === param.name) {
                         this.rightListParameters.push(param);
+                    } else {
+                        let res = item.rightVal.conditionalParameterName.some(
+                            (r) => r === param.name
+                        );
+                        if (!res) {
+                            this.rightListParameters = this.rightListParameters.filter(
+                                (a) => a !== param
+                            );
+                        }
                     }
                 });
             });
@@ -115,6 +125,15 @@ export class ListComponent implements OnInit {
                 this.parameters.forEach((param) => {
                     if (r === param.name) {
                         this.leftListParameters.push(param);
+                    } else {
+                        let res = item.leftVal.conditionalParameterName.some(
+                            (r) => r === param.name
+                        );
+                        if (!res) {
+                            this.leftListParameters = this.leftListParameters.filter(
+                                (a) => a !== param
+                            );
+                        }
                     }
                 });
             });
