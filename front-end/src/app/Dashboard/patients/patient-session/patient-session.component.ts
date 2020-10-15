@@ -345,7 +345,7 @@ export class PatientSessionComponent implements OnInit {
                             this.session.notes = "Pathology:";
                         }
                         for (const r of result) {
-                            this.session.notes += ` ${r.deseaseName}, `;
+                            this.session.notes += ` ${r.diseaseName}, `;
                         }
                         this.session.notes += `\n`;
                     }

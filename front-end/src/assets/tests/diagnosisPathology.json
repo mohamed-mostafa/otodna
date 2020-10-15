@@ -1,8 +1,8 @@
 {
     "data": [
         {
-            "deseaseId": "demo",
-            "deseaseName": "Demo",
+            "diseaseId": "demo",
+            "diseaseName": "Demo",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -10,8 +10,8 @@
             ]
         },
         {
-            "deseaseId": "1",
-            "deseaseName": "Cholesteatoma Middle Ear",
+            "diseaseId": "1",
+            "diseaseName": "Cholesteatoma Middle Ear",
             "departments": [
                 { "id": 1, "name": "Otology" },
 
@@ -19,32 +19,32 @@
             ]
         },
         {
-            "deseaseId": "2",
-            "deseaseName": "Congenital Microtia",
+            "diseaseId": "2",
+            "diseaseName": "Congenital Microtia",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "3",
-            "deseaseName": "Ear Deformities Acquired",
+            "diseaseId": "3",
+            "diseaseName": "Ear Deformities Acquired",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "4",
-            "deseaseName": "Ear Neoplasms",
+            "diseaseId": "4",
+            "diseaseName": "Ear Neoplasms",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "5",
-            "deseaseName": "Earache",
+            "diseaseId": "5",
+            "diseaseName": "Earache",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -52,24 +52,24 @@
             ]
         },
         {
-            "deseaseId": "6",
-            "deseaseName": "Usher Syndromes",
+            "diseaseId": "6",
+            "diseaseName": "Usher Syndromes",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "7",
-            "deseaseName": "Wolfram Syndrome",
+            "diseaseId": "7",
+            "diseaseName": "Wolfram Syndrome",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "8",
-            "deseaseName": "Herpes Zoster Oticus",
+            "diseaseId": "8",
+            "diseaseName": "Herpes Zoster Oticus",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -77,40 +77,40 @@
             ]
         },
         {
-            "deseaseId": "9",
-            "deseaseName": "Hearing Loss, Bilateral",
+            "diseaseId": "9",
+            "diseaseName": "Hearing Loss, Bilateral",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "10",
-            "deseaseName": "Hearing Loss, Conductive",
+            "diseaseId": "10",
+            "diseaseName": "Hearing Loss, Conductive",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "11",
-            "deseaseName": "Hearing Loss, Functional",
+            "diseaseId": "11",
+            "diseaseName": "Hearing Loss, Functional",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "12",
-            "deseaseName": "Hearing Loss, High-Frequency",
+            "diseaseId": "12",
+            "diseaseName": "Hearing Loss, High-Frequency",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "13",
-            "deseaseName": "Hearing Loss, Mixed Conductive-Sensorineural",
+            "diseaseId": "13",
+            "diseaseName": "Hearing Loss, Mixed Conductive-Sensorineural",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -118,42 +118,42 @@
             ]
         },
         {
-            "deseaseId": "14",
-            "deseaseName": "Hearing Loss, Sensorineural",
+            "diseaseId": "14",
+            "diseaseName": "Hearing Loss, Sensorineural",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "15",
-            "deseaseName": "Hearing Loss, Sudden",
+            "diseaseId": "15",
+            "diseaseName": "Hearing Loss, Sudden",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "16",
-            "deseaseName": "Hearing Loss, Unilateral",
+            "diseaseId": "16",
+            "diseaseName": "Hearing Loss, Unilateral",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "17",
-            "deseaseName": "Hyperacusis",
+            "diseaseId": "17",
+            "diseaseName": "Hyperacusis",
             "departments": [{ "id": 3, "name": "Speech" }]
         },
         {
-            "deseaseId": "18",
-            "deseaseName": "Tinnitus",
+            "diseaseId": "18",
+            "diseaseName": "Tinnitus",
             "departments": [{ "id": 1, "name": "Otology" }]
         },
         {
-            "deseaseId": "19",
-            "deseaseName": "Cochlear Diseases",
+            "diseaseId": "19",
+            "diseaseName": "Cochlear Diseases",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -161,26 +161,26 @@
             ]
         },
         {
-            "deseaseId": "20",
-            "deseaseName": "Meniere Disease",
+            "diseaseId": "20",
+            "diseaseName": "Meniere Disease",
             "departments": [{ "id": 2, "name": "Audiology" }]
         },
         {
-            "deseaseId": "21",
-            "deseaseName": "Labyrinthitis",
+            "diseaseId": "21",
+            "diseaseName": "Labyrinthitis",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "22",
-            "deseaseName": "Bilateral Vestibulopathy",
+            "diseaseId": "22",
+            "diseaseName": "Bilateral Vestibulopathy",
             "departments": [{ "id": 1, "name": "Otology" }]
         },
         {
-            "deseaseId": "23",
-            "deseaseName": "Benign Paroxysmal Positional Vertigo",
+            "diseaseId": "23",
+            "diseaseName": "Benign Paroxysmal Positional Vertigo",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -188,42 +188,42 @@
             ]
         },
         {
-            "deseaseId": "24",
-            "deseaseName": "Otitis Externa",
+            "diseaseId": "24",
+            "diseaseName": "Otitis Externa",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "25",
-            "deseaseName": "Mastoiditis",
+            "diseaseId": "25",
+            "diseaseName": "Mastoiditis",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "26",
-            "deseaseName": "Otitis Media with Effusion",
+            "diseaseId": "26",
+            "diseaseName": "Otitis Media with Effusion",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "27",
-            "deseaseName": "Otitis Media, Suppurative",
+            "diseaseId": "27",
+            "diseaseName": "Otitis Media, Suppurative",
             "departments": [{ "id": 3, "name": "Speech" }]
         },
         {
-            "deseaseId": "28",
-            "deseaseName": "Petrositis",
+            "diseaseId": "28",
+            "diseaseName": "Petrositis",
             "departments": [{ "id": 1, "name": "Otology" }]
         },
         {
-            "deseaseId": "29",
-            "deseaseName": "Otomycosis",
+            "diseaseId": "29",
+            "diseaseName": "Otomycosis",
             "departments": [
                 { "id": 1, "name": "Otology" },
 
@@ -231,45 +231,45 @@
             ]
         },
         {
-            "deseaseId": "30",
-            "deseaseName": "Otosclerosis",
+            "diseaseId": "30",
+            "diseaseName": "Otosclerosis",
             "departments": [{ "id": 2, "name": "Audiology" }]
         },
         {
-            "deseaseId": "31",
-            "deseaseName": "Ototoxicity",
+            "diseaseId": "31",
+            "diseaseName": "Ototoxicity",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "32",
-            "deseaseName": "Auditory Perceptual Disorders",
+            "diseaseId": "32",
+            "diseaseName": "Auditory Perceptual Disorders",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "33",
-            "deseaseName": "Hearing Loss, Central",
+            "diseaseId": "33",
+            "diseaseName": "Hearing Loss, Central",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "34",
-            "deseaseName": "Neurofibromatosis 2",
+            "diseaseId": "34",
+            "diseaseName": "Neurofibromatosis 2",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "35",
-            "deseaseName": "Vestibular Neuronitis",
+            "diseaseId": "35",
+            "diseaseName": "Vestibular Neuronitis",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
@@ -277,34 +277,34 @@
             ]
         },
         {
-            "deseaseId": "36",
-            "deseaseName": "Vestibulocochlear Nerve Injuries",
+            "diseaseId": "36",
+            "diseaseName": "Vestibulocochlear Nerve Injuries",
             "departments": [{ "id": 1, "name": "Otology" }]
         },
         {
-            "deseaseId": "37",
-            "deseaseName": "Susac Syndrome",
+            "diseaseId": "37",
+            "diseaseName": "Susac Syndrome",
             "departments": [{ "id": 3, "name": "Speech" }]
         },
         {
-            "deseaseId": "38",
-            "deseaseName": "Tympanic Membrane Perforation",
+            "diseaseId": "38",
+            "diseaseName": "Tympanic Membrane Perforation",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
             ]
         },
         {
-            "deseaseId": "39",
-            "deseaseName": "Ear Neoplasms",
+            "diseaseId": "39",
+            "diseaseName": "Ear Neoplasms",
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
         },
         {
-            "deseaseId": "40",
-            "deseaseName": "Congenital Microtia",
+            "diseaseId": "40",
+            "diseaseName": "Congenital Microtia",
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },

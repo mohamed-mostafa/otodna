@@ -134,11 +134,11 @@ export class PathologyComponent implements OnInit {
         this.rightFiles = this.testParameterComponent.rightFiles;
         this.leftFiles = this.testParameterComponent.leftFiles;
         this.selectedTestData.forEach((element) => {
-            element.testId = this.selected.deseaseId;
+            element.testId = this.selected.diseaseId;
             element.sessionPathologyId = this.selectedSession.id;
         });
-        this.pathology.deseaseId = this.selected.deseaseId;
-        this.pathology.deseaseName = this.selected.deseaseName;
+        this.pathology.diseaseId = this.selected.diseaseId;
+        this.pathology.diseaseName = this.selected.diseaseName;
         this.pathology.patientSessionId = this.selectedSession.id;
         this.spinner.show();
         this.parameterValueService
@@ -193,11 +193,11 @@ export class PathologyComponent implements OnInit {
         this.rightDeletedImage = this.testParameterComponent.rightDeletedImage;
         this.leftDeletedImage = this.testParameterComponent.leftDeletedImage;
         this.selectedTestData.forEach((element) => {
-            element.testId = this.selected.deseaseId;
+            element.testId = this.selected.diseaseId;
             element.sessionPathologyId = this.selectedSession.id;
         });
-        this.pathology.deseaseId = this.selected.deseaseId;
-        this.pathology.deseaseName = this.selected.deseaseName;
+        this.pathology.diseaseId = this.selected.diseaseId;
+        this.pathology.diseaseName = this.selected.diseaseName;
         this.pathology.patientSessionId = this.selectedSession.id;
         this.spinner.show();
         this.parameterValueService
@@ -310,7 +310,7 @@ export class PathologyComponent implements OnInit {
             });
     }
     async searchTest(query, tests) {
-        return await this.sharedClass.searchTest(query, tests, "deseaseName");
+        return await this.sharedClass.searchTest(query, tests, "diseaseName");
     }
     showTestDialog() {
         this.displayTest = true;
@@ -331,7 +331,7 @@ export class PathologyComponent implements OnInit {
             this.savedLeftFiles = [];
             this.savedLeftImage = [];
             this.savedRightImage = [];
-            this.pathologyService.getTest(test.deseaseId).then(
+            this.pathologyService.getTest(test.diseaseId).then(
                 (res) => {
                     this.selectedTestData = res;
                     this.showTests = false;

@@ -38,7 +38,7 @@ export class PatientSessionPathology extends Entity {
       nullable: 'N',
     },
   })
-  deseaseId: number;
+  diseaseId: number;
 
   @property({
     type: 'string',
@@ -53,7 +53,7 @@ export class PatientSessionPathology extends Entity {
       nullable: 'N',
     },
   })
-  deseaseName: string;
+  diseaseName: string;
 
   @property({
     type: 'string',

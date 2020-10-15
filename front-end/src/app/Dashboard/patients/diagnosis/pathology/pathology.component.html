@@ -52,7 +52,7 @@
                             [style]="{ height: '60px' }"
                             styleClass="ui-card-shadow cardBorderRadius"
                         >
-                            {{ filtered.deseaseName }}
+                            {{ filtered.diseaseName }}
                         </p-card>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                             [style]="{ height: '60px' }"
                             styleClass="ui-card-shadow cardBorderRadius"
                         >
-                            {{ test.deseaseName }}
+                            {{ test.diseaseName }}
                         </p-card>
                     </div>
                 </ng-template>
@@ -164,7 +164,7 @@
             </p-header>
             <div (click)="retrieveTestData(pathology)">
                 <div class="ui-g-12 ui-md-12 bold">
-                    {{ pathology.deseaseName }}
+                    {{ pathology.diseaseName }}
                 </div>
             </div>
         </p-card>

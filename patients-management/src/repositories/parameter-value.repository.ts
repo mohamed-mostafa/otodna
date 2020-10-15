@@ -100,8 +100,8 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           }
         } else {
           let sessionTestObj = {
-            deseaseId: data[0].testId,
-            deseaseName: data[0].name,
+            diseaseId: data[0].testId,
+            diseaseName: data[0].name,
             patientSessionId: data[0].sessionPathologyId,
           };
           let res = await this.patientSessionPathologyRepository.create(
