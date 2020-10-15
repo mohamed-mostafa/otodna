@@ -1,0 +1,99 @@
+{
+    "data": [
+        {
+            "name": "Vestibular",
+            "parameters": [
+                {
+                    "type": "list",
+                    "name": "Methode",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "methode.spontaneous_nystagmus",
+                            "name": "Spontaneous Nystagmus"
+                        },
+                        {
+                            "id": "methode.gaze_evoked_nystagmus",
+                            "name": "Gaze Evoked Nystagmus"
+                        },
+                        {
+                            "id": "methode.positioning_nystagmus_head_shake_test",
+                            "name": "Positioning Nystagmus, Head Shake Test"
+                        },
+                        {
+                            "id": "methode.positioning_nystagmus_head_thrust_test",
+                            "name": "Positioning Nystagmus, Head Thrust Test"
+                        },
+                        {
+                            "id": "methode.positioning_nystagmus_dix_hallpike_maneuver",
+                            "name": "Positioning Nystagmus, Dix Hallpike Maneuver"
+                        },
+                        {
+                            "id": "methode.romberg_test",
+                            "name": "Romberg Test"
+                        },
+                        {
+                            "id": "methode.fukuda_test",
+                            "name": "Fukuda Test"
+                        },
+                        {
+                            "id": "methode.finger_to_finger",
+                            "name": "Finger To Finger"
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "name": "Finding",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "finding.no_nystagmus",
+                            "name": "No Nystagmus"
+                        },
+                        {
+                            "id": "finding.nystagmus_to_left",
+                            "name": "Nystagmus To Left"
+                        },
+                        {
+                            "id": "finding.nystagmus_to_right",
+                            "name": "Nystagmus To Right"
+                        },
+                        {
+                            "id": "finding.body_tilt_to_left",
+                            "name": "Body Tilt To Left"
+                        },
+                        {
+                            "id": "finding.body_tilt_to_right",
+                            "name": "Body Tilt To Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "name": "Site",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "site.peripheral",
+                            "name": "Peripheral"
+                        },
+                        {
+                            "id": "site.not_peripheral",
+                            "name": "Not Peripheral"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

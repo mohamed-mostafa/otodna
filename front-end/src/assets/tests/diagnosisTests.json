@@ -164,6 +164,24 @@
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
             ]
+        },
+        {
+            "testId": "physical_examination",
+            "testName": "Physical Examination",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
+        },
+        {
+            "testId": "vestibular",
+            "testName": "Vestibular",
+            "departments": [
+                { "id": 1, "name": "Otology" },
+                { "id": 2, "name": "Audiology" },
+                { "id": 3, "name": "Speech" }
+            ]
         }
     ]
 }

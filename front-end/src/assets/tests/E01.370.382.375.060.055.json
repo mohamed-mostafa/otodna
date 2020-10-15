@@ -139,6 +139,7 @@
                 {
                     "type": "list",
                     "name": "Reliability",
+                    "conditional": false,
                     "required": true,
                     "values": [
                         { "id": 1, "name": "Good" },
@@ -151,6 +152,7 @@
                 {
                     "type": "list",
                     "name": "Using",
+                    "conditional": false,
                     "required": true,
                     "values": [
                         { "id": 1, "name": "Headphone" },

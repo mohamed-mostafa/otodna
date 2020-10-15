@@ -6,6 +6,7 @@
                 {
                     "type": "text",
                     "name": "Test",
+                    "conditional": false,
                     "maxLength": "100",
                     "leftVal": "",
                     "rightVal": "",
@@ -14,6 +15,7 @@
                 {
                     "type": "radio",
                     "name": "Rinne",
+                    "conditional": false,
                     "items": ["+ve", "-ve", "False -ve"],
                     "required": true,
                     "leftVal": "",

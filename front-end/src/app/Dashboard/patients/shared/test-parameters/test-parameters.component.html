@@ -12,7 +12,7 @@
         >
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'text'"
+                *ngIf="t.type === 'text' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
                     <label for="right-{{ t.name }}">{{ t.name }}</label>
@@ -43,7 +43,7 @@
             </div>
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'number'"
+                *ngIf="t.type === 'number' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
                     <label for="right-{{ t.name }}"> {{ t.name }}</label>
@@ -80,7 +80,7 @@
             </div>
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'boolean'"
+                *ngIf="t.type === 'boolean' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
                     <div class="ui-inputgroup">
@@ -103,7 +103,7 @@
             </div>
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'radio'"
+                *ngIf="t.type === 'radio' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
                     <label for="right-{{ t.name }}">{{ t.name }}</label>
@@ -151,39 +151,9 @@
                     ></app-list>
                 </div>
             </div>
-
-            <!-- <div
-                class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'list'"
-            >
-                <ng-container *ngIf="t.showRightConditional; else rightTempo">
-                    <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                        <app-list
-                            [value]="t"
-                            [parameters]="parameters"
-                            type="right"
-                        ></app-list>
-                    </div>
-                </ng-container>
-                <ng-template #rightTempo>
-                    <div class="ui-g-12 ui-md-6 rightVerticalLine"></div>
-                </ng-template>
-                <ng-container *ngIf="t.showLeftConditional; else leftTempo">
-                    <div class="ui-g-12 ui-md-6">
-                        <app-list
-                            [value]="t"
-                            [parameters]="parameters"
-                            type="left"
-                        ></app-list>
-                    </div>
-                </ng-container>
-                <ng-template #leftTempo>
-                    <div class="ui-g-12 ui-md-6"></div>
-                </ng-template>
-            </div> -->
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
-                *ngIf="t.type === 'listWithImage'"
+                *ngIf="t.type === 'listWithImage' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
                     <label for="right-{{ t.name }}"> {{ t.name }}</label>

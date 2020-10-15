@@ -1,0 +1,179 @@
+{
+    "data": [
+        {
+            "name": "Physical Examination",
+            "parameters": [
+                {
+                    "type": "list",
+                    "name": "General Appearance",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "general_appearance.normal",
+                            "name": "Normal"
+                        },
+                        {
+                            "id": "general_appearance.syndromic",
+                            "name": "Syndromic"
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "name": "Facial Nerve",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "facial_nerve.normal",
+                            "name": "Normal"
+                        },
+                        {
+                            "id": "facial_nerve.weakness_1",
+                            "name": "Weakness 1"
+                        },
+                        {
+                            "id": "facial_nerve.weakness_2",
+                            "name": "Weakness 2"
+                        },
+                        {
+                            "id": "facial_nerve.weakness_3",
+                            "name": "Weakness 3"
+                        },
+                        {
+                            "id": "facial_nerve.weakness_4",
+                            "name": "Weakness 4"
+                        },
+                        {
+                            "id": "facial_nerve.weakness_5",
+                            "name": "Weakness 5"
+                        },
+                        {
+                            "id": "facial_nerve.weakness_6",
+                            "name": "Weakness 6"
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "name": "Pinna",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "pinna.normal",
+                            "name": "Normal"
+                        },
+                        {
+                            "id": "pinna.microtia_1",
+                            "name": "Microtia 1"
+                        },
+                        {
+                            "id": "pinna.microtia_2",
+                            "name": "Microtia 2"
+                        },
+                        {
+                            "id": "pinna.microtia_3",
+                            "name": "Microtia 3"
+                        },
+                        {
+                            "id": "pinna.microtia_4",
+                            "name": "Microtia 4"
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "name": "External Auditory Canal",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "external_Auditory_Canal.normal",
+                            "name": "Normal"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.full_wax",
+                            "name": "Full Wax"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.infected_bacterial",
+                            "name": "Infected Bacterial"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.infected_fungal",
+                            "name": "Infected Fungal"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.pus",
+                            "name": "Pus"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.soft_stenosis",
+                            "name": "Soft Stenosis"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.bony_stenosis",
+                            "name": "Bony Stenosis"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.atresia",
+                            "name": "Atresia"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.osteoma_exostosis",
+                            "name": "Osteoma/Exostosis"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.granulation",
+                            "name": "granulation"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.polyp",
+                            "name": "Polyp"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.canal_defect",
+                            "name": "Canal Defect"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.meatoplasty",
+                            "name": "Meatoplasty"
+                        },
+                        {
+                            "id": "external_Auditory_Canal.cwd",
+                            "name": "CWD"
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "name": "Old Scar",
+                    "conditional": false,
+                    "leftVal": "",
+                    "rightVal": "",
+                    "required": true,
+                    "values": [
+                        {
+                            "id": "old_scar.endural",
+                            "name": "Endural"
+                        },
+                        {
+                            "id": "old_scar.post_auricular",
+                            "name": "Post Auricular"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

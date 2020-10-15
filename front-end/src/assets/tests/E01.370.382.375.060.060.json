@@ -6,6 +6,7 @@
                 {
                     "type": "number",
                     "name": "SRT ( Speech receptio threshold)",
+                    "conditional": false,
                     "minimum": -20,
                     "maximum": -120,
                     "unit": "dB",
@@ -16,6 +17,7 @@
                 {
                     "type": "number",
                     "name": "SD Score",
+                    "conditional": false,
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "%",
@@ -26,6 +28,7 @@
                 {
                     "type": "number",
                     "name": "SD Intensity",
+                    "conditional": false,
                     "minimum": -20,
                     "maximum": -120,
                     "unit": "dB",

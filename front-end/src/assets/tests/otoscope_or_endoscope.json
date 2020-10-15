@@ -42,38 +42,39 @@
                         {
                             "id": "tympanic_membrane.retraction",
                             "name": "Retraction",
-                            "conditionalParameterName": ["Retraction Children"]
+                            "conditionalParametersNames": ["retractionChildren"]
                         },
                         {
                             "id": "tympanic_membrane.pocket",
                             "name": "Pocket",
-                            "conditionalParameterName": [
-                                "Pocket Site Children",
-                                "Pocket Fundus Children",
-                                "Pocket Keratin Children",
-                                "Pocket Discharge Children"
+                            "conditionalParametersNames": [
+                                "pocketSiteChildren",
+                                "pocketFundusChildren",
+                                "pocketKeratinChildren",
+                                "pocketDischargeChildren"
                             ]
                         },
                         {
                             "id": "tympanic_membrane.perforation",
                             "name": "Perforation",
-                            "conditionalParameterName": [
-                                "Perforation Site Children",
-                                "Perforation Size Children",
-                                "Perforation Safety Children"
+                            "conditionalParametersNames": [
+                                "perforationSiteChildren",
+                                "perforationSizeChildren",
+                                "perforationSafetyChildren"
                             ]
                         },
                         {
                             "id": "tympanic_membrane.graft_tm",
                             "name": "Graft TM",
-                            "conditionalParameterName": ["Graft TM Children"]
+                            "conditionalParametersNames": ["graftTMChildren"]
                         }
                     ]
                 },
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Retraction Children",
+                    "name": "retractionChildren",
+                    "displayName": "Retraction",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -120,7 +121,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Pocket Site Children",
+                    "name": "pocketSiteChildren",
+                    "displayName": "Site",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -147,7 +149,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Pocket Fundus Children",
+                    "name": "pocketFundusChildren",
+                    "displayName": "Fundus",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -166,7 +169,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Pocket Keratin Children",
+                    "name": "pocketKeratinChildren",
+                    "displayName": "Keratin",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -185,7 +189,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Pocket Discharge Children",
+                    "name": "pocketDischargeChildren",
+                    "displayName": "Discharge",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -204,7 +209,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Perforation Site Children",
+                    "name": "perforationSiteChildren",
+                    "displayName": "Site",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -247,7 +253,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Perforation Size Children",
+                    "name": "perforationSizeChildren",
+                    "displayName": "Size",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -270,7 +277,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Perforation Safety Children",
+                    "name": "perforationSafetyChildren",
+                    "displayName": "Safety",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -289,7 +297,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Graft TM Children",
+                    "name": "graftTMChildren",
+                    "displayName": "Graft TM",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -326,10 +335,10 @@
                         {
                             "id": "tympanic_membrane.graft_tm.perforation",
                             "name": "Perforation",
-                            "conditionalParameterName": [
-                                "Graft TM Perforation Site Children",
-                                "Graft TM Perforation Size Children",
-                                "Graft TM Perforation Safety Children"
+                            "conditionalParametersNames": [
+                                "graftTMPerforationSiteChildren",
+                                "graftTMPerforationSizeChildren",
+                                "graftTMPerforationSafetyChildren"
                             ]
                         }
                     ]
@@ -337,7 +346,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Graft TM Perforation Site Children",
+                    "name": "graftTMPerforationSiteChildren",
+                    "displayName": "Site",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -380,7 +390,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Graft TM Perforation Size Children",
+                    "name": "graftTMPerforationSizeChildren",
+                    "displayName": "Size",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -403,7 +414,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Graft TM Perforation Safety Children",
+                    "name": "graftTMPerforationSafetyChildren",
+                    "displayName": "Safety",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -430,28 +442,29 @@
                         {
                             "id": "mastoid_cavity.attic_defect",
                             "name": "Attic Defect",
-                            "conditionalParameterName": [
-                                "Attic Defect Site Children",
-                                "Attic Defect Size Children",
-                                "Attic Defect Other Children"
+                            "conditionalParametersNames": [
+                                "atticDefectSiteChildren",
+                                "atticDefectSizeChildren",
+                                "atticDefectOtherChildren"
                             ]
                         },
                         {
                             "id": "mastoid_cavity.cwu",
                             "name": "CWU",
-                            "conditionalParameterName": ["CWU Children"]
+                            "conditionalParametersNames": ["CWUChildren"]
                         },
                         {
                             "id": "mastoid_cavity.cwd",
                             "name": "CWD",
-                            "conditionalParameterName": ["CWD Children"]
+                            "conditionalParametersNames": ["CWDChildren"]
                         }
                     ]
                 },
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Attic Defect Site Children",
+                    "name": "atticDefectSiteChildren",
+                    "displayName": "Site",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -470,7 +483,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Attic Defect Size Children",
+                    "name": "atticDefectSizeChildren",
+                    "displayName": "Size",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -489,7 +503,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Attic Defect Other Children",
+                    "name": "atticDefectOtherChildren",
+                    "displayName": "Other",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -512,7 +527,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "CWU Children",
+                    "name": "CWUChildren",
+                    "displayName": "CWU",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -531,7 +547,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "CWD Children",
+                    "name": "CWDChildren",
+                    "displayName": "CWD",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -578,19 +595,20 @@
                         {
                             "id": "middle_ear.mass",
                             "name": "Mass",
-                            "conditionalParameterName": ["Mass Children"]
+                            "conditionalParametersNames": ["massChildren"]
                         },
                         {
                             "id": "middle_ear.ossicles",
                             "name": "Ossicles",
-                            "conditionalParameterName": ["Ossicles Children"]
+                            "conditionalParametersNames": ["ossiclesChildren"]
                         }
                     ]
                 },
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Mass Children",
+                    "name": "massChildren",
+                    "displayName": "Mass",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -603,19 +621,20 @@
                         {
                             "id": "middle_ear.mass.red",
                             "name": "Red",
-                            "conditionalParameterName": ["Mass Red Children"]
+                            "conditionalParametersNames": ["massRedChildren"]
                         },
                         {
                             "id": "middle_ear.mass.white",
                             "name": "White",
-                            "conditionalParameterName": ["Mass White Children"]
+                            "conditionalParametersNames": ["massWhiteChildren"]
                         }
                     ]
                 },
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Mass Red Children",
+                    "name": "massRedChildren",
+                    "displayName": "Red",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -638,7 +657,8 @@
                 {
                     "type": "list",
                     "conditional": true,
-                    "name": "Mass White Children",
+                    "name": "massWhiteChildren",
+                    "displayName": "White",
                     "showRight": false,
                     "showLeft": false,
                     "leftVal": "",
@@ -647,8 +667,8 @@
                         {
                             "id": "middle_ear.mass.white.cholesteatoma",
                             "name": "Cholesteatoma",
-                            "conditionalParameterName": [
-                                "Mass White Cholesteatoma Children"
+                            "conditionalParametersNames": [
+                                "massWhiteCholesteatomaChildren"
                             ]
                         },
                         {
@@ -663,7 +683,8 @@
                 },
                 {
                     "type": "list",
-                    "name": "Mass White Cholesteatoma Children",
+                    "name": "massWhiteCholesteatomaChildren",
+                    "displayName": "Cholesteatoma",
                     "conditional": true,
                     "leftVal": "",
                     "rightVal": "",
@@ -681,7 +702,8 @@
                 },
                 {
                     "type": "list",
-                    "name": "Ossicles Children",
+                    "name": "ossiclesChildren",
+                    "displayName": "Ossicles",
                     "conditional": true,
                     "leftVal": "",
                     "rightVal": "",
@@ -698,22 +720,23 @@
                         {
                             "id": "middle_ear.ossicles.eroded",
                             "name": "Eroded",
-                            "conditionalParameterName": [
-                                "Ossicles Eroded Children"
+                            "conditionalParametersNames": [
+                                "ossiclesErodedChildren"
                             ]
                         },
                         {
                             "id": "middle_ear.ossicles.prostheses_if_seen",
                             "name": "Prostheses If Seen",
-                            "conditionalParameterName": [
-                                "Ossicles Prostheses Children"
+                            "conditionalParametersNames": [
+                                "ossiclesProsthesesChildren"
                             ]
                         }
                     ]
                 },
                 {
                     "type": "list",
-                    "name": "Ossicles Eroded Children",
+                    "name": "ossiclesErodedChildren",
+                    "displayName": "Eroded",
                     "conditional": true,
                     "leftVal": "",
                     "rightVal": "",
@@ -739,7 +762,8 @@
                 },
                 {
                     "type": "list",
-                    "name": "Ossicles Prostheses Children",
+                    "name": "ossiclesProsthesesChildren",
+                    "displayName": "Prostheses",
                     "conditional": true,
                     "leftVal": "",
                     "rightVal": "",
@@ -748,8 +772,8 @@
                         {
                             "id": "middle_ear.ossicles.prostheses_if_seen.type",
                             "name": "Type",
-                            "conditionalParameterName": [
-                                "Ossicles Prostheses Type Children"
+                            "conditionalParametersNames": [
+                                "ossiclesProsthesesTypeChildren"
                             ]
                         },
                         {
@@ -764,7 +788,8 @@
                 },
                 {
                     "type": "list",
-                    "name": "Ossicles Prostheses Type Children",
+                    "name": "ossiclesProsthesesTypeChildren",
+                    "displayName": "Type",
                     "conditional": true,
                     "leftVal": "",
                     "rightVal": "",

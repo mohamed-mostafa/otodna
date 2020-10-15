@@ -11,7 +11,6 @@ export class ListComponent implements OnInit {
     @Input() parameters;
     rightListParameters = [];
     leftListParameters = [];
-    notConditional = [];
     constructor() {}
 
     ngOnInit(): void {
@@ -20,15 +19,15 @@ export class ListComponent implements OnInit {
     }
     checkRightListItem(item) {
         if (
-            item.rightVal.conditionalParameterName &&
-            item.rightVal.conditionalParameterName.length > 0
+            item.rightVal.conditionalParametersNames &&
+            item.rightVal.conditionalParametersNames.length > 0
         ) {
-            item.rightVal.conditionalParameterName.forEach((r) => {
+            item.rightVal.conditionalParametersNames.forEach((r) => {
                 this.parameters.forEach((param) => {
                     if (r === param.name) {
                         this.rightListParameters.push(param);
                     } else {
-                        let res = item.rightVal.conditionalParameterName.some(
+                        let res = item.rightVal.conditionalParametersNames.some(
                             (r) => r === param.name
                         );
                         if (!res) {
@@ -42,15 +41,15 @@ export class ListComponent implements OnInit {
         }
         if (!item.conditional) {
             if (
-                item.rightVal.conditionalParameterName &&
-                item.rightVal.conditionalParameterName.length > 0
+                item.rightVal.conditionalParametersNames &&
+                item.rightVal.conditionalParametersNames.length > 0
             ) {
-                item.rightVal.conditionalParameterName.forEach((right) => {
+                item.rightVal.conditionalParametersNames.forEach((right) => {
                     this.rightListParameters.forEach((element) => {
                         if (element.name === right) {
                             element.showRight = true;
                         } else {
-                            let res = item.rightVal.conditionalParameterName.some(
+                            let res = item.rightVal.conditionalParametersNames.some(
                                 (r) => r === element.name
                             );
                             if (!res) {
@@ -63,11 +62,11 @@ export class ListComponent implements OnInit {
             }
         } else {
             if (
-                item.rightVal.conditionalParameterName &&
-                item.rightVal.conditionalParameterName.length > 0
+                item.rightVal.conditionalParametersNames &&
+                item.rightVal.conditionalParametersNames.length > 0
             ) {
                 this.rightListParameters.forEach((element) => {
-                    item.rightVal.conditionalParameterName.forEach((right) => {
+                    item.rightVal.conditionalParametersNames.forEach((right) => {
                         if (element.name === right && element.conditional) {
                             element.showRight = true;
                         }
@@ -77,10 +76,10 @@ export class ListComponent implements OnInit {
                 item.values.forEach((val) => {
                     this.rightListParameters.forEach((element) => {
                         if (
-                            val.conditionalParameterName &&
-                            val.conditionalParameterName.length > 0
+                            val.conditionalParametersNames &&
+                            val.conditionalParametersNames.length > 0
                         ) {
-                            val.conditionalParameterName.forEach((right) => {
+                            val.conditionalParametersNames.forEach((right) => {
                                 if (
                                     element.name === right &&
                                     element.conditional
@@ -89,13 +88,13 @@ export class ListComponent implements OnInit {
                                     element.rightVal = "";
                                     element.values.forEach((el) => {
                                         if (
-                                            el.conditionalParameterName &&
-                                            el.conditionalParameterName.length >
+                                            el.conditionalParametersNames &&
+                                            el.conditionalParametersNames.length >
                                                 0
                                         ) {
                                             this.rightListParameters.forEach(
                                                 (param) => {
-                                                    el.conditionalParameterName.forEach(
+                                                    el.conditionalParametersNames.forEach(
                                                         (e) => {
                                                             if (
                                                                 param.name === e
@@ -120,15 +119,15 @@ export class ListComponent implements OnInit {
     }
     checkLeftListItem(item) {
         if (
-            item.leftVal.conditionalParameterName &&
-            item.leftVal.conditionalParameterName.length > 0
+            item.leftVal.conditionalParametersNames &&
+            item.leftVal.conditionalParametersNames.length > 0
         ) {
-            item.leftVal.conditionalParameterName.forEach((r) => {
+            item.leftVal.conditionalParametersNames.forEach((r) => {
                 this.parameters.forEach((param) => {
                     if (r === param.name) {
                         this.leftListParameters.push(param);
                     } else {
-                        let res = item.leftVal.conditionalParameterName.some(
+                        let res = item.leftVal.conditionalParametersNames.some(
                             (r) => r === param.name
                         );
                         if (!res) {
@@ -142,15 +141,15 @@ export class ListComponent implements OnInit {
         }
         if (!item.conditional) {
             if (
-                item.leftVal.conditionalParameterName &&
-                item.leftVal.conditionalParameterName.length > 0
+                item.leftVal.conditionalParametersNames &&
+                item.leftVal.conditionalParametersNames.length > 0
             ) {
-                item.leftVal.conditionalParameterName.forEach((right) => {
+                item.leftVal.conditionalParametersNames.forEach((right) => {
                     this.leftListParameters.forEach((element) => {
                         if (element.name === right) {
                             element.showLeft = true;
                         } else {
-                            let res = item.leftVal.conditionalParameterName.some(
+                            let res = item.leftVal.conditionalParametersNames.some(
                                 (r) => r === element.name
                             );
                             if (!res) {
@@ -163,11 +162,11 @@ export class ListComponent implements OnInit {
             }
         } else {
             if (
-                item.leftVal.conditionalParameterName &&
-                item.leftVal.conditionalParameterName.length > 0
+                item.leftVal.conditionalParametersNames &&
+                item.leftVal.conditionalParametersNames.length > 0
             ) {
                 this.leftListParameters.forEach((element) => {
-                    item.leftVal.conditionalParameterName.forEach((left) => {
+                    item.leftVal.conditionalParametersNames.forEach((left) => {
                         if (element.name === left && element.conditional) {
                             element.showLeft = true;
                         }
@@ -177,10 +176,10 @@ export class ListComponent implements OnInit {
                 item.values.forEach((val) => {
                     this.leftListParameters.forEach((element) => {
                         if (
-                            val.conditionalParameterName &&
-                            val.conditionalParameterName.length > 0
+                            val.conditionalParametersNames &&
+                            val.conditionalParametersNames.length > 0
                         ) {
-                            val.conditionalParameterName.forEach((left) => {
+                            val.conditionalParametersNames.forEach((left) => {
                                 if (
                                     element.name === left &&
                                     element.conditional
@@ -189,13 +188,13 @@ export class ListComponent implements OnInit {
                                     element.leftVal = "";
                                     element.values.forEach((el) => {
                                         if (
-                                            el.conditionalParameterName &&
-                                            el.conditionalParameterName.length >
+                                            el.conditionalParametersNames &&
+                                            el.conditionalParametersNames.length >
                                                 0
                                         ) {
                                             this.leftListParameters.forEach(
                                                 (param) => {
-                                                    el.conditionalParameterName.forEach(
+                                                    el.conditionalParametersNames.forEach(
                                                         (e) => {
                                                             if (
                                                                 param.name === e

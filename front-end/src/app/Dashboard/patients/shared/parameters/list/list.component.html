@@ -1,6 +1,8 @@
 <ng-container *ngIf="type === 'right'; else elseTemplate">
     <div class="ui-g-12 ui-md-11 minusMargin">
-        <label for="right-{{ value.name }}"> {{ value.name }}</label>
+        <label for="right-{{ value.name }}">
+            {{ value.displayName ? value.displayName : value.name }}</label
+        >
         <div class="ui-inputgroup labelMarginTop">
             <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
             <p-dropdown
@@ -26,14 +28,16 @@
 </ng-container>
 <ng-template #elseTemplate>
     <div class="ui-g-12 ui-md-11 minusMargin">
-        <label for="right-{{ value.name }}"> {{ value.name }}</label>
+        <label for="left-{{ value.name }}">
+            {{ value.displayName ? value.displayName : value.name }}</label
+        >
         <div class="ui-inputgroup labelMarginTop">
             <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
             <p-dropdown
                 [options]="value.values"
                 placeholder="Select Value"
                 optionLabel="name"
-                id="right-{{ value.name }}"
+                id="left-{{ value.name }}"
                 [showClear]="true"
                 [(ngModel)]="value.leftVal"
                 (onChange)="checkLeftListItem(value)"

@@ -5,6 +5,7 @@
             "parameters": [
                 {
                     "type": "listWithImage",
+                    "conditional": false,
                     "name": "Tympanogram",
                     "required": true,
                     "values": [
@@ -20,6 +21,7 @@
                 {
                     "type": "number",
                     "name": "Compliance",
+                    "conditional": false,
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "cm3",
@@ -30,6 +32,7 @@
                 {
                     "type": "number",
                     "name": "Peak Pressuer",
+                    "conditional": false,
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "daPa",
@@ -40,6 +43,7 @@
                 {
                     "type": "number",
                     "name": "Ear Canal Volume",
+                    "conditional": false,
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "cm3",
