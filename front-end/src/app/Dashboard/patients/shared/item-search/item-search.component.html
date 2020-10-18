@@ -1,1 +1,8 @@
-<p>item-search works!</p>
+<p-autoComplete
+    [(ngModel)]="selectedTest"
+    (completeMethod)="filterTest($event)"
+    field="name"
+    placeholder="Start typing to filter ..."
+    [size]="30"
+    [minLength]="1"
+></p-autoComplete>

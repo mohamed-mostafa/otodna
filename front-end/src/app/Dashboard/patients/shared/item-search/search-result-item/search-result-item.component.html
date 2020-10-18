@@ -1,0 +1,29 @@
+<div class="marginBottom">
+    <p-breadcrumb
+        *ngIf="showBreadCrumb"
+        [model]="breadcrumbItems"
+        [home]="breadcrumbIcon"
+    ></p-breadcrumb>
+</div>
+<app-item-search
+    [items]="allTests"
+    [displayName]="displayName"
+></app-item-search>
+<div
+    class="ui-g-12 ui-md-4"
+    *ngFor="let item of items"
+    (click)="openTestData(item)"
+>
+    <p-card
+        class="centerHeader pointerCursor"
+        [style]="{ height: '80px' }"
+        styleClass="ui-card-shadow cardBorderRadius"
+    >
+        <span>
+            {{ item[displayName] }}
+        </span>
+        <p-footer *ngIf="item.children">
+            <span style="float: right"><i class="fa fa-arrow-right"></i></span>
+        </p-footer>
+    </p-card>
+</div>

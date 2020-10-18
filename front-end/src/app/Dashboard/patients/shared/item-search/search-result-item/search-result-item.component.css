@@ -4,3 +4,6 @@
 .centerHeader {
     text-align: center;
 }
+.marginBottom {
+    margin-bottom: 10px !important;
+}

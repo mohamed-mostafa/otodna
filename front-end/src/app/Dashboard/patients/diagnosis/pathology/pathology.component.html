@@ -27,31 +27,12 @@
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
-                    <p-autoComplete
-                        [(ngModel)]="selectedTest"
-                        (completeMethod)="filterTest($event)"
-                        field="name"
-                        placeholder="Start typing to filter ..."
-                        [size]="30"
-                        [minLength]="1"
-                    ></p-autoComplete>
-                </div>
-                <div
-                    *ngIf="
-                        filteredTests && filteredTests.length > 0;
-                        else other
-                    "
-                >
-                    <app-search-result-item
-                        [allTests]="filteredTests"
-                    ></app-search-result-item>
-                </div>
-                <ng-template #other>
                     <app-search-result-item
                         [allTests]="allTests"
                         (testEvent)="receiveTest($event)"
+                        displayName="diseaseName"
                     ></app-search-result-item>
-                </ng-template>
+                </div>
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div

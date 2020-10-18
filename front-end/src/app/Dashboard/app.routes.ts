@@ -1,5 +1,5 @@
+import { SearchResultItemComponent } from "./patients/shared/item-search/search-result-item/search-result-item.component";
 import { ItemSearchComponent } from "./patients/shared/item-search/item-search.component";
-import { SearchResultItemComponent } from "./patients/shared/search-result-item/search-result-item.component";
 import { RadioComponent } from "./patients/shared/parameters/radio/radio.component";
 import { TextareaComponent } from "./patients/shared/parameters/textarea/textarea.component";
 import { ListWithImageComponent } from "./patients/shared/parameters/list-with-image/list-with-image.component";

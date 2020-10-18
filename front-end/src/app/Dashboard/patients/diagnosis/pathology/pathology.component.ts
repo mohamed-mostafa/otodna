@@ -1,4 +1,4 @@
-import { SearchResultItemComponent } from "./../../shared/search-result-item/search-result-item.component";
+import { SearchResultItemComponent } from "./../../shared/item-search/search-result-item/search-result-item.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
