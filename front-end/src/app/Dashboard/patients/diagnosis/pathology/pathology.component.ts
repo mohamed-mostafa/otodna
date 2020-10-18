@@ -1,3 +1,4 @@
+import { SearchResultItemComponent } from "./../../shared/search-result-item/search-result-item.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
@@ -19,6 +20,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 })
 export class PathologyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
+    @ViewChild(SearchResultItemComponent) searchResultItemComponent;
     sharedClass: SharedClass = new SharedClass();
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -104,6 +106,7 @@ export class PathologyComponent implements OnInit {
         this.getAllPathologies();
         this.checkLoggedInUserTeamWithPatient();
     }
+
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
@@ -480,5 +483,8 @@ export class PathologyComponent implements OnInit {
                 );
             },
         });
+    }
+    receiveTest(event) {
+        this.openTest(event);
     }
 }

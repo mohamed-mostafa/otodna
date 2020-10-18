@@ -42,34 +42,15 @@
                         else other
                     "
                 >
-                    <div
-                        class="ui-g-12 ui-md-3"
-                        *ngFor="let filtered of filteredTests"
-                        (click)="openTest(filtered)"
-                    >
-                        <p-card
-                            class="centerHeader pointerCursor"
-                            [style]="{ height: '60px' }"
-                            styleClass="ui-card-shadow cardBorderRadius"
-                        >
-                            {{ filtered.diseaseName }}
-                        </p-card>
-                    </div>
+                    <app-search-result-item
+                        [allTests]="filteredTests"
+                    ></app-search-result-item>
                 </div>
                 <ng-template #other>
-                    <div
-                        class="ui-g-12 ui-md-3"
-                        *ngFor="let test of allTests"
-                        (click)="openTest(test)"
-                    >
-                        <p-card
-                            class="centerHeader pointerCursor"
-                            [style]="{ height: '60px' }"
-                            styleClass="ui-card-shadow cardBorderRadius"
-                        >
-                            {{ test.diseaseName }}
-                        </p-card>
-                    </div>
+                    <app-search-result-item
+                        [allTests]="allTests"
+                        (testEvent)="receiveTest($event)"
+                    ></app-search-result-item>
                 </ng-template>
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
