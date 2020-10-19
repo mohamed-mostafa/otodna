@@ -14,6 +14,7 @@ export class SearchResultItemComponent implements OnInit {
     showBreadCrumb = false;
     newBreadcrumbItems = [];
     items = [];
+    itemSearch;
     constructor() {}
 
     ngOnInit(): void {
@@ -36,13 +37,17 @@ export class SearchResultItemComponent implements OnInit {
                     this.items.push(element);
                 }
             });
-            // this.items = test.children;
+            this.itemSearch = [];
         } else {
             this.testEvent.emit(test);
             this.items = this.allTests;
             this.newBreadcrumbItems = [];
             this.breadcrumbItems = [];
             this.showBreadCrumb = false;
+            this.itemSearch = [];
         }
+    }
+    searchItems(event) {
+        this.items = event;
     }
 }

@@ -6,7 +6,9 @@
     ></p-breadcrumb>
 </div>
 <app-item-search
-    [items]="allTests"
+    [items]="items"
+    [itemSearch]="itemSearch"
+    (searchEvent)="searchItems($event)"
     [displayName]="displayName"
 ></app-item-search>
 <div

@@ -1,5 +1,5 @@
 import { SharedClass } from "./../sharedFunctions";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "app-item-search",
@@ -9,21 +9,28 @@ import { Component, Input, OnInit } from "@angular/core";
 export class ItemSearchComponent implements OnInit {
     @Input() items;
     @Input() displayName;
+    @Input() itemSearch;
+    @Output() searchEvent = new EventEmitter<any>();
     sharedClass: SharedClass = new SharedClass();
-    selectedTest;
     filteredTests: any[];
     constructor() {}
 
     ngOnInit(): void {}
     filterTest(event) {
         const query = event.query;
-        this.searchTest(query, this.items);
+        this.searchEvent.emit(this.searchTest(query, this.items));
     }
-    async searchTest(query, items) {
-        return await this.sharedClass.searchTest(
-            query,
-            items,
-            this.displayName
-        );
+    searchTest(query, items) {
+        const filtered: any[] = [];
+        for (const item of items) {
+            if (
+                item[this.displayName]
+                    .toLowerCase()
+                    .includes(query.toLowerCase())
+            ) {
+                filtered.push(item);
+            }
+        }
+        return filtered;
     }
 }
