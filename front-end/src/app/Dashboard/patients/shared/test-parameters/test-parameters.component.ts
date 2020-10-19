@@ -37,6 +37,8 @@ export class TestParametersComponent implements OnInit {
     leftCellsData = [];
     rightPointStyles = [];
     leftPointStyles = [];
+    selectRight = true;
+    selectLeft = true;
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
