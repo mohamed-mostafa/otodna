@@ -356,6 +356,7 @@ export class PathologyComponent implements OnInit {
         });
     }
     saveWithoutParams(test) {
+        this.spinner.show();
         delete test.departments;
         this.pathologyService.createPathology(test).subscribe((u: any) => {
             this.reset();
@@ -365,6 +366,7 @@ export class PathologyComponent implements OnInit {
                 "Saved",
                 "Data saved successfully"
             );
+            this.searchResultItemComponent.reset();
             this.spinner.hide();
         });
     }

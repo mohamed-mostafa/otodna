@@ -10,7 +10,7 @@ export class ItemSearchComponent implements OnInit {
     @Input() items;
     @Input() displayName;
     @Input() itemSearch;
-    @Output() searchEvent = new EventEmitter<any>();
+    @Output() filterEvent = new EventEmitter<any>();
     sharedClass: SharedClass = new SharedClass();
     filteredTests: any[];
     constructor() {}
@@ -18,19 +18,17 @@ export class ItemSearchComponent implements OnInit {
     ngOnInit(): void {}
     filterTest(event) {
         const query = event.query;
-        this.searchEvent.emit(this.searchTest(query, this.items));
-    }
-    searchTest(query, items) {
-        const filtered: any[] = [];
-        for (const item of items) {
+        for (const item of this.items) {
             if (
                 item[this.displayName]
                     .toLowerCase()
                     .includes(query.toLowerCase())
             ) {
-                filtered.push(item);
+                item.show = false;
+            } else {
+                item.show = true;
             }
         }
-        return filtered;
+        this.filterEvent.emit(this.items);
     }
 }

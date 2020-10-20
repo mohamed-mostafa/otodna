@@ -44,7 +44,6 @@ export class SearchResultItemComponent implements OnInit {
             this.itemSearch = [];
         } else {
             this.testEvent.emit(item);
-            this.reset();
         }
     }
     showBreadCrumbData(event) {
@@ -55,6 +54,7 @@ export class SearchResultItemComponent implements OnInit {
             }
         });
         event.item.children.forEach((element) => {
+            element.show = false;
             if (element.children) {
                 this.items.unshift(element);
             } else {

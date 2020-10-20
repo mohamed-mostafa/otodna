@@ -2,7 +2,7 @@
     <app-item-search
         [items]="items"
         [itemSearch]="itemSearch"
-        (searchEvent)="searchItems($event)"
+        (filterEvent)="searchItems($event)"
         [displayName]="displayName"
     ></app-item-search>
 </div>
@@ -11,21 +11,26 @@
     [model]="breadcrumbItems"
     [home]="breadcrumbIcon"
 ></p-breadcrumb>
-<div
-    class="ui-g-12 ui-md-4"
-    *ngFor="let item of items"
-    (click)="openTestData(item)"
->
-    <p-card
-        class="centerHeader pointerCursor"
-        [style]="{ height: '80px' }"
-        styleClass="ui-card-shadow cardBorderRadius"
+<div *ngFor="let item of items">
+    <div
+        class="ui-g-12 ui-md-4"
+        *ngIf="!item.show"
+        (click)="openTestData(item)"
     >
-        <span>
-            {{ item[displayName] }}
-        </span>
-        <p-footer *ngIf="item.children">
-            <span style="float: right"><i class="fa fa-arrow-right"></i></span>
-        </p-footer>
-    </p-card>
+        <p-card
+            class="centerHeader pointerCursor"
+            [style]="{ height: '80px' }"
+            styleClass="ui-card-shadow cardBorderRadius"
+        >
+            <span>
+                {{ item[displayName] }}
+            </span>
+            <p-footer *ngIf="item.children">
+                <span style="float: right"
+                    ><i class="fa fa-arrow-right"></i
+                ></span>
+            </p-footer>
+        </p-card>
+    </div>
 </div>
+<ngx-spinner></ngx-spinner>
