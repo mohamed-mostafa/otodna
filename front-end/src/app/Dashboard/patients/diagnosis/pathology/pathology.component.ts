@@ -31,7 +31,7 @@ export class PathologyComponent implements OnInit {
     pathology: Pathology = new Pathology();
     items: MenuItem[];
     home: MenuItem;
-    displayTest: boolean;
+    displayTest = false;
     selectedTest;
     filteredTests: any[];
     allTests = [];
@@ -258,6 +258,7 @@ export class PathologyComponent implements OnInit {
             });
     }
     reset() {
+        this.searchResultItemComponent.reset();
         this.selectedTest = "";
         this.selected = "";
         this.filteredTests = [];

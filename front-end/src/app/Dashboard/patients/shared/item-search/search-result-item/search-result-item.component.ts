@@ -40,14 +40,17 @@ export class SearchResultItemComponent implements OnInit {
             this.itemSearch = [];
         } else {
             this.testEvent.emit(test);
-            this.items = this.allTests;
-            this.newBreadcrumbItems = [];
-            this.breadcrumbItems = [];
-            this.showBreadCrumb = false;
-            this.itemSearch = [];
+            this.reset();
         }
     }
     searchItems(event) {
         this.items = event;
+    }
+    reset() {
+        this.items = this.allTests;
+        this.newBreadcrumbItems = [];
+        this.breadcrumbItems = [];
+        this.showBreadCrumb = false;
+        this.itemSearch = [];
     }
 }
