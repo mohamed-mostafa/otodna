@@ -21,16 +21,20 @@ export class SearchResultItemComponent implements OnInit {
         this.breadcrumbIcon = { icon: "fa fa-medkit" };
         this.items = this.allTests;
     }
-    openTestData(test) {
-        if (test.children) {
+    openTestData(item) {
+        if (item.children) {
             this.items = [];
             const obj = {
-                label: test[this.displayName],
+                label: item[this.displayName],
+                children: item.children,
+                command: (event) => {
+                    this.showBreadCrumbData(event);
+                },
             };
             this.newBreadcrumbItems.push(obj);
             this.breadcrumbItems = this.newBreadcrumbItems;
             this.showBreadCrumb = true;
-            test.children.forEach((element) => {
+            item.children.forEach((element) => {
                 if (element.children) {
                     this.items.unshift(element);
                 } else {
@@ -39,9 +43,25 @@ export class SearchResultItemComponent implements OnInit {
             });
             this.itemSearch = [];
         } else {
-            this.testEvent.emit(test);
+            this.testEvent.emit(item);
             this.reset();
         }
+    }
+    showBreadCrumbData(event) {
+        this.items = [];
+        this.breadcrumbItems.forEach((element, idx) => {
+            if (element.label === event.item.label) {
+                this.breadcrumbItems.length = idx + 1;
+            }
+        });
+        event.item.children.forEach((element) => {
+            if (element.children) {
+                this.items.unshift(element);
+            } else {
+                this.items.push(element);
+            }
+        });
+        this.itemSearch = [];
     }
     searchItems(event) {
         this.items = event;
