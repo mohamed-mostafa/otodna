@@ -1,36 +1,31 @@
-<div class="marginBottom">
-    <app-item-search
-        [items]="items"
-        [itemSearch]="itemSearch"
-        (filterEvent)="searchItems($event)"
-        [displayName]="displayName"
-    ></app-item-search>
-</div>
+<app-item-search
+    [items]="allTests"
+    *ngIf="!showBreadCrumb"
+    [itemSearch]="itemSearch"
+    (filterEvent)="searchItems($event)"
+    [displayName]="displayName"
+></app-item-search>
 <p-breadcrumb
     *ngIf="showBreadCrumb"
     [model]="breadcrumbItems"
     [home]="breadcrumbIcon"
 ></p-breadcrumb>
-<div *ngFor="let item of items">
-    <div
-        class="ui-g-12 ui-md-4"
-        *ngIf="!item.show"
-        (click)="openTestData(item)"
+<div
+    class="ui-g-12 ui-md-4"
+    *ngFor="let item of items"
+    (click)="openTestData(item)"
+>
+    <p-card
+        class="centerHeader pointerCursor"
+        [style]="{ height: '80px' }"
+        styleClass="ui-card-shadow cardBorderRadius"
     >
-        <p-card
-            class="centerHeader pointerCursor"
-            [style]="{ height: '80px' }"
-            styleClass="ui-card-shadow cardBorderRadius"
-        >
-            <span>
-                {{ item[displayName] }}
-            </span>
-            <p-footer *ngIf="item.children">
-                <span style="float: right"
-                    ><i class="fa fa-arrow-right"></i
-                ></span>
-            </p-footer>
-        </p-card>
-    </div>
+        <span>
+            {{ item[displayName] }}
+        </span>
+        <p-footer *ngIf="item.children">
+            <span style="float: right"><i class="fa fa-arrow-right"></i></span>
+        </p-footer>
+    </p-card>
 </div>
 <ngx-spinner></ngx-spinner>

@@ -1,3 +1,4 @@
+import { element } from "protractor";
 import { SharedClass } from "./../sharedFunctions";
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
@@ -13,22 +14,34 @@ export class ItemSearchComponent implements OnInit {
     @Output() filterEvent = new EventEmitter<any>();
     sharedClass: SharedClass = new SharedClass();
     filteredTests: any[];
+    filtered = new Set();
     constructor() {}
 
     ngOnInit(): void {}
-    filterTest(event) {
-        const query = event.query;
-        for (const item of this.items) {
+    filterTest(items) {
+        let children = [];
+        const query = this.itemSearch;
+        for (const item of items) {
             if (
                 item[this.displayName]
                     .toLowerCase()
                     .includes(query.toLowerCase())
             ) {
-                item.show = false;
+                this.filtered.add(item);
             } else {
-                item.show = true;
+                for (let element of this.filtered) {
+                    if (element === item) {
+                        this.filtered.delete(item);
+                    }
+                }
+            }
+            if (item.children) {
+                children = [...children, ...item.children];
             }
         }
-        this.filterEvent.emit(this.items);
+        if (children && children.length > 0) {
+            this.filterTest(children);
+        }
+        this.filterEvent.emit(this.filtered);
     }
 }

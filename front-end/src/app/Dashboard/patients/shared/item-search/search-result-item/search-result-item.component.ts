@@ -18,7 +18,12 @@ export class SearchResultItemComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        this.breadcrumbIcon = { icon: "fa fa-medkit" };
+        this.breadcrumbIcon = {
+            icon: "fa fa-medkit",
+            command: (event) => {
+                this.reset();
+            },
+        };
         this.items = this.allTests;
     }
     openTestData(item) {
@@ -54,7 +59,6 @@ export class SearchResultItemComponent implements OnInit {
             }
         });
         event.item.children.forEach((element) => {
-            element.show = false;
             if (element.children) {
                 this.items.unshift(element);
             } else {
