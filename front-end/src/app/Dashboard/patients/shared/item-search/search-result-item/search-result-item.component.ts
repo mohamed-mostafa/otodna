@@ -68,7 +68,14 @@ export class SearchResultItemComponent implements OnInit {
         this.itemSearch = [];
     }
     searchItems(event) {
-        this.items = event;
+        this.items = [];
+        for (const element of event) {
+            if (element.children) {
+                this.items.unshift(element);
+            } else {
+                this.items.push(element);
+            }
+        }
     }
     reset() {
         this.items = this.allTests;
