@@ -119,8 +119,8 @@
     font-size: 11px !important;
 }
 .rightFloat {
-    float: right !important;
+    float: left !important;
 }
 .leftFloat {
-    float: left !important;
+    float: right !important;
 }
