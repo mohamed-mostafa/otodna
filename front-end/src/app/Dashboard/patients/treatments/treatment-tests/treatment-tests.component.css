@@ -115,6 +115,7 @@
 }
 .height50 {
     height: 50px;
+    font-size: 12px;
 }
 .rightCardBorder {
     border-left: 3px solid #c62828 !important;
