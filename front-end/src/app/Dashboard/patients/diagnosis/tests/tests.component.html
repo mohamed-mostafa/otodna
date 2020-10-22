@@ -271,56 +271,35 @@
     <div class="ui-g-12"><h2 class="centerHeader">Diagnosis Tests</h2></div>
     <div class="ui-g-12 ui-md-6 rightVerticalLine">
         <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
-        <div class="ui-g-6 ui-md-6" *ngFor="let right of rightTests">
+        <div class="ui-g-6 ui-md-4" *ngFor="let right of rightTests">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '120px' }"
+                [style]="{ height: '80px' }"
                 styleClass="ui-card-shadow"
             >
-                <p-header *ngIf="showAllButtons">
-                    <a
-                        href="javascript:void(0)"
-                        class="iconStyle"
-                        (click)="deleteTest(right)"
-                        title="Remove"
-                    >
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </a>
-                </p-header>
                 <div (click)="retrieveTestData(right)">
                     <div class="ui-g-12 ui-md-12 bold">
                         {{ right.testName }}
                     </div>
-                    <div
-                        class="ui-g-12 ui-md-6 bold equipmentColor equipmentSpan"
-                        (click)="showEquipmentDialog(right)"
-                        *ngIf="right.showEquipment"
-                    >
-                        <i class="fa fa-plus" aira-hidden="true"></i> Add
-                        Equipment
-                    </div>
-                    <div
-                        class="ui-g-12 ui-md-6 bold equipmentColor equipmentSpan"
-                        (click)="viewEquipments(right)"
-                        *ngIf="right.showEquipment"
-                    >
-                        <i class="fa fa-desktop" aira-hidden="true"></i>
-                        Equipment<span
-                            *ngIf="
-                                right.equipmentCount && right.equipmentCount > 1
-                            "
-                            >s</span
-                        >
-                        ({{ right.equipmentCount }})
-                    </div>
                 </div>
+                <p-footer *ngIf="showAllButtons">
+                    <a
+                        href="javascript:void(0)"
+                        class="iconStyle"
+                        (click)="menu.toggle($event); onClickMenu(right)"
+                        title="Settings"
+                    >
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </a>
+                    <p-menu #menu [popup]="true" [model]="cogsItems"></p-menu>
+                </p-footer>
             </p-card>
         </div>
-        <div class="ui-g-6 ui-md-6" *ngIf="showAllButtons">
+        <div class="ui-g-6 ui-md-4" *ngIf="showAllButtons">
             <div style="border-style: dotted">
                 <p-card
                     class="centerHeader pointerCursor"
-                    [style]="{ height: '115px' }"
+                    [style]="{ height: '75px' }"
                     (click)="showRightTestDialog()"
                 >
                     <div class="addTestStyle">
@@ -337,56 +316,35 @@
     </div>
     <div class="ui-g-12 ui-md-6">
         <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
-        <div class="ui-g-6 ui-md-6" *ngFor="let left of leftTests">
+        <div class="ui-g-6 ui-md-4" *ngFor="let left of leftTests">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '120px' }"
+                [style]="{ height: '80px' }"
                 styleClass="ui-card-shadow"
             >
-                <p-header *ngIf="showAllButtons">
-                    <a
-                        href="javascript:void(0)"
-                        class="iconStyle"
-                        (click)="deleteTest(left)"
-                        title="Remove"
-                    >
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </a>
-                </p-header>
                 <div (click)="retrieveTestData(left)">
                     <div class="ui-g-12 ui-md-12 bold">
                         {{ left.testName }}
                     </div>
-                    <div
-                        class="ui-g-12 ui-md-6 bold equipmentColor equipmentSpan"
-                        (click)="showEquipmentDialog(left)"
-                        *ngIf="left.showEquipment"
-                    >
-                        <i class="fa fa-plus" aira-hidden="true"></i> Add
-                        Equipment
-                    </div>
-                    <div
-                        class="ui-g-12 ui-md-6 bold equipmentColor equipmentSpan"
-                        (click)="viewEquipments(left)"
-                        *ngIf="left.showEquipment"
-                    >
-                        <i class="fa fa-desktop" aira-hidden="true"></i>
-                        Equipment<span
-                            *ngIf="
-                                left.equipmentCount && left.equipmentCount > 1
-                            "
-                            >s</span
-                        >
-                        ({{ left.equipmentCount }})
-                    </div>
                 </div>
+                <p-footer *ngIf="showAllButtons">
+                    <a
+                        href="javascript:void(0)"
+                        class="iconStyle"
+                        (click)="menu.toggle($event); onClickMenu(left)"
+                        title="Settings"
+                    >
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </a>
+                    <p-menu #menu [popup]="true" [model]="cogsItems"></p-menu>
+                </p-footer>
             </p-card>
         </div>
-        <div class="ui-g-6 ui-md-6" *ngIf="showAllButtons">
+        <div class="ui-g-6 ui-md-4" *ngIf="showAllButtons">
             <div style="border-style: dotted">
                 <p-card
                     class="centerHeader pointerCursor"
-                    [style]="{ height: '115px' }"
+                    [style]="{ height: '75px' }"
                     (click)="showLeftTestDialog()"
                 >
                     <div class="addTestStyle">
