@@ -73,7 +73,7 @@
     font-weight: bold;
 }
 .addTestStyle {
-    padding-top: 20px;
+    padding-top: 15px;
     font-size: 14px;
     font-weight: bold;
 }
@@ -82,9 +82,7 @@
     font-size: 15px;
 }
 .iconStyle {
-    color: red;
     float: right;
-    padding: 5px;
 }
 @media screen and (max-width: 40em) {
     .addTestStyle {

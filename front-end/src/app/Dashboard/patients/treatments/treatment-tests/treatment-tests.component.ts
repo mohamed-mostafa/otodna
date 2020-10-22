@@ -77,6 +77,7 @@ export class TreatmentTestsComponent implements OnInit {
     viewEquipmentDialogHeader;
     showDialogRightData = true;
     showDialogLeftData = true;
+    cogsItems = [];
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -124,6 +125,33 @@ export class TreatmentTestsComponent implements OnInit {
         this.getAllEquipments();
         this.getSessionTreatments();
         this.checkLoggedInUserTeamWithPatient();
+    }
+    onClickMenu(data: any) {
+        this.cogsItems = [
+            {
+                label: "Delete Test",
+                icon: "fa fa-trash-o",
+                command: () => {
+                    this.deleteTreatment(data);
+                },
+            },
+            {
+                label: "Add Equipment",
+                icon: "fa fa-plus",
+                command: () => {
+                    this.showEquipmentDialog(data);
+                },
+                disabled: !data.showEquipment,
+            },
+            {
+                label: "view Equipment",
+                icon: "fa fa-desktop",
+                command: () => {
+                    this.viewEquipments(data);
+                },
+                disabled: !data.showEquipment || data.equipmentCount < 1,
+            },
+        ];
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
