@@ -74,7 +74,7 @@
 }
 .addTestStyle {
     padding-top: 10px;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: bold;
 }
 .testStyle {
@@ -112,4 +112,13 @@
 }
 .width100 {
     width: 100%;
+}
+.height50 {
+    height: 50px;
+}
+.rightCardBorder {
+    border-left: 3px solid #c62828 !important;
+}
+.leftCardBorder {
+    border-right: 3px solid #1e88e5 !important;
 }
