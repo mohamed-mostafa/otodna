@@ -1,5 +1,5 @@
 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-    <div *ngIf="selectRight">
+    <div *ngIf="showDialogRightData">
         <p-toast [style]="{ marginTop: '80px' }"></p-toast>
         <p-chart
             type="line"
@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="ui-g-12 ui-md-6">
-    <div *ngIf="selectLeft">
+    <div *ngIf="showDialogLeftData">
         <p-toast [style]="{ marginTop: '80px' }"></p-toast>
         <p-chart
             type="line"

@@ -47,6 +47,8 @@
                         [leftFilePath]="leftFilePath"
                         [savedRightImage]="savedRightImage"
                         [savedLeftImage]="savedLeftImage"
+                        [showDialogLeftData]="showDialogLeftData"
+                        [showDialogRightData]="showDialogRightData"
                         class="width100"
                     ></app-test-parameters>
                     <div class="ui-g-12 ui-md-8"></div>
@@ -109,45 +111,92 @@
     <div class="ui-g-12">
         <h2 class="centerHeader">Diagnosis Pathologies</h2>
     </div>
-    <div class="ui-g-6 ui-md-3" *ngFor="let pathology of pathologies">
-        <p-card
-            class="centerHeader pointerCursor"
-            [style]="{ height: '80px' }"
-            styleClass="ui-card-shadow"
-        >
-            <p-header *ngIf="showAllButtons">
-                <a
-                    href="javascript:void(0)"
-                    class="iconStyle"
-                    (click)="deletePathology(pathology)"
-                    title="Remove"
-                >
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
-            </p-header>
-            <div (click)="retrieveTestData(pathology)">
-                <div class="ui-g-12 ui-md-12 bold">
-                    {{ pathology.diseaseName }}
-                </div>
-            </div>
-        </p-card>
-    </div>
-    <div class="ui-g-6 ui-md-3" *ngIf="showAllButtons">
-        <div style="border-style: dotted">
+    <div class="ui-g-12 ui-md-6 rightVerticalLine">
+        <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
+        <div class="ui-g-6 ui-md-6" *ngFor="let right of rightPathologies">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '75px' }"
-                (click)="showTestDialog()"
+                [style]="{ height: '80px' }"
+                styleClass="ui-card-shadow"
             >
-                <div class="addTestStyle">
-                    <i
-                        class="fa fa-plus"
-                        aira-hidden="true"
-                        style="margin: 5px"
-                    ></i>
-                    Add Pathology
+                <p-header *ngIf="showAllButtons">
+                    <a
+                        href="javascript:void(0)"
+                        class="iconStyle"
+                        (click)="deletePathology(right)"
+                        title="Remove"
+                    >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </p-header>
+                <div (click)="retrieveTestData(right)">
+                    <div class="ui-g-12 ui-md-12 bold">
+                        {{ right.diseaseName }}
+                    </div>
                 </div>
             </p-card>
+        </div>
+        <div class="ui-g-6 ui-md-6" *ngIf="showAllButtons">
+            <div style="border-style: dotted">
+                <p-card
+                    class="centerHeader pointerCursor"
+                    [style]="{ height: '75px' }"
+                    (click)="showRightPathologyDialog()"
+                >
+                    <div class="addTestStyle">
+                        <i
+                            class="fa fa-plus"
+                            aira-hidden="true"
+                            style="margin: 5px"
+                        ></i>
+                        Add Pathology
+                    </div>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
+        <div class="ui-g-6 ui-md-6" *ngFor="let left of leftPathologies">
+            <p-card
+                class="centerHeader pointerCursor"
+                [style]="{ height: '80px' }"
+                styleClass="ui-card-shadow"
+            >
+                <p-header *ngIf="showAllButtons">
+                    <a
+                        href="javascript:void(0)"
+                        class="iconStyle"
+                        (click)="deletePathology(left)"
+                        title="Remove"
+                    >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </p-header>
+                <div (click)="retrieveTestData(left)">
+                    <div class="ui-g-12 ui-md-12 bold">
+                        {{ left.diseaseName }}
+                    </div>
+                </div>
+            </p-card>
+        </div>
+        <div class="ui-g-6 ui-md-6" *ngIf="showAllButtons">
+            <div style="border-style: dotted">
+                <p-card
+                    class="centerHeader pointerCursor"
+                    [style]="{ height: '75px' }"
+                    (click)="showLeftPathologyDialog()"
+                >
+                    <div class="addTestStyle">
+                        <i
+                            class="fa fa-plus"
+                            aira-hidden="true"
+                            style="margin: 5px"
+                        ></i>
+                        Add Pathology
+                    </div>
+                </p-card>
+            </div>
         </div>
     </div>
 </div>

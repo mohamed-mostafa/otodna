@@ -25,7 +25,8 @@ export class CandidacyComponent implements OnInit {
     );
     selectedPatient;
     cols: any[];
-    candidacies: any[] = [];
+    rightCandidacies: any[] = [];
+    leftCandidacies: any[] = [];
     candidacy: Candidacy = new Candidacy();
     items: MenuItem[];
     home: MenuItem;
@@ -56,6 +57,8 @@ export class CandidacyComponent implements OnInit {
     leftImage;
     leftDeletedImage;
     rightDeletedImage;
+    showDialogRightData = true;
+    showDialogLeftData = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -134,6 +137,24 @@ export class CandidacyComponent implements OnInit {
         this.rightFiles = this.testParameterComponent.rightFiles;
         this.leftFiles = this.testParameterComponent.leftFiles;
         this.selectedTestData.forEach((element) => {
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "BOTH";
+            }
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                !this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "R";
+            }
+            if (
+                this.testParameterComponent.showDialogLeftData &&
+                !this.testParameterComponent.showDialogRightData
+            ) {
+                element.ear = "L";
+            }
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
         });
@@ -313,15 +334,35 @@ export class CandidacyComponent implements OnInit {
     async searchTest(query, tests) {
         return await this.sharedClass.searchTest(query, tests, "treatmentName");
     }
-    showTestDialog() {
+    showRightTestDialog() {
         this.displayTest = true;
+        this.showDialogLeftData = false;
+        this.showDialogRightData = true;
+    }
+    showLeftTestDialog() {
+        this.displayTest = true;
+        this.showDialogRightData = false;
+        this.showDialogLeftData = true;
     }
     getAllCandidacies() {
         this.spinner.show();
         this.candidacyService
             .getAllCandidacies(this.selectedSession.id)
             .subscribe((result) => {
-                this.candidacies = result;
+                this.rightCandidacies = [];
+                this.leftCandidacies = [];
+                result.forEach((element) => {
+                    if (element.ear === "R") {
+                        this.rightCandidacies.push(element);
+                    }
+                    if (element.ear === "L") {
+                        this.leftCandidacies.push(element);
+                    }
+                    if (element.ear === "BOTH") {
+                        this.rightCandidacies.push(element);
+                        this.leftCandidacies.push(element);
+                    }
+                });
                 this.spinner.hide();
             });
     }

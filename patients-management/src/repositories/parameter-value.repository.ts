@@ -38,6 +38,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           let sessionTestObj = {
             testId: data[0].testId,
             testName: data[0].name,
+            ear: data[0].ear,
             patientSessionId: data[0].sessionTestId,
           };
           let res = await this.sessionTestRepository.create(sessionTestObj);
@@ -69,6 +70,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           let sessionTestObj = {
             treatmentId: data[0].testId,
             treatmentName: data[0].name,
+            ear: data[0].ear,
             patientSessionId: data[0].sessionTreatmentId,
           };
           let res = await this.sessionTreatmentRepository.create(
@@ -102,6 +104,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
           let sessionTestObj = {
             diseaseId: data[0].testId,
             diseaseName: data[0].name,
+            ear: data[0].ear,
             patientSessionId: data[0].sessionPathologyId,
           };
           let res = await this.patientSessionPathologyRepository.create(

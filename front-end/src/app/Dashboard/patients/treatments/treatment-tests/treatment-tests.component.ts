@@ -28,7 +28,8 @@ export class TreatmentTestsComponent implements OnInit {
         this.messageService
     );
     cols: any[];
-    treatments: any[] = [];
+    rightTreatments: any[] = [];
+    leftTreatments: any[] = [];
     treatment: Treatment = new Treatment();
     items: MenuItem[];
     home: MenuItem;
@@ -74,6 +75,8 @@ export class TreatmentTestsComponent implements OnInit {
     showSaveEquipmentButton = true;
     addEquipmentDialogHeader;
     viewEquipmentDialogHeader;
+    showDialogRightData = true;
+    showDialogLeftData = true;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -166,6 +169,24 @@ export class TreatmentTestsComponent implements OnInit {
             });
         }
         this.selectedTestData.forEach((element) => {
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "BOTH";
+            }
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                !this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "R";
+            }
+            if (
+                this.testParameterComponent.showDialogLeftData &&
+                !this.testParameterComponent.showDialogRightData
+            ) {
+                element.ear = "L";
+            }
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
         });
@@ -324,9 +345,15 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatment = new Treatment();
         this.dialogHeader = "Add New Treatment";
     }
-
-    showTestDialog() {
+    showRightTreatmentDialog() {
         this.displayTest = true;
+        this.showDialogLeftData = false;
+        this.showDialogRightData = true;
+    }
+    showLeftTreatmentDialog() {
+        this.displayTest = true;
+        this.showDialogRightData = false;
+        this.showDialogLeftData = true;
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
@@ -457,7 +484,8 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatmentService
             .getSessionTreatments(this.selectedSession.id)
             .subscribe((result) => {
-                this.treatments = result;
+                this.rightTreatments = [];
+                this.leftTreatments = [];
                 result.forEach((treatment) => {
                     this.treatmentService
                         .getTreatmentTest(treatment.treatmentId)
@@ -474,6 +502,16 @@ export class TreatmentTestsComponent implements OnInit {
                                 treatment.showEquipment = false;
                             }
                         );
+                    if (treatment.ear === "R") {
+                        this.rightTreatments.push(treatment);
+                    }
+                    if (treatment.ear === "L") {
+                        this.leftTreatments.push(treatment);
+                    }
+                    if (treatment.ear === "BOTH") {
+                        this.rightTreatments.push(treatment);
+                        this.leftTreatments.push(treatment);
+                    }
                 });
                 this.spinner.hide();
             });

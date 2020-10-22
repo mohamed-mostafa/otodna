@@ -4,8 +4,10 @@
             <h2 class="centerHeader removeMarginAndPadding rightColor">
                 <p-checkbox
                     label="R"
-                    [(ngModel)]="selectRight"
+                    [(ngModel)]="showDialogRightData"
                     binary="true"
+                    (click)="checkCheckboxSelection()"
+                    [disabled]="disableRightDialogTest"
                 ></p-checkbox>
             </h2>
         </div>
@@ -13,8 +15,10 @@
             <h2 class="centerHeader removeMarginAndPadding leftColor">
                 <p-checkbox
                     label="L"
-                    [(ngModel)]="selectLeft"
+                    [(ngModel)]="showDialogLeftData"
                     binary="true"
+                    (click)="checkCheckboxSelection()"
+                    [disabled]="disableLeftDialogTest"
                 ></p-checkbox>
             </h2>
         </div>
@@ -27,7 +31,7 @@
                 *ngIf="t.type === 'text' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -43,7 +47,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -64,7 +68,7 @@
                 *ngIf="t.type === 'number' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -83,7 +87,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -107,7 +111,7 @@
                 *ngIf="t.type === 'boolean' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <div class="ui-inputgroup">
                             <span
                                 class="ui-inputgroup-addon rightBackgroundColor lineHeight"
@@ -118,7 +122,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <div class="ui-inputgroup">
                             <span
                                 class="ui-inputgroup-addon leftBackgroundColor lineHeight"
@@ -134,7 +138,7 @@
                 *ngIf="t.type === 'radio' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -150,7 +154,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -171,7 +175,7 @@
                 *ngIf="t.type === 'list' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <app-list
                             [value]="t"
                             [parameters]="parameters"
@@ -181,7 +185,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <app-list
                             [value]="t"
                             [parameters]="parameters"
@@ -196,7 +200,7 @@
                 *ngIf="t.type === 'listWithImage' && !t.conditional"
             >
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -212,7 +216,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
                             <span
@@ -230,7 +234,7 @@
             </div>
             <div class="removeMarginAndPadding" *ngIf="t.type === 'image'">
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <ng-container
                             *ngIf="
                                 savedRightImage.length > 0;
@@ -363,7 +367,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <ng-container
                             *ngIf="savedLeftImage.length > 0; else NoLeftImage"
                         >
@@ -493,7 +497,7 @@
             </div>
             <div class="removeMarginAndPadding" *ngIf="t.type === 'file'">
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
-                    <div *ngIf="selectRight">
+                    <div *ngIf="showDialogRightData">
                         <ng-container
                             *ngIf="
                                 savedRightFiles.length > 0;
@@ -566,7 +570,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                    <div *ngIf="selectLeft">
+                    <div *ngIf="showDialogLeftData">
                         <ng-container
                             *ngIf="
                                 savedLeftFiles.length > 0;
@@ -641,7 +645,9 @@
             </div>
             <div
                 class="ui-g-12 ui-md-12"
-                *ngIf="t.type === 'textarea' && (selectRight || selectLeft)"
+                *ngIf="
+                    t.type === 'textarea' && (showDialogRightData || showDialogLeftData)
+                "
             >
                 <label>{{ t.name }}</label>
                 <div class="labelMarginTop">
@@ -650,7 +656,9 @@
             </div>
             <div
                 class="ui-g-12 ui-md-12"
-                *ngIf="t.type === 'table' && (selectRight || selectLeft)"
+                *ngIf="
+                    t.type === 'table' && (showDialogRightData || showDialogLeftData)
+                "
             >
                 <label> {{ t.name }}</label>
                 <div class="labelMarginTop">
@@ -663,7 +671,7 @@
                                 </th>
                             </tr>
 
-                            <tr *ngIf="selectRight">
+                            <tr *ngIf="showDialogRightData">
                                 <th class="rightColor">Right</th>
                                 <ng-container *ngIf="t.cellType === 'boolean'">
                                     <th *ngFor="let freq of t.cells">
@@ -735,7 +743,7 @@
                                     </th>
                                 </ng-container>
                             </tr>
-                            <tr *ngIf="selectLeft">
+                            <tr *ngIf="showDialogLeftData">
                                 <th class="leftColor">Left</th>
                                 <ng-container *ngIf="t.cellType === 'boolean'">
                                     <th *ngFor="let freq of t.cells">
@@ -818,8 +826,8 @@
                 <app-graph
                     [rightGraphData]="rightGraphData"
                     [leftGraphData]="leftGraphData"
-                    [selectRight]="selectRight"
-                    [selectLeft]="selectLeft"
+                    [showDialogRightData]="showDialogRightData"
+                    [showDialogLeftData]="showDialogLeftData"
                 ></app-graph>
             </div>
         </div>

@@ -28,7 +28,8 @@ export class TestsComponent implements OnInit {
         this.messageService
     );
     cols: any[];
-    tests: any[] = [];
+    rightTests: any[] = [];
+    leftTests: any[] = [];
     test: Test = new Test();
     items: MenuItem[];
     home: MenuItem;
@@ -74,6 +75,8 @@ export class TestsComponent implements OnInit {
     showSaveEquipmentButton = true;
     addEquipmentDialogHeader;
     viewEquipmentDialogHeader;
+    showDialogRightData = true;
+    showDialogLeftData = true;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -171,6 +174,24 @@ export class TestsComponent implements OnInit {
             });
         }
         this.selectedTestData.forEach((element) => {
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "BOTH";
+            }
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                !this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "R";
+            }
+            if (
+                this.testParameterComponent.showDialogLeftData &&
+                !this.testParameterComponent.showDialogRightData
+            ) {
+                element.ear = "L";
+            }
             element.testId = this.selected.testId;
             element.sessionTestId = this.selectedSession.id;
         });
@@ -328,9 +349,15 @@ export class TestsComponent implements OnInit {
         this.leftDocument = "";
         this.dialogHeader = "Add New Test";
     }
-
-    showTestDialog() {
+    showRightTestDialog() {
         this.displayTest = true;
+        this.showDialogLeftData = false;
+        this.showDialogRightData = true;
+    }
+    showLeftTestDialog() {
+        this.displayTest = true;
+        this.showDialogRightData = false;
+        this.showDialogLeftData = true;
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
@@ -440,7 +467,8 @@ export class TestsComponent implements OnInit {
         this.testService
             .getSessionTests(this.selectedSession.id)
             .subscribe((result) => {
-                this.tests = result;
+                this.rightTests = [];
+                this.leftTests = [];
                 result.forEach((test) => {
                     this.testService.getTest(test.testId).then(
                         (res) => {
@@ -455,6 +483,16 @@ export class TestsComponent implements OnInit {
                             test.showEquipment = false;
                         }
                     );
+                    if (test.ear === "R") {
+                        this.rightTests.push(test);
+                    }
+                    if (test.ear === "L") {
+                        this.leftTests.push(test);
+                    }
+                    if (test.ear === "BOTH") {
+                        this.rightTests.push(test);
+                        this.leftTests.push(test);
+                    }
                 });
                 this.spinner.hide();
             });

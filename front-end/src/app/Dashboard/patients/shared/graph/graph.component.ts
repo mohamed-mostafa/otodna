@@ -11,8 +11,8 @@ import { Component, OnInit } from "@angular/core";
 export class GraphComponent implements OnInit {
     @Input() rightGraphData;
     @Input() leftGraphData;
-    @Input() selectRight;
-    @Input() selectLeft;
+    @Input() showDialogRightData;
+    @Input() showDialogLeftData;
     constructor(private messageService: MessageService) {}
 
     ngOnInit(): void {}

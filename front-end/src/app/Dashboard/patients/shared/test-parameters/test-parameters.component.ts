@@ -16,6 +16,8 @@ export class TestParametersComponent implements OnInit {
     @Input() leftFilePath;
     @Input() savedRightImage;
     @Input() savedLeftImage;
+    @Input() showDialogRightData;
+    @Input() showDialogLeftData;
     sharedClass: SharedClass = new SharedClass();
     previewRightImageUrl: any = null;
     previewLeftImageUrl: any = null;
@@ -37,10 +39,11 @@ export class TestParametersComponent implements OnInit {
     leftCellsData = [];
     rightPointStyles = [];
     leftPointStyles = [];
-    selectRight = true;
-    selectLeft = true;
+    disableLeftDialogTest = false;
+    disableRightDialogTest = false;
     constructor(private documentService: DocumentsService) {}
     ngOnInit(): void {
+        this.checkCheckboxSelection();
         this.parameters.forEach((element) => {
             if (element.type === "graph") {
                 this.rightGraphData = {
@@ -262,6 +265,18 @@ export class TestParametersComponent implements OnInit {
                     this.leftPointStyles.push(null);
                 }
             });
+        }
+    }
+    checkCheckboxSelection() {
+        if (!this.showDialogRightData) {
+            this.disableLeftDialogTest = true;
+        } else {
+            this.disableLeftDialogTest = false;
+        }
+        if (!this.showDialogLeftData) {
+            this.disableRightDialogTest = true;
+        } else {
+            this.disableRightDialogTest = false;
         }
     }
 }

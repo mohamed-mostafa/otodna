@@ -27,7 +27,8 @@ export class PathologyComponent implements OnInit {
     );
     selectedPatient;
     cols: any[];
-    pathologies: any[] = [];
+    rightPathologies: any[] = [];
+    leftPathologies: any[] = [];
     pathology: Pathology = new Pathology();
     items: MenuItem[];
     home: MenuItem;
@@ -58,6 +59,8 @@ export class PathologyComponent implements OnInit {
     leftImage;
     leftDeletedImage;
     rightDeletedImage;
+    showDialogRightData = true;
+    showDialogLeftData = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -137,6 +140,24 @@ export class PathologyComponent implements OnInit {
         this.rightFiles = this.testParameterComponent.rightFiles;
         this.leftFiles = this.testParameterComponent.leftFiles;
         this.selectedTestData.forEach((element) => {
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "BOTH";
+            }
+            if (
+                this.testParameterComponent.showDialogRightData &&
+                !this.testParameterComponent.showDialogLeftData
+            ) {
+                element.ear = "R";
+            }
+            if (
+                this.testParameterComponent.showDialogLeftData &&
+                !this.testParameterComponent.showDialogRightData
+            ) {
+                element.ear = "L";
+            }
             element.testId = this.selected.diseaseId;
             element.sessionPathologyId = this.selectedSession.id;
         });
@@ -316,15 +337,35 @@ export class PathologyComponent implements OnInit {
     async searchTest(query, tests) {
         return await this.sharedClass.searchTest(query, tests, "diseaseName");
     }
-    showTestDialog() {
+    showRightPathologyDialog() {
         this.displayTest = true;
+        this.showDialogLeftData = false;
+        this.showDialogRightData = true;
+    }
+    showLeftPathologyDialog() {
+        this.displayTest = true;
+        this.showDialogRightData = false;
+        this.showDialogLeftData = true;
     }
     getAllPathologies() {
         this.spinner.show();
         this.pathologyService
             .getAllPathologies(this.selectedSession.id)
             .subscribe((result) => {
-                this.pathologies = result;
+                this.rightPathologies = [];
+                this.leftPathologies = [];
+                result.forEach((element) => {
+                    if (element.ear === "R") {
+                        this.rightPathologies.push(element);
+                    }
+                    if (element.ear === "L") {
+                        this.leftPathologies.push(element);
+                    }
+                    if (element.ear === "BOTH") {
+                        this.rightPathologies.push(element);
+                        this.leftPathologies.push(element);
+                    }
+                });
                 this.spinner.hide();
             });
     }
