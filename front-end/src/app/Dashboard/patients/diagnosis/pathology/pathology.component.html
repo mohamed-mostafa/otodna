@@ -113,7 +113,10 @@
     </div>
     <div class="ui-g-12 ui-md-6 rightVerticalLine">
         <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
-        <div class="ui-g-6 ui-md-3" *ngFor="let right of rightPathologies">
+        <div
+            class="ui-g-6 ui-md-3 rightFloat"
+            *ngFor="let right of rightPathologies"
+        >
             <div class="rightCardBorder">
                 <p-card
                     class="centerHeader pointerCursor"
@@ -138,7 +141,7 @@
                 </p-card>
             </div>
         </div>
-        <div class="ui-g-6 ui-md-3" *ngIf="showAllButtons">
+        <div class="ui-g-6 ui-md-3 rightFloat" *ngIf="showAllButtons">
             <div style="border-style: dotted" class="rightCardBorder">
                 <p-card
                     class="centerHeader pointerCursor"
@@ -159,7 +162,10 @@
     </div>
     <div class="ui-g-12 ui-md-6">
         <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
-        <div class="ui-g-6 ui-md-3" *ngFor="let left of leftPathologies">
+        <div
+            class="ui-g-6 ui-md-3 leftFloat"
+            *ngFor="let left of leftPathologies"
+        >
             <div class="leftCardBorder">
                 <p-card
                     class="centerHeader pointerCursor"
@@ -184,7 +190,7 @@
                 </p-card>
             </div>
         </div>
-        <div class="ui-g-6 ui-md-3" *ngIf="showAllButtons">
+        <div class="ui-g-6 ui-md-3 leftFloat" *ngIf="showAllButtons">
             <div style="border-style: dotted" class="leftCardBorder">
                 <p-card
                     class="centerHeader pointerCursor"
