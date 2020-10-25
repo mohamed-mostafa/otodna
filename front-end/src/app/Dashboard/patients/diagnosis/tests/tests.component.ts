@@ -626,8 +626,8 @@ export class TestsComponent implements OnInit {
             icon: "pi pi-info-circle",
             accept: () => {
                 this.spinner.show();
-                this.testService
-                    .deleteSessionTest(data.id)
+                this.parameterValueService
+                    .deleteParametersValues(data)
                     .subscribe((u: any) => {
                         this.getSessionTests();
                         this.spinner.hide();

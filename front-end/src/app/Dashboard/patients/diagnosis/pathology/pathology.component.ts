@@ -501,8 +501,8 @@ export class PathologyComponent implements OnInit {
             icon: "pi pi-info-circle",
             accept: () => {
                 this.spinner.show();
-                this.pathologyService
-                    .deletePathology(data.id)
+                this.parameterValueService
+                    .deleteParametersValues(data)
                     .subscribe((u: any) => {
                         this.getAllPathologies();
                         this.spinner.hide();

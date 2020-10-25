@@ -375,4 +375,38 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
     }
     return AllData;
   }
+  public deleteParametersValues(data: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const tx: Transaction = await this.beginTransaction();
+      try {
+        if (data.testId) {
+          await this.sessionTestRepository.deleteById(data.id, {
+            transaction: tx,
+          });
+          await super.deleteAll({sessionTestId: data.id}, {transaction: tx});
+        } else if (data.treatmentId) {
+          await this.sessionTreatmentRepository.deleteById(data.id, {
+            transaction: tx,
+          });
+          await super.deleteAll(
+            {sessionTreatmentId: data.id},
+            {transaction: tx},
+          );
+        } else {
+          await this.patientSessionPathologyRepository.deleteById(data.id, {
+            transaction: tx,
+          });
+          await super.deleteAll(
+            {sessionPathologyId: data.id},
+            {transaction: tx},
+          );
+        }
+        await tx.commit();
+        resolve(data);
+      } catch (err) {
+        await tx.rollback();
+        reject(err);
+      }
+    });
+  }
 }

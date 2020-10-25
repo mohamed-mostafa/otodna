@@ -496,8 +496,8 @@ export class CandidacyComponent implements OnInit {
             icon: "pi pi-info-circle",
             accept: () => {
                 this.spinner.show();
-                this.candidacyService
-                    .deleteCandidacy(data.id)
+                this.parameterValueService
+                    .deleteParametersValues(data)   
                     .subscribe((u: any) => {
                         this.getAllCandidacies();
                         this.spinner.hide();

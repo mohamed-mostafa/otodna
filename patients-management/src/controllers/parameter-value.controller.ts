@@ -88,6 +88,21 @@ export class ParameterValueController {
   ): Promise<any> {
     return this.parameterValueRepository.updateParametersValues(data);
   }
+  @patch('/parametersValues', {
+    responses: {
+      '200': {
+        description: 'parametersValues model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(ParameterValue),
+          },
+        },
+      },
+    },
+  })
+  async deleteParametersValues(@requestBody() data: any): Promise<any> {
+    return this.parameterValueRepository.deleteParametersValues(data);
+  }
   @get('/parameterValue/count', {
     responses: {
       '200': {

@@ -17,4 +17,7 @@ export class ParameterValueService {
     updateParametersValues(data): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${this.link}`, data);
     }
+    deleteParametersValues(data): Observable<void> {
+        return this.http.patch<void>(`${this.apiUrl}/${this.link}`, data);
+    }
 }
