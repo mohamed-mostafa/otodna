@@ -78,6 +78,7 @@ export class TreatmentTestsComponent implements OnInit {
     showDialogRightData = true;
     showDialogLeftData = true;
     cogsItems = [];
+    ear;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -202,18 +203,8 @@ export class TreatmentTestsComponent implements OnInit {
                 this.testParameterComponent.showDialogLeftData
             ) {
                 element.ear = "BOTH";
-            }
-            if (
-                this.testParameterComponent.showDialogRightData &&
-                !this.testParameterComponent.showDialogLeftData
-            ) {
-                element.ear = "R";
-            }
-            if (
-                this.testParameterComponent.showDialogLeftData &&
-                !this.testParameterComponent.showDialogRightData
-            ) {
-                element.ear = "L";
+            } else {
+                element.ear = this.ear;
             }
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
@@ -377,11 +368,13 @@ export class TreatmentTestsComponent implements OnInit {
         this.displayTest = true;
         this.showDialogLeftData = false;
         this.showDialogRightData = true;
+        this.ear = "R";
     }
     showLeftTreatmentDialog() {
         this.displayTest = true;
         this.showDialogRightData = false;
         this.showDialogLeftData = true;
+        this.ear = "L";
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
@@ -472,6 +465,7 @@ export class TreatmentTestsComponent implements OnInit {
     }
     saveWithoutParams(treatment) {
         delete treatment.departments;
+        treatment.ear = this.ear;
         this.treatmentService.createTreatment(treatment).subscribe((u: any) => {
             this.reset();
             this.getSessionTreatments();

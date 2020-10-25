@@ -61,6 +61,7 @@ export class PathologyComponent implements OnInit {
     rightDeletedImage;
     showDialogRightData = true;
     showDialogLeftData = true;
+    ear;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -145,18 +146,8 @@ export class PathologyComponent implements OnInit {
                 this.testParameterComponent.showDialogLeftData
             ) {
                 element.ear = "BOTH";
-            }
-            if (
-                this.testParameterComponent.showDialogRightData &&
-                !this.testParameterComponent.showDialogLeftData
-            ) {
-                element.ear = "R";
-            }
-            if (
-                this.testParameterComponent.showDialogLeftData &&
-                !this.testParameterComponent.showDialogRightData
-            ) {
-                element.ear = "L";
+            } else {
+                element.ear = this.ear;
             }
             element.testId = this.selected.diseaseId;
             element.sessionPathologyId = this.selectedSession.id;
@@ -341,11 +332,13 @@ export class PathologyComponent implements OnInit {
         this.displayTest = true;
         this.showDialogLeftData = false;
         this.showDialogRightData = true;
+        this.ear = "R";
     }
     showLeftPathologyDialog() {
         this.displayTest = true;
         this.showDialogRightData = false;
         this.showDialogLeftData = true;
+        this.ear = "L";
     }
     getAllPathologies() {
         this.spinner.show();
@@ -399,6 +392,7 @@ export class PathologyComponent implements OnInit {
     saveWithoutParams(test) {
         this.spinner.show();
         delete test.departments;
+        test.ear = this.ear;
         this.pathologyService.createPathology(test).subscribe((u: any) => {
             this.reset();
             this.getAllPathologies();

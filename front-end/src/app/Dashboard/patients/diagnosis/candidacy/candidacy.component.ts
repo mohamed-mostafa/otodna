@@ -59,6 +59,7 @@ export class CandidacyComponent implements OnInit {
     rightDeletedImage;
     showDialogRightData = true;
     showDialogLeftData = true;
+    ear;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -142,18 +143,8 @@ export class CandidacyComponent implements OnInit {
                 this.testParameterComponent.showDialogLeftData
             ) {
                 element.ear = "BOTH";
-            }
-            if (
-                this.testParameterComponent.showDialogRightData &&
-                !this.testParameterComponent.showDialogLeftData
-            ) {
-                element.ear = "R";
-            }
-            if (
-                this.testParameterComponent.showDialogLeftData &&
-                !this.testParameterComponent.showDialogRightData
-            ) {
-                element.ear = "L";
+            } else {
+                element.ear = this.ear;
             }
             element.testId = this.selected.treatmentId;
             element.sessionTreatmentId = this.selectedSession.id;
@@ -338,11 +329,13 @@ export class CandidacyComponent implements OnInit {
         this.displayTest = true;
         this.showDialogLeftData = false;
         this.showDialogRightData = true;
+        this.ear = "R";
     }
     showLeftTestDialog() {
         this.displayTest = true;
         this.showDialogRightData = false;
         this.showDialogLeftData = true;
+        this.ear = "L";
     }
     getAllCandidacies() {
         this.spinner.show();
@@ -395,6 +388,7 @@ export class CandidacyComponent implements OnInit {
     }
     saveWithoutParams(test) {
         delete test.departments;
+        test.ear = this.ear;
         this.candidacyService.createCandidacy(test).subscribe((u: any) => {
             this.reset();
             this.getAllCandidacies();
