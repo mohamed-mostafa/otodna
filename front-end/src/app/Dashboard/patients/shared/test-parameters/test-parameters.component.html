@@ -646,7 +646,8 @@
             <div
                 class="ui-g-12 ui-md-12"
                 *ngIf="
-                    t.type === 'textarea' && (showDialogRightData || showDialogLeftData)
+                    t.type === 'textarea' &&
+                    (showDialogRightData || showDialogLeftData)
                 "
             >
                 <label>{{ t.name }}</label>
@@ -657,7 +658,8 @@
             <div
                 class="ui-g-12 ui-md-12"
                 *ngIf="
-                    t.type === 'table' && (showDialogRightData || showDialogLeftData)
+                    t.type === 'table' &&
+                    (showDialogRightData || showDialogLeftData)
                 "
             >
                 <label> {{ t.name }}</label>
@@ -697,11 +699,12 @@
                                             )
                                         "
                                     >
-                                        <input
-                                            type="number"
-                                            pInputText
+                                        <p-spinner
                                             [(ngModel)]="freq.right"
-                                        />
+                                            [min]="-10"
+                                            [max]="120"
+                                            [step]="5"
+                                        ></p-spinner>
                                     </th>
                                 </ng-container>
                                 <ng-container
@@ -769,11 +772,12 @@
                                             )
                                         "
                                     >
-                                        <input
-                                            type="number"
-                                            pInputText
+                                        <p-spinner
                                             [(ngModel)]="freq.left"
-                                        />
+                                            [min]="-10"
+                                            [max]="120"
+                                            [step]="5"
+                                        ></p-spinner>
                                     </th>
                                 </ng-container>
                                 <ng-container
