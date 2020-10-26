@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 export class PatientService {
     apiUrl = environment.patientApiUrl;
     link = "patients";
+    patientReferralLink = "patient-referrals";
     constructor(private http: HttpClient) {}
 
     getAllPatients(): Observable<any> {
@@ -27,6 +28,17 @@ export class PatientService {
         return this.http.post<void>(
             `${this.apiUrl}/${this.link}/patientWithMedicalInfo`,
             patient
+        );
+    }
+    createPatientReferral(patientReferral): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/${this.patientReferralLink}`,
+            patientReferral
+        );
+    }
+    getPatientReferralById(id): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.patientReferralLink}?filter[where][patientId][eq]=${id}`
         );
     }
     getFilteredPatient(name, value): Observable<any> {

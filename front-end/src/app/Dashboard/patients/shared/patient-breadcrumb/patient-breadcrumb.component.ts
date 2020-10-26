@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { Router } from "@angular/router";
 import { SharedClass } from "./../sharedFunctions";
 import { MenuItem } from "primeng/primeng";
@@ -10,10 +11,13 @@ import { Component, OnInit, Input } from "@angular/core";
 export class PatientBreadcrumbComponent implements OnInit {
     @Input() firstName;
     @Input() lastName;
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     items: MenuItem[];
     home: MenuItem;
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private patientService: PatientService
+    ) {}
 
     ngOnInit(): void {
         this.items = [

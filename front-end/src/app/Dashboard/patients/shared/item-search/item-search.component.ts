@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { element } from "protractor";
 import { SharedClass } from "./../sharedFunctions";
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
@@ -12,10 +13,10 @@ export class ItemSearchComponent implements OnInit {
     @Input() displayName;
     @Input() itemSearch;
     @Output() filterEvent = new EventEmitter<any>();
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     filteredTests: any[];
     filtered = new Set();
-    constructor() {}
+    constructor(private patientService: PatientService) {}
 
     ngOnInit(): void {}
     filterTest(items) {

@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { SearchResultItemComponent } from "./../../shared/item-search/search-result-item/search-result-item.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
@@ -21,7 +22,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 export class PathologyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     @ViewChild(SearchResultItemComponent) searchResultItemComponent;
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -71,6 +72,7 @@ export class PathologyComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private teamsService: TeamsService,
         private documentService: DocumentsService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -115,7 +117,7 @@ export class PathologyComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     uploadFiles(id, data, side, type) {

@@ -1,5 +1,6 @@
+import { PatientService } from "../services/patient.service";
 export class SharedClass {
-    constructor() {}
+    constructor(private patientService: PatientService) {}
     async previewImage(event) {
         return new Promise((resolve) => {
             const fileData = event.files[0];
@@ -41,16 +42,32 @@ export class SharedClass {
             resolve(filtered);
         });
     }
-    async checkLoggedInUserTeamWithPatient(LoggedInUser, patientTeamId) {
-        if (LoggedInUser.teams.length > 0) {
-            const found = LoggedInUser.teams.some(
-                (team) => team.id === patientTeamId
-            );
-            if (found) {
-                return true;
-            } else {
-                return false;
+    getPatientReferralById(id) {
+        return new Promise((resolve) => {
+            this.patientService
+                .getPatientReferralById(id)
+                .subscribe((result) => {
+                    resolve(result);
+                });
+        });
+    }
+    async checkLoggedInUserTeamWithPatient(LoggedInUser, patient) {
+        const result = [];
+        const patientTeams: any = await this.getPatientReferralById(patient.id);
+        patientTeams.push(patient);
+        patientTeams.forEach((element) => {
+            if (LoggedInUser.teams.length > 0) {
+                LoggedInUser.teams.forEach((team) => {
+                    if (team.id === element.teamId) {
+                        result.push(true);
+                    }
+                });
             }
+        });
+        if (result && result.length > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
     goToPatientPage(router) {
@@ -221,4 +238,8 @@ export class SharedClass {
             resolve(parameters);
         });
     }
+}
+export class checkLoggedInUserTeamWithPatient {
+    constructor() {}
+    checkLoggedInUserTeamWithPatient;
 }

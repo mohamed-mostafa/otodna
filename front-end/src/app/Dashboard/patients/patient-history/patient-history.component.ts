@@ -1,3 +1,4 @@
+import { PatientService } from "./../services/patient.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { PatientSessionService } from "./../services/patient-session.service";
 import { Router } from "@angular/router";
@@ -10,7 +11,7 @@ import { SharedClass } from "../shared/sharedFunctions";
     styleUrls: ["./patient-history.component.css"],
 })
 export class PatientHistoryComponent implements OnInit {
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     events: any[];
     fullcalendarOptions: any;
     selectedPatient;
@@ -19,6 +20,7 @@ export class PatientHistoryComponent implements OnInit {
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -33,7 +35,7 @@ export class PatientHistoryComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     addDiagnosis() {

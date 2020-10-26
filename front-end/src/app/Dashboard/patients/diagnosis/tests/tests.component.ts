@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { EquipmentParameterValueService } from "./../../services/equipment-parameter-value.service";
 import { EquipmentTestParametersComponent } from "./../../shared/equipment-test-parameters/equipment-test-parameters.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
@@ -23,7 +24,7 @@ export class TestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     @ViewChild(EquipmentTestParametersComponent)
     equipmentTestParametersComponent;
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -89,6 +90,7 @@ export class TestsComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private teamsService: TeamsService,
         private documentService: DocumentsService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -158,7 +160,7 @@ export class TestsComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     getEquipmentsAllData(data) {

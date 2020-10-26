@@ -1,3 +1,4 @@
+import { PatientService } from "./../services/patient.service";
 import { ImmunizationsService } from "./../services/immunizations.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
@@ -14,7 +15,7 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     providers: [MessageService, ConfirmationService],
 })
 export class ImmunizationsComponent implements OnInit {
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -32,6 +33,7 @@ export class ImmunizationsComponent implements OnInit {
         private router: Router,
         private immunizationsService: ImmunizationsService,
         private confirmationService: ConfirmationService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -54,7 +56,7 @@ export class ImmunizationsComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     showDialog() {

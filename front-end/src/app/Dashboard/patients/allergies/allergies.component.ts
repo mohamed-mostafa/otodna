@@ -1,3 +1,4 @@
+import { PatientService } from "./../services/patient.service";
 import { AllergiesService } from "./../services/allergies.service";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/primeng";
@@ -14,7 +15,7 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     providers: [MessageService, ConfirmationService],
 })
 export class AllergiesComponent implements OnInit {
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -36,6 +37,7 @@ export class AllergiesComponent implements OnInit {
         private router: Router,
         private allergiesService: AllergiesService,
         private confirmationService: ConfirmationService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -62,7 +64,7 @@ export class AllergiesComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     showDialog() {

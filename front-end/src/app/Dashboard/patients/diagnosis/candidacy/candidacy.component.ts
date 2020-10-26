@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
@@ -19,7 +20,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 })
 export class CandidacyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -69,6 +70,7 @@ export class CandidacyComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private teamsService: TeamsService,
         private documentService: DocumentsService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -112,7 +114,7 @@ export class CandidacyComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     uploadFiles(id, data, side, type) {
@@ -497,7 +499,7 @@ export class CandidacyComponent implements OnInit {
             accept: () => {
                 this.spinner.show();
                 this.parameterValueService
-                    .deleteParametersValues(data)   
+                    .deleteParametersValues(data)
                     .subscribe((u: any) => {
                         this.getAllCandidacies();
                         this.spinner.hide();

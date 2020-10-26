@@ -1,3 +1,4 @@
+import { PatientService } from './../services/patient.service';
 import { DocumentsService } from "./../../services/documents.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -13,7 +14,7 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     providers: [MessageService, ConfirmationService],
 })
 export class SessionDocumentsComponent implements OnInit {
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -34,6 +35,7 @@ export class SessionDocumentsComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private documentService: DocumentsService,
         private confirmationService: ConfirmationService,
+        private patientService: PatientService,
         private messageService: MessageService
     ) {}
 

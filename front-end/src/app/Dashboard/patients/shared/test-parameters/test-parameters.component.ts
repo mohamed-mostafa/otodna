@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { DocumentsService } from "./../../../services/documents.service";
 import { Input } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
@@ -18,7 +19,7 @@ export class TestParametersComponent implements OnInit {
     @Input() savedLeftImage;
     @Input() showDialogRightData;
     @Input() showDialogLeftData;
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     previewRightImageUrl: any = null;
     previewLeftImageUrl: any = null;
     rightImage: any[] = [];
@@ -41,7 +42,10 @@ export class TestParametersComponent implements OnInit {
     leftPointStyles = [];
     disableLeftDialogTest = false;
     disableRightDialogTest = false;
-    constructor(private documentService: DocumentsService) {}
+    constructor(
+        private documentService: DocumentsService,
+        private patientService: PatientService
+    ) {}
     ngOnInit(): void {
         this.checkCheckboxSelection();
         this.parameters.forEach((element) => {

@@ -23,3 +23,4 @@ export * from './session-test.repository';
 export * from './session-treatment-equipment.repository';
 export * from './session-treatment.repository';
 export * from './vital-record-type.repository';
+export * from './patient-referral.repository';

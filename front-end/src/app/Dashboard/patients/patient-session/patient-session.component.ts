@@ -1,3 +1,4 @@
+import { PatientService } from "./../services/patient.service";
 import { TreatmentTestsService } from "./../treatments/services/treatment-tests.service";
 import { CandidacyService } from "./../diagnosis/services/candidacy.service";
 import { PathologyService } from "./../diagnosis/services/pathology.service";
@@ -19,7 +20,7 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     providers: [MessageService],
 })
 export class PatientSessionComponent implements OnInit {
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -43,6 +44,7 @@ export class PatientSessionComponent implements OnInit {
         private pathologyService: PathologyService,
         private candidacyService: CandidacyService,
         private treatmentService: TreatmentTestsService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -108,7 +110,7 @@ export class PatientSessionComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     loadData() {

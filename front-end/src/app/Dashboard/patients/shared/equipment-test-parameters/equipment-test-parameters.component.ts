@@ -1,3 +1,4 @@
+import { PatientService } from "./../../services/patient.service";
 import { DocumentsService } from "./../../../services/documents.service";
 import { Input } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
@@ -18,7 +19,7 @@ export class EquipmentTestParametersComponent implements OnInit {
     @Input() savedLeftImage;
     showGraph = true;
     showGraphButton = false;
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     previewRightImageUrl: any = null;
     previewLeftImageUrl: any = null;
     rightImage: any[] = [];
@@ -35,7 +36,10 @@ export class EquipmentTestParametersComponent implements OnInit {
     showLeftButtons = true;
     rightGraphData: any;
     leftGraphData: any;
-    constructor(private documentService: DocumentsService) {}
+    constructor(
+        private documentService: DocumentsService,
+        private patientService: PatientService
+    ) {}
     ngOnInit(): void {
         this.parameters.forEach((element) => {
             if (element.type === "graph") {

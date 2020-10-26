@@ -1,3 +1,4 @@
+import { PatientService } from "./../services/patient.service";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { FamilyService } from "./../services/family.service";
 import { Router } from "@angular/router";
@@ -14,7 +15,7 @@ import { SharedClass } from "../shared/sharedFunctions";
     providers: [MessageService, ConfirmationService],
 })
 export class FamilyComponent implements OnInit {
-    sharedClass: SharedClass = new SharedClass();
+    sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
@@ -32,6 +33,7 @@ export class FamilyComponent implements OnInit {
         private router: Router,
         private familyService: FamilyService,
         private confirmationService: ConfirmationService,
+        private patientService: PatientService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -51,7 +53,7 @@ export class FamilyComponent implements OnInit {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
             LoggedInUser,
-            this.selectedPatient.teamId
+            this.selectedPatient
         );
     }
     getALlFamilies() {
