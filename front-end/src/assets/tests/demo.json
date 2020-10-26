@@ -228,6 +228,7 @@
                 {
                     "type": "graph",
                     "xAxis": ["10", "20", "30", "40", "50"],
+                    "reverse": false,
                     "name": "Freq"
                 }
             ]

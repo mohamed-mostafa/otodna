@@ -13,6 +13,7 @@ export class GraphComponent implements OnInit {
     @Input() leftGraphData;
     @Input() showDialogRightData;
     @Input() showDialogLeftData;
+    @Input() reverse;
     options;
     constructor(private messageService: MessageService) {}
 
@@ -24,6 +25,7 @@ export class GraphComponent implements OnInit {
                         ticks: {
                             min: -10,
                             max: 120,
+                            reverse: this.reverse,
                         },
                     },
                 ],

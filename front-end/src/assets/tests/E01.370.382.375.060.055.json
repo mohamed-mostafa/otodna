@@ -173,6 +173,7 @@
                         "4000 Hz",
                         "6000 Hz"
                     ],
+                    "reverse": false,
                     "name": "Audiometry Pure-Tone"
                 }
             ]
