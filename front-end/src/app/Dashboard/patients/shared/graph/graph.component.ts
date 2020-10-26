@@ -13,9 +13,23 @@ export class GraphComponent implements OnInit {
     @Input() leftGraphData;
     @Input() showDialogRightData;
     @Input() showDialogLeftData;
+    options;
     constructor(private messageService: MessageService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.options = {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            min: -10,
+                            max: 120,
+                        },
+                    },
+                ],
+            },
+        };
+    }
     selectRightData(event) {
         this.messageService.add({
             severity: "info",

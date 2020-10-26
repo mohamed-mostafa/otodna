@@ -4,6 +4,7 @@
         <p-chart
             type="line"
             [data]="rightGraphData"
+            [options]="options"
             (onDataSelect)="selectRightData($event)"
         ></p-chart>
     </div>
@@ -14,6 +15,7 @@
         <p-chart
             type="line"
             [data]="leftGraphData"
+            [options]="options"
             (onDataSelect)="selectLeftData($event)"
         ></p-chart>
     </div>
