@@ -10,6 +10,7 @@
                     "rightPointStyle": "circle",
                     "leftPointStyle": "triangle",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },
@@ -29,6 +30,7 @@
                     "rightPointStyle": "triangle",
                     "leftPointStyle": "circle",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },
@@ -48,6 +50,7 @@
                     "rightPointStyle": "rect",
                     "leftPointStyle": "circle",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },
@@ -67,6 +70,7 @@
                     "rightPointStyle": "triangle",
                     "leftPointStyle": "rectRot",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },
@@ -86,6 +90,7 @@
                     "rightPointStyle": "cross",
                     "leftPointStyle": "rect",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },
@@ -105,6 +110,7 @@
                     "rightPointStyle": "star",
                     "leftPointStyle": "rectRot",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },
@@ -124,6 +130,7 @@
                     "rightPointStyle": "triangle",
                     "leftPointStyle": "crossRot",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         { "name": "125 Hz", "left": "", "right": "" },
                         { "name": "250 Hz", "left": "", "right": "" },

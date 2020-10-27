@@ -186,6 +186,7 @@
                     "noResponseRightPointStyle": "assets/tests/images/right.png",
                     "noResponseLeftPointStyle": "assets/tests/images/left.png",
                     "xAxisName": "Freq",
+                    "lineTension": 0.4,
                     "cells": [
                         {
                             "name": "10",

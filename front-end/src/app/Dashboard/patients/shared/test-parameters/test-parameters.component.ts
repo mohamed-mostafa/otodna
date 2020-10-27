@@ -86,7 +86,8 @@ export class TestParametersComponent implements OnInit {
                     element.rightPointStyle,
                     element.cellType === "numberWithCheckbox"
                         ? element.noResponseRightPointStyle
-                        : null
+                        : null,
+                    element.lineTension
                 );
                 this.drawLeftGraph(
                     element.cells,
@@ -95,7 +96,8 @@ export class TestParametersComponent implements OnInit {
                     element.leftPointStyle,
                     element.cellType === "numberWithCheckbox"
                         ? element.noResponseRightPointStyle
-                        : null
+                        : null,
+                    element.lineTension
                 );
             }
         });
@@ -181,7 +183,7 @@ export class TestParametersComponent implements OnInit {
         this.removeChoosedLeftImage();
         this.previewLeftImage(event);
     }
-    drawRightGraph(cells, name, color, pointStyle, noResponse) {
+    drawRightGraph(cells, name, color, pointStyle, noResponse, lineTension) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
         if (drawGraph) {
             const graphData = this.parameters.filter((p) => p.type === "graph");
@@ -208,6 +210,7 @@ export class TestParametersComponent implements OnInit {
                         pointStyle: this.rightPointStyles,
                         spanGaps: true,
                         pointBorderWidth: 7,
+                        lineTension,
                     });
                     this.rightCellsData.reduceRight((acc, obj, i) => {
                         acc[obj.borderColor]
@@ -226,7 +229,7 @@ export class TestParametersComponent implements OnInit {
             });
         }
     }
-    drawLeftGraph(cells, name, color, pointStyle, noResponse) {
+    drawLeftGraph(cells, name, color, pointStyle, noResponse, lineTension) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
         if (drawGraph) {
             const graphData = this.parameters.filter((p) => p.type === "graph");
@@ -253,6 +256,7 @@ export class TestParametersComponent implements OnInit {
                         pointStyle: this.leftPointStyles,
                         spanGaps: true,
                         pointBorderWidth: 7,
+                        lineTension,
                     });
                     this.leftCellsData.reduceRight((acc, obj, i) => {
                         acc[obj.borderColor]

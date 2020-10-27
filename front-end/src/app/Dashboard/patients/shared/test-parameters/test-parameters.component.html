@@ -672,7 +672,6 @@
                                     {{ data.name }}
                                 </th>
                             </tr>
-
                             <tr *ngIf="showDialogRightData">
                                 <th class="rightColor">Right</th>
                                 <ng-container *ngIf="t.cellType === 'boolean'">
@@ -695,7 +694,8 @@
                                                 t.name,
                                                 t.color,
                                                 t.rightPointStyle,
-                                                null
+                                                null,
+                                                t.lineTension
                                             )
                                         "
                                     >
@@ -718,7 +718,8 @@
                                                 t.name,
                                                 t.color,
                                                 t.rightPointStyle,
-                                                t.noResponseRightPointStyle
+                                                t.noResponseRightPointStyle,
+                                                t.lineTension
                                             )
                                         "
                                     >
@@ -768,7 +769,8 @@
                                                 t.name,
                                                 t.color,
                                                 t.leftPointStyle,
-                                                null
+                                                null,
+                                                t.lineTension
                                             )
                                         "
                                     >
@@ -791,7 +793,8 @@
                                                 t.name,
                                                 t.color,
                                                 t.leftPointStyle,
-                                                t.noResponseLeftPointStyle
+                                                t.noResponseLeftPointStyle,
+                                                t.lineTension
                                             )
                                         "
                                     >

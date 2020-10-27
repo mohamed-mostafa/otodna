@@ -43,6 +43,7 @@
                     "rightPointStyle": "assets/tests/images/right.png",
                     "leftPointStyle": "assets/tests/images/left.png",
                     "xAxisName": "Intensity db",
+                    "lineTension": 0,
                     "cells": [
                         { "name": "10", "left": "", "right": "" },
                         { "name": "20", "left": "", "right": "" },
