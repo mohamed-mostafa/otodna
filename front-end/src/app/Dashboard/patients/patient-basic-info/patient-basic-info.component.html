@@ -1,16 +1,7 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <div class="ui-g ui-fluid" *ngIf="hideDiscard">
-    <div class="ui-g-12 ui-md-3" *ngIf="showAllButtons">
-        <button
-            type="button"
-            pButton
-            class="ui-button-info ui-button-raised font"
-            label="Refer Patient"
-            icon="fa fa-user-plus"
-            (click)="showReferPatientDialog()"
-        ></button>
-    </div>
+    <div class="ui-g-12 ui-md-3" *ngIf="showAllButtons"></div>
     <div class="ui-g-12 ui-md-3" *ngIf="showAllButtons">
         <button
             type="button"
@@ -298,73 +289,4 @@
         ></button>
     </div>
 </div>
-<p-dialog
-    header="Refer Patient"
-    [(visible)]="displayBasic"
-    [style]="{ width: '50vw' }"
-    [baseZIndex]="10000"
-    [maximizable]="true"
-    [draggable]="false"
-    [resizable]="false"
-    (onHide)="resetReferralPatient()"
->
-    <div style="height: 150px">
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-8">
-                <div class="ui-inputgroup">
-                    <p-dropdown
-                        [options]="allTeams"
-                        placeholder="Select Team"
-                        optionLabel="name"
-                        id="team"
-                        [showClear]="true"
-                        [(ngModel)]="referralPatient.teamId"
-                        (onChange)="onSelectTeam($event)"
-                    ></p-dropdown>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-4">
-                <div class="ui-inputgroup">
-                    <input
-                        type="text"
-                        pInputText
-                        placeholder="Team Department"
-                        [(ngModel)]="department"
-                        readonly
-                    />
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-12">
-                <div class="ui-inputgroup">
-                    <textarea
-                        [rows]="5"
-                        [cols]="30"
-                        pInputTextarea
-                        autoResize="autoResize"
-                        placeholder="Message"
-                        [(ngModel)]="referralPatient.referralMessage"
-                    ></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p-footer *ngIf="showAllButtons">
-        <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="resetReferralPatient()"
-            label="Cancel"
-            class="ui-button-danger"
-        ></button>
-        <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="referPatient()"
-            label="Ok"
-            class="ui-button-primary"
-        ></button>
-    </p-footer>
-</p-dialog>
 <ngx-spinner></ngx-spinner>

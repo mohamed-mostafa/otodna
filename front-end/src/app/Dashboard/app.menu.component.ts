@@ -420,6 +420,7 @@ export class AppMenuComponent implements OnInit {
                     "medical/medications",
                     "medical/problems",
                     "patientHistory",
+                    "referrals",
                     "documents",
                 ];
                 let selectedPatient = JSON.parse(
@@ -439,6 +440,11 @@ export class AppMenuComponent implements OnInit {
                         },
                         {
                             label: "Documents",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                        {
+                            label: "Referrals",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
@@ -501,6 +507,11 @@ export class AppMenuComponent implements OnInit {
                             label: "Documents",
                             icon: "fa fa-fw fa-file-text",
                             routerLink: ["documents"],
+                        },
+                        {
+                            label: "Referrals",
+                            icon: "fa fa-fw fa-user-plus",
+                            routerLink: ["referrals"],
                         },
                         {
                             label: "Patient History",

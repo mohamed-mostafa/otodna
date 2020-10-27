@@ -1,6 +1,3 @@
-import { DepartmentsService } from "./../../services/departments.service";
-import { ReferralPatient } from "./referral-patient";
-import { TeamsService } from "./../../services/teams.service";
 import { PatientService } from "../services/patient.service";
 import { PatientCountryService } from "../services/countryService";
 import { Router } from "@angular/router";
@@ -26,7 +23,6 @@ export class PatientBasicInfoComponent implements OnInit {
     teams = [];
     editMode = false;
     patient: Patient = new Patient();
-    referralPatient: ReferralPatient = new ReferralPatient();
     items: MenuItem[];
     home: MenuItem;
     filteredCountries: any[];
@@ -36,17 +32,11 @@ export class PatientBasicInfoComponent implements OnInit {
     selectedTeam;
     showTeams = false;
     showAllButtons = true;
-    displayBasic: boolean;
-    allTeams = [];
-    departments: any[];
-    department = "";
     constructor(
         private messageService: MessageService,
         private spinner: NgxSpinnerService,
         private router: Router,
         private countryService: PatientCountryService,
-        private teamsService: TeamsService,
-        private departmentsService: DepartmentsService,
         private patientService: PatientService
     ) {}
 
@@ -108,15 +98,6 @@ export class PatientBasicInfoComponent implements OnInit {
             ];
         }
         this.home = { icon: "fa fa-user-md" };
-        this.getAllTeams();
-        this.getAllDepartments();
-    }
-    getAllTeams() {
-        this.spinner.show();
-        this.teamsService.getAllTeams().subscribe((result) => {
-            this.allTeams = result;
-            this.spinner.hide();
-        });
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -310,54 +291,5 @@ export class PatientBasicInfoComponent implements OnInit {
     }
     goToDashboard(event) {
         this.sharedClass.goToDashboard(this.router);
-    }
-    showReferPatientDialog() {
-        this.displayBasic = true;
-    }
-    referPatient() {
-        if (!this.referralPatient.teamId) {
-            this.showMessageComponent.showMessage(
-                "error",
-                "Validation Error",
-                "Team is required"
-            );
-            return false;
-        } else {
-            this.spinner.show();
-            this.referralPatient.teamId = this.referralPatient.teamId.id;
-            this.referralPatient.patientId = this.patient.id;
-            this.patientService
-                .createPatientReferral(this.referralPatient)
-                .subscribe((u: any) => {
-                    this.resetReferralPatient();
-                    this.spinner.hide();
-                    this.showMessageComponent.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                });
-        }
-    }
-    resetReferralPatient() {
-        this.displayBasic = false;
-        this.referralPatient = new ReferralPatient();
-        this.department = "";
-    }
-    onSelectTeam(event) {
-        this.getDepartmentById(event.value.departmentId);
-    }
-    getAllDepartments() {
-        this.spinner.show();
-        this.departmentsService.getAllDepartments().subscribe((result) => {
-            this.departments = result;
-            this.spinner.hide();
-        });
-    }
-    getDepartmentById(id) {
-        const result = this.departments.find(
-            (department) => department.id === id
-        );
-        this.department = result.name;
     }
 }

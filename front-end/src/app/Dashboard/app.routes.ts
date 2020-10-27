@@ -1,3 +1,4 @@
+import { ReferralsComponent } from "./patients/referrals/referrals.component";
 import { SearchResultItemComponent } from "./patients/shared/item-search/search-result-item/search-result-item.component";
 import { ItemSearchComponent } from "./patients/shared/item-search/item-search.component";
 import { RadioComponent } from "./patients/shared/parameters/radio/radio.component";
@@ -121,6 +122,7 @@ export const routes: Routes = [
             },
             { path: "followupDocuments", component: SessionDocumentsComponent },
             { path: "filesIcons", component: FilesIconsComponent },
+            { path: "referrals", component: ReferralsComponent },
         ],
     },
 ];
@@ -181,6 +183,7 @@ export const COMPONENTS = [
     RadioComponent,
     SearchResultItemComponent,
     ItemSearchComponent,
+    ReferralsComponent,
 ];
 @NgModule({
     exports: [RouterModule],
