@@ -35,20 +35,8 @@ export class PatientReferralController {
       },
     },
   })
-  async create(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(PatientReferral, {
-            title: 'NewPatientReferral',
-            exclude: ['id'],
-          }),
-        },
-      },
-    })
-    patientReferral: Omit<PatientReferral, 'id'>,
-  ): Promise<PatientReferral> {
-    return this.patientReferralRepository.create(patientReferral);
+  async create(@requestBody() data: any): Promise<PatientReferral> {
+    return this.patientReferralRepository.createPatientReferral(data);
   }
 
   @get('/patient-referrals/count', {

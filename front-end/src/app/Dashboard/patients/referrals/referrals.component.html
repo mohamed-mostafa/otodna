@@ -14,30 +14,19 @@
     [resizable]="false"
     (onHide)="onHide()"
 >
-    <div style="height: 150px">
+    <div style="height: 250px">
         <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-8">
+            <div class="ui-g-12 ui-md-12">
                 <div class="ui-inputgroup">
                     <p-dropdown
                         [options]="allTeams"
                         placeholder="Select Team"
-                        optionLabel="name"
+                        optionLabel="displayName"
                         id="team"
                         [showClear]="true"
                         [(ngModel)]="referralPatient.teamId"
-                        (onChange)="onSelectTeam($event)"
+                        [readonly]="!showSaveButton"
                     ></p-dropdown>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-4">
-                <div class="ui-inputgroup">
-                    <input
-                        type="text"
-                        pInputText
-                        placeholder="Team Department"
-                        [(ngModel)]="department"
-                        readonly
-                    />
                 </div>
             </div>
             <div class="ui-g-12 ui-md-12">
@@ -49,6 +38,7 @@
                         autoResize="autoResize"
                         placeholder="Message"
                         [(ngModel)]="referralPatient.referralMessage"
+                        [readonly]="!showSaveButton"
                     ></textarea>
                 </div>
             </div>
@@ -76,17 +66,9 @@
             <button
                 type="button"
                 pButton
-                icon="pi pi-times"
-                (click)="cancel()"
-                label="Cancel"
-                class="ui-button-secondary"
-            ></button>
-            <button
-                type="button"
-                pButton
                 icon="pi pi-check"
-                (click)="update()"
-                label="Update"
+                (click)="displayBasic = false"
+                label="Ok"
             ></button
         ></ng-template>
     </p-footer>
@@ -103,11 +85,12 @@
                 <a
                     href="javascript:void(0)"
                     class="iconStyle"
-                    (click)="deleteReferral(referral)"
-                    title="Remove"
+                    (click)="menu.toggle($event); onClickMenu(referral)"
+                    title="Settings"
                 >
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    <i class="fa fa-cog" aria-hidden="true"></i>
                 </a>
+                <p-menu #menu [popup]="true" [model]="cogsItems"></p-menu>
             </p-header>
             <div (click)="viewData(referral)" class="pointerCursor">
                 <div class="ui-g-12 ui-md-12 bold">
@@ -115,10 +98,10 @@
                 </div>
                 <div class="ui-g-12 ui-md-12 bold">
                     {{
-                        referral.referralMessage
-                            ? referral.referralMessage
-                            : "No Message To Display"
+                        referral.active === "true" ? "Active" : "Inactive"
                     }}
+                    Since
+                    {{ referral.date | date }}
                 </div>
             </div>
         </p-card>

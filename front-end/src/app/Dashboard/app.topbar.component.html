@@ -24,7 +24,6 @@
             <span class="intro-box-detail">({{ job }})</span>
         </div>
     </div>
-
     <a
         href="#"
         class="layout-topbar-user"
@@ -59,7 +58,12 @@
                 <span class="topbar-item-name">Profile</span>
             </a>
         </li>
-
+        <li #notifications>
+            <a href="#">
+                <i class="fa fa-fw fa-bell-o"></i>
+                <span class="topbar-item-name">Notifications</span>
+            </a>
+        </li>
         <li>
             <a href="javascript:void(0)" (click)="logout()">
                 <i class="fa fa-fw fa-sign-out"></i>

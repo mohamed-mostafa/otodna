@@ -30,6 +30,7 @@ export class ReferralsComponent implements OnInit {
     allTeams = [];
     departments: any[];
     department = "";
+    cogsItems = [];
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -45,9 +46,9 @@ export class ReferralsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.referralPatient.patientId = this.selectedPatient.id;
+        this.getAllDepartments();
         this.getALlReferrals();
         this.getAllTeams();
-        this.getAllDepartments();
         this.checkLoggedInUserTeamWithPatient();
     }
     async checkLoggedInUserTeamWithPatient() {
@@ -68,7 +69,13 @@ export class ReferralsComponent implements OnInit {
     }
     getAllTeams() {
         this.spinner.show();
-        this.teamsService.getAllTeams().subscribe((result) => {
+        this.teamsService.getAllTeams().subscribe(async (result) => {
+            result.forEach(async (element) => {
+                element.departmentName = await this.getDepartmentById(
+                    element.departmentId
+                );
+                element.displayName = `${element.name}-${element.departmentName}`;
+            });
             this.allTeams = result;
             this.spinner.hide();
         });
@@ -98,35 +105,10 @@ export class ReferralsComponent implements OnInit {
             this.spinner.show();
             this.referralPatient.teamId = this.referralPatient.teamId.id;
             this.referralPatient.patientId = this.selectedPatient.id;
+            this.referralPatient.patientName = `${this.selectedPatient.firstName} ${this.selectedPatient.lastName}`;
+            this.referralPatient.date = new Date();
             this.referralsService
                 .createReferral(this.referralPatient)
-                .subscribe((u: any) => {
-                    this.reset();
-                    this.getALlReferrals();
-                    this.spinner.hide();
-                    this.showMessageComponent.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                });
-        }
-    }
-    update() {
-        if (!this.referralPatient.teamId) {
-            this.showMessageComponent.showMessage(
-                "error",
-                "Validation Error",
-                "Team is required"
-            );
-            return false;
-        } else {
-            this.spinner.show();
-            this.referralPatient.teamId = this.referralPatient.teamId.id;
-            this.referralPatient.patientId = this.selectedPatient.id;
-            delete this.referralPatient.teamName;
-            this.referralsService
-                .updateReferral(this.referralPatient)
                 .subscribe((u: any) => {
                     this.reset();
                     this.getALlReferrals();
@@ -173,10 +155,18 @@ export class ReferralsComponent implements OnInit {
     async viewData(data) {
         this.showSaveButton = false;
         this.displayBasic = true;
-        let result: any = await this.getTeamById(data.teamId);
+        let result: any;
+        if (typeof data.teamId == "object") {
+            result = await this.getTeamById(data.teamId.id);
+        } else {
+            result = await this.getTeamById(data.teamId);
+        }
         this.referralPatient = data;
+        result.departmentName = await this.getDepartmentById(
+            result.departmentId
+        );
+        result.displayName = `${result.name}-${result.departmentName}`;
         this.referralPatient.teamId = result;
-        this.getDepartmentById(result.departmentId);
     }
     getTeamById(id) {
         return new Promise((resolve) => {
@@ -197,9 +187,6 @@ export class ReferralsComponent implements OnInit {
         this.reset();
         this.showSaveButton = true;
     }
-    onSelectTeam(event) {
-        this.getDepartmentById(event.value.departmentId);
-    }
     getAllDepartments() {
         this.spinner.show();
         this.departmentsService.getAllDepartments().subscribe((result) => {
@@ -212,5 +199,62 @@ export class ReferralsComponent implements OnInit {
             (department) => department.id === id
         );
         this.department = result.name;
+        return this.department;
+    }
+    onClickMenu(data: any) {
+        this.cogsItems = [
+            {
+                label: "Deactivate",
+                icon: "fa fa-ban",
+                command: () => {
+                    this.deactivate(data);
+                },
+                visible: data.active === "true",
+            },
+            {
+                label: "Activate",
+                icon: "fa fa-check",
+                command: () => {
+                    this.activate(data);
+                },
+                visible: data.active === "false",
+            },
+        ];
+    }
+    deactivate(referral) {
+        referral.active = "false";
+        delete referral.teamName;
+        referral.date = new Date();
+        if (referral.referralMessage === null) {
+            delete referral.referralMessage;
+        }
+        this.referralsService.updateReferral(referral).subscribe((u: any) => {
+            this.reset();
+            this.getALlReferrals();
+            this.spinner.hide();
+            this.showMessageComponent.showMessage(
+                "success",
+                "De Activated",
+                "Data deactivated successfully"
+            );
+        });
+    }
+    activate(referral) {
+        referral.active = "true";
+        delete referral.teamName;
+        referral.date = new Date();
+        if (referral.referralMessage === null) {
+            delete referral.referralMessage;
+        }
+        this.referralsService.updateReferral(referral).subscribe((u: any) => {
+            this.reset();
+            this.getALlReferrals();
+            this.spinner.hide();
+            this.showMessageComponent.showMessage(
+                "success",
+                "Activated",
+                "Data activated successfully"
+            );
+        });
     }
 }

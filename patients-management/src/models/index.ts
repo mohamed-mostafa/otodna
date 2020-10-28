@@ -26,3 +26,4 @@ export * from './vital-record-type.model';
 export * from './patient-and-medical-info.model';
 export * from './patient-search.model';
 export * from './patient-referral.model';
+export * from './notification.model';

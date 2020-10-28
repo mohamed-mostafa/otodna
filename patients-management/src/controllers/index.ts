@@ -17,3 +17,4 @@ export * from './session-treatment-equipment.controller';
 export * from './equipment-parameter-value.controller';
 export * from './session-test-equipment.controller';
 export * from './patient-referral.controller';
+export * from './notification.controller';
