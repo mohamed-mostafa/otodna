@@ -12,7 +12,7 @@ export class NotificationsService {
 
     getAllNotifications(teamId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.link}?filter[where][teamId][eq]=${teamId}`
+            `${this.apiUrl}/${this.link}?filter[where][and][0][teamId][eq]=${teamId}&filter[where][and][1][seen][eq]=false`
         );
     }
     deleteNotification(id: String): Observable<void> {

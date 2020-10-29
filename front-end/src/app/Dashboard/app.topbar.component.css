@@ -27,6 +27,13 @@
     font-weight: bold;
     margin-left: -60px;
 }
+.notification {
+    margin-top: 32px !important;
+    background-color: #d8efe9;
+    color: #61b5a1;
+    border-radius: 50px;
+    padding: 6px;
+}
 @media screen and (max-width: 897px) {
     .show {
         visibility: visible;

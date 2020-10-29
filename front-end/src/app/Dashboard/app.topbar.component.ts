@@ -1,6 +1,7 @@
+import { NotificationsService } from "./patients/services/notifications.service";
 import { AuthenticationService } from "./../Auth/auth.service";
 import { Router } from "@angular/router";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
 
 @Component({
@@ -8,13 +9,15 @@ import { DashboardComponent } from "./dashboard.component";
     templateUrl: "./app.topbar.component.html",
     styleUrls: ["./app.topbar.component.css"],
 })
-export class AppTopBarComponent {
+export class AppTopBarComponent implements OnInit {
     fullName;
     job;
     welcomeTime;
+    notifications = [];
     constructor(
         public app: DashboardComponent,
         private router: Router,
+        private notificationsService: NotificationsService,
         private authenticationService: AuthenticationService
     ) {
         if (localStorage.getItem("user") === null) {
@@ -37,9 +40,32 @@ export class AppTopBarComponent {
             this.welcomeTime = "Good Evening";
         }
     }
-
+    ngOnInit(): void {
+        this.getALlNotifications();
+    }
     logout() {
         this.authenticationService.logout();
         this.router.navigate(["login"]);
+    }
+    loadNotifications() {
+        console.log("aaa");
+    }
+    getALlNotifications() {
+        const selectedUser = JSON.parse(localStorage.getItem("user"));
+        for (const element of selectedUser.teams) {
+            this.notificationsService
+                .getAllNotifications(element.id)
+                .subscribe(async (result) => {
+                    if (result && result.length > 0) {
+                        result.forEach((res) => {
+                            let obj = {
+                                label: res.notificationText,
+                                icon: "fa fa-eye",
+                            };
+                            this.notifications.push(obj);
+                        });
+                    }
+                });
+        }
     }
 }

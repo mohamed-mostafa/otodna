@@ -1,3 +1,5 @@
+import { NotificationsService } from './patients/services/notifications.service';
+import { ReferralsService } from './patients/services/referrals.service';
 import { DocumentsService } from "./services/documents.service";
 import { TreatmentTestsService } from "./patients/treatments/services/treatment-tests.service";
 import { ParameterValueService } from "./patients/services/parameter-value.service";
@@ -56,4 +58,6 @@ export const SERVICES = [
     ParameterValueService,
     TreatmentTestsService,
     DocumentsService,
+    ReferralsService,
+    NotificationsService
 ];
