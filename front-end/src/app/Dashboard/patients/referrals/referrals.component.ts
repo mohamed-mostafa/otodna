@@ -111,6 +111,13 @@ export class ReferralsComponent implements OnInit {
                 .createReferral(this.referralPatient)
                 .subscribe((u: any) => {
                     this.reset();
+                    this.router
+                        .navigateByUrl("/RefreshComponent", {
+                            skipLocationChange: true,
+                        })
+                        .then(() => {
+                            this.router.navigate(["/dashboard/referrals"]);
+                        });
                     this.getALlReferrals();
                     this.spinner.hide();
                     this.showMessageComponent.showMessage(

@@ -30,4 +30,9 @@ export class NotificationsService {
             notification
         );
     }
+    getNotificationsCount(teamId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/count?[where][and][0][teamId][eq]=${teamId}&[where][and][1][seen][eq]=false`
+        );
+    }
 }

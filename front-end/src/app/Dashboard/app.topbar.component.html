@@ -66,13 +66,5 @@
             </a>
         </li>
     </ul>
-    <a
-        href="javascript:void(0)"
-        (click)="menu.toggle($event); loadNotifications()"
-        class="notification layout-topbar-user"
-    >
-        <i class="fa fa-2x fa-fw fa-bell-o"></i>
-        <span class="topbar-item-name"></span>
-    </a>
-    <p-menu #menu [popup]="true" [model]="notifications"></p-menu>
+    <app-notification></app-notification>
 </div>

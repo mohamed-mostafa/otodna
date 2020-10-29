@@ -1,0 +1,15 @@
+<a
+    href="javascript:void(0)"
+    (click)="menu.toggle($event)"
+    class="notification layout-topbar-user"
+>
+    <i class="fa fa-2x fa-fw fa-bell-o"></i>
+    <span class="topbar-item-name"></span>
+    <span class="badge">{{ notificationCount }}</span>
+</a>
+<p-menu
+    #menu
+    [popup]="true"
+    [model]="notifications"
+    [style]="{ width: '400px', 'overflow-y': 'auto' }"
+></p-menu>
