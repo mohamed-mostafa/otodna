@@ -467,6 +467,7 @@ export class TreatmentTestsComponent implements OnInit {
     }
     saveWithoutParams(treatment) {
         delete treatment.departments;
+        delete treatment.displayTags;
         treatment.ear = this.ear;
         this.treatmentService.createTreatment(treatment).subscribe((u: any) => {
             this.reset();

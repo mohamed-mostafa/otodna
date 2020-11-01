@@ -4,6 +4,7 @@
     [lastName]="selectedPatient.lastName"
 ></app-patient-breadcrumb>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+<app-patient-summary></app-patient-summary>
 <p-dialog
     header="Referral Patient"
     [(visible)]="displayBasic"
@@ -97,9 +98,7 @@
                     {{ referral.teamName }}
                 </div>
                 <div class="ui-g-12 ui-md-12 bold">
-                    {{
-                        referral.active === "true" ? "Active" : "Inactive"
-                    }}
+                    {{ referral.active === "true" ? "Active" : "Inactive" }}
                     Since
                     {{ referral.date | date }}
                 </div>

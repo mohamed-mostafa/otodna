@@ -6,7 +6,8 @@
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
-            ]
+            ],
+            "displayTags": false
         },
         {
             "treatmentId": "1",
@@ -14,7 +15,8 @@
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
-            ]
+            ],
+            "displayTags": true
         },
         {
             "treatmentId": "2",
@@ -22,12 +24,14 @@
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
-            ]
+            ],
+            "displayTags": false
         },
         {
             "treatmentId": "3",
             "treatmentName": "Communication Methods, Total",
-            "departments": [{ "id": 1, "name": "Otology" }]
+            "departments": [{ "id": 1, "name": "Otology" }],
+            "displayTags": false
         },
         {
             "treatmentId": "4",
@@ -36,17 +40,20 @@
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
-            ]
+            ],
+            "displayTags": true
         },
         {
             "treatmentId": "5",
             "treatmentName": "Sign Language",
-            "departments": [{ "id": 2, "name": "Audiology" }]
+            "departments": [{ "id": 2, "name": "Audiology" }],
+            "displayTags": false
         },
         {
             "treatmentId": "6",
             "treatmentName": "Language Therapy",
-            "departments": [{ "id": 3, "name": "Speech" }]
+            "departments": [{ "id": 3, "name": "Speech" }],
+            "displayTags": false
         },
         {
             "treatmentId": "7",
@@ -54,7 +61,8 @@
             "departments": [
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
-            ]
+            ],
+            "displayTags": false
         },
         {
             "treatmentId": "8",
@@ -62,7 +70,8 @@
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 3, "name": "Speech" }
-            ]
+            ],
+            "displayTags": true
         },
         {
             "treatmentId": "9",
@@ -70,7 +79,8 @@
             "departments": [
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" }
-            ]
+            ],
+            "displayTags": false
         },
         {
             "treatmentId": "10",
@@ -79,7 +89,8 @@
                 { "id": 1, "name": "Otology" },
                 { "id": 2, "name": "Audiology" },
                 { "id": 3, "name": "Speech" }
-            ]
+            ],
+            "displayTags": true
         }
     ]
 }

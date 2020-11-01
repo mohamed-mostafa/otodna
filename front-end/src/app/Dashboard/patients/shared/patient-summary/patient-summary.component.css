@@ -1,0 +1,11 @@
+.marginTop {
+    margin-top: 10px;
+}
+.title {
+    text-align: center !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+.bold {
+    font-weight: bold;
+}
