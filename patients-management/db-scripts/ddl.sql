@@ -296,6 +296,7 @@ DROP TABLE IF EXISTS `patient_referral`;
 CREATE TABLE `patient_referral` (
   `id` int NOT NULL AUTO_INCREMENT,
   `patient_id` int NOT NULL,
+  `team_name` varchar(45) NOT NULL,
   `team_id` int NOT NULL,
   `date` dateTime NOT NULL,
   `active` varchar(5) DEFAULT 'true',
@@ -313,8 +314,9 @@ DROP TABLE IF EXISTS `notification`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `notification` (
   `id` int NOT NULL AUTO_INCREMENT,
-   `date` dateTime NOT NULL,
+  `date` dateTime NOT NULL,
   `team_id` int NOT NULL,
+  `team_owner_id` int NOT NULL,
   `notification_text` varchar(500) DEFAULT NULL,
   `seen` varchar(5) DEFAULT 'false',
   PRIMARY KEY (`id`)

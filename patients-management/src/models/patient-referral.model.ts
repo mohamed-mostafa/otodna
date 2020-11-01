@@ -57,6 +57,20 @@ export class PatientReferral extends Entity {
   teamId: number;
 
   @property({
+    type: 'string',
+    length: 45,
+    mysql: {
+      columnName: 'team_name',
+      dataType: 'varchar',
+      dataLength: 45,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
+  })
+  teamName?: string;
+
+  @property({
     type: 'date',
     required: true,
     mysql: {

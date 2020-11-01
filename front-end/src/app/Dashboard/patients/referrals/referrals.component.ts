@@ -62,8 +62,8 @@ export class ReferralsComponent implements OnInit {
         this.spinner.show();
         this.referralsService
             .getAllReferrals(this.referralPatient.patientId)
-            .subscribe(async (result) => {
-                this.referrals = await this.getTeamNameById(result);
+            .subscribe((result) => {
+                this.referrals = result;
                 this.spinner.hide();
             });
     }
@@ -103,6 +103,8 @@ export class ReferralsComponent implements OnInit {
             return false;
         } else {
             this.spinner.show();
+            this.referralPatient.teamName = this.referralPatient.teamId.name;
+            this.referralPatient.teamOwnerId = this.referralPatient.teamId.ownerId;
             this.referralPatient.teamId = this.referralPatient.teamId.id;
             this.referralPatient.patientId = this.selectedPatient.id;
             this.referralPatient.patientName = `${this.selectedPatient.firstName} ${this.selectedPatient.lastName}`;
@@ -181,14 +183,6 @@ export class ReferralsComponent implements OnInit {
                 resolve(result);
             });
         });
-    }
-    getTeamNameById(referrals) {
-        referrals.forEach((refer) => {
-            this.teamsService.getTeamById(refer.teamId).subscribe((result) => {
-                refer.teamName = result.name;
-            });
-        });
-        return referrals;
     }
     onHide() {
         this.reset();

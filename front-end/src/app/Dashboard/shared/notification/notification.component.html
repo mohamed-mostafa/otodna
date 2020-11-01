@@ -5,7 +5,9 @@
 >
     <i class="fa fa-2x fa-fw fa-bell-o"></i>
     <span class="topbar-item-name"></span>
-    <span class="badge">{{ notificationCount }}</span>
+    <span class="badge" *ngIf="notificationCount && notificationCount > 0">{{
+        notificationCount
+    }}</span>
 </a>
 <p-menu
     #menu

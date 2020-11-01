@@ -10,12 +10,14 @@ import { Component, OnInit } from "@angular/core";
 export class NotificationComponent implements OnInit {
     notifications = [];
     notificationCount = 0;
+    loggedInUser;
     constructor(
         private notificationsService: NotificationsService,
         private router: Router
     ) {}
 
     ngOnInit(): void {
+        this.loggedInUser = JSON.parse(localStorage.getItem("user"));
         this.getALlNotifications();
         this.getNotificationsCount();
         setInterval(() => {
@@ -26,30 +28,39 @@ export class NotificationComponent implements OnInit {
         }, 30000);
     }
     selectedNotification(data) {
-        data.seen = "true";
-        this.notificationsService
-            .updateNotification(data)
-            .subscribe((u: any) => {
-                this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-                this.router.onSameUrlNavigation = "reload";
-                this.router.navigate([this.router.url]);
-                this.getALlNotifications();
-            });
+        if (data.teamOwnerId === this.loggedInUser.id) {
+            data.seen = "true";
+            this.notificationsService
+                .updateNotification(data)
+                .subscribe((u: any) => {
+                    this.router.routeReuseStrategy.shouldReuseRoute = () =>
+                        false;
+                    this.router.onSameUrlNavigation = "reload";
+                    this.router.navigate([this.router.url]);
+                    this.getALlNotifications();
+                });
+        }
     }
     getALlNotifications() {
-        const selectedUser = JSON.parse(localStorage.getItem("user"));
-        for (const element of selectedUser.teams) {
+        let markAsRead = false;
+        for (const element of this.loggedInUser.teams) {
             this.notificationsService
                 .getAllNotifications(element.id)
                 .subscribe(async (result) => {
                     if (result && result.length > 0) {
                         result.forEach((res) => {
+                            if (res.teamOwnerId === this.loggedInUser.id) {
+                                markAsRead = true;
+                            } else {
+                                markAsRead = false;
+                            }
                             let obj = {
                                 label: res.notificationText,
-                                icon: "fa fa-check-circle",
+                                icon: markAsRead ? "fa fa-eye" : "",
                                 command: () => {
                                     this.selectedNotification(res);
                                 },
+                                styleClass: markAsRead ? "menuItemCss" : "",
                             };
                             this.notifications.push(obj);
                         });

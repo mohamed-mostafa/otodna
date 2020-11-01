@@ -27,7 +27,9 @@ export class PatientReferralRepository extends DefaultTransactionalRepository<
           date: new Date(),
           notificationText: `Patient ${name} has been referred to you`,
           teamId: data.teamId,
+          teamOwnerId: data.teamOwnerId,
         };
+        delete data.teamOwnerId;
         delete data.patientName;
         await super.create(data, {transaction: tx});
         await this.notificationRepository.create(notification, {

@@ -25,3 +25,6 @@
     overflow-x: hidden;
     width: 600px !important;
 } */
+::ng-deep .menuItemCss {
+    text-decoration: underline !important;
+}

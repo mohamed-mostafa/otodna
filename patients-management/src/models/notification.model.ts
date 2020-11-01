@@ -55,6 +55,22 @@ export class Notification extends Entity {
   teamId: number;
 
   @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
+    mysql: {
+      columnName: 'team_owner_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
+  })
+  teamOwnerId: number;
+
+  @property({
     type: 'string',
     length: 500,
     mysql: {
