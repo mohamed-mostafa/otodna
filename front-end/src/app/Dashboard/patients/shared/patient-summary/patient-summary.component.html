@@ -1,8 +1,20 @@
 <div class="marginTop">
     <p-card>
-        {{ selectedPatient.patientNumber }} | {{ selectedPatient.firstName }}
-        {{ selectedPatient.middleName }} {{ selectedPatient.lastName }} |
-        {{ selectedPatient.gender }} |
-        {{ getAge(selectedPatient.dateOfBirth) }} Years
+        {{ selectedPatient.patientNumber }} - {{ selectedPatient.firstName }}
+        {{ selectedPatient.middleName }} {{ selectedPatient.lastName }} [
+        {{ getAge(selectedPatient.dateOfBirth) }} Years -
+        {{ selectedPatient.gender }} ]
+        <span *ngFor="let item of patientSessionData">
+            <ng-container *ngIf="item.type === 'Treatment'; else elseTemplate">
+                <span class="tag" style="background-color: green">{{
+                    item.value
+                }}</span>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <span class="tag" style="background-color: orangered">{{
+                    item.value
+                }}</span>
+            </ng-template>
+        </span>
     </p-card>
 </div>

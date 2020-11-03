@@ -290,11 +290,20 @@ export class PathologyComponent implements OnInit {
     goToDashboard(event) {
         this.sharedClass.goToDashboard(this.router);
     }
-    getAllTests() {
+    async getAllTests() {
         if (this.selectedPatient.teamId === 0) {
-            this.pathologyService.getTest("diagnosisPathology").then((res) => {
-                this.allTests = res;
-            });
+            this.documentService
+                .getAllTests("diagnosisPathology")
+                .then((result) => {
+                    this.allTests = result;
+                })
+                .catch((error) => {
+                    this.showMessageComponent.showMessage(
+                        "error",
+                        "Error",
+                        "Something went error,Please try again"
+                    );
+                });
         } else {
             const promise = new Promise((resolve) => {
                 this.teamsService
@@ -305,26 +314,40 @@ export class PathologyComponent implements OnInit {
             });
             promise.then((data: any) => {
                 const id = data.departmentId;
-                this.pathologyService
-                    .getTest("diagnosisPathology")
-                    .then((res) => {
-                        for (const r of res) {
+                this.documentService
+                    .getAllTests("diagnosisPathology")
+                    .then((result) => {
+                        for (const r of result) {
                             for (const dep of r.departments) {
                                 if (dep.id === id) {
                                     this.allTests.push(r);
                                 }
                             }
                         }
+                    })
+                    .catch((error) => {
+                        this.showMessageComponent.showMessage(
+                            "error",
+                            "Error",
+                            "Something went error,Please try again"
+                        );
                     });
             });
         }
     }
-    filterTest(event) {
+    async filterTest(event) {
         const query = event.query;
-        this.pathologyService
-            .getTest("diagnosisPathology")
+        this.documentService
+            .getAllTests("diagnosisPathology")
             .then(async (tests) => {
                 this.filteredTests = await this.searchTest(query, tests);
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
             });
     }
     async searchTest(query, tests) {
@@ -365,20 +388,15 @@ export class PathologyComponent implements OnInit {
             });
     }
     openTest(test) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
             this.savedLeftFiles = [];
             this.savedLeftImage = [];
             this.savedRightImage = [];
-            this.pathologyService.getTest(test.diseaseId).then(
-                (res) => {
-                    this.selectedTestData = res;
-                    this.showTests = false;
-                    this.dialogHeader = res.map((r) => r.name);
-                    resolve(this.selectedTestData);
-                },
-                (err) => {
+            const result = await this.documentService
+                .getAllTests(test.diseaseId)
+                .catch((error) => {
                     if (this.showTests) {
                         test.patientSessionId = this.selectedSession.id;
                         this.saveWithoutParams(test);
@@ -387,8 +405,13 @@ export class PathologyComponent implements OnInit {
                         this.showTests = true;
                         reject(false);
                     }
-                }
-            );
+                });
+            if (result) {
+                this.selectedTestData = result;
+                this.showTests = false;
+                this.dialogHeader = result.map((r) => r.name);
+                resolve(this.selectedTestData);
+            }
         });
     }
     saveWithoutParams(test) {
@@ -407,7 +430,16 @@ export class PathologyComponent implements OnInit {
             this.spinner.hide();
         });
     }
-    async retrieveTestData(test) {
+    async retrieveTestData(test,position) {
+        if (position === "right") {
+            this.showDialogLeftData = false;
+            this.showDialogRightData = true;
+            this.ear = "R";
+        } else {
+            this.showDialogRightData = false;
+            this.showDialogLeftData = true;
+            this.ear = "L";
+        }
         await this.openTest(test);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];

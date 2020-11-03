@@ -384,14 +384,21 @@ export class TreatmentTestsComponent implements OnInit {
     goToDashboard(event) {
         this.sharedClass.goToDashboard(this.router);
     }
-    filterTreatment(event) {
+    async filterTreatment(event) {
         const query = event.query;
-        this.treatmentService
-            .getTreatmentTest("treatmentTests")
+        this.documentService
+            .getAllTests("treatmentTests")
             .then(async (treatments) => {
                 this.filteredTreatments = await this.searchTreatment(
                     query,
                     treatments
+                );
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
                 );
             });
     }
@@ -402,12 +409,19 @@ export class TreatmentTestsComponent implements OnInit {
             "treatmentName"
         );
     }
-    getAllTreatments() {
+    async getAllTreatments() {
         if (this.selectedPatient.teamId === 0) {
-            this.treatmentService
-                .getTreatmentTest("treatmentTests")
-                .then((res) => {
-                    this.allTreatments = res;
+            this.documentService
+                .getAllTests("treatmentTests")
+                .then((result) => {
+                    this.allTreatments = result;
+                })
+                .catch((error) => {
+                    this.showMessageComponent.showMessage(
+                        "error",
+                        "Error",
+                        "Something went error,Please try again"
+                    );
                 });
         } else {
             const promise = new Promise((resolve) => {
@@ -419,40 +433,51 @@ export class TreatmentTestsComponent implements OnInit {
             });
             promise.then((data: any) => {
                 const id = data.departmentId;
-                this.treatmentService
-                    .getTreatmentTest("treatmentTests")
-                    .then((res) => {
-                        for (const r of res) {
+                this.documentService
+                    .getAllTests("treatmentTests")
+                    .then((result) => {
+                        for (const r of result) {
                             for (const dep of r.departments) {
                                 if (dep.id === id) {
                                     this.allTreatments.push(r);
                                 }
                             }
                         }
+                    })
+                    .catch((error) => {
+                        this.showMessageComponent.showMessage(
+                            "error",
+                            "Error",
+                            "Something went error,Please try again"
+                        );
                     });
             });
         }
     }
     getAllEquipments() {
-        this.treatmentService.getTreatmentTest("equipments").then((res) => {
-            this.allEquipments = res;
-        });
+        this.documentService
+            .getAllTests("equipments")
+            .then((result) => {
+                this.allEquipments = result;
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
+            });
     }
     openTest(treatment) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             this.selected = treatment;
             this.savedRightFiles = [];
             this.savedLeftFiles = [];
             this.savedLeftImage = [];
             this.savedRightImage = [];
-            this.treatmentService.getTreatmentTest(treatment.treatmentId).then(
-                (res) => {
-                    this.selectedTestData = res;
-                    this.showTests = false;
-                    this.dialogHeader = res.map((r) => r.name);
-                    resolve(this.selectedTestData);
-                },
-                (err) => {
+            const result = await this.documentService
+                .getAllTests(treatment.treatmentId)
+                .catch((error) => {
                     if (this.showTests) {
                         treatment.patientSessionId = this.selectedSession.id;
                         this.saveWithoutParams(treatment);
@@ -461,13 +486,17 @@ export class TreatmentTestsComponent implements OnInit {
                         this.showTests = true;
                         reject(false);
                     }
-                }
-            );
+                });
+            if (result) {
+                this.selectedTestData = result;
+                this.showTests = false;
+                this.dialogHeader = result.map((r) => r.name);
+                resolve(this.selectedTestData);
+            }
         });
     }
     saveWithoutParams(treatment) {
         delete treatment.departments;
-        delete treatment.displayTags;
         treatment.ear = this.ear;
         this.treatmentService.createTreatment(treatment).subscribe((u: any) => {
             this.reset();
@@ -488,12 +517,19 @@ export class TreatmentTestsComponent implements OnInit {
     }
     filterEquipments(event) {
         const query = event.query;
-        this.treatmentService
-            .getTreatmentTest("equipments")
+        this.documentService
+            .getAllTests("equipments")
             .then(async (equipments) => {
                 this.filteredEquipments = await this.searchEquipments(
                     query,
                     equipments
+                );
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
                 );
             });
     }
@@ -512,8 +548,8 @@ export class TreatmentTestsComponent implements OnInit {
                 this.rightTreatments = [];
                 this.leftTreatments = [];
                 result.forEach((treatment) => {
-                    this.treatmentService
-                        .getTreatmentTest(treatment.treatmentId)
+                    this.documentService
+                        .getAllTests(treatment.treatmentId)
                         .then(
                             (res) => {
                                 treatment.showEquipment = true;
@@ -541,7 +577,16 @@ export class TreatmentTestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    async retrieveTestData(treatment) {
+    async retrieveTestData(treatment, position) {
+        if (position === "right") {
+            this.showDialogLeftData = false;
+            this.showDialogRightData = true;
+            this.ear = "R";
+        } else {
+            this.showDialogRightData = false;
+            this.showDialogLeftData = true;
+            this.ear = "L";
+        }
         await this.openTest(treatment);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
@@ -703,18 +748,15 @@ export class TreatmentTestsComponent implements OnInit {
                 });
             });
     }
-    openEquipment(equipment) {
+    async openEquipment(equipment) {
         this.selectedEquipment = equipment;
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
         this.savedLeftImage = [];
         this.savedRightImage = [];
-        this.treatmentService.getTreatmentTest(equipment.equipmentId).then(
-            (res) => {
-                this.selectedEquipmentData = res;
-                this.showEquipments = false;
-            },
-            (err) => {
+        const result = await this.documentService
+            .getAllTests(equipment.equipmentId)
+            .catch((error) => {
                 if (this.showEquipments) {
                     equipment.sessionTreatmentId = this.selectedTreatmentId;
                     this.saveEquipmentsWithoutParams(equipment);
@@ -722,8 +764,11 @@ export class TreatmentTestsComponent implements OnInit {
                     this.showEquipments = true;
                     return false;
                 }
-            }
-        );
+            });
+        if (result) {
+            this.selectedEquipmentData = result;
+            this.showEquipments = false;
+        }
     }
     deleteEquipment(equipment, position) {
         this.position = position;

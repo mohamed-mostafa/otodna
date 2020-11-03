@@ -1,3 +1,4 @@
+import { DocumentsService } from "./../../services/documents.service";
 import { PatientService } from "./../services/patient.service";
 import { TreatmentTestsService } from "./../treatments/services/treatment-tests.service";
 import { CandidacyService } from "./../diagnosis/services/candidacy.service";
@@ -45,6 +46,7 @@ export class PatientSessionComponent implements OnInit {
         private candidacyService: CandidacyService,
         private treatmentService: TreatmentTestsService,
         private patientService: PatientService,
+        private documentService: DocumentsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -274,10 +276,19 @@ export class PatientSessionComponent implements OnInit {
     }
     getALlSymptoms() {
         this.spinner.show();
-        this.symptomsService.getAllSymptoms().then(async (result) => {
-            this.symptoms = result;
-            this.spinner.hide();
-        });
+        this.documentService
+            .getAllTests("symptoms")
+            .then((result) => {
+                this.symptoms = result;
+                this.spinner.hide();
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
+            });
     }
     generateConclusion() {
         this.showGenerateConclusion = false;
@@ -311,9 +322,11 @@ export class PatientSessionComponent implements OnInit {
                             this.session.notes = "Patient suffers:";
                         }
                         for (const r of result) {
-                            for (const sym of this.symptoms) {
-                                if (sym.id === r.symptomId) {
-                                    this.session.notes += ` ${sym.name}, `;
+                            for (const symptom of this.symptoms) {
+                                for (const sym of symptom.symptoms) {
+                                    if (sym.id === r.symptomId) {
+                                        this.session.notes += ` ${sym.name}, `;
+                                    }
                                 }
                             }
                         }

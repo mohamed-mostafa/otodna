@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<app-patient-summary></app-patient-summary>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="ui-g ui-fluid" *ngIf="selectedSession.ended === 'false'">
     <div class="ui-g-12 ui-md-10"></div>
@@ -171,7 +172,10 @@
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </a>
                     </p-header>
-                    <div (click)="retrieveTestData(right)" class="fontSize11px">
+                    <div
+                        (click)="retrieveTestData(right, 'right')"
+                        class="fontSize11px"
+                    >
                         <div class="ui-g-12 ui-md-12 bold">
                             {{ right.treatmentName }}
                         </div>
@@ -220,7 +224,10 @@
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </a>
                     </p-header>
-                    <div (click)="retrieveTestData(left)" class="fontSize11px">
+                    <div
+                        (click)="retrieveTestData(left, 'left')"
+                        class="fontSize11px"
+                    >
                         <div class="ui-g-12 ui-md-12 bold">
                             {{ left.treatmentName }}
                         </div>

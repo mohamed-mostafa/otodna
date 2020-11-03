@@ -29,4 +29,9 @@ export class PatientSessionService {
             session
         );
     }
+    getPatientSessionData(patientId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/patientSessionData/${patientId}`
+        );
+    }
 }

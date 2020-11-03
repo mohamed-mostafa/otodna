@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<app-patient-summary></app-patient-summary>
 <div class="ui-g ui-fluid" *ngIf="!showButtons && session.ended === 'false'">
     <div class="ui-g-12 ui-md-10"></div>
     <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
@@ -98,7 +99,7 @@
                 type="button"
                 label="Discard"
                 (click)="reset()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-danger ui-button-raised"
             ></button>
         </div>
@@ -108,7 +109,7 @@
                 type="button"
                 label="Start Session"
                 (click)="save()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-icon-primary ui-button-raised"
             ></button>
         </div>
@@ -120,7 +121,7 @@
                 type="button"
                 label="Back"
                 (click)="reset()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-danger ui-button-raised"
             ></button>
         </div>
@@ -130,7 +131,7 @@
                 type="button"
                 label="Update"
                 (click)="update()"
-                style="margin-bottom: 10px;"
+                style="margin-bottom: 10px"
                 class="ui-button-icon-primary ui-button-raised"
             ></button>
         </div>

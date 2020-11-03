@@ -28,8 +28,9 @@ export class DocumentsService {
                 bucket.upload(params, function (err, data) {
                     if (err) {
                         reject(JSON.stringify(err));
+                    } else {
+                        resolve("File Uploaded.");
                     }
-                    resolve("File Uploaded.");
                 });
             });
         });
@@ -45,8 +46,26 @@ export class DocumentsService {
             bucket.listObjects(params, function (err, data) {
                 if (err) {
                     reject(JSON.stringify(err));
+                } else {
+                    resolve(data);
                 }
-                resolve(data);
+            });
+        });
+    }
+    getAllTests(filePath): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const bucket = this.secret;
+            const params = {
+                Bucket: "otonda-upload-file",
+                Key: `assets/tests/${filePath}.json`,
+                ResponseContentType: "application/json",
+            };
+            bucket.getObject(params, function (err, data) {
+                if (err) {
+                    reject(JSON.stringify(err));
+                } else {
+                    resolve(JSON.parse(data.Body.toString()).data);
+                }
             });
         });
     }
@@ -60,8 +79,9 @@ export class DocumentsService {
             bucket.deleteObject(params, function (err, data) {
                 if (err) {
                     reject(JSON.stringify(err));
+                } else {
+                    resolve("deleted");
                 }
-                resolve("deleted");
             });
         });
     }
@@ -75,14 +95,17 @@ export class DocumentsService {
             bucket.getObject(params, function (err, data) {
                 if (err) {
                     reject(JSON.stringify(err));
+                } else {
+                    let blob = new Blob([data.Body], {
+                        type: data.ContentType,
+                    });
+                    let link = document.createElement("a");
+                    link.href = window.URL.createObjectURL(blob);
+                    const n = filePath.lastIndexOf("/");
+                    const result = filePath.substring(n + 1);
+                    link.download = result;
+                    link.click();
                 }
-                let blob = new Blob([data.Body], { type: data.ContentType });
-                let link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                const n = filePath.lastIndexOf("/");
-                const result = filePath.substring(n + 1);
-                link.download = result;
-                link.click();
             });
         });
     }

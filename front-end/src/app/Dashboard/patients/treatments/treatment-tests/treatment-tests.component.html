@@ -1,5 +1,6 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<app-patient-summary></app-patient-summary>
 <p-confirmDialog
     [style]="{ width: '50vw' }"
     [position]="position"
@@ -281,7 +282,10 @@
                     [style]="{ height: '100px' }"
                     styleClass="ui-card-shadow "
                 >
-                    <div (click)="retrieveTestData(right)" class="height50">
+                    <div
+                        (click)="retrieveTestData(right, 'right')"
+                        class="height50"
+                    >
                         <div class="ui-g-12 ui-md-12 bold">
                             {{ right.treatmentName }}
                         </div>
@@ -335,7 +339,10 @@
                     [style]="{ height: '100px' }"
                     styleClass="ui-card-shadow"
                 >
-                    <div (click)="retrieveTestData(left)" class="height50">
+                    <div
+                        (click)="retrieveTestData(left, 'left')"
+                        class="height50"
+                    >
                         <div class="ui-g-12 ui-md-12 bold">
                             {{ left.treatmentName }}
                         </div>

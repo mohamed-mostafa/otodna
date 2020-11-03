@@ -1,3 +1,4 @@
+import { DocumentsService } from "./../../../services/documents.service";
 import { PatientService } from "./../../services/patient.service";
 import { SymptomsService } from "./../services/symptoms.service";
 import { MenuItem } from "primeng/primeng";
@@ -34,6 +35,7 @@ export class SymptomsComponent implements OnInit {
         private router: Router,
         private symptomsService: SymptomsService,
         private patientService: PatientService,
+        private documentService: DocumentsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -77,10 +79,19 @@ export class SymptomsComponent implements OnInit {
     }
     getALlSymptoms() {
         this.spinner.show();
-        this.symptomsService.getAllSymptoms().then((result) => {
-            this.symptoms = result;
-            this.spinner.hide();
-        });
+        this.documentService
+            .getAllTests("symptoms")
+            .then((result) => {
+                this.symptoms = result;
+                // this.spinner.hide();
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
+            });
     }
     save() {
         if (!this.selectedSymptoms || this.selectedSymptoms.length < 1) {

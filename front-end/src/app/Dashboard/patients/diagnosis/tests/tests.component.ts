@@ -390,18 +390,36 @@ export class TestsComponent implements OnInit {
     }
     filterTest(event) {
         const query = event.query;
-        this.testService.getTest("diagnosisTests").then(async (tests) => {
-            this.filteredTests = await this.searchTest(query, tests);
-        });
+        this.documentService
+            .getAllTests("diagnosisTests")
+            .then(async (tests) => {
+                this.filteredTests = await this.searchTest(query, tests);
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
+            });
     }
     async searchTest(query, tests) {
         return await this.sharedClass.searchTest(query, tests, "testName");
     }
     getAllTests() {
         if (this.selectedPatient.teamId === 0) {
-            this.testService.getTest("diagnosisTests").then((res) => {
-                this.allTests = res;
-            });
+            this.documentService
+                .getAllTests("diagnosisTests")
+                .then((result) => {
+                    this.allTests = result;
+                })
+                .catch((error) => {
+                    this.showMessageComponent.showMessage(
+                        "error",
+                        "Error",
+                        "Something went error,Please try again"
+                    );
+                });
         } else {
             const promise = new Promise((resolve) => {
                 this.teamsService
@@ -412,38 +430,51 @@ export class TestsComponent implements OnInit {
             });
             promise.then((data: any) => {
                 const id = data.departmentId;
-                this.testService.getTest("diagnosisTests").then((res) => {
-                    for (const r of res) {
-                        for (const dep of r.departments) {
-                            if (dep.id === id) {
-                                this.allTests.push(r);
+                this.documentService
+                    .getAllTests("diagnosisTests")
+                    .then((result) => {
+                        for (const r of result) {
+                            for (const dep of r.departments) {
+                                if (dep.id === id) {
+                                    this.allTests.push(r);
+                                }
                             }
                         }
-                    }
-                });
+                    })
+                    .catch((error) => {
+                        this.showMessageComponent.showMessage(
+                            "error",
+                            "Error",
+                            "Something went error,Please try again"
+                        );
+                    });
             });
         }
     }
     getAllEquipments() {
-        this.testService.getTest("equipments").then((res) => {
-            this.allEquipments = res;
-        });
+        this.documentService
+            .getAllTests("equipments")
+            .then((result) => {
+                this.allEquipments = result;
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
+            });
     }
     openTest(test) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
             this.savedLeftFiles = [];
             this.savedLeftImage = [];
             this.savedRightImage = [];
-            this.testService.getTest(test.testId).then(
-                (res) => {
-                    this.selectedTestData = res;
-                    this.showTests = false;
-                    this.dialogHeader = res.map((r) => r.name);
-                    resolve(this.selectedTestData);
-                },
-                (err) => {
+            const result = await this.documentService
+                .getAllTests(test.testId)
+                .catch((error) => {
                     if (this.showTests) {
                         test.patientSessionId = this.selectedSession.id;
                         this.saveWithoutParams(test);
@@ -452,8 +483,13 @@ export class TestsComponent implements OnInit {
                         this.showTests = true;
                         reject(false);
                     }
-                }
-            );
+                });
+            if (result) {
+                this.selectedTestData = result;
+                this.showTests = false;
+                this.dialogHeader = result.map((r) => r.name);
+                resolve(this.selectedTestData);
+            }
         });
     }
     saveWithoutParams(test) {
@@ -472,12 +508,21 @@ export class TestsComponent implements OnInit {
     }
     filterEquipments(event) {
         const query = event.query;
-        this.testService.getTest("equipments").then(async (equipments) => {
-            this.filteredEquipments = await this.searchEquipments(
-                query,
-                equipments
-            );
-        });
+        this.documentService
+            .getAllTests("equipments")
+            .then(async (equipments) => {
+                this.filteredEquipments = await this.searchEquipments(
+                    query,
+                    equipments
+                );
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
+            });
     }
     async searchEquipments(query, equipments) {
         return await this.sharedClass.searchTest(
@@ -494,7 +539,7 @@ export class TestsComponent implements OnInit {
                 this.rightTests = [];
                 this.leftTests = [];
                 result.forEach((test) => {
-                    this.testService.getTest(test.testId).then(
+                    this.documentService.getAllTests(test.testId).then(
                         (res) => {
                             test.showEquipment = true;
                             this.testService
@@ -521,7 +566,16 @@ export class TestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    async retrieveTestData(test) {
+    async retrieveTestData(test, position) {
+        if (position === "right") {
+            this.showDialogLeftData = false;
+            this.showDialogRightData = true;
+            this.ear = "R";
+        } else {
+            this.showDialogRightData = false;
+            this.showDialogLeftData = true;
+            this.ear = "L";
+        }
         await this.openTest(test);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
@@ -702,18 +756,15 @@ export class TestsComponent implements OnInit {
             });
         });
     }
-    openEquipment(equipment) {
+    async openEquipment(equipment) {
         this.selectedEquipment = equipment;
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
         this.savedLeftImage = [];
         this.savedRightImage = [];
-        this.testService.getTest(equipment.equipmentId).then(
-            (res) => {
-                this.selectedEquipmentData = res;
-                this.showEquipments = false;
-            },
-            (err) => {
+        const result = await this.documentService
+            .getAllTests(equipment.equipmentId)
+            .catch((error) => {
                 if (this.showEquipments) {
                     equipment.sessionTestId = this.selectedTestId;
                     this.saveEquipmentsWithoutParams(equipment);
@@ -721,8 +772,11 @@ export class TestsComponent implements OnInit {
                     this.showEquipments = true;
                     return false;
                 }
-            }
-        );
+            });
+        if (result) {
+            this.selectedEquipmentData = result;
+            this.showEquipments = false;
+        }
     }
     deleteEquipment(equipment, position) {
         this.position = position;
