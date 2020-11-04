@@ -15,21 +15,13 @@ export class PatientSummaryComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        const sessionData = JSON.parse(
-            localStorage.getItem("patientSessionData")
-        );
-        if (sessionData) {
-            this.patientSessionData = sessionData;
-        } else {
-            this.getPatientSessionData();
-        }
+        this.getPatientSessionData();
     }
     getPatientSessionData() {
         this.patientSessionService
             .getPatientSessionData(this.selectedPatient.id)
             .subscribe((res) => {
                 this.patientSessionData = res;
-                localStorage.setItem("patientSessionData", JSON.stringify(res));
             });
     }
     getAge(dateString) {
