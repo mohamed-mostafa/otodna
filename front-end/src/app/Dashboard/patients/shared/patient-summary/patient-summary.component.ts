@@ -19,7 +19,7 @@ export class PatientSummaryComponent implements OnInit {
     }
     getPatientSessionData() {
         this.patientSessionService
-            .getPatientSessionData(this.selectedPatient.id)
+            .getPatientTags(this.selectedPatient.id)
             .subscribe((res) => {
                 this.patientSessionData = res;
             });
