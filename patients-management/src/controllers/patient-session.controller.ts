@@ -1,3 +1,5 @@
+import {PatientTagsService} from './../services/patient-tags.service';
+import {service} from '@loopback/core';
 import {SessionTestEquipment} from './../models/session-test-equipment.model';
 import {SessionTestEquipmentRepository} from './../repositories/session-test-equipment.repository';
 import {PatientSessionSymptom} from './../models/patient-session-symptom.model';
@@ -31,6 +33,7 @@ export class PatientSessionController {
     public patientSessionSymptomRepository: PatientSessionSymptomRepository,
     @repository(SessionTestEquipmentRepository)
     public sessionTestEquipmentRepository: SessionTestEquipmentRepository,
+    @service(PatientTagsService) public patientTagsService: PatientTagsService,
   ) {}
 
   @post('/patientSession', {
@@ -203,7 +206,7 @@ export class PatientSessionController {
     return this.patientSessionRepository.findById(id, filter);
   }
 
-  @get('/patientSessionData/{id}', {
+  @get('/patientTags/{id}', {
     responses: {
       '200': {
         description: 'PatientSession model instance',
@@ -215,10 +218,10 @@ export class PatientSessionController {
       },
     },
   })
-  async getPatientSessionData(
+  async getPatientTags(
     @param.path.number('id') id: number,
   ): Promise<PatientSession> {
-    return this.patientSessionRepository.getPatientSessionData(id);
+    return this.patientTagsService.getPatientTags(id);
   }
 
   @patch('/patientSession/{id}', {

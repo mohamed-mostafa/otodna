@@ -1,4 +1,4 @@
-import { TreatmentTestsService } from "./../../treatments/services/treatment-tests.service";
+import { PatientSessionService } from "./../../services/patient-session.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -8,23 +8,21 @@ import { Component, OnInit } from "@angular/core";
 })
 export class PatientSummaryComponent implements OnInit {
     selectedPatient;
-    allTreatmentsTests;
-    constructor(private treatmentService: TreatmentTestsService) {}
+    patientSessionData;
+    constructor(private patientSessionService: PatientSessionService) {}
 
     ngOnInit(): void {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
-        this.getAllTreatmentsTests();
+        this.getPatientSessionData();
     }
-    getAllTreatmentsTests() {
-        this.treatmentService.getTreatmentTest("treatmentTests").then((res) => {
-            this.allTreatmentsTests = res;
-            console.log(res);
-        });
-    }
-    getPatientSessionData(){
-        
+    getPatientSessionData() {
+        this.patientSessionService
+            .getPatientTags(this.selectedPatient.id)
+            .subscribe((res) => {
+                this.patientSessionData = res;
+            });
     }
     getAge(dateString) {
         let today = new Date();

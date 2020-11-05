@@ -1,3 +1,4 @@
+import {S3AdaptorService} from './services/s-3-adaptor.service';
 // Copyright IBM Corp. 2019,2020. All Rights Reserved.
 // Node module: loopback4-example-shopping
 // This file is licensed under the MIT License.
@@ -9,11 +10,10 @@ import {BootMixin} from '@loopback/boot';
 import {
   ApplicationConfig,
   BindingKey,
+  BindingScope,
   createBindingFromClass,
 } from '@loopback/core';
-import {
-  RepositoryMixin,
-} from '@loopback/repository';
+import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
@@ -23,12 +23,10 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import _ from 'lodash';
 import path from 'path';
 import {JWTAuthenticationStrategy} from './authentication-strategies/jwt-strategy';
-import {
-  TokenServiceBindings,
-} from './keys';
+import {TokenServiceBindings} from './keys';
 import {OtodnaAuthenticationSequence} from './sequence';
 import {JWTService} from './services/jwt-service.service';
-import { RemoteUsersProvider } from './services';
+import {RemoteUsersProvider} from './services';
 
 /**
  * Information from package.json
@@ -62,7 +60,6 @@ export class PatientManagementApplication extends BootMixin(
 
     // Set the service provider for users
     this.serviceProvider(RemoteUsersProvider);
-
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));

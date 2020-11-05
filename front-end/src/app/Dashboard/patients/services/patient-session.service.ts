@@ -29,4 +29,7 @@ export class PatientSessionService {
             session
         );
     }
+    getPatientTags(patientId): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/patientTags/${patientId}`);
+    }
 }

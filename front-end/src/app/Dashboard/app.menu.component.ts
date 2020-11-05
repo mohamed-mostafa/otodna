@@ -180,6 +180,7 @@ export class AppMenuComponent implements OnInit {
             if (this.router.url === "/dashboard/search") {
                 localStorage.removeItem("selectedPatient");
                 localStorage.removeItem("sessionBasicInfo");
+                localStorage.removeItem("patientSessionData");
             }
             if (
                 this.router.url === "/dashboard/addDiagnosis" ||
