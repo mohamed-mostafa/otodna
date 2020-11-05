@@ -578,6 +578,22 @@ CREATE TABLE `vital_record_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- View structure for view `tests_count_by_department`
+--
+
+DROP VIEW IF EXISTS `tests_count_by_department`;
+
+CREATE VIEW `tests_count_by_department` AS
+    SELECT 
+        `ps`.`department_id` AS `department_id`,
+        `st`.`test_name` AS `test_name`,
+        COUNT(`st`.`id`) AS `count`
+    FROM
+        (`session_test` `st` JOIN `patient_session` `ps` ON ((`ps`.`id` = `st`.`patient_session_id`)))
+    GROUP BY `ps`.`department_id` , `st`.`test_name`
+    ORDER BY `count` DESC
+
+--
 -- Dumping data for table `role`
 --
 

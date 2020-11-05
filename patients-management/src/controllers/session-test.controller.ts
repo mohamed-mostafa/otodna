@@ -16,13 +16,15 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import {SessionTest} from '../models';
-import {SessionTestRepository} from '../repositories';
+import {SessionTest, TestsCountByDepartment} from '../models';
+import {SessionTestRepository, TestsCountByDepartmentRepository} from '../repositories';
 
 export class SessionTestController {
   constructor(
     @repository(SessionTestRepository)
     public sessionTestRepository: SessionTestRepository,
+    @repository(TestsCountByDepartmentRepository)
+    public testsCountByDepartmentRepository: TestsCountByDepartmentRepository
   ) {}
 
   @post('/session-tests', {
@@ -132,7 +134,7 @@ export class SessionTestController {
         description: 'PatientSession model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(SessionTest, {includeRelations: true}),
+            schema: getModelSchemaRef(TestsCountByDepartment, {includeRelations: true}),
           },
         },
       },
@@ -140,8 +142,8 @@ export class SessionTestController {
   })
   async getFrequentlyUsedTests(
     @param.path.number('id') id: number,
-  ): Promise<SessionTest> {
-    return this.sessionTestRepository.getFrequentlyUsedTests(id);
+  ): Promise<TestsCountByDepartment[]> {
+    return this.testsCountByDepartmentRepository.find({where: {departmentId: id}, order: ["count desc"]})
   }
 
   @patch('/session-tests/{id}', {
