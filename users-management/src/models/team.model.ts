@@ -1,5 +1,6 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, model, property, hasMany, belongsTo} from '@loopback/repository';
 import {TeamMember} from './team-member.model';
+import {Department} from './department.model';
 
 @model({
   settings: {
@@ -22,23 +23,6 @@ export class Team extends Entity {
     },
   })
   active: boolean;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {
-      columnName: 'department_id',
-      dataType: 'int',
-      dataLength: null,
-      dataPrecision: 10,
-      dataScale: 0,
-      nullable: 'N',
-    },
-  })
-  departmentId: number;
-
   @property({
     type: 'number',
     required: false,
@@ -103,6 +87,9 @@ export class Team extends Entity {
 
   @hasMany(() => TeamMember)
   teamMembers: TeamMember[];
+
+  @belongsTo(() => Department, {keyFrom: "department_id", name: "department", keyTo: "id"})
+  department_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

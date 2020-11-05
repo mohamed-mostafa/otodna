@@ -86,7 +86,7 @@ export class AuthenticationController {
     newUser.approved = false;
     // newUser.userTypeId = 1; // regular user
     let savedUser = await this.userRepository.create(newUser);
-    delete savedUser.password;
+    savedUser.password = savedUser.password.replace(/./g, '*');
     return savedUser;
   }
 

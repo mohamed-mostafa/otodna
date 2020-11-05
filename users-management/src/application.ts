@@ -103,6 +103,6 @@ export class UserManagementApplication extends BootMixin(
     this.bind(PasswordHasherBindings.ROUNDS).to(10);
     this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher);
 
-    this.bind(UserServiceBindings.USER_SERVICE).toClass(OtodnaUserService);
+    // this.bind(UserServiceBindings.USER_SERVICE).toClass(OtodnaUserService);
   }
 }
