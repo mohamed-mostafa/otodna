@@ -141,6 +141,22 @@ export class PatientSession extends Entity {
   patientId: number;
 
   @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
+    mysql: {
+      columnName: 'department_id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'N',
+    },
+  })
+  departmentId: number;
+
+  @property({
     type: 'string',
     length: 5,
     mysql: {

@@ -13,7 +13,6 @@ export class TestsService {
     sessionTestEquipmentLink = "sessionTestEquipment";
     sessionTestEquipment = "session-test-equipments";
     constructor(private http: HttpClient) {}
-
     getTest(test) {
         return this.http
             .get<any>(`assets/tests/${test}.json`)
@@ -24,6 +23,11 @@ export class TestsService {
     getSessionTests(patientSessionId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
+        );
+    }
+    getFrequentlyUsedTests(departmentId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/frequentlyUsedTests/${departmentId}`
         );
     }
     createSessionTest(data): Observable<void> {

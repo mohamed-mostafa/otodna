@@ -429,7 +429,7 @@ export class TestsComponent implements OnInit {
                     });
             });
             promise.then((data: any) => {
-                const id = data.departmentId;
+                const id = data.department_id;
                 this.documentService
                     .getAllTests("diagnosisTests")
                     .then((result) => {
@@ -464,6 +464,9 @@ export class TestsComponent implements OnInit {
                     "Something went error,Please try again"
                 );
             });
+    }
+    selectFrequentlyUsed(event) {
+        this.openTest(event);
     }
     openTest(test) {
         return new Promise(async (resolve, reject) => {

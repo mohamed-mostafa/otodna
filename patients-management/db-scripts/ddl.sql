@@ -414,6 +414,7 @@ CREATE TABLE `patient_session` (
   `performer` varchar(45) DEFAULT NULL,
   `notes` varchar(500) DEFAULT NULL,
   `patient_id` int NOT NULL,
+  `department_id` int NOT NULL,
   `ended` varchar(5) DEFAULT 'false',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;

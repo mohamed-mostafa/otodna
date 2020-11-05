@@ -41,6 +41,6 @@ export class UserRepository extends DefaultCrudRepository<
   async getTeamMembershipsOfUser(userId: Number): Promise<Team[]> {
     const teamMemberObjects: TeamMember[] = await this.teamMemberRepository.find({where: {userId: userId}});
     if (!teamMemberObjects || teamMemberObjects.length == 0) return [];
-    return this.teamRepository.find({where: {id: {inq: teamMemberObjects.map(teamMember => teamMember.teamId)}}});
+    return this.teamRepository.find({where: {id: {inq: teamMemberObjects.map(teamMember => teamMember.teamId)}}, include: [{relation: "department"}]});
   }
 }

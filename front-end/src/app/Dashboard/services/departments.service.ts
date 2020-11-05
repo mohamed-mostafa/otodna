@@ -15,4 +15,9 @@ export class DepartmentsService {
     getAllDepartments(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${this.link}`);
     }
+    getDepartmentById(id: String): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}?filter[where][id][eq]=${id}`
+        );
+    }
 }

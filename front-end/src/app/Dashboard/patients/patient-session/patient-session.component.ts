@@ -1,3 +1,4 @@
+import { DepartmentsService } from "./../../services/departments.service";
 import { DocumentsService } from "./../../services/documents.service";
 import { PatientService } from "./../services/patient.service";
 import { TreatmentTestsService } from "./../treatments/services/treatment-tests.service";
@@ -36,6 +37,8 @@ export class PatientSessionComponent implements OnInit {
     showAllButtons = true;
     symptoms = [];
     showGenerateConclusion = true;
+    departments = [];
+    selectedDepartment;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -46,6 +49,7 @@ export class PatientSessionComponent implements OnInit {
         private candidacyService: CandidacyService,
         private treatmentService: TreatmentTestsService,
         private patientService: PatientService,
+        private departmentsService: DepartmentsService,
         private documentService: DocumentsService,
         private spinner: NgxSpinnerService
     ) {}
@@ -54,12 +58,27 @@ export class PatientSessionComponent implements OnInit {
         this.selectedPatient = JSON.parse(
             localStorage.getItem("selectedPatient")
         );
+
         this.session.sessionTypeId = JSON.parse(
             localStorage.getItem("sessionTypeId")
         );
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (LoggedInUser.teams.length > 1) {
+            LoggedInUser.teams.forEach((element) => {
+                this.departments.push(element.department);
+            });
+            this.departments = [
+                ...new Map(
+                    this.departments.map((item) => [item["id"], item])
+                ).values(),
+            ];
+        } else if (LoggedInUser.teams.length === 1) {
+            this.departments.push(LoggedInUser.teams[0].department);
+            this.selectedDepartment = LoggedInUser.teams[0].department;
+        }
         this.href = this.router.url;
         if (this.session.sessionTypeId === 0) {
             this.label = "New Diagnosis";
@@ -105,8 +124,8 @@ export class PatientSessionComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
-        this.checkLoggedInUserTeamWithPatient();
         this.getALlSymptoms();
+        this.checkLoggedInUserTeamWithPatient();
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -115,7 +134,16 @@ export class PatientSessionComponent implements OnInit {
             this.selectedPatient
         );
     }
-    loadData() {
+    getDepartmentById(id) {
+        return new Promise((resolve) => {
+            this.departmentsService
+                .getDepartmentById(id)
+                .subscribe((result) => {
+                    resolve(result[0]);
+                });
+        });
+    }
+    async loadData() {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
@@ -123,6 +151,9 @@ export class PatientSessionComponent implements OnInit {
             this.session = this.selectedSession;
             this.session.date = new Date(this.selectedSession.date);
             this.session.createdAt = new Date(this.selectedSession.createdAt);
+            this.selectedDepartment = await this.getDepartmentById(
+                this.selectedSession.departmentId
+            );
             this.showButtons = false;
         } else {
             this.session.date = new Date();
@@ -140,11 +171,13 @@ export class PatientSessionComponent implements OnInit {
     }
     reset() {
         this.session = new Session();
+        this.selectedDepartment = "";
         this.goToPatientPage("a");
     }
     save() {
         this.validateSession((callback) => {
             if (callback === "valid") {
+                this.session.departmentId = this.selectedDepartment.id;
                 this.spinner.show();
                 this.patientSession
                     .createSession(this.session)
@@ -186,6 +219,7 @@ export class PatientSessionComponent implements OnInit {
                 if (this.session.notes === null) {
                     delete this.session.notes;
                 }
+                this.session.departmentId = this.selectedDepartment.id;
                 this.patientSession
                     .updateSession(this.session)
                     .subscribe((u: any) => {
@@ -247,6 +281,14 @@ export class PatientSessionComponent implements OnInit {
                 "error",
                 "Validation Error",
                 "Performer is required"
+            );
+            return false;
+        }
+        if (!this.selectedDepartment) {
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Department is required"
             );
             return false;
         } else {

@@ -313,7 +313,7 @@ export class PathologyComponent implements OnInit {
                     });
             });
             promise.then((data: any) => {
-                const id = data.departmentId;
+                const id = data.department_id;
                 this.documentService
                     .getAllTests("diagnosisPathology")
                     .then((result) => {
@@ -430,7 +430,7 @@ export class PathologyComponent implements OnInit {
             this.spinner.hide();
         });
     }
-    async retrieveTestData(test,position) {
+    async retrieveTestData(test, position) {
         if (position === "right") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;

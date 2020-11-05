@@ -29,7 +29,7 @@
 >
     <div style="height: 550px">
         <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-12" *ngIf="showTests">
+            <div class="ui-g-12 ui-md-10" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
                     <p-autoComplete
                         [(ngModel)]="selectedTest"
@@ -75,6 +75,12 @@
                         </p-card>
                     </div>
                 </ng-template>
+            </div>
+            <div class="ui-g-12 ui-md-2 frequentlyUsedDiv" *ngIf="showTests">
+                <span class="frequentlyUsed"> Frequently Used </span>
+                <app-frequently-used
+                    (testEvent)="selectFrequentlyUsed($event)"
+                ></app-frequently-used>
             </div>
             <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
                 <div

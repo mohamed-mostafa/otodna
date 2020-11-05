@@ -432,7 +432,7 @@ export class TreatmentTestsComponent implements OnInit {
                     });
             });
             promise.then((data: any) => {
-                const id = data.departmentId;
+                const id = data.department_id;
                 this.documentService
                     .getAllTests("treatmentTests")
                     .then((result) => {

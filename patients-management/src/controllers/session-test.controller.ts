@@ -22,7 +22,7 @@ import {SessionTestRepository} from '../repositories';
 export class SessionTestController {
   constructor(
     @repository(SessionTestRepository)
-    public sessionTestRepository : SessionTestRepository,
+    public sessionTestRepository: SessionTestRepository,
   ) {}
 
   @post('/session-tests', {
@@ -120,9 +120,28 @@ export class SessionTestController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(SessionTest, {exclude: 'where'}) filter?: FilterExcludingWhere<SessionTest>
+    @param.filter(SessionTest, {exclude: 'where'})
+    filter?: FilterExcludingWhere<SessionTest>,
   ): Promise<SessionTest> {
     return this.sessionTestRepository.findById(id, filter);
+  }
+
+  @get('/frequentlyUsedTests/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(SessionTest, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async getFrequentlyUsedTests(
+    @param.path.number('id') id: number,
+  ): Promise<SessionTest> {
+    return this.sessionTestRepository.getFrequentlyUsedTests(id);
   }
 
   @patch('/session-tests/{id}', {

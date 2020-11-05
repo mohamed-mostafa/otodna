@@ -15,7 +15,7 @@
 </div>
 <p-fieldset legend="Patient Session">
     <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-4">
+        <div class="ui-g-12 ui-md-3">
             <label for="displayName">Display Name</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
@@ -30,7 +30,7 @@
                 />
             </div>
         </div>
-        <div class="ui-g-12 ui-md-4">
+        <div class="ui-g-12 ui-md-3">
             <label for="date">Date</label>
             <div class="labelMarginTop">
                 <p-calendar
@@ -46,7 +46,7 @@
                 ></p-calendar>
             </div>
         </div>
-        <div class="ui-g-12 ui-md-4">
+        <div class="ui-g-12 ui-md-3">
             <label for="performer">Performer</label>
             <div class="ui-inputgroup labelMarginTop">
                 <span class="ui-inputgroup-addon backgroundColor"
@@ -59,6 +59,19 @@
                     placeholder="Performer"
                     [(ngModel)]="session.performer"
                 />
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <label for="team">Departments</label>
+            <div class="labelMarginTop">
+                <p-dropdown
+                    [options]="departments"
+                    placeholder="Select Department"
+                    optionLabel="name"
+                    id="department"
+                    [showClear]="true"
+                    [(ngModel)]="selectedDepartment"
+                ></p-dropdown>
             </div>
         </div>
         <div class="ui-g-12 ui-md-12">

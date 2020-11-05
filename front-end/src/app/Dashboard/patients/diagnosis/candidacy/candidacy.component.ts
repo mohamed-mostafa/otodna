@@ -310,7 +310,7 @@ export class CandidacyComponent implements OnInit {
                     });
             });
             promise.then((data: any) => {
-                const id = data.departmentId;
+                const id = data.department_id;
                 this.documentService
                     .getAllTests("diagnosisCandidacy")
                     .then((result) => {

@@ -8,5 +8,6 @@ export class Session {
     notes: string;
     symptoms: [];
     patientId: number;
+    departmentId: number;
     ended: string;
 }

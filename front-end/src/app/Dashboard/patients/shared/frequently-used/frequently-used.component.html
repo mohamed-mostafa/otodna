@@ -1,0 +1,13 @@
+<div
+    class="ui-g-12 ui-md-12"
+    *ngFor="let test of frequentlyUsedTests"
+    (click)="openTest(test)"
+>
+    <p-card
+        class="centerHeader pointerCursor"
+        [style]="{ height: '60px' }"
+        styleClass="ui-card-shadow cardBorderRadius"
+    >
+        {{ test.testName }}
+    </p-card>
+</div>
