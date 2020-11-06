@@ -31,50 +31,12 @@
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-10" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
-                    <p-autoComplete
-                        [(ngModel)]="selectedTreatment"
-                        (completeMethod)="filterTreatment($event)"
-                        field="name"
-                        placeholder="Start typing to filter ..."
-                        [size]="30"
-                        [minLength]="1"
-                    ></p-autoComplete>
+                    <app-search-result-item
+                        [allTests]="allTreatments"
+                        (testEvent)="receiveTest($event)"
+                        displayName="treatmentName"
+                    ></app-search-result-item>
                 </div>
-                <div
-                    *ngIf="
-                        filteredTreatments && filteredTreatments.length > 0;
-                        else other
-                    "
-                >
-                    <div
-                        class="ui-g-12 ui-md-3"
-                        *ngFor="let filtered of filteredTreatments"
-                        (click)="openTest(filtered)"
-                    >
-                        <p-card
-                            class="centerHeader pointerCursor"
-                            [style]="{ height: '60px' }"
-                            styleClass="ui-card-shadow cardBorderRadius"
-                        >
-                            {{ filtered.treatmentName }}
-                        </p-card>
-                    </div>
-                </div>
-                <ng-template #other>
-                    <div
-                        class="ui-g-12 ui-md-3"
-                        *ngFor="let treatment of allTreatments"
-                        (click)="openTest(treatment)"
-                    >
-                        <p-card
-                            class="centerHeader pointerCursor"
-                            [style]="{ height: '60px' }"
-                            styleClass="ui-card-shadow cardBorderRadius"
-                        >
-                            {{ treatment.treatmentName }}
-                        </p-card>
-                    </div>
-                </ng-template>
             </div>
             <div class="ui-g-12 ui-md-2 frequentlyUsedDiv" *ngIf="showTests">
                 <span class="frequentlyUsed"> Frequently Used </span>

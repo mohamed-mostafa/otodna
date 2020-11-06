@@ -1,3 +1,4 @@
+import { SearchResultItemComponent } from "./../../shared/item-search/search-result-item/search-result-item.component";
 import { FrequentlyUsedComponent } from "./../../shared/frequently-used/frequently-used.component";
 import { PatientService } from "./../../services/patient.service";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
@@ -22,6 +23,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 export class CandidacyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     @ViewChild(FrequentlyUsedComponent) frequentlyUsedComponent;
+    @ViewChild(SearchResultItemComponent) searchResultItemComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -272,6 +274,7 @@ export class CandidacyComponent implements OnInit {
             });
     }
     reset() {
+        this.searchResultItemComponent.reset();
         this.selectedTest = "";
         this.showSaveButton = true;
         this.selected = "";
@@ -391,6 +394,9 @@ export class CandidacyComponent implements OnInit {
     selectFrequentlyUsed(event) {
         this.openTest(event);
     }
+    receiveTest(event) {
+        this.openTest(event);
+    }
     openTest(test) {
         return new Promise(async (resolve, reject) => {
             this.selected = test;
@@ -429,6 +435,7 @@ export class CandidacyComponent implements OnInit {
                 "Saved",
                 "Data saved successfully"
             );
+            this.searchResultItemComponent.reset();
             this.spinner.hide();
         });
     }
