@@ -587,11 +587,12 @@ CREATE VIEW `tests_count_by_department` AS
     SELECT 
         `ps`.`department_id` AS `department_id`,
         `st`.`test_name` AS `test_name`,
+        `st`.`test_id`,
         COUNT(`st`.`id`) AS `count`
     FROM
         (`session_test` `st` JOIN `patient_session` `ps` ON ((`ps`.`id` = `st`.`patient_session_id`)))
-    GROUP BY `ps`.`department_id` , `st`.`test_name`
-    ORDER BY `count` DESC
+    GROUP BY `ps`.`department_id` , `st`.`test_name`,`st`.`test_id`
+    ORDER BY `count` DESC;
 
 --
 -- Dumping data for table `role`

@@ -16,9 +16,9 @@ export class FrequentlyUsedComponent implements OnInit {
         this.selectedSession = JSON.parse(
             localStorage.getItem("sessionBasicInfo")
         );
-        this.getFrequentlyUsedTests();
+        this.getFrequentlyUsed();
     }
-    getFrequentlyUsedTests() {
+    getFrequentlyUsed() {
         this.testService
             .getFrequentlyUsedTests(this.selectedSession.departmentId)
             .subscribe((result) => {
@@ -26,9 +26,8 @@ export class FrequentlyUsedComponent implements OnInit {
             });
     }
     openTest(test) {
-        delete test.id;
-        delete test.ear;
-        delete test.patientSessionId;
+        delete test.departmentId;
+        delete test.count;
         this.testEvent.emit(test);
     }
 }

@@ -1,3 +1,4 @@
+import { FrequentlyUsedComponent } from "./../../shared/frequently-used/frequently-used.component";
 import { PatientService } from "./../../services/patient.service";
 import { EquipmentParameterValueService } from "./../../services/equipment-parameter-value.service";
 import { EquipmentTestParametersComponent } from "./../../shared/equipment-test-parameters/equipment-test-parameters.component";
@@ -24,6 +25,7 @@ export class TestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     @ViewChild(EquipmentTestParametersComponent)
     equipmentTestParametersComponent;
+    @ViewChild(FrequentlyUsedComponent) frequentlyUsedComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -254,6 +256,7 @@ export class TestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTests();
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -350,6 +353,7 @@ export class TestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTests();
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -501,6 +505,7 @@ export class TestsComponent implements OnInit {
         this.testService.createSessionTest(test).subscribe((u: any) => {
             this.reset();
             this.getSessionTests();
+            this.frequentlyUsedComponent.getFrequentlyUsed();
             this.showMessageComponent.showMessage(
                 "success",
                 "Saved",
