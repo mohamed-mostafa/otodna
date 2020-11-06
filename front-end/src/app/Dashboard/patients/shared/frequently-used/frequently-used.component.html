@@ -12,7 +12,10 @@
         <a class="centerHeader pointerCursor" *ngIf="type === 'test'">
             {{ test.testName }}</a
         >
-        <a class="centerHeader pointerCursor" *ngIf="type === 'treatment'">
+        <a
+            class="centerHeader pointerCursor"
+            *ngIf="type === 'treatment' || type === 'candidacy'"
+        >
             {{ test.treatmentName }}</a
         >
         <a class="centerHeader pointerCursor" *ngIf="type === 'pathology'">

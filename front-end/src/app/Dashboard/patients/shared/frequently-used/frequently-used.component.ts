@@ -1,3 +1,4 @@
+import { CandidacyService } from "./../../diagnosis/services/candidacy.service";
 import { TreatmentTestsService } from "./../../treatments/services/treatment-tests.service";
 import { PathologyService } from "./../../diagnosis/services/pathology.service";
 import { TestsService } from "./../../diagnosis/services/tests.service";
@@ -16,7 +17,8 @@ export class FrequentlyUsedComponent implements OnInit {
     constructor(
         private testService: TestsService,
         private pathologyService: PathologyService,
-        private treatmentService: TreatmentTestsService
+        private treatmentService: TreatmentTestsService,
+        private candidacyService: CandidacyService
     ) {}
 
     ngOnInit(): void {
@@ -35,6 +37,12 @@ export class FrequentlyUsedComponent implements OnInit {
         } else if (this.type === "treatment") {
             this.treatmentService
                 .getFrequentlyUsedTreatments(this.selectedSession.departmentId)
+                .subscribe((result) => {
+                    this.frequentlyUsedTests = result;
+                });
+        } else if (this.type === "candidacy") {
+            this.candidacyService
+                .getFrequentlyUsedCandidacies(this.selectedSession.departmentId)
                 .subscribe((result) => {
                     this.frequentlyUsedTests = result;
                 });

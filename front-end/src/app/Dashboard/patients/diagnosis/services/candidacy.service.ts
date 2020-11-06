@@ -18,9 +18,9 @@ export class CandidacyService {
             `${this.apiUrl}/${this.link}?filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
-    getFrequentlyUsedTreatments(departmentId): Observable<any> {
+    getFrequentlyUsedCandidacies(departmentId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/frequentlyUsedTreatments/${departmentId}`
+            `${this.apiUrl}/frequentlyUsedCandidacies/${departmentId}`
         );
     }
     createCandidacy(data): Observable<void> {

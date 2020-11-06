@@ -28,3 +28,4 @@ export * from './notification.repository';
 export * from './tests-count-by-department.repository';
 export * from './pathologies-count-by-department.repository';
 export * from './treatments-count-by-department.repository';
+export * from './candidacies-count-by-department.repository';

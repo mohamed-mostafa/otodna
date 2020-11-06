@@ -1,3 +1,5 @@
+import {candidaciesCountByDepartment} from './../models/candidacies-count-by-department.model';
+import {CandidaciesCountByDepartmentRepository} from './../repositories/candidacies-count-by-department.repository';
 import {TreatmentsCountByDepartment} from './../models/treatments-count-by-department.model';
 import {SessionTreatmentEquipment} from './../models/session-treatment-equipment.model';
 import {SessionTreatmentEquipmentRepository} from './../repositories/session-treatment-equipment.repository';
@@ -20,7 +22,10 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {SessionTreatment} from '../models';
-import {SessionTreatmentRepository, TreatmentsCountByDepartmentRepository} from '../repositories';
+import {
+  SessionTreatmentRepository,
+  TreatmentsCountByDepartmentRepository,
+} from '../repositories';
 
 export class SessionTreatmentController {
   constructor(
@@ -30,6 +35,8 @@ export class SessionTreatmentController {
     public sessionTreatmentEquipmentRepository: SessionTreatmentEquipmentRepository,
     @repository(TreatmentsCountByDepartmentRepository)
     public treatmentsCountByDepartment: TreatmentsCountByDepartmentRepository,
+    @repository(CandidaciesCountByDepartmentRepository)
+    public candidaciesCountByDepartmentRepository: CandidaciesCountByDepartmentRepository,
   ) {}
 
   @post('/session-treatments', {
@@ -177,10 +184,33 @@ export class SessionTreatmentController {
       },
     },
   })
-  async getFrequentlyUsedTests(
+  async getFrequentlyUsedTreatments(
     @param.path.number('id') id: number,
   ): Promise<TreatmentsCountByDepartment[]> {
     return this.treatmentsCountByDepartment.find({
+      where: {departmentId: id},
+      order: ['count desc'],
+    });
+  }
+
+  @get('/frequentlyUsedCandidacies/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(candidaciesCountByDepartment, {
+              includeRelations: true,
+            }),
+          },
+        },
+      },
+    },
+  })
+  async getFrequentlyUsedCandidacies(
+    @param.path.number('id') id: number,
+  ): Promise<candidaciesCountByDepartment[]> {
+    return this.candidaciesCountByDepartmentRepository.find({
       where: {departmentId: id},
       order: ['count desc'],
     });

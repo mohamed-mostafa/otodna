@@ -626,6 +626,26 @@ CREATE VIEW `treatments_count_by_department` AS
         COUNT(`st`.`id`) AS `count`
     FROM
         (`session_treatment` `st` JOIN `patient_session` `ps` ON ((`ps`.`id` = `st`.`patient_session_id`)))
+    WHERE `st`.`candidancy` = 0
+    GROUP BY `ps`.`department_id` , `st`.`treatment_name`,`st`.`treatment_id`
+    ORDER BY `count` DESC;
+
+
+--
+-- View structure for view `candidacies_count_by_department`
+--
+
+DROP VIEW IF EXISTS `candidacies_count_by_department`;
+
+CREATE VIEW `candidacies_count_by_department` AS
+    SELECT 
+        `ps`.`department_id` AS `department_id`,
+        `st`.`treatment_name` AS `treatment_name`,
+        `st`.`treatment_id`,
+        COUNT(`st`.`id`) AS `count`
+    FROM
+        (`session_treatment` `st` JOIN `patient_session` `ps` ON ((`ps`.`id` = `st`.`patient_session_id`)))
+    WHERE `st`.`candidancy` = 1
     GROUP BY `ps`.`department_id` , `st`.`treatment_name`,`st`.`treatment_id`
     ORDER BY `count` DESC;
 
