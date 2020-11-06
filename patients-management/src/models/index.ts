@@ -28,3 +28,5 @@ export * from './patient-search.model';
 export * from './patient-referral.model';
 export * from './notification.model';
 export * from './tests-count-by-department.model';
+export * from './pathologies-count-by-department.model';
+export * from './treatments-count-by-department.model';

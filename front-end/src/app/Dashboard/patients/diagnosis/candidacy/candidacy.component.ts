@@ -1,3 +1,4 @@
+import { FrequentlyUsedComponent } from "./../../shared/frequently-used/frequently-used.component";
 import { PatientService } from "./../../services/patient.service";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
@@ -20,6 +21,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 })
 export class CandidacyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
+    @ViewChild(FrequentlyUsedComponent) frequentlyUsedComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -190,6 +192,7 @@ export class CandidacyComponent implements OnInit {
                 }
                 this.reset();
                 this.getAllCandidacies();
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -381,8 +384,12 @@ export class CandidacyComponent implements OnInit {
                         this.leftCandidacies.push(element);
                     }
                 });
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
+    }
+    selectFrequentlyUsed(event) {
+        this.openTest(event);
     }
     openTest(test) {
         return new Promise(async (resolve, reject) => {

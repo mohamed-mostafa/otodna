@@ -1,3 +1,4 @@
+import { FrequentlyUsedComponent } from "./../../shared/frequently-used/frequently-used.component";
 import { PatientService } from "./../../services/patient.service";
 import { EquipmentParameterValueService } from "./../../services/equipment-parameter-value.service";
 import { EquipmentTestParametersComponent } from "./../../shared/equipment-test-parameters/equipment-test-parameters.component";
@@ -24,6 +25,7 @@ export class TreatmentTestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     @ViewChild(EquipmentTestParametersComponent)
     equipmentTestParametersComponent;
+    @ViewChild(FrequentlyUsedComponent) frequentlyUsedComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -468,6 +470,9 @@ export class TreatmentTestsComponent implements OnInit {
                 );
             });
     }
+    selectFrequentlyUsed(event) {
+        this.openTest(event);
+    }
     openTest(treatment) {
         return new Promise(async (resolve, reject) => {
             this.selected = treatment;
@@ -574,6 +579,7 @@ export class TreatmentTestsComponent implements OnInit {
                         this.leftTreatments.push(treatment);
                     }
                 });
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
     }

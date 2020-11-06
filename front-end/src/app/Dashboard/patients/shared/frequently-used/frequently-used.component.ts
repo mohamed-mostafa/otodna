@@ -1,5 +1,7 @@
+import { TreatmentTestsService } from "./../../treatments/services/treatment-tests.service";
+import { PathologyService } from "./../../diagnosis/services/pathology.service";
 import { TestsService } from "./../../diagnosis/services/tests.service";
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
     selector: "app-frequently-used",
@@ -9,8 +11,13 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 export class FrequentlyUsedComponent implements OnInit {
     frequentlyUsedTests = [];
     selectedSession;
-    @Output() testEvent = new EventEmitter<any>();
-    constructor(private testService: TestsService) {}
+    @Input() type;
+    @Output() frequentlyUsedEvent = new EventEmitter<any>();
+    constructor(
+        private testService: TestsService,
+        private pathologyService: PathologyService,
+        private treatmentService: TreatmentTestsService
+    ) {}
 
     ngOnInit(): void {
         this.selectedSession = JSON.parse(
@@ -19,15 +26,29 @@ export class FrequentlyUsedComponent implements OnInit {
         this.getFrequentlyUsed();
     }
     getFrequentlyUsed() {
-        this.testService
-            .getFrequentlyUsedTests(this.selectedSession.departmentId)
-            .subscribe((result) => {
-                this.frequentlyUsedTests = result;
-            });
+        if (this.type === "test") {
+            this.testService
+                .getFrequentlyUsedTests(this.selectedSession.departmentId)
+                .subscribe((result) => {
+                    this.frequentlyUsedTests = result;
+                });
+        } else if (this.type === "treatment") {
+            this.treatmentService
+                .getFrequentlyUsedTreatments(this.selectedSession.departmentId)
+                .subscribe((result) => {
+                    this.frequentlyUsedTests = result;
+                });
+        } else {
+            this.pathologyService
+                .getFrequentlyUsedPathologies(this.selectedSession.departmentId)
+                .subscribe((result) => {
+                    this.frequentlyUsedTests = result;
+                });
+        }
     }
     openTest(test) {
         delete test.departmentId;
         delete test.count;
-        this.testEvent.emit(test);
+        this.frequentlyUsedEvent.emit(test);
     }
 }

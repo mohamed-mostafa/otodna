@@ -124,3 +124,12 @@
 .leftFloat {
     float: right !important;
 }
+.frequentlyUsed {
+    font-size: 17px;
+    font-weight: bold;
+}
+.frequentlyUsedDiv {
+    text-align: center;
+    margin-top: 12px;
+    border-left: 2px solid rgb(206, 205, 205);
+}

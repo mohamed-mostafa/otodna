@@ -17,6 +17,11 @@ export class PathologyService {
             `${this.apiUrl}/${this.link}?filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
+    getFrequentlyUsedPathologies(departmentId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/frequentlyUsedPathologies/${departmentId}`
+        );
+    }
     createPathology(data): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.link}`, data);
     }

@@ -1,3 +1,4 @@
+import {PathologiesCountByDepartment} from './../models/pathologies-count-by-department.model';
 import {
   Count,
   CountSchema,
@@ -17,19 +18,25 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {PatientSessionPathology} from '../models';
-import {PatientSessionPathologyRepository} from '../repositories';
+import {PathologiesCountByDepartmentRepository, PatientSessionPathologyRepository} from '../repositories';
 
 export class SessionPathologyController {
   constructor(
     @repository(PatientSessionPathologyRepository)
-    public patientSessionPathologyRepository : PatientSessionPathologyRepository,
+    public patientSessionPathologyRepository: PatientSessionPathologyRepository,
+    @repository(PathologiesCountByDepartmentRepository)
+    public pathologiesCountByDepartment: PathologiesCountByDepartmentRepository,
   ) {}
 
   @post('/patient-session-pathologies', {
     responses: {
       '200': {
         description: 'PatientSessionPathology model instance',
-        content: {'application/json': {schema: getModelSchemaRef(PatientSessionPathology)}},
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientSessionPathology),
+          },
+        },
       },
     },
   })
@@ -46,7 +53,9 @@ export class SessionPathologyController {
     })
     patientSessionPathology: Omit<PatientSessionPathology, 'id'>,
   ): Promise<PatientSessionPathology> {
-    return this.patientSessionPathologyRepository.create(patientSessionPathology);
+    return this.patientSessionPathologyRepository.create(
+      patientSessionPathology,
+    );
   }
 
   @get('/patient-session-pathologies/count', {
@@ -58,7 +67,8 @@ export class SessionPathologyController {
     },
   })
   async count(
-    @param.where(PatientSessionPathology) where?: Where<PatientSessionPathology>,
+    @param.where(PatientSessionPathology)
+    where?: Where<PatientSessionPathology>,
   ): Promise<Count> {
     return this.patientSessionPathologyRepository.count(where);
   }
@@ -71,7 +81,9 @@ export class SessionPathologyController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(PatientSessionPathology, {includeRelations: true}),
+              items: getModelSchemaRef(PatientSessionPathology, {
+                includeRelations: true,
+              }),
             },
           },
         },
@@ -79,7 +91,8 @@ export class SessionPathologyController {
     },
   })
   async find(
-    @param.filter(PatientSessionPathology) filter?: Filter<PatientSessionPathology>,
+    @param.filter(PatientSessionPathology)
+    filter?: Filter<PatientSessionPathology>,
   ): Promise<PatientSessionPathology[]> {
     return this.patientSessionPathologyRepository.find(filter);
   }
@@ -101,9 +114,13 @@ export class SessionPathologyController {
       },
     })
     patientSessionPathology: PatientSessionPathology,
-    @param.where(PatientSessionPathology) where?: Where<PatientSessionPathology>,
+    @param.where(PatientSessionPathology)
+    where?: Where<PatientSessionPathology>,
   ): Promise<Count> {
-    return this.patientSessionPathologyRepository.updateAll(patientSessionPathology, where);
+    return this.patientSessionPathologyRepository.updateAll(
+      patientSessionPathology,
+      where,
+    );
   }
 
   @get('/patient-session-pathologies/{id}', {
@@ -112,7 +129,9 @@ export class SessionPathologyController {
         description: 'PatientSessionPathology model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(PatientSessionPathology, {includeRelations: true}),
+            schema: getModelSchemaRef(PatientSessionPathology, {
+              includeRelations: true,
+            }),
           },
         },
       },
@@ -120,9 +139,33 @@ export class SessionPathologyController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(PatientSessionPathology, {exclude: 'where'}) filter?: FilterExcludingWhere<PatientSessionPathology>
+    @param.filter(PatientSessionPathology, {exclude: 'where'})
+    filter?: FilterExcludingWhere<PatientSessionPathology>,
   ): Promise<PatientSessionPathology> {
     return this.patientSessionPathologyRepository.findById(id, filter);
+  }
+
+  @get('/frequentlyUsedPathologies/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PathologiesCountByDepartment, {
+              includeRelations: true,
+            }),
+          },
+        },
+      },
+    },
+  })
+  async getFrequentlyUsedTests(
+    @param.path.number('id') id: number,
+  ): Promise<PathologiesCountByDepartment[]> {
+    return this.pathologiesCountByDepartment.find({
+      where: {departmentId: id},
+      order: ['count desc'],
+    });
   }
 
   @patch('/patient-session-pathologies/{id}', {
@@ -143,7 +186,10 @@ export class SessionPathologyController {
     })
     patientSessionPathology: PatientSessionPathology,
   ): Promise<void> {
-    await this.patientSessionPathologyRepository.updateById(id, patientSessionPathology);
+    await this.patientSessionPathologyRepository.updateById(
+      id,
+      patientSessionPathology,
+    );
   }
 
   @put('/patient-session-pathologies/{id}', {
@@ -157,7 +203,10 @@ export class SessionPathologyController {
     @param.path.number('id') id: number,
     @requestBody() patientSessionPathology: PatientSessionPathology,
   ): Promise<void> {
-    await this.patientSessionPathologyRepository.replaceById(id, patientSessionPathology);
+    await this.patientSessionPathologyRepository.replaceById(
+      id,
+      patientSessionPathology,
+    );
   }
 
   @del('/patient-session-pathologies/{id}', {

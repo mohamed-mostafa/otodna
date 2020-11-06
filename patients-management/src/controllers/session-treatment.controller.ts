@@ -1,3 +1,4 @@
+import {TreatmentsCountByDepartment} from './../models/treatments-count-by-department.model';
 import {SessionTreatmentEquipment} from './../models/session-treatment-equipment.model';
 import {SessionTreatmentEquipmentRepository} from './../repositories/session-treatment-equipment.repository';
 import {
@@ -19,7 +20,7 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {SessionTreatment} from '../models';
-import {SessionTreatmentRepository} from '../repositories';
+import {SessionTreatmentRepository, TreatmentsCountByDepartmentRepository} from '../repositories';
 
 export class SessionTreatmentController {
   constructor(
@@ -27,6 +28,8 @@ export class SessionTreatmentController {
     public sessionTreatmentRepository: SessionTreatmentRepository,
     @repository(SessionTreatmentEquipmentRepository)
     public sessionTreatmentEquipmentRepository: SessionTreatmentEquipmentRepository,
+    @repository(TreatmentsCountByDepartmentRepository)
+    public treatmentsCountByDepartment: TreatmentsCountByDepartmentRepository,
   ) {}
 
   @post('/session-treatments', {
@@ -158,6 +161,29 @@ export class SessionTreatmentController {
     filter?: FilterExcludingWhere<SessionTreatment>,
   ): Promise<SessionTreatment> {
     return this.sessionTreatmentRepository.findById(id, filter);
+  }
+
+  @get('/frequentlyUsedTreatments/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(TreatmentsCountByDepartment, {
+              includeRelations: true,
+            }),
+          },
+        },
+      },
+    },
+  })
+  async getFrequentlyUsedTests(
+    @param.path.number('id') id: number,
+  ): Promise<TreatmentsCountByDepartment[]> {
+    return this.treatmentsCountByDepartment.find({
+      where: {departmentId: id},
+      order: ['count desc'],
+    });
   }
 
   @patch('/session-treatments/{id}', {

@@ -256,7 +256,6 @@ export class TestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTests();
-                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -353,7 +352,6 @@ export class TestsComponent implements OnInit {
                 }
                 this.reset();
                 this.getSessionTests();
-                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -571,6 +569,7 @@ export class TestsComponent implements OnInit {
                         this.leftTests.push(test);
                     }
                 });
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
     }

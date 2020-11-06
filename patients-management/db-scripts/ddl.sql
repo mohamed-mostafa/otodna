@@ -595,8 +595,40 @@ CREATE VIEW `tests_count_by_department` AS
     ORDER BY `count` DESC;
 
 --
--- Dumping data for table `role`
+-- View structure for view `pathologies_count_by_department`
 --
+
+DROP VIEW IF EXISTS `pathologies_count_by_department`;
+
+CREATE VIEW `pathologies_count_by_department` AS
+    SELECT 
+        `ps`.`department_id` AS `department_id`,
+        `sp`.`desease_name` AS `desease_name`,
+        `sp`.`desease_id`,
+        COUNT(`sp`.`id`) AS `count`
+    FROM
+        (`patient_session_pathology` `sp` JOIN `patient_session` `ps` ON ((`ps`.`id` = `sp`.`patient_session_id`)))
+    GROUP BY `ps`.`department_id` , `sp`.`desease_name`,`sp`.`desease_id`
+    ORDER BY `count` DESC;
+
+
+--
+-- View structure for view `treatments_count_by_department`
+--
+
+DROP VIEW IF EXISTS `treatments_count_by_department`;
+
+CREATE VIEW `treatments_count_by_department` AS
+    SELECT 
+        `ps`.`department_id` AS `department_id`,
+        `st`.`treatment_name` AS `treatment_name`,
+        `st`.`treatment_id`,
+        COUNT(`st`.`id`) AS `count`
+    FROM
+        (`session_treatment` `st` JOIN `patient_session` `ps` ON ((`ps`.`id` = `st`.`patient_session_id`)))
+    GROUP BY `ps`.`department_id` , `st`.`treatment_name`,`st`.`treatment_id`
+    ORDER BY `count` DESC;
+
 
 LOCK TABLES `vital_record_type` WRITE;
 /*!40000 ALTER TABLE `vital_record_type` DISABLE KEYS */;

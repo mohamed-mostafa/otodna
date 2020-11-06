@@ -1,3 +1,4 @@
+import { FrequentlyUsedComponent } from "./../../shared/frequently-used/frequently-used.component";
 import { PatientService } from "./../../services/patient.service";
 import { SearchResultItemComponent } from "./../../shared/item-search/search-result-item/search-result-item.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
@@ -22,6 +23,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 export class PathologyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
     @ViewChild(SearchResultItemComponent) searchResultItemComponent;
+    @ViewChild(FrequentlyUsedComponent) frequentlyUsedComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -384,8 +386,16 @@ export class PathologyComponent implements OnInit {
                         this.leftPathologies.push(element);
                     }
                 });
+                this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
+    }
+    selectFrequentlyUsed(event) {
+        const obj = {
+            diseaseId: event.deseaseId,
+            diseaseName: event.deseaseName,
+        };
+        this.openTest(obj);
     }
     openTest(test) {
         return new Promise(async (resolve, reject) => {

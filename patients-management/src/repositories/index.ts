@@ -26,3 +26,5 @@ export * from './vital-record-type.repository';
 export * from './patient-referral.repository';
 export * from './notification.repository';
 export * from './tests-count-by-department.repository';
+export * from './pathologies-count-by-department.repository';
+export * from './treatments-count-by-department.repository';
