@@ -5,20 +5,20 @@
     "
 >
     <div
-        class="ui-g-12 ui-md-12 marginTop"
+        class="ui-g-12 ui-md-12 leftAlign"
         *ngFor="let test of frequentlyUsedTests"
         (click)="openTest(test)"
     >
-        <a class="centerHeader pointerCursor" *ngIf="type === 'test'">
+        <a class="pointerCursor" *ngIf="type === 'test'">
             {{ test.testName }}</a
         >
         <a
-            class="centerHeader pointerCursor"
+            class="pointerCursor"
             *ngIf="type === 'treatment' || type === 'candidacy'"
         >
             {{ test.treatmentName }}</a
         >
-        <a class="centerHeader pointerCursor" *ngIf="type === 'pathology'">
+        <a class="pointerCursor" *ngIf="type === 'pathology'">
             {{ test.deseaseName }}</a
         >
     </div>
