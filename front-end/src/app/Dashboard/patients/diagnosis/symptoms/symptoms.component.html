@@ -13,6 +13,7 @@
         ></button>
     </div>
 </div>
+<app-symptoms-summary></app-symptoms-summary>
 <div *ngFor="let symptom of symptoms">
     <p-fieldset [legend]="symptom.name">
         <ng-container
@@ -30,7 +31,7 @@
                         <div class="p-col-12">
                             <p-checkbox
                                 name="group1"
-                                [value]="sym.id"
+                                value="{{ sym.id }},{{ sym.rightSummaryName }}"
                                 [label]="sym.name"
                                 [inputId]="sym"
                                 [(ngModel)]="selectedSymptoms"
@@ -75,6 +76,8 @@
                                                             name="group1"
                                                             value="right_{{
                                                                 it.id
+                                                            }},{{
+                                                                it.rightSummaryName
                                                             }}"
                                                             [label]="it.name"
                                                             inputId="right_{{
@@ -99,6 +102,8 @@
                                                         name="group1"
                                                         value="right_{{
                                                             item.id
+                                                        }},{{
+                                                            item.rightSummaryName
                                                         }}"
                                                         [label]="item.name"
                                                         inputId="right_{{
@@ -134,6 +139,8 @@
                                                             name="group1"
                                                             value="left_{{
                                                                 it.id
+                                                            }},{{
+                                                                it.leftSummaryName
                                                             }}"
                                                             [label]="it.name"
                                                             inputId="left_{{
@@ -156,6 +163,8 @@
                                                         name="group1"
                                                         value="left_{{
                                                             item.id
+                                                        }},{{
+                                                            item.leftSummaryName
                                                         }}"
                                                         [label]="item.name"
                                                         inputId="left_{{

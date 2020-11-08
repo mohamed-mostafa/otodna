@@ -58,18 +58,45 @@ export class PatientSessionSymptom extends Entity {
   @property({
     type: 'string',
     required: true,
-    precision: 10,
-    scale: 0,
+    length: 300,
     mysql: {
       columnName: 'symptom_id',
       dataType: 'varchar',
-      dataLength: 150,
+      dataLength: 300,
       dataPrecision: null,
       dataScale: null,
       nullable: 'N',
     },
   })
   symptomId: string;
+
+  @property({
+    type: 'string',
+    length: 300,
+    mysql: {
+      columnName: 'right_summary_name',
+      dataType: 'varchar',
+      dataLength: 300,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
+  })
+  rightSummaryName?: string;
+
+  @property({
+    type: 'string',
+    length: 300,
+    mysql: {
+      columnName: 'left_summary_name',
+      dataType: 'varchar',
+      dataLength: 300,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'Y',
+    },
+  })
+  leftSummaryName?: string;
 
   // Define well-known properties here
 

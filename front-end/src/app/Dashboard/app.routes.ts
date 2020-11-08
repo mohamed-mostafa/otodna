@@ -1,3 +1,4 @@
+import { SymptomsSummaryComponent } from './patients/diagnosis/symptoms-summary/symptoms-summary.component';
 import { FrequentlyUsedComponent } from "./patients/shared/frequently-used/frequently-used.component";
 import { PatientSummaryComponent } from "./patients/shared/patient-summary/patient-summary.component";
 import { NotificationComponent } from "./shared/notification/notification.component";
@@ -190,6 +191,7 @@ export const COMPONENTS = [
     NotificationComponent,
     PatientSummaryComponent,
     FrequentlyUsedComponent,
+    SymptomsSummaryComponent
 ];
 @NgModule({
     exports: [RouterModule],
