@@ -30,6 +30,7 @@ export class SymptomsComponent implements OnInit {
     selectedSession;
     showButtons = true;
     showAllButtons = true;
+    showSymptoms = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -192,6 +193,7 @@ export class SymptomsComponent implements OnInit {
                     "Saved",
                     "Data updated successfully"
                 );
+                this.showSymptoms = false;
             });
     }
     back() {
@@ -227,5 +229,15 @@ export class SymptomsComponent implements OnInit {
     }
     endSession() {
         this.sharedClass.endSession(this.router.url, this.router);
+    }
+    getSymptomsSummary(event) {
+        if (event && event.length > 0) {
+            this.showSymptoms = false;
+        } else {
+            this.showSymptoms = true;
+        }
+    }
+    editSymptoms() {
+        this.showSymptoms = true;
     }
 }

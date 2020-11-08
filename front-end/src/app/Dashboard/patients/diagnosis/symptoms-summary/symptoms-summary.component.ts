@@ -1,5 +1,5 @@
 import { SymptomsService } from "./../services/symptoms.service";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Output, OnInit, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "app-symptoms-summary",
@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from "@angular/core";
     styleUrls: ["./symptoms-summary.component.css"],
 })
 export class SymptomsSummaryComponent implements OnInit {
+    @Output() symptomsSummaryEvent = new EventEmitter<any>();
     selectedSession;
     symptoms = [];
     constructor(private symptomsService: SymptomsService) {}
@@ -26,6 +27,7 @@ export class SymptomsSummaryComponent implements OnInit {
                         name: element.summaryName,
                     });
                 });
+                this.symptomsSummaryEvent.emit(this.symptoms);
             });
     }
 }
