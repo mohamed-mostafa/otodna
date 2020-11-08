@@ -18,6 +18,7 @@ export class SymptomsSummaryComponent implements OnInit {
         this.getPatientSessionSymptoms();
     }
     getPatientSessionSymptoms() {
+        this.symptoms = [];
         this.symptomsService
             .getPatientSessionSymptoms(this.selectedSession.id)
             .subscribe(async (result) => {

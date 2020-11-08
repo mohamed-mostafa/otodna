@@ -1,9 +1,10 @@
+import { SymptomsSummaryComponent } from "./../symptoms-summary/symptoms-summary.component";
 import { DocumentsService } from "./../../../services/documents.service";
 import { PatientService } from "./../../services/patient.service";
 import { SymptomsService } from "./../services/symptoms.service";
 import { MenuItem } from "primeng/primeng";
 import { Router } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { Symptom } from "./symptom";
@@ -16,6 +17,7 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
     providers: [MessageService],
 })
 export class SymptomsComponent implements OnInit {
+    @ViewChild(SymptomsSummaryComponent) symptomsSummaryComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -138,6 +140,7 @@ export class SymptomsComponent implements OnInit {
             .subscribe((u: any) => {
                 this.showButtons = false;
                 this.spinner.hide();
+                this.symptomsSummaryComponent.getPatientSessionSymptoms();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -188,6 +191,7 @@ export class SymptomsComponent implements OnInit {
             .updateSymptoms(this.symptom.patientSessionId, symptomsArray)
             .subscribe((u: any) => {
                 this.spinner.hide();
+                this.symptomsSummaryComponent.getPatientSessionSymptoms();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
