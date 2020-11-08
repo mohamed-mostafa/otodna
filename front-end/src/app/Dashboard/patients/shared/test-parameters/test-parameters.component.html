@@ -235,6 +235,7 @@
             <div class="removeMarginAndPadding" *ngIf="t.type === 'image'">
                 <div class="ui-g-12 ui-md-6 rightVerticalLine">
                     <div *ngIf="showDialogRightData">
+                        <label> {{ t.name }}</label>
                         <ng-container
                             *ngIf="
                                 savedRightImage.length > 0;
@@ -368,6 +369,7 @@
                 </div>
                 <div class="ui-g-12 ui-md-6">
                     <div *ngIf="showDialogLeftData">
+                        <label> {{ t.name }}</label>
                         <ng-container
                             *ngIf="savedLeftImage.length > 0; else NoLeftImage"
                         >
