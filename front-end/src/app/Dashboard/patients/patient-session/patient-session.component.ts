@@ -35,7 +35,6 @@ export class PatientSessionComponent implements OnInit {
     public href: string = "";
     selectedSession;
     showAllButtons = true;
-    symptoms = [];
     showGenerateConclusion = true;
     departments = [];
     selectedDepartment;
@@ -124,7 +123,6 @@ export class PatientSessionComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
-        this.getALlSymptoms();
         this.checkLoggedInUserTeamWithPatient();
     }
     async checkLoggedInUserTeamWithPatient() {
@@ -316,22 +314,6 @@ export class PatientSessionComponent implements OnInit {
             this.goToPatientPage("a");
         });
     }
-    getALlSymptoms() {
-        this.spinner.show();
-        this.documentService
-            .getAllTests("symptoms")
-            .then((result) => {
-                this.symptoms = result;
-                this.spinner.hide();
-            })
-            .catch((error) => {
-                this.showMessageComponent.showMessage(
-                    "error",
-                    "Error",
-                    "Something went error,Please try again"
-                );
-            });
-    }
     generateConclusion() {
         this.showGenerateConclusion = false;
         if (this.router.url === "/dashboard/addTreatment") {
@@ -364,12 +346,10 @@ export class PatientSessionComponent implements OnInit {
                             this.session.notes = "Patient suffers:";
                         }
                         for (const r of result) {
-                            for (const symptom of this.symptoms) {
-                                for (const sym of symptom.symptoms) {
-                                    if (sym.id === r.symptomId) {
-                                        this.session.notes += ` ${sym.name}, `;
-                                    }
-                                }
+                            if (r.ear === "L") {
+                                this.session.notes += ` ${r.leftSummaryName}, `;
+                            } else {
+                                this.session.notes += ` ${r.rightSummaryName}, `;
                             }
                         }
                         this.session.notes += `\n`;
