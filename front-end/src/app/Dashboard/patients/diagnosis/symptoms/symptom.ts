@@ -1,5 +1,5 @@
 export class Symptom {
     patientSessionId: number;
     ear: string;
-    symptomId: number;
+    symptomId: string;
 }

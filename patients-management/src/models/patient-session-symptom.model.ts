@@ -74,7 +74,7 @@ export class PatientSessionSymptom extends Entity {
     type: 'string',
     length: 300,
     mysql: {
-      columnName: 'right_summary_name',
+      columnName: 'summary_name',
       dataType: 'varchar',
       dataLength: 300,
       dataPrecision: null,
@@ -82,21 +82,7 @@ export class PatientSessionSymptom extends Entity {
       nullable: 'Y',
     },
   })
-  rightSummaryName?: string;
-
-  @property({
-    type: 'string',
-    length: 300,
-    mysql: {
-      columnName: 'left_summary_name',
-      dataType: 'varchar',
-      dataLength: 300,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'Y',
-    },
-  })
-  leftSummaryName?: string;
+  summaryName?: string;
 
   // Define well-known properties here
 

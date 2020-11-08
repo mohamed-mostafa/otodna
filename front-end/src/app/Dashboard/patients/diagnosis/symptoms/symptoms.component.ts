@@ -104,7 +104,7 @@ export class SymptomsComponent implements OnInit {
         }
         const symptomsArray = [];
         this.selectedSymptoms.forEach((sys) => {
-            sys = sys.split(",");
+            sys = sys.split("-");
             const symptomId = sys[0];
             const summary = sys[sys.length - 1];
             let obj;
@@ -112,22 +112,21 @@ export class SymptomsComponent implements OnInit {
                 obj = {
                     patientSessionId: this.symptom.patientSessionId,
                     symptomId,
-                    rightSummaryName: summary,
+                    summaryName: summary,
                     ear: "R",
                 };
             } else if (symptomId.startsWith("left")) {
                 obj = {
                     patientSessionId: this.symptom.patientSessionId,
                     symptomId,
-                    leftSummaryName: summary,
+                    summaryName: summary,
                     ear: "L",
                 };
             } else {
                 obj = {
                     patientSessionId: this.symptom.patientSessionId,
                     symptomId,
-                    rightSummaryName: summary,
-                    leftSummaryName: summary,
+                    summaryName: summary,
                     ear: "BOTH",
                 };
             }
@@ -156,25 +155,29 @@ export class SymptomsComponent implements OnInit {
         }
         const symptomsArray = [];
         this.selectedSymptoms.forEach((sys) => {
+            sys = sys.split("-");
+            const symptomId = sys[0];
+            const summary = sys[sys.length - 1];
             let obj;
-            if (sys.startsWith("right")) {
-                // const newSymptom = sys.replace("right-", "");
+            if (symptomId.startsWith("right")) {
                 obj = {
                     patientSessionId: this.symptom.patientSessionId,
-                    symptomId: sys,
+                    symptomId,
+                    summaryName: summary,
                     ear: "R",
                 };
-            } else if (sys.startsWith("left")) {
-                // const newSymptom = sys.replace("left-", "");
+            } else if (symptomId.startsWith("left")) {
                 obj = {
                     patientSessionId: this.symptom.patientSessionId,
-                    symptomId: sys,
+                    symptomId,
+                    summaryName: summary,
                     ear: "L",
                 };
             } else {
                 obj = {
                     patientSessionId: this.symptom.patientSessionId,
-                    symptomId: sys,
+                    symptomId,
+                    summaryName: summary,
                     ear: "BOTH",
                 };
             }
@@ -211,7 +214,8 @@ export class SymptomsComponent implements OnInit {
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
                     result.forEach((element) => {
-                        this.patientSessionSymptoms.push(element.symptomId);
+                        let val = `${element.symptomId}-${element.summaryName}`;
+                        this.patientSessionSymptoms.push(val);
                     });
                     this.selectedSymptoms = [
                         ...new Set(this.patientSessionSymptoms),

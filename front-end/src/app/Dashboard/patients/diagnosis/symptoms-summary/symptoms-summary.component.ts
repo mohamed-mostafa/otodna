@@ -21,17 +21,10 @@ export class SymptomsSummaryComponent implements OnInit {
             .getPatientSessionSymptoms(this.selectedSession.id)
             .subscribe(async (result) => {
                 result.forEach((element) => {
-                    if (element.ear === "R") {
-                        this.symptoms.push({
-                            ear: element.ear,
-                            name: element.rightSummaryName,
-                        });
-                    } else {
-                        this.symptoms.push({
-                            ear: element.ear,
-                            name: element.leftSummaryName,
-                        });
-                    }
+                    this.symptoms.push({
+                        ear: element.ear,
+                        name: element.summaryName,
+                    });
                 });
             });
     }

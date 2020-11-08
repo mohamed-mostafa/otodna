@@ -346,11 +346,7 @@ export class PatientSessionComponent implements OnInit {
                             this.session.notes = "Patient suffers:";
                         }
                         for (const r of result) {
-                            if (r.ear === "L") {
-                                this.session.notes += ` ${r.leftSummaryName}, `;
-                            } else {
-                                this.session.notes += ` ${r.rightSummaryName}, `;
-                            }
+                            this.session.notes += ` ${r.summaryName}, `;
                         }
                         this.session.notes += `\n`;
                     }
