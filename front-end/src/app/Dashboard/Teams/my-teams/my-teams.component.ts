@@ -5,7 +5,6 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit, NgZone } from "@angular/core";
 import { TeamsService } from "../../services/teams.service";
-import { DepartmentsService } from "../../services/departments.service";
 @Component({
     selector: "app-my-teams",
     templateUrl: "./my-teams.component.html",
@@ -30,7 +29,6 @@ export class MyTeamsComponent implements OnInit {
         private router: Router,
         private ngZone: NgZone,
         private teamsService: TeamsService,
-        private departmentsService: DepartmentsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -38,7 +36,6 @@ export class MyTeamsComponent implements OnInit {
         this.loggedInUser = JSON.parse(localStorage.getItem("user"));
         this.team.ownerId = this.loggedInUser.id;
         this.team.owner = this.loggedInUser.fullName;
-        this.getAllDepartments();
         this.getMyTeams();
     }
     getMyTeams() {
@@ -56,19 +53,6 @@ export class MyTeamsComponent implements OnInit {
                 });
                 this.spinner.hide();
             });
-    }
-    getAllDepartments() {
-        this.spinner.show();
-        this.departmentsService.getAllDepartments().subscribe((result) => {
-            this.departments = result;
-            this.spinner.hide();
-        });
-    }
-    getDepartmentById(id) {
-        const result = this.departments.find(
-            (department) => department.id === id
-        );
-        return result.name;
     }
     saveTeam() {
         this.validateTeamDialog((callback) => {

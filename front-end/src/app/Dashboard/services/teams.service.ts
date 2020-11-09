@@ -34,7 +34,7 @@ export class TeamsService {
     }
     getFilteredTeam(name, value): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.teamsLink}?filter[where][${name}][eq]=${value}`
+            `${this.apiUrl}/${this.teamsLink}?filter[where][${name}][eq]=${value}&filter[include][][relation]=department`
         );
     }
     getTeamMembers(id) {

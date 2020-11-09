@@ -24,7 +24,7 @@
                     Since {{ t.creationDate | date }}
                 </div>
                 <div class="ui-g-6 ui-md-4 bold">
-                    {{ getDepartmentById(t.departmentId) }}
+                    {{ t.department.name }}
                 </div>
                 <div class="ui-g-6 ui-md-4 bold">
                     {{ t.membersCount }} Member<span *ngIf="t.membersCount > 1"
@@ -35,17 +35,17 @@
         </p-card>
     </div>
     <div class="ui-g-12 ui-md-6">
-        <div style="border-style: dotted;">
+        <div style="border-style: dotted">
             <p-card
                 class="centerHeader pointerCursor"
                 [style]="{ height: '110px' }"
                 (click)="openTeamDialog()"
             >
-                <h3 style="margin-top: 30px;">
+                <h3 style="margin-top: 30px">
                     <i
                         class="fa fa-plus"
                         aira-hidden="true"
-                        style="margin: 5px;"
+                        style="margin: 5px"
                     ></i>
                     New Team
                 </h3>
