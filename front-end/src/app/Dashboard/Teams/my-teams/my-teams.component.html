@@ -24,7 +24,7 @@
                     Since {{ t.creationDate | date }}
                 </div>
                 <div class="ui-g-6 ui-md-4 bold">
-                    {{ getDepartmentById(t.departmentId) }}
+                    {{ getDepartmentById(t.department_id) }}
                 </div>
                 <div class="ui-g-6 ui-md-4 bold">
                     {{ t.membersCount }} Member<span *ngIf="t.membersCount > 1"

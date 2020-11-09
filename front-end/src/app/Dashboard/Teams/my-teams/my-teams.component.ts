@@ -74,7 +74,7 @@ export class MyTeamsComponent implements OnInit {
         this.validateTeamDialog((callback) => {
             if (callback === "valid") {
                 this.spinner.show();
-                this.team.departmentId = this.team.department.id;
+                this.team.department_id = this.team.department.id;
                 delete this.team.owner;
                 delete this.team.department;
                 this.teamsService.createTeam(this.team).subscribe((u) => {
