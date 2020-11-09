@@ -1,12 +1,10 @@
 import { ReferralPatient } from "./referral-patient";
 import { TeamsService } from "./../../services/teams.service";
-import { DepartmentsService } from "./../../services/departments.service";
 import { ReferralsService } from "./../services/referrals.service";
 import { SharedClass } from "./../shared/sharedFunctions";
 import { PatientService } from "./../services/patient.service";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { Router } from "@angular/router";
-import { MenuItem } from "primeng/primeng";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
@@ -38,7 +36,6 @@ export class ReferralsComponent implements OnInit {
         private patientService: PatientService,
         private referralsService: ReferralsService,
         private teamsService: TeamsService,
-        private departmentsService: DepartmentsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -46,7 +43,6 @@ export class ReferralsComponent implements OnInit {
             localStorage.getItem("selectedPatient")
         );
         this.referralPatient.patientId = this.selectedPatient.id;
-        this.getAllDepartments();
         this.getALlReferrals();
         this.getAllTeams();
         this.checkLoggedInUserTeamWithPatient();
@@ -71,9 +67,7 @@ export class ReferralsComponent implements OnInit {
         this.spinner.show();
         this.teamsService.getAllTeams().subscribe(async (result) => {
             result.forEach(async (element) => {
-                element.departmentName = await this.getDepartmentById(
-                    element.departmentId
-                );
+                element.departmentName = element.department.name;
                 element.displayName = `${element.name}-${element.departmentName}`;
             });
             this.allTeams = result;
@@ -171,9 +165,7 @@ export class ReferralsComponent implements OnInit {
             result = await this.getTeamById(data.teamId);
         }
         this.referralPatient = data;
-        result.departmentName = await this.getDepartmentById(
-            result.departmentId
-        );
+        result.departmentName = result.department.name;
         result.displayName = `${result.name}-${result.departmentName}`;
         this.referralPatient.teamId = result;
     }
@@ -187,20 +179,6 @@ export class ReferralsComponent implements OnInit {
     onHide() {
         this.reset();
         this.showSaveButton = true;
-    }
-    getAllDepartments() {
-        this.spinner.show();
-        this.departmentsService.getAllDepartments().subscribe((result) => {
-            this.departments = result;
-            this.spinner.hide();
-        });
-    }
-    getDepartmentById(id) {
-        const result = this.departments.find(
-            (department) => department.id === id
-        );
-        this.department = result.name;
-        return this.department;
     }
     onClickMenu(data: any) {
         this.cogsItems = [

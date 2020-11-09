@@ -15,10 +15,14 @@ export class TeamsService {
     constructor(private http: HttpClient) {}
 
     getAllTeams(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.teamsLink}`);
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.teamsLink}?filter[include][][relation]=department`
+        );
     }
     getTeamById(id: String): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${this.teamsLink}/${id}`);
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.teamsLink}/${id}?filter[include][][relation]=department`
+        );
     }
     deleteTeam(id: String): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${this.teamsLink}/${id}`);
