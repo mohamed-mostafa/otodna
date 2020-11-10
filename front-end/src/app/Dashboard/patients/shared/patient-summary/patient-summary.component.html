@@ -1,20 +1,62 @@
-<div class="marginTop">
-    <p-card>
-        {{ selectedPatient.patientNumber }} - {{ selectedPatient.firstName }}
-        {{ selectedPatient.middleName }} {{ selectedPatient.lastName }} [
-        {{ getAge(selectedPatient.dateOfBirth) }} Years -
-        {{ selectedPatient.gender }} ]
-        <span *ngFor="let item of patientSessionData">
-            <ng-container *ngIf="item.type === 'Treatment'; else elseTemplate">
-                <span class="tag" style="background-color: green">{{
-                    item.value
-                }}</span>
+<div class="marginTop background">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-6 ui-md-1">
+            <ng-container
+                *ngIf="selectedPatient.gender === 'M'; else elseGender"
+            >
+                <img src="assets/layout/images/male.jpg" class="imgStyle" />
             </ng-container>
-            <ng-template #elseTemplate>
-                <span class="tag" style="background-color: orangered">{{
-                    item.value
-                }}</span>
+            <ng-template #elseGender>
+                <img src="assets/layout/images/female.png" class="imgStyle" />
             </ng-template>
-        </span>
-    </p-card>
+        </div>
+        <div class="ui-g-6 ui-md-11">
+            <div class="ui-g-6 ui-md-12">
+                <span class="patientNameSpan">
+                    {{ selectedPatient.firstName }}
+                    {{ selectedPatient.middleName }}
+                    {{ selectedPatient.lastName }}
+                </span>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+                <span class="nameSpan"> Birth: </span
+                >{{ selectedPatient.dateOfBirth | date }} ({{
+                    getAge(selectedPatient.dateOfBirth)
+                }}
+                y.o)
+            </div>
+            <div class="ui-g-6 ui-md-6">
+                <span class="nameSpan">Address:</span>
+                {{
+                    selectedPatient.address
+                        ? selectedPatient.address
+                        : "No Address Is Saved"
+                }}
+            </div>
+            <div class="ui-g-6 ui-md-6">
+                <span class="nameSpan"> File Number:</span>
+                {{ selectedPatient.patientNumber }}
+            </div>
+            <div class="ui-g-6 ui-md-6">
+                <span class="nameSpan">Contact:</span>
+                {{ selectedPatient.mobile }}
+            </div>
+            <div class="ui-g-6 ui-md-12">
+                <span *ngFor="let item of patientSessionData">
+                    <ng-container
+                        *ngIf="item.type === 'Treatment'; else elsePathology"
+                    >
+                        <span class="tag" style="background-color: green">{{
+                            item.value
+                        }}</span>
+                    </ng-container>
+                    <ng-template #elsePathology>
+                        <span class="tag" style="background-color: orangered">{{
+                            item.value
+                        }}</span>
+                    </ng-template>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>
