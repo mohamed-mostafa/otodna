@@ -65,6 +65,7 @@ export class CandidacyComponent implements OnInit {
     showDialogRightData = true;
     showDialogLeftData = true;
     ear;
+    treatmentBreadCrumb = [];
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -103,6 +104,22 @@ export class CandidacyComponent implements OnInit {
                 },
             },
             { label: this.selectedSession.displayName },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    this.selectedSession.ended === "false" &&
+                    this.showAllButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
+        ];
+        this.treatmentBreadCrumb = [
+            {
+                label: "Treatments",
+            },
         ];
         this.cols = [
             { field: "id", header: "ID", width: "20%" },
@@ -113,6 +130,17 @@ export class CandidacyComponent implements OnInit {
         this.getAllTests();
         this.getAllCandidacies();
         this.checkLoggedInUserTeamWithPatient();
+    }
+    showDiagnosisTreatments() {
+        this.displayTest = false;
+    }
+    showSearchTreatments() {
+        this.showTests = true;
+        this.treatmentBreadCrumb = [
+            {
+                label: "Treatments",
+            },
+        ];
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -285,6 +313,11 @@ export class CandidacyComponent implements OnInit {
         this.leftDocument = "";
         this.candidacy = new Candidacy();
         this.dialogHeader = "Add New Recommendation";
+        this.treatmentBreadCrumb = [
+            {
+                label: "Treatments",
+            },
+        ];
     }
 
     goToPatientPage(event) {
@@ -387,7 +420,7 @@ export class CandidacyComponent implements OnInit {
                         this.leftCandidacies.push(element);
                     }
                 });
-                this.frequentlyUsedComponent.getFrequentlyUsed();
+                // this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
     }
@@ -420,6 +453,20 @@ export class CandidacyComponent implements OnInit {
                 this.selectedTestData = result;
                 this.showTests = false;
                 this.dialogHeader = result.map((r) => r.name);
+                this.treatmentBreadCrumb = [
+                    {
+                        label: "Treatments",
+                        command: () => {
+                            this.showSearchTreatments();
+                        },
+                    },
+                    {
+                        label: this.dialogHeader,
+                    },
+                    {
+                        label: "Parameters",
+                    },
+                ];
                 resolve(this.selectedTestData);
             }
         });

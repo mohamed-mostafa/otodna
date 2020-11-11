@@ -84,6 +84,7 @@ export class TreatmentTestsComponent implements OnInit {
     showDialogLeftData = true;
     cogsItems = [];
     ear;
+    treatmentBreadCrumb = [];
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -122,6 +123,22 @@ export class TreatmentTestsComponent implements OnInit {
                 },
             },
             { label: this.selectedSession.displayName },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    this.selectedSession.ended === "false" &&
+                    this.showAllButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
+        ];
+        this.treatmentBreadCrumb = [
+            {
+                label: "Treatments",
+            },
         ];
         this.cols = [
             { field: "treatmentId", header: "Treatment ID", width: "20%" },
@@ -132,6 +149,17 @@ export class TreatmentTestsComponent implements OnInit {
         this.getAllEquipments();
         this.getSessionTreatments();
         this.checkLoggedInUserTeamWithPatient();
+    }
+    showDiagnosisTreatments() {
+        this.displayTest = false;
+    }
+    showSearchTreatments() {
+        this.showTests = true;
+        this.treatmentBreadCrumb = [
+            {
+                label: "Treatments",
+            },
+        ];
     }
     onClickMenu(data: any) {
         this.cogsItems = [
@@ -370,6 +398,11 @@ export class TreatmentTestsComponent implements OnInit {
         this.leftDocument = "";
         this.treatment = new Treatment();
         this.dialogHeader = "Add New Treatment";
+        this.treatmentBreadCrumb = [
+            {
+                label: "Treatments",
+            },
+        ];
     }
     showRightTreatmentDialog() {
         this.displayTest = true;
@@ -502,6 +535,20 @@ export class TreatmentTestsComponent implements OnInit {
                 this.selectedTestData = result;
                 this.showTests = false;
                 this.dialogHeader = result.map((r) => r.name);
+                this.treatmentBreadCrumb = [
+                    {
+                        label: "Treatments",
+                        command: () => {
+                            this.showSearchTreatments();
+                        },
+                    },
+                    {
+                        label: this.dialogHeader,
+                    },
+                    {
+                        label: "Parameters",
+                    },
+                ];
                 resolve(this.selectedTestData);
             }
         });
@@ -586,7 +633,7 @@ export class TreatmentTestsComponent implements OnInit {
                         this.leftTreatments.push(treatment);
                     }
                 });
-                this.frequentlyUsedComponent.getFrequentlyUsed();
+                // this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
     }

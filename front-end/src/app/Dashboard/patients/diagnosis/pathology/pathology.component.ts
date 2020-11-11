@@ -65,6 +65,7 @@ export class PathologyComponent implements OnInit {
     showDialogRightData = true;
     showDialogLeftData = true;
     ear;
+    pathologyBreadCrumb = [];
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -103,6 +104,22 @@ export class PathologyComponent implements OnInit {
                 },
             },
             { label: this.selectedSession.displayName },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    this.selectedSession.ended === "false" &&
+                    this.showAllButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
+        ];
+        this.pathologyBreadCrumb = [
+            {
+                label: "Pathologies",
+            },
         ];
         this.cols = [
             { field: "id", header: "ID", width: "20%" },
@@ -114,7 +131,17 @@ export class PathologyComponent implements OnInit {
         this.getAllPathologies();
         this.checkLoggedInUserTeamWithPatient();
     }
-
+    showDiagnosisPathologies() {
+        this.displayTest = false;
+    }
+    showSearchPathologies() {
+        this.showTests = true;
+        this.pathologyBreadCrumb = [
+            {
+                label: "Pathologies",
+            },
+        ];
+    }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
         this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
@@ -285,6 +312,11 @@ export class PathologyComponent implements OnInit {
         this.leftDocument = "";
         this.pathology = new Pathology();
         this.dialogHeader = "Add New Pathology";
+        this.pathologyBreadCrumb = [
+            {
+                label: "Pathologies",
+            },
+        ];
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
@@ -386,7 +418,7 @@ export class PathologyComponent implements OnInit {
                         this.leftPathologies.push(element);
                     }
                 });
-                this.frequentlyUsedComponent.getFrequentlyUsed();
+                // this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
     }
@@ -420,6 +452,20 @@ export class PathologyComponent implements OnInit {
                 this.selectedTestData = result;
                 this.showTests = false;
                 this.dialogHeader = result.map((r) => r.name);
+                this.pathologyBreadCrumb = [
+                    {
+                        label: "Pathologies",
+                        command: () => {
+                            this.showSearchPathologies();
+                        },
+                    },
+                    {
+                        label: this.dialogHeader,
+                    },
+                    {
+                        label: "Parameters",
+                    },
+                ];
                 resolve(this.selectedTestData);
             }
         });

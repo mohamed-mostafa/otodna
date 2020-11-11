@@ -2,226 +2,232 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <app-patient-summary></app-patient-summary>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
-<div class="ui-g ui-fluid" *ngIf="selectedSession.ended === 'false'">
-    <div class="ui-g-12 ui-md-10"></div>
-    <div class="ui-g-12 ui-md-2" *ngIf="showAllButtons">
-        <button
-            pButton
-            type="button"
-            label="End Session"
-            (click)="endSession()"
-            class="ui-button-danger ui-button-raised"
-        ></button>
-    </div>
-</div>
-<p-dialog
-    [header]="dialogHeader"
-    [(visible)]="displayTest"
-    [style]="{ width: '90vw' }"
-    [baseZIndex]="10000"
-    [maximizable]="true"
-    [draggable]="false"
-    [resizable]="false"
-    (onHide)="reset()"
->
-    <div style="height: 450px">
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-10" *ngIf="showTests">
-                <div class="ui-g-12 ui-md-12">
-                    <app-search-result-item
-                        [allTests]="allTests"
-                        (testEvent)="receiveTest($event)"
-                        displayName="treatmentName"
-                    ></app-search-result-item>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-2 frequentlyUsedDiv" *ngIf="showTests">
-                <span class="frequentlyUsed"> Frequently Used </span>
-                <app-frequently-used
-                    [type]="'candidacy'"
-                    (frequentlyUsedEvent)="selectFrequentlyUsed($event)"
-                ></app-frequently-used>
-            </div>
-            <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
-                <div
-                    class="ui-g ui-fluid"
-                    *ngFor="let test of selectedTestData"
-                >
-                    <app-test-parameters
-                        [parameters]="test.parameters"
-                        [savedRightFiles]="savedRightFiles"
-                        [savedLeftFiles]="savedLeftFiles"
-                        [rightFilePath]="rightFilePath"
-                        [leftFilePath]="leftFilePath"
-                        [savedRightImage]="savedRightImage"
-                        [savedLeftImage]="savedLeftImage"
-                        [showDialogLeftData]="showDialogLeftData"
-                        [showDialogRightData]="showDialogRightData"
-                        class="width100"
-                    ></app-test-parameters>
-                    <div class="ui-g-12 ui-md-8"></div>
-                    <div class="ui-g-12 ui-md-4" *ngIf="showSaveButton">
-                        <p-footer *ngIf="showAllButtons">
-                            <div class="ui-g-12 ui-md-6">
-                                <button
-                                    type="button"
-                                    pButton
-                                    icon="pi pi-times"
-                                    (click)="reset()"
-                                    label="Cancel"
-                                    class="ui-button-secondary"
-                                ></button>
-                            </div>
-                            <div class="ui-g-12 ui-md-6">
-                                <button
-                                    *ngIf="!showTests"
-                                    type="submit"
-                                    pButton
-                                    (click)="save()"
-                                    icon="pi pi-check"
-                                    label="Ok"
-                                    class="ui-button-icon-primary"
-                                ></button>
-                            </div>
-                        </p-footer>
-                    </div>
-                    <div class="ui-g-12 ui-md-4" *ngIf="!showSaveButton">
-                        <p-footer *ngIf="showAllButtons">
-                            <div class="ui-g-12 ui-md-6">
-                                <button
-                                    type="button"
-                                    pButton
-                                    icon="pi pi-times"
-                                    (click)="reset()"
-                                    label="Cancel"
-                                    class="ui-button-secondary"
-                                ></button>
-                            </div>
-                            <div class="ui-g-12 ui-md-6">
-                                <button
-                                    *ngIf="!showTests"
-                                    type="submit"
-                                    pButton
-                                    (click)="updateTest()"
-                                    icon="pi pi-check"
-                                    label="Update"
-                                    class="ui-button-icon-primary"
-                                ></button>
-                            </div>
-                        </p-footer>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</p-dialog>
-<div class="ui-g ui-fluid">
-    <div class="ui-g-12">
-        <h2 class="centerHeader">Diagnosis Recommendations</h2>
-    </div>
-    <div class="ui-g-12 ui-md-6 rightVerticalLine">
-        <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
-        <div
-            class="ui-g-6 ui-md-3 rightFloat"
-            *ngFor="let right of rightCandidacies"
-        >
-            <div class="rightCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '100px' }"
-                    styleClass="ui-card-shadow"
-                >
-                    <p-header *ngIf="showAllButtons">
-                        <a
-                            href="javascript:void(0)"
-                            class="iconStyle"
-                            (click)="deleteCandidacy(right)"
-                            title="Remove"
-                        >
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                    </p-header>
-                    <div
-                        (click)="retrieveTestData(right, 'right')"
-                        class="fontSize11px"
-                    >
-                        <div class="ui-g-12 ui-md-12 bold">
-                            {{ right.treatmentName }}
+<ng-container *ngIf="displayTest; else elseShowTreatments">
+    <div style="margin: 25px">
+        <p-card>
+            <p-header>
+                <p-breadcrumb
+                    [model]="treatmentBreadCrumb"
+                    [home]="home"
+                ></p-breadcrumb>
+            </p-header>
+            <div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-10" *ngIf="showTests">
+                        <div class="ui-g-12 ui-md-12">
+                            <app-search-result-item
+                                [allTests]="allTests"
+                                (testEvent)="receiveTest($event)"
+                                displayName="treatmentName"
+                            ></app-search-result-item>
+                        </div>
+                        <div class="ui-g-12 ui-md-10"></div>
+                        <div class="ui-g-12 ui-md-2">
+                            <button
+                                type="button"
+                                pButton
+                                icon="pi pi-times"
+                                (click)="showDiagnosisTreatments()"
+                                label="Go Back"
+                                *ngIf="showAllButtons"
+                                class="ui-button-secondary"
+                            ></button>
                         </div>
                     </div>
-                </p-card>
-            </div>
-        </div>
-        <div class="ui-g-6 ui-md-3 rightFloat" *ngIf="showAllButtons">
-            <div style="border-style: dotted" class="rightCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '95px' }"
-                    (click)="showRightTestDialog()"
-                >
-                    <div class="addTestStyle">
-                        <i
-                            class="fa fa-plus"
-                            aira-hidden="true"
-                            style="margin: 5px"
-                        ></i>
-                        Add Recommendation
-                    </div>
-                </p-card>
-            </div>
-        </div>
-    </div>
-    <div class="ui-g-12 ui-md-6">
-        <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
-        <div
-            class="ui-g-6 ui-md-3 leftFloat"
-            *ngFor="let left of leftCandidacies"
-        >
-            <div class="leftCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '100px' }"
-                    styleClass="ui-card-shadow"
-                >
-                    <p-header *ngIf="showAllButtons">
-                        <a
-                            href="javascript:void(0)"
-                            class="iconStyle"
-                            (click)="deleteCandidacy(left)"
-                            title="Remove"
-                        >
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                    </p-header>
                     <div
-                        (click)="retrieveTestData(left, 'left')"
-                        class="fontSize11px"
+                        class="ui-g-12 ui-md-2 frequentlyUsedDiv"
+                        *ngIf="showTests"
                     >
-                        <div class="ui-g-12 ui-md-12 bold">
-                            {{ left.treatmentName }}
+                        <span class="frequentlyUsed"> Frequently Used </span>
+                        <app-frequently-used
+                            [type]="'candidacy'"
+                            (frequentlyUsedEvent)="selectFrequentlyUsed($event)"
+                        ></app-frequently-used>
+                    </div>
+                    <div class="ui-g-12 ui-md-12" *ngIf="!showTests">
+                        <div
+                            class="ui-g ui-fluid"
+                            *ngFor="let test of selectedTestData"
+                        >
+                            <app-test-parameters
+                                [parameters]="test.parameters"
+                                [savedRightFiles]="savedRightFiles"
+                                [savedLeftFiles]="savedLeftFiles"
+                                [rightFilePath]="rightFilePath"
+                                [leftFilePath]="leftFilePath"
+                                [savedRightImage]="savedRightImage"
+                                [savedLeftImage]="savedLeftImage"
+                                [showDialogLeftData]="showDialogLeftData"
+                                [showDialogRightData]="showDialogRightData"
+                                class="width100"
+                            ></app-test-parameters>
+                            <div class="ui-g-12 ui-md-8"></div>
+                            <div class="ui-g-12 ui-md-4" *ngIf="showSaveButton">
+                                <p-footer *ngIf="showAllButtons">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <button
+                                            type="button"
+                                            pButton
+                                            icon="pi pi-times"
+                                            (click)="showSearchTreatments()"
+                                            label="Go Back"
+                                            class="ui-button-secondary"
+                                        ></button>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6">
+                                        <button
+                                            *ngIf="!showTests"
+                                            type="submit"
+                                            pButton
+                                            (click)="save()"
+                                            icon="pi pi-check"
+                                            label="Ok"
+                                            class="ui-button-icon-primary"
+                                        ></button>
+                                    </div>
+                                </p-footer>
+                            </div>
+                            <div
+                                class="ui-g-12 ui-md-4"
+                                *ngIf="!showSaveButton"
+                            >
+                                <p-footer *ngIf="showAllButtons">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <button
+                                            type="button"
+                                            pButton
+                                            icon="pi pi-times"
+                                            (click)="showSearchTreatments()"
+                                            label="Go Back"
+                                            class="ui-button-secondary"
+                                        ></button>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6">
+                                        <button
+                                            *ngIf="!showTests"
+                                            type="submit"
+                                            pButton
+                                            (click)="updateTest()"
+                                            icon="pi pi-check"
+                                            label="Update"
+                                            class="ui-button-icon-primary"
+                                        ></button>
+                                    </div>
+                                </p-footer>
+                            </div>
                         </div>
                     </div>
-                </p-card>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</ng-container>
+<ng-template #elseShowTreatments>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-6 rightVerticalLine">
+            <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
+            <div
+                class="ui-g-12 ui-md-12 rightFloat"
+                *ngFor="let right of rightCandidacies"
+            >
+                <div class="rightCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '100px' }"
+                        styleClass="ui-card-shadow"
+                    >
+                        <div
+                            (click)="retrieveTestData(right, 'right')"
+                            class="height50"
+                        >
+                            <div class="ui-g-12 ui-md-12 bold">
+                                {{ right.treatmentName }}
+                            </div>
+                        </div>
+                        <p-footer *ngIf="showAllButtons">
+                            <a
+                                href="javascript:void(0)"
+                                class="iconStyle"
+                                (click)="deleteCandidacy(right)"
+                                title="Remove"
+                            >
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </p-footer>
+                    </p-card>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 rightFloat" *ngIf="showAllButtons">
+                <div style="border-style: dotted" class="rightCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '95px' }"
+                        (click)="showRightTestDialog()"
+                    >
+                        <div class="addTestStyle">
+                            <i
+                                class="fa fa-plus"
+                                aira-hidden="true"
+                                style="margin: 5px"
+                            ></i>
+                            Add Recommendation
+                        </div>
+                    </p-card>
+                </div>
             </div>
         </div>
-        <div class="ui-g-6 ui-md-3 leftFloat" *ngIf="showAllButtons">
-            <div style="border-style: dotted" class="leftCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '95px' }"
-                    (click)="showLeftTestDialog()"
-                >
-                    <div class="addTestStyle">
-                        <i
-                            class="fa fa-plus"
-                            aira-hidden="true"
-                            style="margin: 5px"
-                        ></i>
-                        Add Recommendation
-                    </div>
-                </p-card>
+        <div class="ui-g-12 ui-md-6">
+            <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
+            <div
+                class="ui-g-12 ui-md-12 leftFloat"
+                *ngFor="let left of leftCandidacies"
+            >
+                <div class="leftCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '100px' }"
+                        styleClass="ui-card-shadow"
+                    >
+                        <div
+                            (click)="retrieveTestData(left, 'left')"
+                            class="height50"
+                        >
+                            <div class="ui-g-12 ui-md-12 bold">
+                                {{ left.treatmentName }}
+                            </div>
+                        </div>
+                        <p-footer *ngIf="showAllButtons">
+                            <a
+                                href="javascript:void(0)"
+                                class="iconStyle"
+                                (click)="deleteCandidacy(left)"
+                                title="Remove"
+                            >
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </p-footer>
+                    </p-card>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 leftFloat" *ngIf="showAllButtons">
+                <div style="border-style: dotted" class="leftCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '95px' }"
+                        (click)="showLeftTestDialog()"
+                    >
+                        <div class="addTestStyle">
+                            <i
+                                class="fa fa-plus"
+                                aira-hidden="true"
+                                style="margin: 5px"
+                            ></i>
+                            Add Recommendation
+                        </div>
+                    </p-card>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</ng-template>
 <ngx-spinner></ngx-spinner>

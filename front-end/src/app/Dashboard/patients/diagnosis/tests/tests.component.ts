@@ -82,6 +82,7 @@ export class TestsComponent implements OnInit {
     showDialogLeftData = true;
     cogsItems = [];
     ear;
+    testBreadCrumb = [];
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -120,6 +121,22 @@ export class TestsComponent implements OnInit {
                 },
             },
             { label: this.selectedSession.displayName },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    this.selectedSession.ended === "false" &&
+                    this.showAllButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
+        ];
+        this.testBreadCrumb = [
+            {
+                label: "Tests",
+            },
         ];
         this.cols = [
             { field: "testId", header: "Test ID", width: "20%" },
@@ -130,6 +147,17 @@ export class TestsComponent implements OnInit {
         this.getAllEquipments();
         this.getSessionTests();
         this.checkLoggedInUserTeamWithPatient();
+    }
+    showDiagnosisTests() {
+        this.displayTest = false;
+    }
+    showSearchTests() {
+        this.showTests = true;
+        this.testBreadCrumb = [
+            {
+                label: "Tests",
+            },
+        ];
     }
     onClickMenu(data: any) {
         this.cogsItems = [
@@ -371,6 +399,11 @@ export class TestsComponent implements OnInit {
         this.rightDocument = "";
         this.leftDocument = "";
         this.dialogHeader = "Add New Test";
+        this.testBreadCrumb = [
+            {
+                label: "Tests",
+            },
+        ];
     }
     showRightTestDialog() {
         this.displayTest = true;
@@ -493,6 +526,20 @@ export class TestsComponent implements OnInit {
                 this.selectedTestData = result;
                 this.showTests = false;
                 this.dialogHeader = result.map((r) => r.name);
+                this.testBreadCrumb = [
+                    {
+                        label: "Tests",
+                        command: () => {
+                            this.showSearchTests();
+                        },
+                    },
+                    {
+                        label: this.dialogHeader,
+                    },
+                    {
+                        label: "Parameters",
+                    },
+                ];
                 resolve(this.selectedTestData);
             }
         });

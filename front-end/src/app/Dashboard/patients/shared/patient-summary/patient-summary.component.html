@@ -17,6 +17,20 @@
                     {{ selectedPatient.middleName }}
                     {{ selectedPatient.lastName }}
                 </span>
+                <span *ngFor="let item of patientSessionData">
+                    <ng-container
+                        *ngIf="item.type === 'Treatment'; else elsePathology"
+                    >
+                        <span class="tag" style="background-color: green">{{
+                            item.value
+                        }}</span>
+                    </ng-container>
+                    <ng-template #elsePathology>
+                        <span class="tag" style="background-color: orangered">{{
+                            item.value
+                        }}</span>
+                    </ng-template>
+                </span>
             </div>
             <div class="ui-g-6 ui-md-6">
                 <span class="nameSpan"> Birth: </span
@@ -40,22 +54,6 @@
             <div class="ui-g-6 ui-md-6">
                 <span class="nameSpan">Contact:</span>
                 {{ selectedPatient.mobile }}
-            </div>
-            <div class="ui-g-6 ui-md-12">
-                <span *ngFor="let item of patientSessionData">
-                    <ng-container
-                        *ngIf="item.type === 'Treatment'; else elsePathology"
-                    >
-                        <span class="tag" style="background-color: green">{{
-                            item.value
-                        }}</span>
-                    </ng-container>
-                    <ng-template #elsePathology>
-                        <span class="tag" style="background-color: orangered">{{
-                            item.value
-                        }}</span>
-                    </ng-template>
-                </span>
             </div>
         </div>
     </div>
