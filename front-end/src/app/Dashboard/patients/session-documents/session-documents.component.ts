@@ -1,4 +1,4 @@
-import { PatientService } from './../services/patient.service';
+import { PatientService } from "./../services/patient.service";
 import { DocumentsService } from "./../../services/documents.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -30,6 +30,7 @@ export class SessionDocumentsComponent implements OnInit {
     file;
     allDocuments = [];
     filePath;
+    showAllButtons = true;
     constructor(
         private router: Router,
         private spinner: NgxSpinnerService,
@@ -76,9 +77,31 @@ export class SessionDocumentsComponent implements OnInit {
                     ? this.selectedSession.displayName
                     : this.label,
             },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    this.selectedSession.ended === "false" &&
+                    this.showAllButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.getAllFiles();
+        this.checkLoggedInUserTeamWithPatient();
+    }
+    async checkLoggedInUserTeamWithPatient() {
+        const LoggedInUser = JSON.parse(localStorage.getItem("user"));
+        this.showAllButtons = await this.sharedClass.checkLoggedInUserTeamWithPatient(
+            LoggedInUser,
+            this.selectedPatient
+        );
+    }
+    endSession() {
+        this.sharedClass.endSession(this.router.url, this.router);
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);
