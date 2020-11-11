@@ -17,17 +17,8 @@
         ></button>
     </div>
 </div>
-<p-dialog
-    [header]="dialogHeader"
-    [(visible)]="displayTest"
-    [style]="{ width: '90vw' }"
-    [baseZIndex]="10000"
-    [maximizable]="true"
-    [draggable]="false"
-    [resizable]="false"
-    (onHide)="reset()"
->
-    <div style="height: 450px">
+<ng-container *ngIf="displayTest; else elseTemplate">
+    <div style="background-color: white">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-10" *ngIf="showTests">
                 <div class="ui-g-12 ui-md-12">
@@ -155,7 +146,128 @@
             </div>
         </div>
     </div>
-</p-dialog>
+</ng-container>
+<ng-template #elseTemplate>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12"><h2 class="centerHeader">Diagnosis Tests</h2></div>
+        <div class="ui-g-12 ui-md-6 rightVerticalLine">
+            <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
+            <div
+                class="ui-g-12 ui-md-12 rightFloat"
+                *ngFor="let right of rightTests"
+            >
+                <div class="rightCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '100px' }"
+                        styleClass="ui-card-shadow "
+                    >
+                        <div
+                            (click)="retrieveTestData(right, 'right')"
+                            class="height50"
+                        >
+                            <div class="ui-g-12 ui-md-12 bold">
+                                {{ right.testName }}
+                            </div>
+                        </div>
+                        <p-footer *ngIf="showAllButtons">
+                            <a
+                                href="javascript:void(0)"
+                                class="iconStyle"
+                                (click)="
+                                    menu.toggle($event); onClickMenu(right)
+                                "
+                                title="Settings"
+                            >
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
+                            <p-menu
+                                #menu
+                                [popup]="true"
+                                [model]="cogsItems"
+                            ></p-menu>
+                        </p-footer>
+                    </p-card>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 rightFloat" *ngIf="showAllButtons">
+                <div style="border-style: dotted" class="rightCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '95px' }"
+                        (click)="showRightTestDialog()"
+                    >
+                        <div class="addTestStyle">
+                            <i
+                                class="fa fa-plus"
+                                aira-hidden="true"
+                                style="margin: 5px"
+                            ></i>
+                            Add Test
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
+            <div
+                class="ui-g-12 ui-md-12 leftFloat"
+                *ngFor="let left of leftTests"
+            >
+                <div class="leftCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '100px' }"
+                        styleClass="ui-card-shadow"
+                    >
+                        <div
+                            (click)="retrieveTestData(left, 'left')"
+                            class="height50"
+                        >
+                            <div class="ui-g-12 ui-md-12 bold">
+                                {{ left.testName }}
+                            </div>
+                        </div>
+                        <p-footer *ngIf="showAllButtons">
+                            <a
+                                href="javascript:void(0)"
+                                class="iconStyle"
+                                (click)="menu.toggle($event); onClickMenu(left)"
+                                title="Settings"
+                            >
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
+                            <p-menu
+                                #menu
+                                [popup]="true"
+                                [model]="cogsItems"
+                            ></p-menu>
+                        </p-footer>
+                    </p-card>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 leftFloat" *ngIf="showAllButtons">
+                <div style="border-style: dotted" class="leftCardBorder">
+                    <p-card
+                        class="centerHeader pointerCursor"
+                        [style]="{ height: '95px' }"
+                        (click)="showLeftTestDialog()"
+                    >
+                        <div class="addTestStyle">
+                            <i
+                                class="fa fa-plus"
+                                aira-hidden="true"
+                                style="margin: 5px"
+                            ></i>
+                            Add Test
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
 <p-dialog
     [header]="addEquipmentDialogHeader"
     [(visible)]="displayEquipmentTest"
@@ -275,120 +387,6 @@
         </div>
     </div>
 </p-dialog>
-<div class="ui-g ui-fluid">
-    <div class="ui-g-12"><h2 class="centerHeader">Diagnosis Tests</h2></div>
-    <div class="ui-g-12 ui-md-6 rightVerticalLine">
-        <h2 class="centerHeader removeMarginAndPadding rightColor">R</h2>
-        <div
-            class="ui-g-12 ui-md-12 rightFloat"
-            *ngFor="let right of rightTests"
-        >
-            <div class="rightCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '100px' }"
-                    styleClass="ui-card-shadow "
-                >
-                    <div
-                        (click)="retrieveTestData(right, 'right')"
-                        class="height50"
-                    >
-                        <div class="ui-g-12 ui-md-12 bold">
-                            {{ right.testName }}
-                        </div>
-                    </div>
-                    <p-footer *ngIf="showAllButtons">
-                        <a
-                            href="javascript:void(0)"
-                            class="iconStyle"
-                            (click)="menu.toggle($event); onClickMenu(right)"
-                            title="Settings"
-                        >
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </a>
-                        <p-menu
-                            #menu
-                            [popup]="true"
-                            [model]="cogsItems"
-                        ></p-menu>
-                    </p-footer>
-                </p-card>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 rightFloat" *ngIf="showAllButtons">
-            <div style="border-style: dotted" class="rightCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '95px' }"
-                    (click)="showRightTestDialog()"
-                >
-                    <div class="addTestStyle">
-                        <i
-                            class="fa fa-plus"
-                            aira-hidden="true"
-                            style="margin: 5px"
-                        ></i>
-                        Add Test
-                    </div>
-                </p-card>
-            </div>
-        </div>
-    </div>
-    <div class="ui-g-12 ui-md-6">
-        <h2 class="centerHeader removeMarginAndPadding leftColor">L</h2>
-        <div class="ui-g-12 ui-md-12 leftFloat" *ngFor="let left of leftTests">
-            <div class="leftCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '100px' }"
-                    styleClass="ui-card-shadow"
-                >
-                    <div
-                        (click)="retrieveTestData(left, 'left')"
-                        class="height50"
-                    >
-                        <div class="ui-g-12 ui-md-12 bold">
-                            {{ left.testName }}
-                        </div>
-                    </div>
-                    <p-footer *ngIf="showAllButtons">
-                        <a
-                            href="javascript:void(0)"
-                            class="iconStyle"
-                            (click)="menu.toggle($event); onClickMenu(left)"
-                            title="Settings"
-                        >
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </a>
-                        <p-menu
-                            #menu
-                            [popup]="true"
-                            [model]="cogsItems"
-                        ></p-menu>
-                    </p-footer>
-                </p-card>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 leftFloat" *ngIf="showAllButtons">
-            <div style="border-style: dotted" class="leftCardBorder">
-                <p-card
-                    class="centerHeader pointerCursor"
-                    [style]="{ height: '95px' }"
-                    (click)="showLeftTestDialog()"
-                >
-                    <div class="addTestStyle">
-                        <i
-                            class="fa fa-plus"
-                            aira-hidden="true"
-                            style="margin: 5px"
-                        ></i>
-                        Add Test
-                    </div>
-                </p-card>
-            </div>
-        </div>
-    </div>
-</div>
 <p-dialog
     [header]="viewEquipmentDialogHeader"
     [(visible)]="showViewEquipments"
