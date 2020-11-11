@@ -569,7 +569,7 @@ export class TestsComponent implements OnInit {
                         this.leftTests.push(test);
                     }
                 });
-                this.frequentlyUsedComponent.getFrequentlyUsed();
+                // this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.spinner.hide();
             });
     }
