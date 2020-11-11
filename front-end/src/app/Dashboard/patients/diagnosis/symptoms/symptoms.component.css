@@ -13,3 +13,14 @@
     font-size: 13px;
     font-weight: bold;
 }
+::ng-deep .endSession {
+    color: #262222 !important;
+    background-color: #f4b6b6;
+    border: 1px solid #e38787;
+    margin-top: 5px !important;
+    border-radius: 5px;
+    float: right !important;
+}
+::ng-deep .displayNone {
+    display: none !important;
+}

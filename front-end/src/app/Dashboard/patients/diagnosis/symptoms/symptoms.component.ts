@@ -67,6 +67,17 @@ export class SymptomsComponent implements OnInit {
                 },
             },
             { label: this.selectedSession.displayName },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    this.selectedSession.ended === "false" &&
+                    this.showAllButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.getALlSymptoms();

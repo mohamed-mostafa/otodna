@@ -120,6 +120,18 @@ export class PatientSessionComponent implements OnInit {
                     ? this.selectedSession.displayName
                     : this.label,
             },
+            {
+                label: "End Session",
+                command: () => {
+                    this.endSession();
+                },
+                styleClass:
+                    (this.selectedSession.ended === "false" &&
+                        this.showAllButtons) ||
+                    !this.showButtons
+                        ? "endSession"
+                        : "displayNone",
+            },
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.loadData();
