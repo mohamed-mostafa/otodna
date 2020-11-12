@@ -9,16 +9,6 @@
             styleClass="ui-card-shadow cardBorderRadius"
             header="{{ t.name }} Team"
         >
-            <p-header>
-                <a
-                    href="javascript:void(0)"
-                    class="iconStyle"
-                    (click)="deleteTeam(t)"
-                    title="Remove"
-                >
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
-            </p-header>
             <div (click)="openTeamMember(t)">
                 <div class="ui-g-12 ui-md-4 bold">
                     Since {{ t.creationDate | date }}
@@ -32,6 +22,16 @@
                     >
                 </div>
             </div>
+            <p-footer>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteTeam(t)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-footer>
         </p-card>
     </div>
     <div class="ui-g-12 ui-md-6">
