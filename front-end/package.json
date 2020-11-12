@@ -1,9 +1,9 @@
 {
-    "name": "olympia",
-    "version": "9.0.1",
+    "name": "Otodna",
+    "version": "1.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "ng serve --o",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
