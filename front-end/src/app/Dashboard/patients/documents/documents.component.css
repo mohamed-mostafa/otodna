@@ -8,8 +8,10 @@
 .iconStyle {
     color: red;
     float: right;
-    padding: 5px;
 }
 .centerHeader {
     text-align: center;
+}
+.height {
+    height: 72px;
 }

@@ -27,17 +27,7 @@
             [style]="{ height: '120px' }"
             styleClass="ui-card-shadow"
         >
-            <p-header>
-                <a
-                    href="javascript:void(0)"
-                    class="iconStyle"
-                    (click)="deleteDocument(document)"
-                    title="Remove"
-                >
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
-            </p-header>
-            <div (click)="viewDocument(document)" class="pointerCursor">
+            <div (click)="viewDocument(document)" class="pointerCursor height">
                 <div class="ui-g-12 ui-md-12 bold">
                     <div class="ui-g-12 ui-md-2">
                         <app-files-icons [key]="document.Key"></app-files-icons>
@@ -49,6 +39,16 @@
                     </div>
                 </div>
             </div>
+            <p-footer>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteDocument(document)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-footer>
         </p-card>
     </div>
 </div>
