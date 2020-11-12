@@ -2,7 +2,7 @@
 <app-patient-summary></app-patient-summary>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <p-toast></p-toast>
-<div class="ui-g">
+<div class="ui-g" *ngIf="showAllButtons && selectedSession.ended === 'false'">
     <div class="ui-g-12">
         <div class="card">
             <h1>Upload Documents</h1>
@@ -39,7 +39,9 @@
                     </div>
                 </div>
             </div>
-            <p-footer>
+            <p-footer
+                *ngIf="showAllButtons && selectedSession.ended === 'false'"
+            >
                 <a
                     href="javascript:void(0)"
                     class="iconStyle"

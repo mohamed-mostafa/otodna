@@ -658,174 +658,215 @@
                 </div>
             </div>
             <div
-                class="ui-g-12 ui-md-12"
-                *ngIf="
-                    t.type === 'table' &&
-                    (showDialogRightData || showDialogLeftData)
-                "
+                class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                *ngIf="t.type === 'table'"
             >
-                <label> {{ t.name }}</label>
-                <div class="labelMarginTop">
-                    <p-table>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>{{ t.xAxisName }}</th>
-                                <th *ngFor="let data of t.cells">
-                                    {{ data.name }}
-                                </th>
-                            </tr>
-                            <tr *ngIf="showDialogRightData">
-                                <th class="rightColor">Right</th>
-                                <ng-container *ngIf="t.cellType === 'boolean'">
-                                    <th *ngFor="let freq of t.cells">
-                                        <p-dropdown
-                                            [options]="t.cellValues"
-                                            placeholder="Y/N"
-                                            optionLabel="name"
-                                            [showClear]="true"
-                                            [(ngModel)]="freq.right"
-                                        ></p-dropdown>
-                                    </th>
-                                </ng-container>
-                                <ng-container *ngIf="t.cellType === 'number'">
-                                    <th
-                                        *ngFor="let freq of t.cells"
-                                        (change)="
-                                            drawRightGraph(
-                                                t.cells,
-                                                t.name,
-                                                t.color,
-                                                t.rightPointStyle,
-                                                null,
-                                                t.lineTension
-                                            )
-                                        "
-                                    >
-                                        <p-spinner
-                                            [(ngModel)]="freq.right"
-                                            [min]="-10"
-                                            [max]="120"
-                                            [step]="5"
-                                        ></p-spinner>
-                                    </th>
-                                </ng-container>
-                                <ng-container
-                                    *ngIf="t.cellType === 'numberWithCheckbox'"
-                                >
-                                    <th
-                                        *ngFor="let freq of t.cells"
-                                        (change)="
-                                            drawRightGraph(
-                                                t.cells,
-                                                t.name,
-                                                t.color,
-                                                t.rightPointStyle,
-                                                t.noResponseRightPointStyle,
-                                                t.lineTension
-                                            )
-                                        "
-                                    >
-                                        <div class="ui-inputgroup">
-                                            <span class="labelMarginTop"
-                                                >NR</span
+                <div class="ui-g-12 ui-md-6 overflowX rightVerticalLine">
+                    <div *ngIf="showDialogRightData">
+                        <div class="labelMarginTop">
+                            <p-table>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="width70px">
+                                            {{ t.xAxisName }}
+                                        </th>
+                                        <th
+                                            class="width70px"
+                                            *ngFor="let data of t.cells"
+                                        >
+                                            {{ data.name }}
+                                        </th>
+                                    </tr>
+                                    <tr *ngIf="showDialogRightData">
+                                        <th class="rightColor">Right</th>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'boolean'"
+                                        >
+                                            <th *ngFor="let freq of t.cells">
+                                                <p-dropdown
+                                                    [options]="t.cellValues"
+                                                    placeholder="Y/N"
+                                                    optionLabel="name"
+                                                    [showClear]="true"
+                                                    [(ngModel)]="freq.right"
+                                                ></p-dropdown>
+                                            </th>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'number'"
+                                        >
+                                            <th
+                                                *ngFor="let freq of t.cells"
+                                                (change)="
+                                                    drawRightGraph(
+                                                        t.cells,
+                                                        t.name,
+                                                        t.color,
+                                                        t.rightPointStyle,
+                                                        null,
+                                                        t.lineTension
+                                                    )
+                                                "
                                             >
-                                            <span
-                                                class="ui-inputgroup-addon ui-inputgroup-addon-checkbox"
+                                                <p-spinner
+                                                    [(ngModel)]="freq.right"
+                                                    [min]="-10"
+                                                    [max]="120"
+                                                    [step]="5"
+                                                ></p-spinner>
+                                            </th>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="
+                                                t.cellType ===
+                                                'numberWithCheckbox'
+                                            "
+                                        >
+                                            <th
+                                                *ngFor="let freq of t.cells"
+                                                (change)="
+                                                    drawRightGraph(
+                                                        t.cells,
+                                                        t.name,
+                                                        t.color,
+                                                        t.rightPointStyle,
+                                                        t.noResponseRightPointStyle,
+                                                        t.lineTension
+                                                    )
+                                                "
                                             >
-                                                <p-checkbox
-                                                    binary="true"
-                                                    [(ngModel)]="
-                                                        freq.rightCheckbox
-                                                    "
-                                                ></p-checkbox>
-                                            </span>
-                                            <p-spinner
-                                                [(ngModel)]="freq.right"
-                                                [min]="-10"
-                                                [max]="120"
-                                                [step]="5"
-                                            ></p-spinner>
-                                        </div>
-                                    </th>
-                                </ng-container>
-                            </tr>
-                            <tr *ngIf="showDialogLeftData">
-                                <th class="leftColor">Left</th>
-                                <ng-container *ngIf="t.cellType === 'boolean'">
-                                    <th *ngFor="let freq of t.cells">
-                                        <p-dropdown
-                                            [options]="t.cellValues"
-                                            placeholder="Y/N"
-                                            optionLabel="name"
-                                            [showClear]="true"
-                                            [(ngModel)]="freq.left"
-                                        ></p-dropdown>
-                                    </th>
-                                </ng-container>
-                                <ng-container *ngIf="t.cellType === 'number'">
-                                    <th
-                                        *ngFor="let freq of t.cells"
-                                        (change)="
-                                            drawLeftGraph(
-                                                t.cells,
-                                                t.name,
-                                                t.color,
-                                                t.leftPointStyle,
-                                                null,
-                                                t.lineTension
-                                            )
-                                        "
-                                    >
-                                        <p-spinner
-                                            [(ngModel)]="freq.left"
-                                            [min]="-10"
-                                            [max]="120"
-                                            [step]="5"
-                                        ></p-spinner>
-                                    </th>
-                                </ng-container>
-                                <ng-container
-                                    *ngIf="t.cellType === 'numberWithCheckbox'"
-                                >
-                                    <th
-                                        *ngFor="let freq of t.cells"
-                                        (change)="
-                                            drawLeftGraph(
-                                                t.cells,
-                                                t.name,
-                                                t.color,
-                                                t.leftPointStyle,
-                                                t.noResponseLeftPointStyle,
-                                                t.lineTension
-                                            )
-                                        "
-                                    >
-                                        <div class="ui-inputgroup">
-                                            <span class="labelMarginTop"
-                                                >NR</span
+                                                <div class="ui-inputgroup">
+                                                    <span class="labelMarginTop"
+                                                        >NR</span
+                                                    >
+                                                    <span
+                                                        class="ui-inputgroup-addon ui-inputgroup-addon-checkbox"
+                                                    >
+                                                        <p-checkbox
+                                                            binary="true"
+                                                            [(ngModel)]="
+                                                                freq.rightCheckbox
+                                                            "
+                                                        ></p-checkbox>
+                                                    </span>
+                                                    <p-spinner
+                                                        [(ngModel)]="freq.right"
+                                                        [min]="-10"
+                                                        [max]="120"
+                                                        [step]="5"
+                                                    ></p-spinner>
+                                                </div>
+                                            </th>
+                                        </ng-container>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6 overflowX">
+                    <div *ngIf="showDialogLeftData">
+                        <label> {{ t.name }}</label>
+                        <div class="labelMarginTop">
+                            <p-table>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="width70px">
+                                            {{ t.xAxisName }}
+                                        </th>
+                                        <th
+                                            class="width70px"
+                                            *ngFor="let data of t.cells"
+                                        >
+                                            {{ data.name }}
+                                        </th>
+                                    </tr>
+                                    <tr *ngIf="showDialogLeftData">
+                                        <th class="leftColor">Left</th>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'boolean'"
+                                        >
+                                            <th *ngFor="let freq of t.cells">
+                                                <p-dropdown
+                                                    [options]="t.cellValues"
+                                                    placeholder="Y/N"
+                                                    optionLabel="name"
+                                                    [showClear]="true"
+                                                    [(ngModel)]="freq.left"
+                                                ></p-dropdown>
+                                            </th>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="t.cellType === 'number'"
+                                        >
+                                            <th
+                                                *ngFor="let freq of t.cells"
+                                                (change)="
+                                                    drawLeftGraph(
+                                                        t.cells,
+                                                        t.name,
+                                                        t.color,
+                                                        t.leftPointStyle,
+                                                        null,
+                                                        t.lineTension
+                                                    )
+                                                "
                                             >
-                                            <span
-                                                class="ui-inputgroup-addon ui-inputgroup-addon-checkbox"
+                                                <p-spinner
+                                                    [(ngModel)]="freq.left"
+                                                    [min]="-10"
+                                                    [max]="120"
+                                                    [step]="5"
+                                                ></p-spinner>
+                                            </th>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="
+                                                t.cellType ===
+                                                'numberWithCheckbox'
+                                            "
+                                        >
+                                            <th
+                                                *ngFor="let freq of t.cells"
+                                                (change)="
+                                                    drawLeftGraph(
+                                                        t.cells,
+                                                        t.name,
+                                                        t.color,
+                                                        t.leftPointStyle,
+                                                        t.noResponseLeftPointStyle,
+                                                        t.lineTension
+                                                    )
+                                                "
                                             >
-                                                <p-checkbox
-                                                    binary="true"
-                                                    [(ngModel)]="
-                                                        freq.leftCheckbox
-                                                    "
-                                                ></p-checkbox>
-                                            </span>
-                                            <p-spinner
-                                                [(ngModel)]="freq.left"
-                                                [min]="-10"
-                                                [max]="120"
-                                                [step]="5"
-                                            ></p-spinner>
-                                        </div>
-                                    </th>
-                                </ng-container>
-                            </tr>
-                        </ng-template>
-                    </p-table>
+                                                <div class="ui-inputgroup">
+                                                    <span class="labelMarginTop"
+                                                        >NR</span
+                                                    >
+                                                    <span
+                                                        class="ui-inputgroup-addon ui-inputgroup-addon-checkbox"
+                                                    >
+                                                        <p-checkbox
+                                                            binary="true"
+                                                            [(ngModel)]="
+                                                                freq.leftCheckbox
+                                                            "
+                                                        ></p-checkbox>
+                                                    </span>
+                                                    <p-spinner
+                                                        [(ngModel)]="freq.left"
+                                                        [min]="-10"
+                                                        [max]="120"
+                                                        [step]="5"
+                                                    ></p-spinner>
+                                                </div>
+                                            </th>
+                                        </ng-container>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div

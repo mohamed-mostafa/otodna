@@ -118,3 +118,9 @@
 .width100 {
     width: 100%;
 }
+.overflowX {
+    overflow-x: auto;
+}
+.width70px {
+    width: 70px;
+}

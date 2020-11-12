@@ -2186,7 +2186,7 @@ body .ui-table .ui-table-caption + p-paginator > .ui-paginator-top {
     border-top: 0 none;
 }
 body .ui-table .ui-table-thead > tr > th {
-    padding: 0.5em 1.214em;
+    padding: 0.5em;
     border: 1px solid #dadada;
     font-weight: 700;
     color: #666666;

@@ -129,6 +129,7 @@
                 pButton
                 type="button"
                 label="Back"
+                *ngIf="selectedSession.ended === 'false'"
                 (click)="reset()"
                 style="margin-bottom: 10px"
                 class="ui-button-danger ui-button-raised"
@@ -141,6 +142,7 @@
                 label="Update"
                 (click)="update()"
                 style="margin-bottom: 10px"
+                *ngIf="selectedSession.ended === 'false'"
                 class="ui-button-icon-primary ui-button-raised"
             ></button>
         </div>

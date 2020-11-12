@@ -121,7 +121,10 @@ export class PatientSessionComponent implements OnInit {
                     : this.label,
             },
             {
-                label: "End Session",
+                label:
+                    this.selectedSession.ended === "false"
+                        ? "End Session"
+                        : "This Session Is Ended",
                 command: () => {
                     this.endSession();
                 },
@@ -312,22 +315,27 @@ export class PatientSessionComponent implements OnInit {
         this.sharedClass.goToDashboard(this.router);
     }
     endSession() {
-        if (!this.session.notes) {
-            this.showMessageComponent.showMessage(
-                "error",
-                "Validation Error",
-                "Conclusion is required"
-            );
-            return false;
+        if (this.selectedSession.ended === "false") {
+            if (!this.session.notes) {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Validation Error",
+                    "Conclusion is required"
+                );
+                return false;
+            }
+            this.session.ended = "true";
+            this.patientSession
+                .updateSession(this.session)
+                .subscribe((u: any) => {
+                    this.session = new Session();
+                    this.goToPatientPage("a");
+                });
         }
-        this.session.ended = "true";
-        this.patientSession.updateSession(this.session).subscribe((u: any) => {
-            this.session = new Session();
-            this.goToPatientPage("a");
-        });
     }
     generateConclusion() {
         this.showGenerateConclusion = false;
+        this.session.notes = "";
         if (this.router.url === "/dashboard/addTreatment") {
             this.spinner.show();
             this.treatmentService
@@ -342,7 +350,7 @@ export class PatientSessionComponent implements OnInit {
                         for (const r of result) {
                             this.session.notes += ` ${r.treatmentName}, `;
                         }
-                        this.session.notes += `\n`;
+                        this.session.notes += `\n\r`;
                     }
                     this.spinner.hide();
                 });
@@ -360,7 +368,7 @@ export class PatientSessionComponent implements OnInit {
                         for (const r of result) {
                             this.session.notes += ` ${r.summaryName}, `;
                         }
-                        this.session.notes += `\n`;
+                        this.session.notes += `\n\r`;
                     }
                     this.spinner.hide();
                 });
@@ -376,7 +384,7 @@ export class PatientSessionComponent implements OnInit {
                         for (const r of result) {
                             this.session.notes += ` ${r.testName}, `;
                         }
-                        this.session.notes += `\n`;
+                        this.session.notes += `\n\r`;
                     }
                     this.spinner.hide();
                 });
@@ -392,7 +400,7 @@ export class PatientSessionComponent implements OnInit {
                         for (const r of result) {
                             this.session.notes += ` ${r.diseaseName}, `;
                         }
-                        this.session.notes += `\n`;
+                        this.session.notes += `\n\r`;
                     }
                     this.spinner.hide();
                 });
@@ -408,7 +416,7 @@ export class PatientSessionComponent implements OnInit {
                         for (const r of result) {
                             this.session.notes += ` ${r.treatmentName}, `;
                         }
-                        this.session.notes += `\n`;
+                        this.session.notes += `\n\r`;
                     }
                     this.spinner.hide();
                 });

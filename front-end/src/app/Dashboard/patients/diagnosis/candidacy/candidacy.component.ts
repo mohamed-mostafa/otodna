@@ -105,7 +105,10 @@ export class CandidacyComponent implements OnInit {
             },
             { label: this.selectedSession.displayName },
             {
-                label: "End Session",
+                label:
+                    this.selectedSession.ended === "false"
+                        ? "End Session"
+                        : "This Session Is Ended",
                 command: () => {
                     this.endSession();
                 },
@@ -582,7 +585,9 @@ export class CandidacyComponent implements OnInit {
         }
     }
     endSession() {
-        this.sharedClass.endSession(this.router.url, this.router);
+        if (this.selectedSession.ended === "false") {
+            this.sharedClass.endSession(this.router.url, this.router);
+        }
     }
     deleteCandidacy(data) {
         this.confirmationService.confirm({

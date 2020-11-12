@@ -124,7 +124,10 @@ export class TreatmentTestsComponent implements OnInit {
             },
             { label: this.selectedSession.displayName },
             {
-                label: "End Session",
+                label:
+                    this.selectedSession.ended === "false"
+                        ? "End Session"
+                        : "This Session Is Ended",
                 command: () => {
                     this.endSession();
                 },
@@ -150,7 +153,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.getSessionTreatments();
         this.checkLoggedInUserTeamWithPatient();
     }
-    showDiagnosisTreatments() {
+    showSavedTreatments() {
         this.displayTest = false;
     }
     showSearchTreatments() {
@@ -721,7 +724,9 @@ export class TreatmentTestsComponent implements OnInit {
         }
     }
     endSession() {
-        this.sharedClass.endSession(this.router.url, this.router);
+        if (this.selectedSession.ended === "false") {
+            this.sharedClass.endSession(this.router.url, this.router);
+        }
     }
     deleteTreatment(data) {
         this.confirmationService.confirm({

@@ -21,7 +21,11 @@
     float: right !important;
 }
 ::ng-deep .displayNone {
-    display: none !important;
+    color: white !important;
+    float: right !important;
+    background-color: powderblue;
+    margin-top: 5px !important;
+    border-radius: 5px;
 }
 .height {
     height: 72px;

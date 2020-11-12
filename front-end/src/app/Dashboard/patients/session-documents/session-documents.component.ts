@@ -78,7 +78,10 @@ export class SessionDocumentsComponent implements OnInit {
                     : this.label,
             },
             {
-                label: "End Session",
+                label:
+                    this.selectedSession.ended === "false"
+                        ? "End Session"
+                        : "This Session Is Ended",
                 command: () => {
                     this.endSession();
                 },
@@ -101,7 +104,9 @@ export class SessionDocumentsComponent implements OnInit {
         );
     }
     endSession() {
-        this.sharedClass.endSession(this.router.url, this.router);
+        if (this.selectedSession.ended === "false") {
+            this.sharedClass.endSession(this.router.url, this.router);
+        }
     }
     goToPatientPage(event) {
         this.sharedClass.goToPatientPage(this.router);

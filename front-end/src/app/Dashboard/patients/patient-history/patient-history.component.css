@@ -5,3 +5,6 @@
 .pointerCursor {
     cursor: pointer;
 }
+.preLineWhiteSpace {
+    white-space: pre-line;
+}
