@@ -12,3 +12,13 @@
 ::ng-deep .displayNone {
     display: none !important;
 }
+.removePaddingAndMargin {
+    margin: 0px;
+    padding: 0px;
+}
+.backgroundColor {
+    background-color: white;
+}
+.floatLeft {
+    float: left !important;
+}
