@@ -111,19 +111,9 @@
     <div class="ui-g-3" *ngFor="let lab of labResults">
         <p-card
             class="centerHeader"
-            [style]="{ height: '120px' }"
+            [style]="{ height: '130px' }"
             styleClass="ui-card-shadow"
         >
-            <p-header *ngIf="showAllButtons">
-                <a
-                    href="javascript:void(0)"
-                    class="iconStyle"
-                    (click)="deleteLabResult(lab)"
-                    title="Remove"
-                >
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
-            </p-header>
             <div (click)="viewData(lab)" class="pointerCursor">
                 <div class="ui-g-12 ui-md-12 bold">
                     {{ lab.labTest }}
@@ -135,16 +125,26 @@
                     {{ lab.notedDate | date }}
                 </div>
             </div>
+            <p-footer *ngIf="showAllButtons">
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteLabResult(lab)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-footer>
         </p-card>
     </div>
     <div class="ui-g-3" *ngIf="showAllButtons">
         <div style="border-style: dotted">
             <p-card
                 class="centerHeader pointerCursor"
-                [style]="{ height: '115px' }"
+                [style]="{ height: '125px' }"
                 (click)="showDialog()"
             >
-                <h3 style="margin-top: 30px">
+                <h3 style="margin-top: 35px">
                     <i
                         class="fa fa-plus"
                         aira-hidden="true"
