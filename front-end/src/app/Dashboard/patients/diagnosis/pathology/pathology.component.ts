@@ -328,49 +328,25 @@ export class PathologyComponent implements OnInit {
         this.sharedClass.goToDashboard(this.router);
     }
     async getAllTests() {
-        if (this.selectedPatient.teamId === 0) {
-            this.documentService
-                .getAllTests("diagnosisPathology")
-                .then((result) => {
-                    this.allTests = result;
-                })
-                .catch((error) => {
-                    this.showMessageComponent.showMessage(
-                        "error",
-                        "Error",
-                        "Something went error,Please try again"
-                    );
-                });
-        } else {
-            const promise = new Promise((resolve) => {
-                this.teamsService
-                    .getTeamById(this.selectedPatient.teamId)
-                    .subscribe((result) => {
-                        resolve(result);
-                    });
-            });
-            promise.then((data: any) => {
-                const id = data.department_id;
-                this.documentService
-                    .getAllTests("diagnosisPathology")
-                    .then((result) => {
-                        for (const r of result) {
-                            for (const dep of r.departments) {
-                                if (dep.id === id) {
-                                    this.allTests.push(r);
-                                }
-                            }
+        const id = this.selectedSession.departmentId;
+        this.documentService
+            .getAllTests("diagnosisPathology")
+            .then((result) => {
+                for (const r of result) {
+                    for (const dep of r.departments) {
+                        if (dep.id === id) {
+                            this.allTests.push(r);
                         }
-                    })
-                    .catch((error) => {
-                        this.showMessageComponent.showMessage(
-                            "error",
-                            "Error",
-                            "Something went error,Please try again"
-                        );
-                    });
+                    }
+                }
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
             });
-        }
     }
     async filterTest(event) {
         const query = event.query;

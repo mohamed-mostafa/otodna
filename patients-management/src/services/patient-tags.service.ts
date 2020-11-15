@@ -62,7 +62,7 @@ export class PatientTagsService extends DefaultTransactionalRepository<
                   if (treat.treatmentId === res.treatmentId) {
                     returnedData.push({
                       type: 'Treatment',
-                      value: res.treatmentName,
+                      value: treat.tagName,
                     });
                   }
                 });
@@ -84,7 +84,7 @@ export class PatientTagsService extends DefaultTransactionalRepository<
                   if (pathology.diseaseId === res.diseaseId) {
                     returnedData.push({
                       type: 'Pathology',
-                      value: res.diseaseName,
+                      value: pathology.tagName,
                     });
                   }
                 });

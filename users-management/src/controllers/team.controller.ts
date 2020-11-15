@@ -62,6 +62,31 @@ export class TeamController {
     return this.teamRepository.create(team);
   }
 
+  @post('/createTeamWithMember', {
+    security: OPERATION_SECURITY_SPEC,
+    responses: {
+      '200': {
+        description: 'Team model instance',
+        content: {'application/json': {schema: getModelSchemaRef(Team)}},
+      },
+    },
+  })
+  async createTeamWithMember(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Team, {
+            title: 'NewTeam',
+            exclude: ['id'],
+          }),
+        },
+      },
+    })
+    team: Omit<Team, 'id'>,
+  ): Promise<Team> {
+    return this.teamRepository.createTeamWithMember(team);
+  }
+
   @get('/teams/count', {
     security: OPERATION_SECURITY_SPEC,
     responses: {

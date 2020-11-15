@@ -36,6 +36,12 @@ export class TeamsService {
     createTeam(team): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${this.teamsLink}/`, team);
     }
+    createTeamWithMember(team): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/createTeamWithMember/`,
+            team
+        );
+    }
     getFilteredTeam(name, value): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.teamsLink}?filter[where][${name}][eq]=${value}&filter[include][][relation]=department`

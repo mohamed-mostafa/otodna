@@ -31,3 +31,4 @@ export * from './tests-count-by-department.model';
 export * from './pathologies-count-by-department.model';
 export * from './treatments-count-by-department.model';
 export * from './candidacies-count-by-department.model';
+export * from './medical-history.model';

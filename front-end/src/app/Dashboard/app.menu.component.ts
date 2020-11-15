@@ -422,6 +422,7 @@ export class AppMenuComponent implements OnInit {
                     "medical/problems",
                     "patientHistory",
                     "referrals",
+                    "medicalHistory",
                     "documents",
                 ];
                 let selectedPatient = JSON.parse(
@@ -513,6 +514,11 @@ export class AppMenuComponent implements OnInit {
                             label: "Referrals",
                             icon: "fa fa-fw fa-user-plus",
                             routerLink: ["referrals"],
+                        },
+                        {
+                            label: "Medical History",
+                            icon: "fa fa-fw fa-user-md",
+                            routerLink: ["medicalHistory"],
                         },
                         {
                             label: "Patient History",

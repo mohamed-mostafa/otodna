@@ -1,5 +1,5 @@
-import { NotificationsService } from './patients/services/notifications.service';
-import { ReferralsService } from './patients/services/referrals.service';
+import { NotificationsService } from "./patients/services/notifications.service";
+import { ReferralsService } from "./patients/services/referrals.service";
 import { DocumentsService } from "./services/documents.service";
 import { TreatmentTestsService } from "./patients/treatments/services/treatment-tests.service";
 import { ParameterValueService } from "./patients/services/parameter-value.service";
@@ -28,6 +28,7 @@ import { MenuService } from "./app.menu.service";
 import { TeamsService as demoTeamService } from "./demo/service/teamService";
 import { DepartmentsService } from "./services/departments.service";
 import { RolesService } from "./services/roles.service";
+import { MedicalHistoryService } from "./patients/services/medical-history.service";
 
 export const SERVICES = [
     CarService,
@@ -59,5 +60,6 @@ export const SERVICES = [
     TreatmentTestsService,
     DocumentsService,
     ReferralsService,
-    NotificationsService
+    NotificationsService,
+    MedicalHistoryService,
 ];

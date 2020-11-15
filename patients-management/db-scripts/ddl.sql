@@ -579,6 +579,22 @@ CREATE TABLE `vital_record_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `medical_history`
+--
+
+DROP TABLE IF EXISTS `medical_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `medical_history` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `treatment_id` varchar(45) DEFAULT NULL,
+  `pathology_id` varchar(45) DEFAULT NULL,
+  `conclusion` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- View structure for view `tests_count_by_department`
 --
 

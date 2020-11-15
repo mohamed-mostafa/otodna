@@ -81,32 +81,40 @@ export class TeamMembersComponent implements OnInit {
             });
     }
     deleteMember(selected) {
-        this.confirmationService.confirm({
-            message: "Do you want to delete this member?",
-            header: "Delete Member Confirmation",
-            icon: "pi pi-info-circle",
-            accept: () => {
-                this.spinner.show();
-                this.teamsService
-                    .deleteTeamMember(this.selectedTeam.id, selected.id)
-                    .subscribe(() => {
-                        this.spinner.hide();
-                        this.ngOnInit();
-                    });
-                this.showMessageComponent.showMessage(
-                    "success",
-                    "Confirmed",
-                    "Member has been deleted"
-                );
-            },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
-        });
+        if (selected.id === this.selectedTeam.ownerId) {
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "You Cannot Delete Team Owner"
+            );
+        } else {
+            this.confirmationService.confirm({
+                message: "Do you want to delete this member?",
+                header: "Delete Member Confirmation",
+                icon: "pi pi-info-circle",
+                accept: () => {
+                    this.spinner.show();
+                    this.teamsService
+                        .deleteTeamMember(this.selectedTeam.id, selected.id)
+                        .subscribe(() => {
+                            this.spinner.hide();
+                            this.ngOnInit();
+                        });
+                    this.showMessageComponent.showMessage(
+                        "success",
+                        "Confirmed",
+                        "Member has been deleted"
+                    );
+                },
+                reject: () => {
+                    this.showMessageComponent.showMessage(
+                        "info",
+                        "Rejected",
+                        "You have rejected"
+                    );
+                },
+            });
+        }
     }
     openMemberDialog() {
         this.displayMemberDialog = true;

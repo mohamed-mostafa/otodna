@@ -1,3 +1,4 @@
+import { DepartmentsService } from "./../../services/departments.service";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { Router } from "@angular/router";
 import { Team } from "./team";
@@ -29,6 +30,7 @@ export class MyTeamsComponent implements OnInit {
         private router: Router,
         private ngZone: NgZone,
         private teamsService: TeamsService,
+        private departmentsService: DepartmentsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -37,6 +39,7 @@ export class MyTeamsComponent implements OnInit {
         this.team.ownerId = this.loggedInUser.id;
         this.team.owner = this.loggedInUser.fullName;
         this.getMyTeams();
+        this.getAllDepartments();
     }
     getMyTeams() {
         this.spinner.show();
@@ -61,17 +64,19 @@ export class MyTeamsComponent implements OnInit {
                 this.team.department_id = this.team.department.id;
                 delete this.team.owner;
                 delete this.team.department;
-                this.teamsService.createTeam(this.team).subscribe((u) => {
-                    this.reset();
-                    this.getMyTeams();
-                    this.displayTeamDialog = false;
-                    this.spinner.hide();
-                    this.showMessageComponent.showMessage(
-                        "success",
-                        "Saved",
-                        "Data saved successfully"
-                    );
-                });
+                this.teamsService
+                    .createTeamWithMember(this.team)
+                    .subscribe((u) => {
+                        this.reset();
+                        this.getMyTeams();
+                        this.displayTeamDialog = false;
+                        this.spinner.hide();
+                        this.showMessageComponent.showMessage(
+                            "success",
+                            "Saved",
+                            "Data saved successfully"
+                        );
+                    });
             } else {
                 this.showMessageComponent.showMessage(
                     "warn",
@@ -147,6 +152,13 @@ export class MyTeamsComponent implements OnInit {
         localStorage.setItem("selectedTeam", JSON.stringify(selected));
         this.ngZone.run(() => {
             this.router.navigate(["/dashboard/teamMembers"]);
+        });
+    }
+    getAllDepartments() {
+        this.spinner.show();
+        this.departmentsService.getAllDepartments().subscribe((result) => {
+            this.departments = result;
+            this.spinner.hide();
         });
     }
 }

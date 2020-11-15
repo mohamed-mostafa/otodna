@@ -451,49 +451,25 @@ export class TreatmentTestsComponent implements OnInit {
         );
     }
     async getAllTreatments() {
-        if (this.selectedPatient.teamId === 0) {
-            this.documentService
-                .getAllTests("treatmentTests")
-                .then((result) => {
-                    this.allTreatments = result;
-                })
-                .catch((error) => {
-                    this.showMessageComponent.showMessage(
-                        "error",
-                        "Error",
-                        "Something went error,Please try again"
-                    );
-                });
-        } else {
-            const promise = new Promise((resolve) => {
-                this.teamsService
-                    .getTeamById(this.selectedPatient.teamId)
-                    .subscribe((result) => {
-                        resolve(result);
-                    });
-            });
-            promise.then((data: any) => {
-                const id = data.department_id;
-                this.documentService
-                    .getAllTests("treatmentTests")
-                    .then((result) => {
-                        for (const r of result) {
-                            for (const dep of r.departments) {
-                                if (dep.id === id) {
-                                    this.allTreatments.push(r);
-                                }
-                            }
+        const id = this.selectedSession.departmentId;
+        this.documentService
+            .getAllTests("treatmentTests")
+            .then((result) => {
+                for (const r of result) {
+                    for (const dep of r.departments) {
+                        if (dep.id === id) {
+                            this.allTreatments.push(r);
                         }
-                    })
-                    .catch((error) => {
-                        this.showMessageComponent.showMessage(
-                            "error",
-                            "Error",
-                            "Something went error,Please try again"
-                        );
-                    });
+                    }
+                }
+            })
+            .catch((error) => {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Error",
+                    "Something went error,Please try again"
+                );
             });
-        }
     }
     getAllEquipments() {
         this.documentService
