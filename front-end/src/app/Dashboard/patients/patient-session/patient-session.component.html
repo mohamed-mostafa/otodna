@@ -81,16 +81,18 @@
                         ></textarea>
                         <div
                             class="new-message-footer"
-                            *ngIf="
-                                session.ended === 'false' &&
-                                showAllButtons &&
-                                showGenerateConclusion
-                            "
+                            *ngIf="session.ended === 'false' && showAllButtons"
                         >
                             <a
-                                class="new-message-send floatLeft"
+                                class="new-message-send floatLeft textareaGenerateStyle"
                                 (click)="generateConclusion()"
                                 ><span class="fa fa-refresh"></span> Generate</a
+                            >
+                            <a
+                                class="new-message-send floatLeft textareaEndSessionStyle"
+                                (click)="endSession()"
+                            >
+                                End Session</a
                             >
                         </div>
                     </div>

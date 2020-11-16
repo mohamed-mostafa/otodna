@@ -26,3 +26,12 @@
 .floatLeft {
     float: left !important;
 }
+.textareaEndSessionStyle {
+    background-color: #f4b6b6 !important;
+    color: #616161 !important;
+    border-radius: 5px !important;
+}
+.textareaGenerateStyle {
+    margin-right: 10px;
+    border-radius: 5px !important;
+}
