@@ -275,6 +275,22 @@ export class PatientSessionComponent implements OnInit {
             );
             return false;
         }
+        if (!this.session.createdBy) {
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Created By is required"
+            );
+            return false;
+        }
+        if (!this.session.createdAt) {
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Created At is required"
+            );
+            return false;
+        }
         if (!this.session.performer) {
             this.showMessageComponent.showMessage(
                 "error",
