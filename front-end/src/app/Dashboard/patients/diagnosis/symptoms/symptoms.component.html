@@ -18,7 +18,10 @@
         style="width: 100%"
     ></button>
 </div>
-<div *ngIf="showSymptoms" class="ui-g-12 ui-md-12">
+<div
+    *ngIf="showSymptoms && selectedSession.ended === 'false'"
+    class="ui-g-12 ui-md-12"
+>
     <div *ngFor="let symptom of symptoms">
         <p-fieldset [legend]="symptom.name">
             <ng-container

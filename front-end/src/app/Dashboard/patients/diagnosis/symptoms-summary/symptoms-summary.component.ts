@@ -22,12 +22,18 @@ export class SymptomsSummaryComponent implements OnInit {
         this.symptomsService
             .getPatientSessionSymptoms(this.selectedSession.id)
             .subscribe(async (result) => {
-                result.forEach((element) => {
-                    this.symptoms.push({
-                        ear: element.ear,
-                        name: element.summaryName,
+                if (result && result.length > 0) {
+                    result.forEach((element) => {
+                        this.symptoms.push({
+                            ear: element.ear,
+                            name: element.summaryName,
+                        });
                     });
-                });
+                } else {
+                    if (this.selectedSession.ended === "true") {
+                        this.symptoms.push({ name: "No Symptoms" });
+                    }
+                }
                 this.symptomsSummaryEvent.emit(this.symptoms);
             });
     }
