@@ -1,3 +1,4 @@
+import { NavigationExtras } from "@angular/router";
 import { PatientService } from "../services/patient.service";
 export class SharedClass {
     constructor(private patientService: PatientService) {}
@@ -109,13 +110,19 @@ export class SharedClass {
             });
     }
     endSession(url, router) {
+        const navigationExtras: NavigationExtras = {
+            state: { endSession: true },
+        };
         if (url.includes("followup")) {
             router
                 .navigateByUrl("/RefreshComponent", {
                     skipLocationChange: true,
                 })
                 .then(() => {
-                    router.navigate(["/dashboard/addFollowup"]);
+                    router.navigate(
+                        ["/dashboard/addFollowup"],
+                        navigationExtras
+                    );
                 });
         } else if (url.includes("treatment")) {
             router
@@ -123,7 +130,10 @@ export class SharedClass {
                     skipLocationChange: true,
                 })
                 .then(() => {
-                    router.navigate(["/dashboard/addTreatment"]);
+                    router.navigate(
+                        ["/dashboard/addTreatment"],
+                        navigationExtras
+                    );
                 });
         } else {
             router
@@ -131,7 +141,10 @@ export class SharedClass {
                     skipLocationChange: true,
                 })
                 .then(() => {
-                    router.navigate(["/dashboard/addDiagnosis"]);
+                    router.navigate(
+                        ["/dashboard/addDiagnosis"],
+                        navigationExtras
+                    );
                 });
         }
     }

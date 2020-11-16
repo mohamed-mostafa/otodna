@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/api";
 import { MenuItem } from "primeng/primeng";
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { SharedClass } from "../shared/sharedFunctions";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 @Component({
@@ -21,7 +21,7 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     styleUrls: ["./patient-session.component.css"],
     providers: [MessageService],
 })
-export class PatientSessionComponent implements OnInit {
+export class PatientSessionComponent implements OnInit, AfterViewInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
@@ -139,8 +139,20 @@ export class PatientSessionComponent implements OnInit {
             },
         ];
         this.home = { icon: "fa fa-stethoscope" };
+
         this.loadData();
         this.checkLoggedInUserTeamWithPatient();
+    }
+    ngAfterViewInit(): void {
+        if (window.history.state.endSession) {
+            if (!this.session.notes) {
+                this.showMessageComponent.showMessage(
+                    "error",
+                    "Validation Error",
+                    "Conclusion is required"
+                );
+            }
+        }
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
