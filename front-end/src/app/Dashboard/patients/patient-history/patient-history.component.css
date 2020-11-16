@@ -8,3 +8,10 @@
 .preLineWhiteSpace {
     white-space: pre-line;
 }
+
+.rightFloated {
+    float: right;
+}
+.rightMargin {
+    margin-right: 10px;
+}
