@@ -142,6 +142,9 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatmentBreadCrumb = [
             {
                 label: "Treatments",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
         this.cols = [
@@ -162,6 +165,9 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatmentBreadCrumb = [
             {
                 label: "Treatments",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
     }
@@ -405,6 +411,9 @@ export class TreatmentTestsComponent implements OnInit {
         this.treatmentBreadCrumb = [
             {
                 label: "Treatments",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
     }
@@ -519,7 +528,7 @@ export class TreatmentTestsComponent implements OnInit {
                     {
                         label: "Treatments",
                         command: () => {
-                            this.showSearchTreatments();
+                            this.reset();
                         },
                     },
                     {

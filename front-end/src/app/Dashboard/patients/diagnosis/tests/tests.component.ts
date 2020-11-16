@@ -140,6 +140,9 @@ export class TestsComponent implements OnInit {
         this.testBreadCrumb = [
             {
                 label: "Tests",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
         this.cols = [
@@ -160,6 +163,9 @@ export class TestsComponent implements OnInit {
         this.testBreadCrumb = [
             {
                 label: "Tests",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
     }
@@ -406,6 +412,9 @@ export class TestsComponent implements OnInit {
         this.testBreadCrumb = [
             {
                 label: "Tests",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
     }
@@ -510,7 +519,7 @@ export class TestsComponent implements OnInit {
                     {
                         label: "Tests",
                         command: () => {
-                            this.showSearchTests();
+                            this.reset();
                         },
                     },
                     {

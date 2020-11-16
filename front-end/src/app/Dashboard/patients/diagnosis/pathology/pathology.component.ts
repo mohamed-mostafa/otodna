@@ -123,6 +123,9 @@ export class PathologyComponent implements OnInit {
         this.pathologyBreadCrumb = [
             {
                 label: "Pathologies",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
         this.cols = [
@@ -143,6 +146,9 @@ export class PathologyComponent implements OnInit {
         this.pathologyBreadCrumb = [
             {
                 label: "Pathologies",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
     }
@@ -319,6 +325,9 @@ export class PathologyComponent implements OnInit {
         this.pathologyBreadCrumb = [
             {
                 label: "Pathologies",
+                command: () => {
+                    this.reset();
+                },
             },
         ];
     }
@@ -436,7 +445,7 @@ export class PathologyComponent implements OnInit {
                     {
                         label: "Pathologies",
                         command: () => {
-                            this.showSearchPathologies();
+                            this.reset();
                         },
                     },
                     {
