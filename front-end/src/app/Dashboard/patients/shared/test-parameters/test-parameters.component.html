@@ -40,6 +40,7 @@
                             >
                             <app-string
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="right"
                             ></app-string>
@@ -56,6 +57,7 @@
                             >
                             <app-string
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="left"
                             ></app-string>
@@ -77,6 +79,7 @@
                             >
                             <app-number
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="right"
                             ></app-number>
@@ -96,6 +99,7 @@
                             >
                             <app-number
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="left"
                             ></app-number>
@@ -117,7 +121,11 @@
                                 class="ui-inputgroup-addon rightBackgroundColor lineHeight"
                                 >R</span
                             >
-                            <app-boolean [value]="t" type="right"></app-boolean>
+                            <app-boolean
+                                [value]="t"
+                                [readonly]="readonly"
+                                type="right"
+                            ></app-boolean>
                         </div>
                     </div>
                 </div>
@@ -128,7 +136,11 @@
                                 class="ui-inputgroup-addon leftBackgroundColor lineHeight"
                                 >L</span
                             >
-                            <app-boolean [value]="t" type="left"></app-boolean>
+                            <app-boolean
+                                [value]="t"
+                                [readonly]="readonly"
+                                type="left"
+                            ></app-boolean>
                         </div>
                     </div>
                 </div>
@@ -147,6 +159,7 @@
                             >
                             <app-radio
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="right"
                             ></app-radio>
@@ -163,6 +176,7 @@
                             >
                             <app-radio
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="left"
                             ></app-radio>
@@ -178,6 +192,7 @@
                     <div *ngIf="showDialogRightData">
                         <app-list
                             [value]="t"
+                            [readonly]="readonly"
                             [parameters]="parameters"
                             class="width100"
                             type="right"
@@ -188,6 +203,7 @@
                     <div *ngIf="showDialogLeftData">
                         <app-list
                             [value]="t"
+                            [readonly]="readonly"
                             [parameters]="parameters"
                             class="width100"
                             type="left"
@@ -209,6 +225,7 @@
                             >
                             <app-list-with-image
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="right"
                             ></app-list-with-image>
@@ -225,6 +242,7 @@
                             >
                             <app-list-with-image
                                 [value]="t"
+                                [readonly]="readonly"
                                 class="width100"
                                 type="left"
                             ></app-list-with-image>
@@ -268,6 +286,7 @@
                                                     savedRightImage[0]
                                                 )
                                             "
+                                            [disabled]="readonly"
                                         ></p-fileUpload>
                                     </div>
                                     <div class="ui-g-12 ui-md-6 noPadding">
@@ -282,6 +301,7 @@
                                                     savedRightImage[0]
                                                 )
                                             "
+                                            [disabled]="readonly"
                                         ></button>
                                     </div>
                                 </div>
@@ -324,6 +344,7 @@
                                             (onSelect)="
                                                 previewRightImage($event)
                                             "
+                                            [disabled]="readonly"
                                         ></p-fileUpload>
                                     </ng-container>
                                     <ng-template #noUploadRight>
@@ -344,6 +365,7 @@
                                                             $event
                                                         )
                                                     "
+                                                    [disabled]="readonly"
                                                 ></p-fileUpload>
                                             </div>
                                             <div
@@ -358,6 +380,7 @@
                                                     (click)="
                                                         removeChoosedRightImage()
                                                     "
+                                                    [disabled]="readonly"
                                                 ></button>
                                             </div>
                                         </div>
@@ -397,6 +420,7 @@
                                                     savedLeftImage[0]
                                                 )
                                             "
+                                            [disabled]="readonly"
                                         ></p-fileUpload>
                                     </div>
                                     <div class="ui-g-12 ui-md-6 noPadding">
@@ -411,6 +435,7 @@
                                                     savedLeftImage[0]
                                                 )
                                             "
+                                            [disabled]="readonly"
                                         ></button>
                                     </div>
                                 </div>
@@ -453,6 +478,7 @@
                                             (onSelect)="
                                                 previewLeftImage($event)
                                             "
+                                            [disabled]="readonly"
                                         ></p-fileUpload>
                                     </ng-container>
                                     <ng-template #noLeftUpload>
@@ -473,6 +499,7 @@
                                                             $event
                                                         )
                                                     "
+                                                    [disabled]="readonly"
                                                 ></p-fileUpload>
                                             </div>
                                             <div
@@ -487,6 +514,7 @@
                                                     (click)="
                                                         removeChoosedLeftImage()
                                                     "
+                                                    [disabled]="readonly"
                                                 ></button>
                                             </div>
                                         </div>
@@ -565,6 +593,7 @@
                                     ngDefaultControl
                                     [showUploadButton]="false"
                                     (onSelect)="selectedRightFiles($event)"
+                                    [disabled]="readonly"
                                 >
                                 </p-fileUpload>
                             </div>
@@ -638,6 +667,7 @@
                                     ngDefaultControl
                                     [showUploadButton]="false"
                                     (onSelect)="selectedLeftFiles($event)"
+                                    [disabled]="readonly"
                                 >
                                 </p-fileUpload>
                             </div>
@@ -654,7 +684,11 @@
             >
                 <label>{{ t.name }}</label>
                 <div class="labelMarginTop">
-                    <app-textarea [value]="t" class="width100"></app-textarea>
+                    <app-textarea
+                        [value]="t"
+                        [readonly]="readonly"
+                        class="width100"
+                    ></app-textarea>
                 </div>
             </div>
             <div
@@ -689,6 +723,7 @@
                                                     optionLabel="name"
                                                     [showClear]="true"
                                                     [(ngModel)]="freq.right"
+                                                    [readonly]="readonly"
                                                 ></p-dropdown>
                                             </th>
                                         </ng-container>
@@ -710,6 +745,7 @@
                                             >
                                                 <p-spinner
                                                     [(ngModel)]="freq.right"
+                                                    [readonly]="readonly"
                                                     [min]="-10"
                                                     [max]="120"
                                                     [step]="5"
@@ -747,10 +783,14 @@
                                                             [(ngModel)]="
                                                                 freq.rightCheckbox
                                                             "
+                                                            [readonly]="
+                                                                readonly
+                                                            "
                                                         ></p-checkbox>
                                                     </span>
                                                     <p-spinner
                                                         [(ngModel)]="freq.right"
+                                                        [readonly]="readonly"
                                                         [min]="-10"
                                                         [max]="120"
                                                         [step]="5"
@@ -793,6 +833,7 @@
                                                     optionLabel="name"
                                                     [showClear]="true"
                                                     [(ngModel)]="freq.left"
+                                                    [readonly]="readonly"
                                                 ></p-dropdown>
                                             </th>
                                         </ng-container>
@@ -814,6 +855,7 @@
                                             >
                                                 <p-spinner
                                                     [(ngModel)]="freq.left"
+                                                    [readonly]="readonly"
                                                     [min]="-10"
                                                     [max]="120"
                                                     [step]="5"
@@ -851,10 +893,14 @@
                                                             [(ngModel)]="
                                                                 freq.leftCheckbox
                                                             "
+                                                            [readonly]="
+                                                                readonly
+                                                            "
                                                         ></p-checkbox>
                                                     </span>
                                                     <p-spinner
                                                         [(ngModel)]="freq.left"
+                                                        [readonly]="readonly"
                                                         [min]="-10"
                                                         [max]="120"
                                                         [step]="5"

@@ -66,6 +66,7 @@ export class CandidacyComponent implements OnInit {
     showDialogLeftData = true;
     ear;
     treatmentBreadCrumb = [];
+    readonly = false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -225,7 +226,7 @@ export class CandidacyComponent implements OnInit {
                 }
                 this.reset();
                 this.getAllCandidacies();
-                this.frequentlyUsedComponent.getFrequentlyUsed();
+                // this.frequentlyUsedComponent.getFrequentlyUsed();
                 this.showMessageComponent.showMessage(
                     "success",
                     "Saved",
@@ -305,7 +306,7 @@ export class CandidacyComponent implements OnInit {
             });
     }
     reset() {
-        this.searchResultItemComponent.reset();
+        // this.searchResultItemComponent.reset();
         this.selectedTest = "";
         this.showSaveButton = true;
         this.selected = "";
@@ -466,6 +467,11 @@ export class CandidacyComponent implements OnInit {
         });
     }
     async retrieveTestData(test, position) {
+        if (this.selectedSession.ended === "false") {
+            this.readonly = false;
+        } else {
+            this.readonly = true;
+        }
         if (position === "right") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;

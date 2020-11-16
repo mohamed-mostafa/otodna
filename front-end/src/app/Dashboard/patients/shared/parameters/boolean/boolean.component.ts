@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from "@angular/core";
 export class BooleanComponent implements OnInit {
     @Input() value;
     @Input() type;
+    @Input() readonly;
     constructor() {}
 
     ngOnInit(): void {}

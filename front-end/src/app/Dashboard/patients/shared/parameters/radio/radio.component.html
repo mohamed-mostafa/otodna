@@ -6,6 +6,7 @@
             [label]="item"
             [(ngModel)]="value.rightVal"
             inputId="right-{{ item }}"
+            [disabled]="readonly"
         ></p-radioButton>
     </div>
 </ng-container>
@@ -17,6 +18,7 @@
             [label]="item"
             [(ngModel)]="value.leftVal"
             inputId="left-{{ item }}"
+            [disabled]="readonly"
         ></p-radioButton>
     </div>
 </ng-template>

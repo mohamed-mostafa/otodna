@@ -85,6 +85,7 @@ export class TreatmentTestsComponent implements OnInit {
     cogsItems = [];
     ear;
     treatmentBreadCrumb = [];
+    readonly = false;
     constructor(
         private messageService: MessageService,
         private treatmentService: TreatmentTestsService,
@@ -389,7 +390,7 @@ export class TreatmentTestsComponent implements OnInit {
             });
     }
     reset() {
-        this.searchResultItemComponent.reset();
+        // this.searchResultItemComponent.reset();
         this.selectedTreatment = "";
         this.selected = "";
         this.filteredTreatments = [];
@@ -617,6 +618,11 @@ export class TreatmentTestsComponent implements OnInit {
             });
     }
     async retrieveTestData(treatment, position) {
+        if (this.selectedSession.ended === "false") {
+            this.readonly = false;
+        } else {
+            this.readonly = true;
+        }
         if (position === "right") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;

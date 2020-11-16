@@ -9,6 +9,7 @@ import { Component, OnInit } from "@angular/core";
 export class StringComponent implements OnInit {
     @Input() value;
     @Input() type;
+    @Input() readonly;
     constructor() {}
 
     ngOnInit(): void {}

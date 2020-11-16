@@ -12,6 +12,7 @@
                 id="right-{{ value.name }}"
                 [showClear]="true"
                 [(ngModel)]="value.rightVal"
+                [readonly]="readonly"
                 (onChange)="checkRightListItem(value)"
             ></p-dropdown>
         </div>
@@ -40,6 +41,7 @@
                 id="left-{{ value.name }}"
                 [showClear]="true"
                 [(ngModel)]="value.leftVal"
+                [readonly]="readonly"
                 (onChange)="checkLeftListItem(value)"
             ></p-dropdown>
         </div>

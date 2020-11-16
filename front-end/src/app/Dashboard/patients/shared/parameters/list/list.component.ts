@@ -9,6 +9,7 @@ export class ListComponent implements OnInit {
     @Input() value;
     @Input() type;
     @Input() parameters;
+    @Input() readonly;
     rightListParameters = [];
     leftListParameters = [];
     constructor() {}
@@ -66,11 +67,13 @@ export class ListComponent implements OnInit {
                 item.rightVal.conditionalParametersNames.length > 0
             ) {
                 this.rightListParameters.forEach((element) => {
-                    item.rightVal.conditionalParametersNames.forEach((right) => {
-                        if (element.name === right && element.conditional) {
-                            element.showRight = true;
+                    item.rightVal.conditionalParametersNames.forEach(
+                        (right) => {
+                            if (element.name === right && element.conditional) {
+                                element.showRight = true;
+                            }
                         }
-                    });
+                    );
                 });
             } else {
                 item.values.forEach((val) => {
@@ -89,8 +92,8 @@ export class ListComponent implements OnInit {
                                     element.values.forEach((el) => {
                                         if (
                                             el.conditionalParametersNames &&
-                                            el.conditionalParametersNames.length >
-                                                0
+                                            el.conditionalParametersNames
+                                                .length > 0
                                         ) {
                                             this.rightListParameters.forEach(
                                                 (param) => {
@@ -189,8 +192,8 @@ export class ListComponent implements OnInit {
                                     element.values.forEach((el) => {
                                         if (
                                             el.conditionalParametersNames &&
-                                            el.conditionalParametersNames.length >
-                                                0
+                                            el.conditionalParametersNames
+                                                .length > 0
                                         ) {
                                             this.leftListParameters.forEach(
                                                 (param) => {

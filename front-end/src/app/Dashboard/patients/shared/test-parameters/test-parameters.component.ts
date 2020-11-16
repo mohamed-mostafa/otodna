@@ -19,6 +19,7 @@ export class TestParametersComponent implements OnInit {
     @Input() savedLeftImage;
     @Input() showDialogRightData;
     @Input() showDialogLeftData;
+    @Input() readonly;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     previewRightImageUrl: any = null;
     previewLeftImageUrl: any = null;

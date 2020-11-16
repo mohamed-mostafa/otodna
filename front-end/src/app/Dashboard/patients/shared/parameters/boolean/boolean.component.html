@@ -4,6 +4,7 @@
         [value]="value.name"
         [required]="value.required"
         [(ngModel)]="value.rightVal"
+        [readonly]="readonly"
     ></p-checkbox>
 </ng-container>
 <ng-template #elseTemplate>
@@ -12,5 +13,6 @@
         [value]="value.name"
         [required]="value.required"
         [(ngModel)]="value.leftVal"
+        [readonly]="readonly"
     ></p-checkbox>
 </ng-template>

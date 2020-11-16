@@ -66,6 +66,7 @@ export class PathologyComponent implements OnInit {
     showDialogLeftData = true;
     ear;
     pathologyBreadCrumb = [];
+    readonly = false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -304,7 +305,7 @@ export class PathologyComponent implements OnInit {
             });
     }
     reset() {
-        this.searchResultItemComponent.reset();
+        // this.searchResultItemComponent.reset();
         this.selectedTest = "";
         this.selected = "";
         this.filteredTests = [];
@@ -466,6 +467,11 @@ export class PathologyComponent implements OnInit {
         });
     }
     async retrieveTestData(test, position) {
+        if (this.selectedSession.ended === "false") {
+            this.readonly = false;
+        } else {
+            this.readonly = true;
+        }
         if (position === "right") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;

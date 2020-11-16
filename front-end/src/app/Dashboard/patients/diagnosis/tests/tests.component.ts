@@ -83,6 +83,7 @@ export class TestsComponent implements OnInit {
     cogsItems = [];
     ear;
     testBreadCrumb = [];
+    readonly = false;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
@@ -600,6 +601,11 @@ export class TestsComponent implements OnInit {
             });
     }
     async retrieveTestData(test, position) {
+        if (this.selectedSession.ended === "false") {
+            this.readonly = false;
+        } else {
+            this.readonly = true;
+        }
         if (position === "right") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;

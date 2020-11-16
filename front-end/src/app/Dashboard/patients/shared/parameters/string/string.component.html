@@ -6,6 +6,7 @@
         [placeholder]="value.name"
         [required]="value.required"
         [(ngModel)]="value.rightVal"
+        [readonly]="readonly"
     />
 </ng-container>
 <ng-template #elseTemplate>
@@ -16,5 +17,6 @@
         [placeholder]="value.name"
         [required]="value.required"
         [(ngModel)]="value.leftVal"
+        [readonly]="readonly"
     />
 </ng-template>
