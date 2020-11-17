@@ -10,6 +10,7 @@
                     [disabled]="disableRightDialogTest"
                     *ngIf="!readonly"
                 ></p-checkbox>
+                <label *ngIf="readonly">R</label>
             </h2>
         </div>
         <div class="ui-g-12 ui-md-6">
@@ -22,6 +23,7 @@
                     [disabled]="disableLeftDialogTest"
                     *ngIf="!readonly"
                 ></p-checkbox>
+                <label *ngIf="readonly">L</label>
             </h2>
         </div>
         <div
