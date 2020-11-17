@@ -420,6 +420,7 @@ export class CandidacyComponent implements OnInit {
         this.openTest(event);
     }
     openTest(test) {
+        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
@@ -437,6 +438,7 @@ export class CandidacyComponent implements OnInit {
                         this.showTests = true;
                         reject(false);
                     }
+                    this.spinner.hide();
                 });
             if (result) {
                 this.selectedTestData = result;

@@ -502,6 +502,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.openTest(event);
     }
     openTest(treatment) {
+        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = treatment;
             this.savedRightFiles = [];
@@ -519,6 +520,7 @@ export class TreatmentTestsComponent implements OnInit {
                         this.showTests = true;
                         reject(false);
                     }
+                    this.spinner.hide();
                 });
             if (result) {
                 this.selectedTestData = result;

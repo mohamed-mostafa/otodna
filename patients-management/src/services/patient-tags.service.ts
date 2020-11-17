@@ -92,8 +92,14 @@ export class PatientTagsService extends DefaultTransactionalRepository<
             }
           }
         });
+
         await tx.commit();
-        resolve(returnedData);
+        const unique = [
+          ...new Map(
+            returnedData.map((item: any) => [item['value'], item]),
+          ).values(),
+        ];
+        resolve(unique);
       } catch (err) {
         await tx.rollback();
         reject(err);
