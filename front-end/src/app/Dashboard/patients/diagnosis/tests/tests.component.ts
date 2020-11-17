@@ -493,7 +493,6 @@ export class TestsComponent implements OnInit {
         this.openTest(event);
     }
     openTest(test) {
-        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
@@ -532,7 +531,6 @@ export class TestsComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
-                this.spinner.hide();
             }
         });
     }
@@ -613,6 +611,7 @@ export class TestsComponent implements OnInit {
             });
     }
     async retrieveTestData(test, position) {
+        this.spinner.show();
         if (this.selectedSession.ended === "false") {
             this.readonly = false;
         } else {
@@ -633,7 +632,6 @@ export class TestsComponent implements OnInit {
         this.savedLeftImage = [];
         this.savedRightImage = [];
         this.showTests = true;
-        this.spinner.show();
         this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
             if (res && res.length > 0) {
                 this.showSaveButton = false;

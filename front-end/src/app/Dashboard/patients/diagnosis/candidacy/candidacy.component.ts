@@ -420,7 +420,6 @@ export class CandidacyComponent implements OnInit {
         this.openTest(event);
     }
     openTest(test) {
-        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
@@ -459,7 +458,6 @@ export class CandidacyComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
-                this.spinner.hide();
             }
         });
     }
@@ -479,6 +477,7 @@ export class CandidacyComponent implements OnInit {
         });
     }
     async retrieveTestData(test, position) {
+        this.spinner.show();
         if (this.selectedSession.ended === "false") {
             this.readonly = false;
         } else {
@@ -499,7 +498,6 @@ export class CandidacyComponent implements OnInit {
         this.savedLeftImage = [];
         this.savedRightImage = [];
         this.showTests = true;
-        this.spinner.show();
         this.candidacyService
             .getTestParametersValues(test.id)
             .subscribe(async (result) => {

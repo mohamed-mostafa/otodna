@@ -502,7 +502,6 @@ export class TreatmentTestsComponent implements OnInit {
         this.openTest(event);
     }
     openTest(treatment) {
-        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = treatment;
             this.savedRightFiles = [];
@@ -541,7 +540,6 @@ export class TreatmentTestsComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
-                this.spinner.hide();
             }
         });
     }
@@ -630,6 +628,7 @@ export class TreatmentTestsComponent implements OnInit {
             });
     }
     async retrieveTestData(treatment, position) {
+        this.spinner.show();
         if (this.selectedSession.ended === "false") {
             this.readonly = false;
         } else {
@@ -650,7 +649,6 @@ export class TreatmentTestsComponent implements OnInit {
         this.savedLeftImage = [];
         this.savedRightImage = [];
         this.showTests = true;
-        this.spinner.show();
         this.treatmentService
             .getSessionTreatmentEquipment(treatment.id)
             .subscribe((res) => {
