@@ -5,16 +5,27 @@
         >
         <div class="ui-inputgroup labelMarginTop">
             <span class="ui-inputgroup-addon rightBackgroundColor">R</span>
-            <p-dropdown
-                [options]="value.values"
-                placeholder="Select Value"
-                optionLabel="name"
-                id="right-{{ value.name }}"
-                [showClear]="true"
-                [(ngModel)]="value.rightVal"
-                [readonly]="readonly"
-                (onChange)="checkRightListItem(value)"
-            ></p-dropdown>
+            <ng-container *ngIf="!readonly; else elseNotRightReadonly">
+                <p-dropdown
+                    [options]="value.values"
+                    placeholder="Select Value"
+                    optionLabel="name"
+                    id="right-{{ value.name }}"
+                    [showClear]="true"
+                    [(ngModel)]="value.rightVal"
+                    (onChange)="checkRightListItem(value)"
+                ></p-dropdown>
+            </ng-container>
+            <ng-template #elseNotRightReadonly>
+                <input
+                    type="text"
+                    pInputText
+                    id="right-{{ value.name }}"
+                    [placeholder]="value.name"
+                    [(ngModel)]="value.rightVal.name"
+                    [readonly]="readonly"
+                />
+            </ng-template>
         </div>
     </div>
     <div class="ui-g-12 ui-md-12" *ngFor="let param of rightListParameters">
@@ -35,16 +46,28 @@
         >
         <div class="ui-inputgroup labelMarginTop">
             <span class="ui-inputgroup-addon leftBackgroundColor">L</span>
-            <p-dropdown
-                [options]="value.values"
-                placeholder="Select Value"
-                optionLabel="name"
-                id="left-{{ value.name }}"
-                [showClear]="true"
-                [(ngModel)]="value.leftVal"
-                [readonly]="readonly"
-                (onChange)="checkLeftListItem(value)"
-            ></p-dropdown>
+            <ng-container *ngIf="!readonly; else elseNotLeftReadonly">
+                <p-dropdown
+                    [options]="value.values"
+                    placeholder="Select Value"
+                    optionLabel="name"
+                    id="left-{{ value.name }}"
+                    [showClear]="true"
+                    [(ngModel)]="value.leftVal"
+                    [readonly]="readonly"
+                    (onChange)="checkLeftListItem(value)"
+                ></p-dropdown>
+            </ng-container>
+            <ng-template #elseNotLeftReadonly>
+                <input
+                    type="text"
+                    pInputText
+                    id="left-{{ value.name }}"
+                    [placeholder]="value.name"
+                    [(ngModel)]="value.leftVal.name"
+                    [readonly]="readonly"
+                />
+            </ng-template>
         </div>
     </div>
     <div class="ui-g-12 ui-md-12" *ngFor="let param of leftListParameters">
