@@ -35,3 +35,6 @@
     margin-right: 10px;
     border-radius: 5px !important;
 }
+.marginLeftAndRight {
+    margin: 0px 8px !important;
+}

@@ -1,9 +1,11 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <app-patient-summary></app-patient-summary>
-<app-symptoms-summary
-    (symptomsSummaryEvent)="getSymptomsSummary($event)"
-></app-symptoms-summary>
+<div class="marginLeftAndRight">
+    <app-symptoms-summary
+        (symptomsSummaryEvent)="getSymptomsSummary($event)"
+    ></app-symptoms-summary>
+</div>
 <div class="ui-g-12 ui-md-10"></div>
 <div
     class="ui-g-12 ui-md-2"

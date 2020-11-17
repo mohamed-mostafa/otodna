@@ -1,106 +1,111 @@
 <p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <app-patient-summary></app-patient-summary>
-<p-fieldset legend="Patient Session">
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-3">
-            <label for="displayName">Display Name</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <span class="ui-inputgroup-addon backgroundColor"
-                    ><i class="pi pi-user"></i
-                ></span>
-                <input
-                    type="text"
-                    pInputText
-                    id="displayName"
-                    placeholder="Display Name"
-                    [(ngModel)]="session.displayName"
-                />
+<div class="marginLeftAndRight">
+    <p-fieldset legend="Patient Session">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-3">
+                <label for="displayName">Display Name</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <span class="ui-inputgroup-addon backgroundColor"
+                        ><i class="pi pi-user"></i
+                    ></span>
+                    <input
+                        type="text"
+                        pInputText
+                        id="displayName"
+                        placeholder="Display Name"
+                        [(ngModel)]="session.displayName"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <label for="date">Date</label>
-            <div class="labelMarginTop">
-                <p-calendar
-                    [readonlyInput]="true"
-                    placeholder="Date"
-                    [showIcon]="true"
-                    id="date"
-                    [(ngModel)]="session.date"
-                    [monthNavigator]="true"
-                    [yearNavigator]="true"
-                    yearRange="1950:2020"
-                    showButtonBar="true"
-                ></p-calendar>
+            <div class="ui-g-12 ui-md-3">
+                <label for="date">Date</label>
+                <div class="labelMarginTop">
+                    <p-calendar
+                        [readonlyInput]="true"
+                        placeholder="Date"
+                        [showIcon]="true"
+                        id="date"
+                        [(ngModel)]="session.date"
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        yearRange="1950:2020"
+                        showButtonBar="true"
+                    ></p-calendar>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <label for="performer">Performer</label>
-            <div class="ui-inputgroup labelMarginTop">
-                <span class="ui-inputgroup-addon backgroundColor"
-                    ><i class="pi pi-user"></i
-                ></span>
-                <input
-                    type="text"
-                    pInputText
-                    id="performer"
-                    placeholder="Performer"
-                    [(ngModel)]="session.performer"
-                />
+            <div class="ui-g-12 ui-md-3">
+                <label for="performer">Performer</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <span class="ui-inputgroup-addon backgroundColor"
+                        ><i class="pi pi-user"></i
+                    ></span>
+                    <input
+                        type="text"
+                        pInputText
+                        id="performer"
+                        placeholder="Performer"
+                        [(ngModel)]="session.performer"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <label for="team">Departments</label>
-            <div class="labelMarginTop">
-                <p-dropdown
-                    [options]="departments"
-                    placeholder="Select Department"
-                    optionLabel="name"
-                    id="department"
-                    [showClear]="true"
-                    [(ngModel)]="selectedDepartment"
-                ></p-dropdown>
+            <div class="ui-g-12 ui-md-3">
+                <label for="team">Departments</label>
+                <div class="labelMarginTop">
+                    <p-dropdown
+                        [options]="departments"
+                        placeholder="Select Department"
+                        optionLabel="name"
+                        id="department"
+                        [showClear]="true"
+                        [(ngModel)]="selectedDepartment"
+                    ></p-dropdown>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 removePaddingAndMargin">
-            <label class="ui-g-12 ui-md-12" for="notes">Conclusion</label>
-        </div>
-        <div class="ui-g-12 ui-md-12 removePaddingAndMargin">
-            <div class="layout-dashboard">
-                <div class="chat">
-                    <div class="new-message">
-                        <textarea
-                            [rows]="5"
-                            [cols]="30"
-                            id="notes"
-                            pInputTextarea
-                            class="backgroundColor"
-                            autoResize="autoResize"
-                            placeholder="Conclusion"
-                            [(ngModel)]="session.notes"
-                        ></textarea>
-                        <div
-                            class="new-message-footer"
-                            *ngIf="session.ended === 'false' && showAllButtons"
-                        >
-                            <a
-                                class="new-message-send floatLeft textareaGenerateStyle"
-                                (click)="generateConclusion()"
-                                ><span class="fa fa-refresh"></span> Generate</a
+            <div class="ui-g-12 ui-md-12 removePaddingAndMargin">
+                <label class="ui-g-12 ui-md-12" for="notes">Conclusion</label>
+            </div>
+            <div class="ui-g-12 ui-md-12 removePaddingAndMargin">
+                <div class="layout-dashboard">
+                    <div class="chat">
+                        <div class="new-message">
+                            <textarea
+                                [rows]="5"
+                                [cols]="30"
+                                id="notes"
+                                pInputTextarea
+                                class="backgroundColor"
+                                autoResize="autoResize"
+                                placeholder="Conclusion"
+                                [(ngModel)]="session.notes"
+                            ></textarea>
+                            <div
+                                class="new-message-footer"
+                                *ngIf="
+                                    session.ended === 'false' && showAllButtons
+                                "
                             >
-                            <a
-                                class="new-message-send floatLeft textareaEndSessionStyle"
-                                (click)="endSession()"
-                            >
-                                End Session</a
-                            >
+                                <a
+                                    class="new-message-send floatLeft textareaGenerateStyle"
+                                    (click)="generateConclusion()"
+                                    ><span class="fa fa-refresh"></span>
+                                    Generate</a
+                                >
+                                <a
+                                    class="new-message-send floatLeft textareaEndSessionStyle"
+                                    (click)="endSession()"
+                                >
+                                    End Session</a
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</p-fieldset>
+    </p-fieldset>
+</div>
 <div class="ui-g ui-fluid" *ngIf="showAllButtons">
     <div class="ui-g-12 ui-md-8"></div>
     <ng-container *ngIf="showButtons; else elseTemplate">
