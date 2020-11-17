@@ -532,6 +532,7 @@ export class TestsComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
+                this.spinner.hide();
             }
         });
     }

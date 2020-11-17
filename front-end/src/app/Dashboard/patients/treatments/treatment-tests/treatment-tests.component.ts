@@ -541,6 +541,7 @@ export class TreatmentTestsComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
+                this.spinner.hide();
             }
         });
     }

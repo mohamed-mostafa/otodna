@@ -458,6 +458,7 @@ export class PathologyComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
+                this.spinner.hide();
             }
         });
     }

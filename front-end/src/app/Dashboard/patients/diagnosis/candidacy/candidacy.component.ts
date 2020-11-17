@@ -459,6 +459,7 @@ export class CandidacyComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
+                this.spinner.hide();
             }
         });
     }
