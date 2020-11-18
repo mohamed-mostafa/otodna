@@ -362,7 +362,12 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                             this.session.notes = "Performed Treatments:";
                         }
                         for (const r of result) {
-                            this.session.notes += ` ${r.treatmentName}, `;
+                            const [last] = result.slice(-1);
+                            if (r === last) {
+                                this.session.notes += ` ${r.treatmentName} `;
+                            } else {
+                                this.session.notes += ` ${r.treatmentName}, `;
+                            }
                         }
                         this.session.notes += `\n\r`;
                     }
@@ -380,7 +385,12 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                             this.session.notes = "Patient suffers:";
                         }
                         for (const r of result) {
-                            this.session.notes += ` ${r.summaryName}, `;
+                            const [last] = result.slice(-1);
+                            if (r === last) {
+                                this.session.notes += ` ${r.summaryName} `;
+                            } else {
+                                this.session.notes += ` ${r.summaryName}, `;
+                            }
                         }
                         this.session.notes += `\n\r`;
                     }
@@ -396,7 +406,12 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                             this.session.notes = "Performed Tests:";
                         }
                         for (const r of result) {
-                            this.session.notes += ` ${r.testName}, `;
+                            const [last] = result.slice(-1);
+                            if (r === last) {
+                                this.session.notes += ` ${r.testName} `;
+                            } else {
+                                this.session.notes += ` ${r.testName}, `;
+                            }
                         }
                         this.session.notes += `\n\r`;
                     }
@@ -412,7 +427,12 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                             this.session.notes = "Pathology:";
                         }
                         for (const r of result) {
-                            this.session.notes += ` ${r.diseaseName}, `;
+                            const [last] = result.slice(-1);
+                            if (r === last) {
+                                this.session.notes += ` ${r.diseaseName} `;
+                            } else {
+                                this.session.notes += ` ${r.diseaseName}, `;
+                            }
                         }
                         this.session.notes += `\n\r`;
                     }
@@ -428,7 +448,12 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                             this.session.notes = "Recommendations:";
                         }
                         for (const r of result) {
-                            this.session.notes += ` ${r.treatmentName}, `;
+                            const [last] = result.slice(-1);
+                            if (r === last) {
+                                this.session.notes += ` ${r.treatmentName} `;
+                            } else {
+                                this.session.notes += ` ${r.treatmentName}, `;
+                            }
                         }
                         this.session.notes += `\n\r`;
                     }
