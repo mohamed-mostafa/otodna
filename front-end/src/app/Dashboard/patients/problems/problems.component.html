@@ -17,16 +17,6 @@
 >
     <p-card [style]="{ height: '300px' }">
         <div class="ui-g ui-fluid">
-            <!-- <div class="ui-g-12 ui-md-4">
-                <div class="ui-inputgroup">
-                    <input
-                        type="text"
-                        pInputText
-                        placeholder="Problem"
-                        [(ngModel)]="problem.problem"
-                    />
-                </div>
-            </div> -->
             <div class="ui-g-12 ui-md-5">
                 <p-dropdown
                     [options]="statuses"
@@ -95,7 +85,6 @@
     </p-footer>
 </p-dialog>
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12"><h2 class="centerHeader">Patient Problems</h2></div>
     <div class="ui-g-3" *ngFor="let problem of problems">
         <p-card
             class="centerHeader"

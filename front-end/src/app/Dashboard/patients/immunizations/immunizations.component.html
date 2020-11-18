@@ -36,16 +36,6 @@
                     [(ngModel)]="status"
                 ></p-dropdown>
             </div>
-            <!-- <div class="ui-g-12 ui-md-6">
-                <div class="ui-inputgroup">
-                    <input
-                        type="text"
-                        pInputText
-                        placeholder="Provider"
-                        [(ngModel)]="immunization.provider"
-                    />
-                </div>
-            </div> -->
             <div class="ui-g-12 ui-md-5">
                 <p-calendar
                     [readonlyInput]="true"
@@ -106,9 +96,6 @@
 </p-dialog>
 
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12">
-        <h2 class="centerHeader">Patient Immunizations</h2>
-    </div>
     <div class="ui-g-3" *ngFor="let immunization of immunizations">
         <p-card
             class="centerHeader"
