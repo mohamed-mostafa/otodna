@@ -9,18 +9,17 @@
         *ngFor="let test of frequentlyUsedTests"
         (click)="openTest(test)"
     >
-        <a class="pointerCursor" *ngIf="type === 'test'">
-            {{ test.testName }}</a
-        >
-        <a
-            class="pointerCursor"
-            *ngIf="type === 'treatment' || type === 'candidacy'"
-        >
-            {{ test.treatmentName }}</a
-        >
-        <a class="pointerCursor" *ngIf="type === 'pathology'">
-            {{ test.deseaseName }}</a
-        >
+        <ul>
+            <li *ngIf="type === 'test'">
+                <a class="pointerCursor"> {{ test.testName }}</a>
+            </li>
+            <li *ngIf="type === 'treatment' || type === 'candidacy'">
+                <a class="pointerCursor"> {{ test.treatmentName }}</a>
+            </li>
+            <li *ngIf="type === 'pathology'">
+                <a class="pointerCursor"> {{ test.deseaseName }}</a>
+            </li>
+        </ul>
     </div>
 </ng-container>
 <ng-template #elseTemplate>
