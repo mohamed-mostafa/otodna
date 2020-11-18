@@ -338,6 +338,7 @@ export class PathologyComponent implements OnInit {
         this.sharedClass.goToDashboard(this.router);
     }
     async getAllTests() {
+        this.spinner.show();
         const id = this.selectedSession.departmentId;
         this.documentService
             .getAllTests("diagnosisPathology")
@@ -349,6 +350,7 @@ export class PathologyComponent implements OnInit {
                         }
                     }
                 }
+                this.spinner.hide();
             })
             .catch((error) => {
                 this.showMessageComponent.showMessage(
@@ -356,6 +358,7 @@ export class PathologyComponent implements OnInit {
                     "Error",
                     "Something went error,Please try again"
                 );
+                this.spinner.hide();
             });
     }
     async filterTest(event) {

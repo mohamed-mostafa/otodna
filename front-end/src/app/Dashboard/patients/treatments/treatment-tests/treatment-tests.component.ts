@@ -461,6 +461,7 @@ export class TreatmentTestsComponent implements OnInit {
         );
     }
     async getAllTreatments() {
+        this.spinner.show();
         const id = this.selectedSession.departmentId;
         this.documentService
             .getAllTests("treatmentTests")
@@ -472,6 +473,7 @@ export class TreatmentTestsComponent implements OnInit {
                         }
                     }
                 }
+                this.spinner.hide();
             })
             .catch((error) => {
                 this.showMessageComponent.showMessage(
@@ -479,6 +481,7 @@ export class TreatmentTestsComponent implements OnInit {
                     "Error",
                     "Something went error,Please try again"
                 );
+                this.spinner.hide();
             });
     }
     getAllEquipments() {

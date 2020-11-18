@@ -455,6 +455,7 @@ export class TestsComponent implements OnInit {
         return await this.sharedClass.searchTest(query, tests, "testName");
     }
     getAllTests() {
+        this.spinner.show();
         const id = this.selectedSession.departmentId;
         this.documentService
             .getAllTests("diagnosisTests")
@@ -466,6 +467,7 @@ export class TestsComponent implements OnInit {
                         }
                     }
                 }
+                this.spinner.hide();
             })
             .catch((error) => {
                 this.showMessageComponent.showMessage(
@@ -473,6 +475,7 @@ export class TestsComponent implements OnInit {
                     "Error",
                     "Something went error,Please try again"
                 );
+                this.spinner.hide();
             });
     }
     getAllEquipments() {

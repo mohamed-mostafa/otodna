@@ -340,6 +340,7 @@ export class CandidacyComponent implements OnInit {
         this.sharedClass.goToDashboard(this.router);
     }
     async getAllTests() {
+        this.spinner.show();
         const id = this.selectedSession.departmentId;
         this.documentService
             .getAllTests("diagnosisCandidacy")
@@ -351,6 +352,7 @@ export class CandidacyComponent implements OnInit {
                         }
                     }
                 }
+                this.spinner.hide();
             })
             .catch((error) => {
                 this.showMessageComponent.showMessage(
@@ -358,6 +360,7 @@ export class CandidacyComponent implements OnInit {
                     "Error",
                     "Something went error,Please try again"
                 );
+                this.spinner.hide();
             });
     }
     async filterTest(event) {
