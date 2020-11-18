@@ -505,25 +505,26 @@ export class AppMenuComponent implements OnInit {
                                 },
                             ],
                         },
-                        {
-                            label: "Documents",
-                            icon: "fa fa-fw fa-file-text",
-                            routerLink: ["documents"],
-                        },
+
                         {
                             label: "Referrals",
                             icon: "fa fa-fw fa-user-plus",
                             routerLink: ["referrals"],
                         },
-                        {
-                            label: "Medical History",
-                            icon: "fa fa-fw fa-user-md",
-                            routerLink: ["medicalHistory"],
-                        },
+                        // {
+                        //     label: "Medical History",
+                        //     icon: "fa fa-fw fa-user-md",
+                        //     routerLink: ["medicalHistory"],
+                        // },
                         {
                             label: "Patient History",
                             icon: "fa fa-fw fa-history",
                             routerLink: ["patientHistory"],
+                        },
+                        {
+                            label: "Documents",
+                            icon: "fa fa-fw fa-file-text",
+                            routerLink: ["documents"],
                         },
                     ];
                 }
