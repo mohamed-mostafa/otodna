@@ -1,6 +1,14 @@
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-12">
-        <div class="ui-g-12 ui-md-6 rightVerticalLine">
+        <div
+            [ngClass]="
+                showDialogRightData && showDialogLeftData
+                    ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                    : showDialogRightData && !showDialogLeftData
+                    ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                    : 'ui-g-12 ui-md-2 rightVerticalLine'
+            "
+        >
             <h2 class="centerHeader removeMarginAndPadding rightColor">
                 <p-checkbox
                     label="R"
@@ -13,7 +21,15 @@
                 <label *ngIf="readonly">R</label>
             </h2>
         </div>
-        <div class="ui-g-12 ui-md-6">
+        <div
+            [ngClass]="
+                showDialogRightData && showDialogLeftData
+                    ? 'ui-g-12 ui-md-6 '
+                    : !showDialogRightData && showDialogLeftData
+                    ? 'ui-g-12 ui-md-10 '
+                    : 'ui-g-12 ui-md-2 '
+            "
+        >
             <h2 class="centerHeader removeMarginAndPadding leftColor">
                 <p-checkbox
                     label="L"
@@ -34,7 +50,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'text' && !t.conditional"
             >
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -51,7 +75,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -73,7 +105,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'number' && !t.conditional"
             >
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -93,7 +133,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -118,7 +166,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'boolean' && !t.conditional"
             >
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <div class="ui-inputgroup">
                             <span
@@ -133,7 +189,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <div class="ui-inputgroup">
                             <span
@@ -153,7 +217,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'radio' && !t.conditional"
             >
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -170,7 +242,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}">{{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -192,7 +272,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'list' && !t.conditional"
             >
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <app-list
                             [value]="t"
@@ -203,7 +291,15 @@
                         ></app-list>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <app-list
                             [value]="t"
@@ -219,7 +315,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'listWithImage' && !t.conditional"
             >
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <label for="right-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -236,7 +340,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <label for="left-{{ t.name }}"> {{ t.name }}</label>
                         <div class="ui-inputgroup labelMarginTop">
@@ -255,7 +367,15 @@
                 </div>
             </div>
             <div class="removeMarginAndPadding" *ngIf="t.type === 'image'">
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <label> {{ t.name }}</label>
                         <ng-container
@@ -394,7 +514,15 @@
                         </ng-template>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <label> {{ t.name }}</label>
                         <ng-container
@@ -530,7 +658,15 @@
                 </div>
             </div>
             <div class="removeMarginAndPadding" *ngIf="t.type === 'file'">
-                <div class="ui-g-12 ui-md-6 rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <ng-container
                             *ngIf="
@@ -604,7 +740,15 @@
                         </ng-template>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 '
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <ng-container
                             *ngIf="
@@ -699,7 +843,15 @@
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'table'"
             >
-                <div class="ui-g-12 ui-md-6 overflowX rightVerticalLine">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 overflowX rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 overflowX rightVerticalLine'
+                            : 'ui-g-12 ui-md-2 overflowX rightVerticalLine'
+                    "
+                >
                     <div *ngIf="showDialogRightData">
                         <label> {{ t.name }}</label>
                         <div class="labelMarginTop">
@@ -809,7 +961,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-g-12 ui-md-6 overflowX">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 overflowX'
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 overflowX'
+                            : 'ui-g-12 ui-md-2 overflowX'
+                    "
+                >
                     <div *ngIf="showDialogLeftData">
                         <label> {{ t.name }}</label>
                         <div class="labelMarginTop">

@@ -1,4 +1,12 @@
-<div class="ui-g-12 ui-md-6 rightVerticalLine">
+<div
+    [ngClass]="
+        showDialogRightData && showDialogLeftData
+            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+            : showDialogRightData && !showDialogLeftData
+            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+            : 'ui-g-12 ui-md-2 rightVerticalLine'
+    "
+>
     <div *ngIf="showDialogRightData">
         <p-toast [style]="{ marginTop: '80px' }"></p-toast>
         <p-chart
@@ -9,7 +17,15 @@
         ></p-chart>
     </div>
 </div>
-<div class="ui-g-12 ui-md-6">
+<div
+    [ngClass]="
+        showDialogRightData && showDialogLeftData
+            ? 'ui-g-12 ui-md-6 '
+            : !showDialogRightData && showDialogLeftData
+            ? 'ui-g-12 ui-md-10 '
+            : 'ui-g-12 ui-md-2 '
+    "
+>
     <div *ngIf="showDialogLeftData">
         <p-toast [style]="{ marginTop: '80px' }"></p-toast>
         <p-chart
