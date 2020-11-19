@@ -257,7 +257,7 @@ export class AppMenuComponent implements OnInit {
                             styleClass: "menuCss",
                         },
                         {
-                            label: "Candidacy",
+                            label: "Recommendation",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
@@ -396,7 +396,7 @@ export class AppMenuComponent implements OnInit {
                             styleClass: "menuCss",
                         },
                         {
-                            label: "Candidacy",
+                            label: "Recommendation",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
