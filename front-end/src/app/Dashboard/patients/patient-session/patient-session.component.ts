@@ -74,6 +74,9 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                     this.departments.map((item) => [item["id"], item])
                 ).values(),
             ];
+            if (this.departments.length === 1) {
+                this.selectedDepartment = this.departments[0];
+            }
         } else if (LoggedInUser.teams.length === 1) {
             this.departments.push(LoggedInUser.teams[0].department);
             this.selectedDepartment = LoggedInUser.teams[0].department;
