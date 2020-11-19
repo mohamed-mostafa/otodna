@@ -307,13 +307,6 @@ export class TreatmentTestsComponent implements OnInit {
                                 this.showEquipmentDialog(res);
                             });
                     },
-                    reject: () => {
-                        this.showMessageComponent.showMessage(
-                            "info",
-                            "Rejected",
-                            "You have rejected"
-                        );
-                    },
                 });
             });
     }
@@ -791,13 +784,6 @@ export class TreatmentTestsComponent implements OnInit {
                                 this.showEquipmentDialog(res);
                             });
                     },
-                    reject: () => {
-                        this.showMessageComponent.showMessage(
-                            "info",
-                            "Rejected",
-                            "You have rejected"
-                        );
-                    },
                 });
             });
     }
@@ -934,13 +920,6 @@ export class TreatmentTestsComponent implements OnInit {
                             .subscribe((res) => {
                                 this.showEquipmentDialog(res);
                             });
-                    },
-                    reject: () => {
-                        this.showMessageComponent.showMessage(
-                            "info",
-                            "Rejected",
-                            "You have rejected"
-                        );
                     },
                 });
             });

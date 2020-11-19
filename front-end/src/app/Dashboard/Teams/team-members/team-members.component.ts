@@ -106,13 +106,6 @@ export class TeamMembersComponent implements OnInit {
                         "Member has been deleted"
                     );
                 },
-                reject: () => {
-                    this.showMessageComponent.showMessage(
-                        "info",
-                        "Rejected",
-                        "You have rejected"
-                    );
-                },
             });
         }
     }
