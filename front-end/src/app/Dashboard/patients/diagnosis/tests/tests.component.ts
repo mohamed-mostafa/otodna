@@ -748,13 +748,6 @@ export class TestsComponent implements OnInit {
                     "Test has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     showEquipmentDialog(test) {
@@ -856,13 +849,6 @@ export class TestsComponent implements OnInit {
                         );
                         this.spinner.hide();
                     });
-            },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
             },
         });
     }

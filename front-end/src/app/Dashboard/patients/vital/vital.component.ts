@@ -208,13 +208,6 @@ export class VitalComponent implements OnInit {
                     "Vital has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     viewData(data) {

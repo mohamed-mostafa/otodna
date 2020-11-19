@@ -603,13 +603,6 @@ export class PathologyComponent implements OnInit {
                     "Pathology test has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     receiveTest(event) {

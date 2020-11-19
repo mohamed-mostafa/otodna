@@ -204,13 +204,6 @@ export class UsersComponent implements OnInit {
                     "User Approvved"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     rejectUser(selected) {
@@ -229,13 +222,6 @@ export class UsersComponent implements OnInit {
                     "success",
                     "Confirmed",
                     "User Rejected"
-                );
-            },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
                 );
             },
         });
@@ -258,13 +244,6 @@ export class UsersComponent implements OnInit {
                     "User Activated"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     deActivateUser(selected) {
@@ -283,13 +262,6 @@ export class UsersComponent implements OnInit {
                     "success",
                     "Confirmed",
                     "User deActivated"
-                );
-            },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
                 );
             },
         });

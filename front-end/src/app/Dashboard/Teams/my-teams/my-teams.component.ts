@@ -139,13 +139,6 @@ export class MyTeamsComponent implements OnInit {
                     "Team has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     openTeamMember(selected) {

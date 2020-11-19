@@ -158,3 +158,8 @@
 .cardMargin {
     margin: 25px 8px !important;
 }
+.noDataToDisplay {
+    padding: 100px 40%;
+    font-size: 17px;
+    font-weight: bold;
+}

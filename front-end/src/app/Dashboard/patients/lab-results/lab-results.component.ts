@@ -192,13 +192,6 @@ export class LabResultsComponent implements OnInit {
                     "Lab result has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     viewData(data) {

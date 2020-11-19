@@ -1,4 +1,4 @@
-import { PatientService } from './../services/patient.service';
+import { PatientService } from "./../services/patient.service";
 import { DocumentsService } from "./../../services/documents.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -105,13 +105,6 @@ export class DocumentsComponent implements OnInit {
                             "An error occured while processing your request. Please Contact the system administrator."
                         );
                     });
-            },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
             },
         });
     }

@@ -180,13 +180,6 @@ export class SessionDocumentsComponent implements OnInit {
                         );
                     });
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     removeKey(text) {

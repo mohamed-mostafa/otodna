@@ -742,13 +742,6 @@ export class TreatmentTestsComponent implements OnInit {
                     "Treatment has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     showEquipmentDialog(treatment) {
@@ -854,13 +847,6 @@ export class TreatmentTestsComponent implements OnInit {
                         );
                         this.spinner.hide();
                     });
-            },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
             },
         });
     }

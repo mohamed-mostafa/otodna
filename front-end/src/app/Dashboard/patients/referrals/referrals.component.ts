@@ -146,13 +146,6 @@ export class ReferralsComponent implements OnInit {
                     "Referral has been deleted"
                 );
             },
-            reject: () => {
-                this.showMessageComponent.showMessage(
-                    "info",
-                    "Rejected",
-                    "You have rejected"
-                );
-            },
         });
     }
     async viewData(data) {
