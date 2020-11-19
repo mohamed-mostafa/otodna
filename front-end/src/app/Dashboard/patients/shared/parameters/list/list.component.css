@@ -13,6 +13,15 @@
     margin: 0px;
     padding: 0px;
 }
-.minusMargin {
-    margin: -7px;
+.minusRightMargin {
+    margin: -10px -25px;
+}
+.minusLeftMargin {
+    margin: -10px -10px;
+}
+.marginLeft {
+    margin-left: 10px;
+}
+.marginRight {
+    margin-right: 10px;
 }

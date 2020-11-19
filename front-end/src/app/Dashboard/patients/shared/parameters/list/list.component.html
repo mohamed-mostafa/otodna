@@ -1,5 +1,5 @@
 <ng-container *ngIf="type === 'right'; else elseTemplate">
-    <div class="ui-g-12 ui-md-11 minusMargin">
+    <div class="ui-g-12 ui-md-12 minusRightMargin">
         <label for="right-{{ value.name }}">
             {{ value.displayName ? value.displayName : value.name }}</label
         >
@@ -28,7 +28,10 @@
             </ng-template>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-12" *ngFor="let param of rightListParameters">
+    <div
+        class="ui-g-12 ui-md-12 marginLeft"
+        *ngFor="let param of rightListParameters"
+    >
         <div *ngIf="param.showRight">
             <app-list
                 [value]="param"
@@ -40,7 +43,7 @@
     </div>
 </ng-container>
 <ng-template #elseTemplate>
-    <div class="ui-g-12 ui-md-11 minusMargin">
+    <div class="ui-g-12 ui-md-12 minusLeftMargin">
         <label for="left-{{ value.name }}">
             {{ value.displayName ? value.displayName : value.name }}</label
         >
@@ -70,7 +73,10 @@
             </ng-template>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-12" *ngFor="let param of leftListParameters">
+    <div
+        class="ui-g-12 ui-md-12 marginLeft"
+        *ngFor="let param of leftListParameters"
+    >
         <div *ngIf="param.showLeft">
             <app-list
                 [value]="param"
