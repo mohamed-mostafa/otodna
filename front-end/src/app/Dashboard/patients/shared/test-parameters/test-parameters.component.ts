@@ -43,6 +43,7 @@ export class TestParametersComponent implements OnInit {
     leftPointStyles = [];
     disableLeftDialogTest = false;
     disableRightDialogTest = false;
+    showTable = true;
     constructor(
         private documentService: DocumentsService,
         private patientService: PatientService
@@ -51,6 +52,11 @@ export class TestParametersComponent implements OnInit {
         this.checkCheckboxSelection();
         this.parameters.forEach((element) => {
             if (element.type === "graph") {
+                if (this.readonly) {
+                    this.showTable = false;
+                } else {
+                    this.showTable = true;
+                }
                 this.rightGraphData = {
                     labels: element.xAxis,
                     datasets: [

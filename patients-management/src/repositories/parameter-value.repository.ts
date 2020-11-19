@@ -316,7 +316,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
         if (item.type === 'table') {
           if (item.cellType === 'number') {
             for (const cell of item.cells) {
-              if (cell.left) {
+              if (cell.left || cell.left === 0) {
                 let leftObj: any = {
                   parameterName: item.name,
                   subParameterName: cell.name,
@@ -328,7 +328,7 @@ export class ParameterValueRepository extends DefaultTransactionalRepository<
                 leftObj[type] = id;
                 AllData.push(leftObj);
               }
-              if (cell.right) {
+              if (cell.right || cell.right === 0) {
                 let rightObj: any = {
                   parameterName: item.name,
                   subParameterName: cell.name,
