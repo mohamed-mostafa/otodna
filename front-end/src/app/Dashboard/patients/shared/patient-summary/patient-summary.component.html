@@ -1,6 +1,6 @@
 <div class="background">
     <div class="ui-g ui-fluid">
-        <div class="ui-g-6 ui-md-1">
+        <div class="ui-g-3 ui-md-1">
             <ng-container
                 *ngIf="selectedPatient.gender === 'M'; else elseGender"
             >
@@ -10,8 +10,8 @@
                 <img src="assets/layout/images/female.png" class="imgStyle" />
             </ng-template>
         </div>
-        <div class="ui-g-6 ui-md-11">
-            <div class="ui-g-6 ui-md-12">
+        <div class="ui-g-9 ui-md-11">
+            <div class="ui-g-12 ui-md-12">
                 <span class="patientNameSpan">
                     {{ selectedPatient.firstName }}
                     {{ selectedPatient.middleName }}
@@ -32,14 +32,14 @@
                     </ng-template>
                 </span>
             </div>
-            <div class="ui-g-6 ui-md-6">
+            <div class="ui-g-12 ui-md-6">
                 <span class="nameSpan"> Birth: </span
                 >{{ selectedPatient.dateOfBirth | date }} ({{
                     getAge(selectedPatient.dateOfBirth)
                 }}
                 y.o)
             </div>
-            <div class="ui-g-6 ui-md-6">
+            <div class="ui-g-12 ui-md-6">
                 <span class="nameSpan">Address:</span>
                 {{
                     selectedPatient.address
@@ -47,11 +47,11 @@
                         : "No Address Is Saved"
                 }}
             </div>
-            <div class="ui-g-6 ui-md-6">
+            <div class="ui-g-12 ui-md-6">
                 <span class="nameSpan"> File Number:</span>
                 {{ selectedPatient.patientNumber }}
             </div>
-            <div class="ui-g-6 ui-md-6">
+            <div class="ui-g-12 ui-md-6">
                 <span class="nameSpan">Contact:</span>
                 {{ selectedPatient.mobile }}
             </div>

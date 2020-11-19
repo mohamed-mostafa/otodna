@@ -489,6 +489,7 @@ export class TestsComponent implements OnInit {
         this.openTest(event);
     }
     openTest(test) {
+        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
@@ -527,6 +528,9 @@ export class TestsComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
+                if (this.showSaveButton) {
+                    this.spinner.hide();
+                }
             }
         });
     }
@@ -622,6 +626,7 @@ export class TestsComponent implements OnInit {
             this.showDialogLeftData = true;
             this.ear = "L";
         }
+        this.showSaveButton = false;
         await this.openTest(test);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
@@ -630,7 +635,6 @@ export class TestsComponent implements OnInit {
         this.showTests = true;
         this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
             if (res && res.length > 0) {
-                this.showSaveButton = false;
                 this.selectedTestData[0].id = test.id;
                 res.forEach((element) => {
                     this.selectedEquipments.push(element.equipmentName);

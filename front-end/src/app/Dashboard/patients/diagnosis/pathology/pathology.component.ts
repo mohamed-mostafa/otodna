@@ -422,6 +422,7 @@ export class PathologyComponent implements OnInit {
         this.openTest(obj);
     }
     openTest(test) {
+        this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = test;
             this.savedRightFiles = [];
@@ -460,6 +461,9 @@ export class PathologyComponent implements OnInit {
                     },
                 ];
                 resolve(this.selectedTestData);
+                if (this.showSaveButton) {
+                    this.spinner.hide();
+                }
             }
         });
     }
@@ -495,6 +499,7 @@ export class PathologyComponent implements OnInit {
             this.showDialogLeftData = true;
             this.ear = "L";
         }
+        this.showSaveButton = false;
         await this.openTest(test);
         this.savedRightFiles = [];
         this.savedLeftFiles = [];
@@ -509,7 +514,6 @@ export class PathologyComponent implements OnInit {
                         this.selectedTestData &&
                         this.selectedTestData.length > 0
                     ) {
-                        this.showSaveButton = false;
                         this.selectedTestData[0].id = test.id;
                         let parameters = this.selectedTestData[0].parameters;
                         if (parameters && parameters.length > 0) {
