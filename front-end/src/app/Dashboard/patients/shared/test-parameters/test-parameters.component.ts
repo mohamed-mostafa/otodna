@@ -191,7 +191,7 @@ export class TestParametersComponent implements OnInit {
             this.rightGraphValues = [];
             this.rightPointStyles = [];
             cells.forEach((cell) => {
-                if (cell.right) {
+                if (cell.right || cell.right === 0) {
                     let img;
                     if (cell.rightCheckbox) {
                         (img = new Image(20, 20)), (img.src = noResponse);
@@ -237,7 +237,7 @@ export class TestParametersComponent implements OnInit {
             this.leftGraphValues = [];
             this.leftPointStyles = [];
             cells.forEach((cell) => {
-                if (cell.left) {
+                if (cell.left || cell.left === 0) {
                     let img;
                     if (cell.leftCheckbox) {
                         (img = new Image(20, 20)), (img.src = noResponse);

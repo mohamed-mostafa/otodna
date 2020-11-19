@@ -4,7 +4,7 @@
             ? 'ui-g-12 ui-md-6 rightVerticalLine'
             : showDialogRightData && !showDialogLeftData
             ? 'ui-g-12 ui-md-10 rightVerticalLine'
-            : 'ui-g-12 ui-md-2 rightVerticalLine'
+            : 'ui-g-12 ui-md-2 '
     "
 >
     <div *ngIf="showDialogRightData">
@@ -22,7 +22,7 @@
         showDialogRightData && showDialogLeftData
             ? 'ui-g-12 ui-md-6 '
             : !showDialogRightData && showDialogLeftData
-            ? 'ui-g-12 ui-md-10 '
+            ? 'ui-g-12 ui-md-10 leftVerticalColor'
             : 'ui-g-12 ui-md-2 '
     "
 >

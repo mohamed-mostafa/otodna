@@ -1,3 +1,6 @@
 .rightVerticalLine {
     border-right: 2px solid #e0e0e0;
 }
+.leftVerticalColor {
+    border-left: 2px solid #e0e0e0;
+}
