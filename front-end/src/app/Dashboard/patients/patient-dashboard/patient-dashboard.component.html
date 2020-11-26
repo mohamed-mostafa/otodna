@@ -9,64 +9,90 @@
         <div class="ui-g-12 ui-lg-5">
             <div class="ui-g-12 ui-lg-12">
                 <div class="card timeline ui-fluid">
-                    <div class="ui-g" *ngFor="let data of patientHistoryData">
-                        <div class="ui-g-3">
-                            <br />
-                            <span>
-                                <div
-                                    class="marginBottomAndTop pointerCursor rightFloated rightMargin"
-                                    (click)="openDataPage(data)"
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <i
+                                    class="fa fa-plus-circle pointerCursor color"
+                                    (click)="menu.toggle($event); onClickMenu()"
+                                ></i>
+                            </div>
+                            <div class="ui-g-9 addBtnStyle">
+                                <span
+                                    class="event-owner color pointerCursor"
+                                    (click)="menu.toggle($event); onClickMenu()"
+                                    >Add</span
                                 >
-                                    {{ data.date | date }}
-                                </div>
-                            </span>
-                            <i
-                                *ngIf="data.sessionTypeId === 0"
-                                class="fa fa-stethoscope marginBottomAndTop pointerCursor color"
-                                (click)="openDataPage(data)"
-                            ></i>
-                            <i
-                                *ngIf="data.sessionTypeId === 1"
-                                class="fa fa-medkit marginBottomAndTop pointerCursor color"
-                                (click)="openDataPage(data)"
-                            ></i>
-                            <i
-                                *ngIf="data.sessionTypeId === 2"
-                                class="fa fa-ambulance marginBottomAndTop pointerCursor color"
-                                (click)="openDataPage(data)"
-                            ></i>
+                            </div>
+
+                            <p-menu
+                                #menu
+                                [popup]="true"
+                                [model]="addNewSessionMenu"
+                            ></p-menu>
                         </div>
-                        <div class="ui-g-9">
-                            <span
-                                *ngIf="data.sessionTypeId === 0"
-                                class="event-owner marginBottomAndTop pointerCursor"
-                                (click)="openDataPage(data)"
-                                >Diagnosis</span
-                            >
-                            <span
-                                *ngIf="data.sessionTypeId === 1"
-                                class="event-owner marginBottomAndTop pointerCursor"
-                                (click)="openDataPage(data)"
-                                >Treatment</span
-                            >
-                            <span
-                                *ngIf="data.sessionTypeId === 2"
-                                class="event-owner marginBottomAndTop pointerCursor"
-                                (click)="openDataPage(data)"
-                                >Followup</span
-                            >
-                            <span>
-                                <div
-                                    class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                        <div
+                            class="ui-g-12"
+                            *ngFor="let data of patientHistoryData"
+                        >
+                            <div class="ui-g-3">
+                                <br />
+                                <span>
+                                    <div
+                                        class="marginBottomAndTop pointerCursor rightFloated rightMargin"
+                                        (click)="openDataPage(data)"
+                                    >
+                                        {{ data.date | date }}
+                                    </div>
+                                </span>
+                                <i
+                                    *ngIf="data.sessionTypeId === 0"
+                                    class="fa fa-stethoscope marginBottomAndTop pointerCursor color"
                                     (click)="openDataPage(data)"
+                                ></i>
+                                <i
+                                    *ngIf="data.sessionTypeId === 1"
+                                    class="fa fa-medkit marginBottomAndTop pointerCursor color"
+                                    (click)="openDataPage(data)"
+                                ></i>
+                                <i
+                                    *ngIf="data.sessionTypeId === 2"
+                                    class="fa fa-ambulance marginBottomAndTop pointerCursor color"
+                                    (click)="openDataPage(data)"
+                                ></i>
+                            </div>
+                            <div class="ui-g-9">
+                                <span
+                                    *ngIf="data.sessionTypeId === 0"
+                                    class="event-owner marginBottomAndTop pointerCursor"
+                                    (click)="openDataPage(data)"
+                                    >Diagnosis</span
                                 >
-                                    {{
-                                        data.notes
-                                            ? data.notes
-                                            : "Session is not ended, Please end session"
-                                    }}
-                                </div>
-                            </span>
+                                <span
+                                    *ngIf="data.sessionTypeId === 1"
+                                    class="event-owner marginBottomAndTop pointerCursor"
+                                    (click)="openDataPage(data)"
+                                    >Treatment</span
+                                >
+                                <span
+                                    *ngIf="data.sessionTypeId === 2"
+                                    class="event-owner marginBottomAndTop pointerCursor"
+                                    (click)="openDataPage(data)"
+                                    >Followup</span
+                                >
+                                <span>
+                                    <div
+                                        class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                                        (click)="openDataPage(data)"
+                                    >
+                                        {{
+                                            data.notes
+                                                ? data.notes
+                                                : "Session is not ended, Please end session"
+                                        }}
+                                    </div>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

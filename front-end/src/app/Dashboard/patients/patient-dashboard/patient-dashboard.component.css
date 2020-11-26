@@ -42,3 +42,9 @@
     font-size: 12px;
     color: white;
 }
+.layout-dashboard .timeline > .ui-g .ui-g-3 {
+    height: 120%;
+}
+.addBtnStyle {
+    font-size: 17px;
+}

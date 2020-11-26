@@ -31,6 +31,7 @@ export class PatientDashboardComponent implements OnInit {
     lastSessionDiseasesAndRecommendations = [];
     lastAudiologyTest;
     lastSpeechTest;
+    addNewSessionMenu = [];
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
@@ -222,5 +223,30 @@ export class PatientDashboardComponent implements OnInit {
     }
     viewDocument(document) {
         this.documentService.getFileUrl(document.Key).then((data) => {});
+    }
+    onClickMenu() {
+        this.addNewSessionMenu = [
+            {
+                label: "Add Diagnosis",
+                icon: "fa fa-stethoscope",
+                command: () => {
+                    this.addDiagnosis();
+                },
+            },
+            {
+                label: "Add Treatment",
+                icon: "fa fa-medkit",
+                command: () => {
+                    this.addTreatment();
+                },
+            },
+            {
+                label: "Add Follow Up",
+                icon: "fa fa-ambulance",
+                command: () => {
+                    this.addFollowup();
+                },
+            },
+        ];
     }
 }
