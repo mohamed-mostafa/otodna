@@ -1,0 +1,44 @@
+.marginBottomAndTop {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.preLineWhiteSpace {
+    white-space: pre-line;
+}
+
+.rightFloated {
+    float: right;
+}
+.rightMargin {
+    margin-right: 10px;
+}
+.color {
+    color: #61b5a1;
+}
+.center {
+    text-align: center !important;
+}
+.col4Title {
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+.col6Title {
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 17px;
+}
+.marginBottom {
+    margin-bottom: 10px;
+}
+.tag {
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin-right: 3px;
+    font-weight: bold;
+    font-size: 12px;
+    color: white;
+}

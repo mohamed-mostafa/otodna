@@ -1,3 +1,4 @@
+import { PatientDashboardComponent } from "./patients/patient-dashboard/patient-dashboard.component";
 import { MedicalHistoryComponent } from "./patients/medical-history/medical-history.component";
 import { SymptomsSummaryComponent } from "./patients/diagnosis/symptoms-summary/symptoms-summary.component";
 import { FrequentlyUsedComponent } from "./patients/shared/frequently-used/frequently-used.component";
@@ -129,6 +130,7 @@ export const routes: Routes = [
             { path: "filesIcons", component: FilesIconsComponent },
             { path: "referrals", component: ReferralsComponent },
             { path: "medicalHistory", component: MedicalHistoryComponent },
+            { path: "patientDashboard", component: PatientDashboardComponent },
         ],
     },
 ];
@@ -195,6 +197,7 @@ export const COMPONENTS = [
     FrequentlyUsedComponent,
     SymptomsSummaryComponent,
     MedicalHistoryComponent,
+    PatientDashboardComponent,
 ];
 @NgModule({
     exports: [RouterModule],

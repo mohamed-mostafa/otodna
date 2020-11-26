@@ -12,7 +12,7 @@ export class PatientSessionService {
     constructor(private http: HttpClient) {}
     getAllSessions(patientId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.link}?filter[where][patientId][eq]=${patientId}`
+            `${this.apiUrl}/${this.link}?filter[include][][relation]=sessionTests&filter[where][patientId][eq]=${patientId}`
         );
     }
     getSessionCount(sessionTypeId, date): Observable<any> {
@@ -31,5 +31,29 @@ export class PatientSessionService {
     }
     getPatientTags(patientId): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/patientTags/${patientId}`);
+    }
+    getSessionCountByType(sessionTypeId, patientId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/count?[where][and][0][sessionTypeId][eq]=${sessionTypeId}&[where][and][1][patientId][eq]=${patientId}`
+        );
+    }
+    getLastSessionByType(sessionTypeId, patientId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}?filter[order]=id DESC&filter[limit]=1&filter[where][and][0][sessionTypeId][eq]=${sessionTypeId}&filter[where][and][1][patientId][eq]=${patientId}`
+        );
+    }
+    getLastSessionDiseasesAndRecommendation(patientId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/getLastSessionDiseasesAndRecommendation/${patientId}`
+        );
+    }
+    getLastTestByDepartmentId(
+        patientId,
+        departmentId,
+        sessionTypeId
+    ): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}?filter[order]=id DESC&filter[limit]=1&filter[include][][relation]=sessionTests&filter[where][and][0][departmentId][eq]=${departmentId}&filter[where][and][1][patientId][eq]=${patientId}&filter[where][and][2][sessionTypeId][eq]=${sessionTypeId}`
+        );
     }
 }

@@ -412,6 +412,7 @@ export class AppMenuComponent implements OnInit {
             } else {
                 localStorage.removeItem("sessionBasicInfo");
                 const array = [
+                    "patientDashboard",
                     "patient",
                     "medical/family",
                     "medical/vital",
@@ -458,6 +459,11 @@ export class AppMenuComponent implements OnInit {
                     ];
                 } else {
                     this.otherMenu = [
+                        {
+                            label: "Dashboard",
+                            icon: "fa fa-fw fa-tachometer",
+                            routerLink: ["patientDashboard"],
+                        },
                         {
                             label: "Basic Information",
                             icon: "fa fa-fw fa-info",

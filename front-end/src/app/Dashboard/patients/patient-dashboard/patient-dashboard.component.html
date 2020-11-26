@@ -1,0 +1,283 @@
+<app-patient-breadcrumb
+    [firstName]="selectedPatient.firstName"
+    [lastName]="selectedPatient.lastName"
+></app-patient-breadcrumb>
+<app-patient-summary></app-patient-summary>
+<p-toast></p-toast>
+<div class="layout-dashboard">
+    <div class="ui-g">
+        <div class="ui-g-12 ui-lg-5">
+            <div class="ui-g-12 ui-lg-12">
+                <div class="card timeline ui-fluid">
+                    <div class="ui-g" *ngFor="let data of patientHistoryData">
+                        <div class="ui-g-3">
+                            <br />
+                            <span>
+                                <div
+                                    class="marginBottomAndTop pointerCursor rightFloated rightMargin"
+                                    (click)="openDataPage(data)"
+                                >
+                                    {{ data.date | date }}
+                                </div>
+                            </span>
+                            <i
+                                *ngIf="data.sessionTypeId === 0"
+                                class="fa fa-stethoscope marginBottomAndTop pointerCursor color"
+                                (click)="openDataPage(data)"
+                            ></i>
+                            <i
+                                *ngIf="data.sessionTypeId === 1"
+                                class="fa fa-medkit marginBottomAndTop pointerCursor color"
+                                (click)="openDataPage(data)"
+                            ></i>
+                            <i
+                                *ngIf="data.sessionTypeId === 2"
+                                class="fa fa-ambulance marginBottomAndTop pointerCursor color"
+                                (click)="openDataPage(data)"
+                            ></i>
+                        </div>
+                        <div class="ui-g-9">
+                            <span
+                                *ngIf="data.sessionTypeId === 0"
+                                class="event-owner marginBottomAndTop pointerCursor"
+                                (click)="openDataPage(data)"
+                                >Diagnosis</span
+                            >
+                            <span
+                                *ngIf="data.sessionTypeId === 1"
+                                class="event-owner marginBottomAndTop pointerCursor"
+                                (click)="openDataPage(data)"
+                                >Treatment</span
+                            >
+                            <span
+                                *ngIf="data.sessionTypeId === 2"
+                                class="event-owner marginBottomAndTop pointerCursor"
+                                (click)="openDataPage(data)"
+                                >Followup</span
+                            >
+                            <span>
+                                <div
+                                    class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                                    (click)="openDataPage(data)"
+                                >
+                                    {{
+                                        data.notes
+                                            ? data.notes
+                                            : "Session is not ended, Please end session"
+                                    }}
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="ui-g-12 ui-lg-12 card"
+                *ngIf="allDocuments && allDocuments.length > 0"
+            >
+                <p-carousel
+                    [value]="allDocuments"
+                    styleClass="custom-carousel"
+                    [numVisible]="2"
+                    [numScroll]="1"
+                    [circular]="true"
+                    [autoplayInterval]="3000"
+                >
+                    <p-header>
+                        <h3 class="center col6Title">Documents</h3>
+                    </p-header>
+                    <ng-template let-document pTemplate="item">
+                        <div
+                            class="car-details"
+                            (click)="viewDocument(document)"
+                            class="pointerCursor height"
+                        >
+                            <div class="p-grid p-nogutter">
+                                <div class="p-col-12">
+                                    <app-files-icons
+                                        [key]="document.Key"
+                                    ></app-files-icons>
+                                </div>
+                                <div class="p-col-12 car-data">
+                                    <div class="car-title">
+                                        {{ removeKey(document.Key) }}
+                                    </div>
+                                    <div class="car-subtitle">
+                                        {{ formatBytes(document.Size) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-lg-7">
+            <div class="ui-g-12 ui-lg-12">
+                <p-card>
+                    <p-header>
+                        <div class="center col6Title">
+                            Diseases And Recommendations
+                        </div>
+                    </p-header>
+                    <div class="center">
+                        <ng-container
+                            *ngIf="
+                                lastSessionDiseasesAndRecommendations &&
+                                    lastSessionDiseasesAndRecommendations.length >
+                                        0;
+                                else elseNoLastDiagnosisAndRecommendations
+                            "
+                        >
+                            <span
+                                *ngFor="
+                                    let item of lastSessionDiseasesAndRecommendations
+                                "
+                            >
+                                <ng-container
+                                    *ngIf="item.treatmentId; else elsePathology"
+                                >
+                                    <span
+                                        class="tag"
+                                        style="background-color: green"
+                                        >{{ item.treatmentName }}</span
+                                    >
+                                </ng-container>
+                                <ng-template #elsePathology>
+                                    <span
+                                        class="tag"
+                                        style="background-color: orangered"
+                                        >{{ item.diseaseName }}</span
+                                    >
+                                </ng-template>
+                            </span>
+                        </ng-container>
+                        <ng-template #elseNoLastDiagnosisAndRecommendations>
+                            No Data To Show
+                        </ng-template>
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p-card>
+                    <p-header>
+                        <div class="center col4Title">Num Of Diagnosis</div>
+                    </p-header>
+                    <div class="center">
+                        {{ diagnosisCount }}
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p-card>
+                    <p-header>
+                        <div class="center col4Title">Num Of Treatments</div>
+                    </p-header>
+                    <div class="center">
+                        {{ treatmentsCount }}
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p-card>
+                    <p-header>
+                        <div class="center col4Title">Num Of Followups</div>
+                    </p-header>
+                    <div class="center">
+                        {{ followupCount }}
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-12">
+                <p-card>
+                    <p-header>
+                        <div class="center col6Title">Last Treatment</div>
+                    </p-header>
+                    <div class="center">
+                        <div class="marginBottom preLineWhiteSpace">
+                            {{
+                                lastTreatment
+                                    ? lastTreatment.notes
+                                    : "No Treatment Is Saved"
+                            }}
+                        </div>
+                        <div>
+                            {{
+                                lastTreatment ? (lastTreatment.date | date) : ""
+                            }}
+                        </div>
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-12">
+                <p-card>
+                    <p-header>
+                        <div class="center col6Title">Last Diagnosis</div>
+                    </p-header>
+                    <div class="center">
+                        <div class="marginBottom preLineWhiteSpace">
+                            {{
+                                lastDiagnosis
+                                    ? lastDiagnosis.notes
+                                    : "No Diagnosis Is Saved"
+                            }}
+                        </div>
+                        <div>
+                            {{
+                                lastDiagnosis ? (lastDiagnosis.date | date) : ""
+                            }}
+                        </div>
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-12">
+                <p-card>
+                    <p-header>
+                        <div class="center col6Title">Last Followup</div>
+                    </p-header>
+                    <div class="center">
+                        <div class="marginBottom preLineWhiteSpace">
+                            {{
+                                lastFollowup
+                                    ? lastFollowup.notes
+                                    : "No Followup Is Saved"
+                            }}
+                        </div>
+                        <div>
+                            {{ lastFollowup ? (lastFollowup.date | date) : "" }}
+                        </div>
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-6">
+                <p-card>
+                    <p-header>
+                        <div class="center col4Title">Last Audiology Test</div>
+                    </p-header>
+                    <div class="center">
+                        {{
+                            lastAudiologyTest
+                                ? lastAudiologyTest.testName
+                                : "No Audiology Test Is Saved"
+                        }}
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-6">
+                <p-card>
+                    <p-header>
+                        <div class="center col4Title">Last Speech Test</div>
+                    </p-header>
+                    <div class="center">
+                        {{
+                            lastSpeechTest
+                                ? lastSpeechTest.testName
+                                : "No Speech Test Is Saved"
+                        }}
+                    </div>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>

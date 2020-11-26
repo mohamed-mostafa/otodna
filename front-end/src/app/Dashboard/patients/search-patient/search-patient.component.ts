@@ -98,7 +98,7 @@ export class SearchPatientComponent implements OnInit {
         this.router
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
-                this.router.navigate(["/dashboard/patient"]);
+                this.router.navigate(["/dashboard/patientDashboard"]);
             });
     }
     searchAdvanced() {

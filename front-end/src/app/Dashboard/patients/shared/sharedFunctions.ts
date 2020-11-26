@@ -75,7 +75,7 @@ export class SharedClass {
         router
             .navigateByUrl("/RefreshComponent", { skipLocationChange: true })
             .then(() => {
-                router.navigate(["/dashboard/patient"]);
+                router.navigate(["/dashboard/patientDashboard"]);
             });
     }
     goToDashboard(router) {

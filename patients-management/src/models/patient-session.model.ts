@@ -1,4 +1,7 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {SessionTest} from './session-test.model';
+import {SessionTreatment} from './session-treatment.model';
+import {PatientSessionPathology} from './patient-session-pathology.model';
 
 @model({
   settings: {
@@ -170,6 +173,14 @@ export class PatientSession extends Entity {
   })
   ended?: string;
 
+  @hasMany(() => SessionTest)
+  sessionTests: SessionTest[];
+
+  @hasMany(() => SessionTreatment)
+  sessionTreatments: SessionTreatment[];
+
+  @hasMany(() => PatientSessionPathology)
+  patientSessionPathologies: PatientSessionPathology[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
