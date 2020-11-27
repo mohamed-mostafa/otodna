@@ -6,3 +6,6 @@
         </li>
     </ul>
 </div>
+<div class="summary ui-g-12 ui-md-12" style="text-align: center;" *ngIf="selectedSession.ended == 'true' && symptoms.length == 0">
+    <b>No symptoms were recorded for this session.</b>
+</div>

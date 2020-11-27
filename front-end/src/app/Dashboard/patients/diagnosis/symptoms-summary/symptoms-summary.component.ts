@@ -29,11 +29,12 @@ export class SymptomsSummaryComponent implements OnInit {
                             name: element.summaryName,
                         });
                     });
-                } else {
-                    if (this.selectedSession.ended === "true") {
-                        this.symptoms.push({ name: "No Symptoms" });
-                    }
-                }
+                } 
+                // else {
+                //     if (this.selectedSession.ended === "true") {
+                //         this.symptoms.push({ name: "No Symptoms" });
+                //     }
+                // }
                 this.symptomsSummaryEvent.emit(this.symptoms);
             });
     }
