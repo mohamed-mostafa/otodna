@@ -126,7 +126,7 @@ export class TestsComponent implements OnInit {
                 label:
                     this.selectedSession.ended === "false"
                         ? "End Session"
-                        : "This Session Is Ended",
+                        : "This session is ended",
                 command: () => {
                     this.endSession();
                 },

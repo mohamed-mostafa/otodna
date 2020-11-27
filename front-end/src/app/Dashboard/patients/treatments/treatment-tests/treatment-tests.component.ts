@@ -128,7 +128,7 @@ export class TreatmentTestsComponent implements OnInit {
                 label:
                     this.selectedSession.ended === "false"
                         ? "End Session"
-                        : "This Session Is Ended",
+                        : "This session is ended",
                 command: () => {
                     this.endSession();
                 },
@@ -442,7 +442,7 @@ export class TreatmentTestsComponent implements OnInit {
                 this.showMessageComponent.showMessage(
                     "error",
                     "Error",
-                    "Something went error,Please try again"
+                    "Something went wrong. Please try again or contact the system administrator."
                 );
             });
     }
@@ -472,7 +472,7 @@ export class TreatmentTestsComponent implements OnInit {
                 this.showMessageComponent.showMessage(
                     "error",
                     "Error",
-                    "Something went error,Please try again"
+                    "Something went wrong. Please try again or contact the system administrator."
                 );
                 this.spinner.hide();
             });
@@ -487,7 +487,7 @@ export class TreatmentTestsComponent implements OnInit {
                 this.showMessageComponent.showMessage(
                     "error",
                     "Error",
-                    "Something went error,Please try again"
+                    "Something went wrong. Please try again or contact the system administrator."
                 );
             });
     }
@@ -578,7 +578,7 @@ export class TreatmentTestsComponent implements OnInit {
                 this.showMessageComponent.showMessage(
                     "error",
                     "Error",
-                    "Something went error,Please try again"
+                    "Something went wrong. Please try again or contact the system administrator."
                 );
             });
     }

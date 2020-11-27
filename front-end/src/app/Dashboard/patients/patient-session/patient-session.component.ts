@@ -127,7 +127,7 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                 label: this.selectedSession
                     ? this.selectedSession.ended === "false"
                         ? "End Session"
-                        : "This Session Is Ended"
+                        : "This session is ended"
                     : "",
                 command: () => {
                     this.endSession();
