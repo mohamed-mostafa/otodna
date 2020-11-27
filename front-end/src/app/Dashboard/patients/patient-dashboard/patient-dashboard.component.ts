@@ -205,6 +205,10 @@ export class PatientDashboardComponent implements OnInit {
             .subscribe(async (result) => {
                 this.lastSessionDiseasesAndRecommendations = result;
                 this.showDiseasesAndRecommendationLoading = false;
+            }, async(error) => {
+                console.log(error);
+                this.lastSessionDiseasesAndRecommendations = [];
+                this.showDiseasesAndRecommendationLoading = false;
             });
     }
     getAllDocuments() {

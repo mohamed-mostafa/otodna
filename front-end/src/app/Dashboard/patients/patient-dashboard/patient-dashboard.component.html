@@ -110,61 +110,29 @@
                                     </span>
                                 </div>
                             </div>
-                        </ng-template>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-lg-12 card">
-                <ng-container
-                    *ngIf="showDocumentsLoading; else notShowDocumentsLoading"
-                >
-                    <h3 class="center col6Title">Documents</h3>
-                    <div class="center">
-                        <p-progressSpinner
-                            [style]="{ width: '80px', height: '80px' }"
-                            strokeWidth="8"
-                            fill="#EEEEEE"
-                            animationDuration=".5s"
-                        ></p-progressSpinner>
-                    </div>
-                </ng-container>
-                <ng-template #notShowDocumentsLoading>
-                    <p-carousel
-                        [value]="allDocuments"
-                        styleClass="custom-carousel"
-                        [numVisible]="2"
-                        [numScroll]="1"
-                        [circular]="true"
-                        [autoplayInterval]="3000"
-                    >
-                        <p-header>
-                            <h3 class="center col6Title">Documents</h3>
-                        </p-header>
-                        <ng-template let-document pTemplate="item">
-                            <div
-                                class="car-details"
-                                (click)="viewDocument(document)"
-                                class="pointerCursor height"
-                            >
-                                <div class="p-grid p-nogutter">
-                                    <div class="p-col-12">
-                                        <app-files-icons
-                                            [key]="document.Key"
-                                        ></app-files-icons>
-                                    </div>
-                                    <div class="p-col-12 car-data">
-                                        <div class="car-title">
-                                            {{ removeKey(document.Key) }}
+                            <div class="ui-g-12">
+                                <div class="ui-g-3">
+                                    <span>
+                                        <div
+                                            class="rightFloated rightMargin"
+                                        >
+                                            {{ selectedPatient.dateOfBirth | date }}
                                         </div>
-                                        <div class="car-subtitle">
-                                            {{ formatBytes(document.Size) }}
-                                        </div>
-                                    </div>
+                                    </span>
+                                    <i
+                                        class="fa fa-child color"
+                                    ></i>
+                                </div>
+                                <div class="ui-g-9">
+                                    <span
+                                        class="event-owner"
+                                        >Born</span
+                                    >
                                 </div>
                             </div>
                         </ng-template>
-                    </p-carousel>
-                </ng-template>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="ui-g-12 ui-lg-7">
@@ -172,7 +140,7 @@
                 <p-card>
                     <p-header>
                         <div class="center col6Title">
-                            Diseases And Recommendations
+                            Diseases and recommendations
                         </div>
                     </p-header>
                     <div class="center">
@@ -225,7 +193,7 @@
                                 </span>
                             </ng-container>
                             <ng-template #elseNoLastDiagnosisAndRecommendations>
-                                No Data To Show
+                                No data found
                             </ng-template>
                         </ng-template>
                     </div>
@@ -234,7 +202,7 @@
             <div class="ui-g-12 ui-lg-4">
                 <p-card>
                     <p-header>
-                        <div class="center col4Title">Num Of Diagnosis</div>
+                        <div class="center col4Title">Number of diagnosis</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -259,7 +227,7 @@
             <div class="ui-g-12 ui-lg-4">
                 <p-card>
                     <p-header>
-                        <div class="center col4Title">Num Of Treatments</div>
+                        <div class="center col4Title">Number of treatments</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -284,7 +252,7 @@
             <div class="ui-g-12 ui-lg-4">
                 <p-card>
                     <p-header>
-                        <div class="center col4Title">Num Of Followups</div>
+                        <div class="center col4Title">Number of follow-ups</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -309,7 +277,7 @@
             <div class="ui-g-12 ui-lg-12">
                 <p-card>
                     <p-header>
-                        <div class="center col6Title">Last Treatment</div>
+                        <div class="center col6Title">Last treatment</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -330,7 +298,7 @@
                                 {{
                                     lastTreatment
                                         ? lastTreatment.notes
-                                        : "No Treatment Is Saved"
+                                        : "No treatments found"
                                 }}
                             </div>
                             <div>
@@ -347,7 +315,7 @@
             <div class="ui-g-12 ui-lg-12">
                 <p-card>
                     <p-header>
-                        <div class="center col6Title">Last Diagnosis</div>
+                        <div class="center col6Title">Last diagnosis</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -368,7 +336,7 @@
                                 {{
                                     lastDiagnosis
                                         ? lastDiagnosis.notes
-                                        : "No Diagnosis Is Saved"
+                                        : "No diagnosis found"
                                 }}
                             </div>
                             <div>
@@ -385,7 +353,7 @@
             <div class="ui-g-12 ui-lg-12">
                 <p-card>
                     <p-header>
-                        <div class="center col6Title">Last Followup</div>
+                        <div class="center col6Title">Last follow-up</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -406,7 +374,7 @@
                                 {{
                                     lastFollowup
                                         ? lastFollowup.notes
-                                        : "No Followup Is Saved"
+                                        : "No follow-ups found"
                                 }}
                             </div>
                             <div>
@@ -423,7 +391,7 @@
             <div class="ui-g-12 ui-lg-6">
                 <p-card>
                     <p-header>
-                        <div class="center col4Title">Last Audiology Test</div>
+                        <div class="center col4Title">Last audiology test</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -443,7 +411,7 @@
                             {{
                                 lastAudiologyTest
                                     ? lastAudiologyTest.testName
-                                    : "No Audiology Test Is Saved"
+                                    : "No audiology tests found"
                             }}
                         </ng-template>
                     </div>
@@ -452,7 +420,7 @@
             <div class="ui-g-12 ui-lg-6">
                 <p-card>
                     <p-header>
-                        <div class="center col4Title">Last Speech Test</div>
+                        <div class="center col4Title">Last speech test</div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -472,11 +440,63 @@
                             {{
                                 lastSpeechTest
                                     ? lastSpeechTest.testName
-                                    : "No Speech Test Is Saved"
+                                    : "No speech tests found"
                             }}
                         </ng-template>
                     </div>
                 </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-12 card">
+                <ng-container
+                    *ngIf="showDocumentsLoading; else notShowDocumentsLoading"
+                >
+                    <h3 class="center col6Title">Documents</h3>
+                    <div class="center">
+                        <p-progressSpinner
+                            [style]="{ width: '80px', height: '80px' }"
+                            strokeWidth="8"
+                            fill="#EEEEEE"
+                            animationDuration=".5s"
+                        ></p-progressSpinner>
+                    </div>
+                </ng-container>
+                <ng-template #notShowDocumentsLoading>
+                    <p-carousel
+                        [value]="allDocuments"
+                        styleClass="custom-carousel"
+                        [numVisible]="2"
+                        [numScroll]="1"
+                        [circular]="true"
+                        [autoplayInterval]="3000"
+                    >
+                        <p-header>
+                            <h3 class="center col6Title">Documents</h3>
+                        </p-header>
+                        <ng-template let-document pTemplate="item">
+                            <div
+                                class="car-details"
+                                (click)="viewDocument(document)"
+                                class="pointerCursor height"
+                            >
+                                <div class="p-grid p-nogutter">
+                                    <div class="p-col-12">
+                                        <app-files-icons
+                                            [key]="document.Key"
+                                        ></app-files-icons>
+                                    </div>
+                                    <div class="p-col-12 car-data">
+                                        <div class="car-title">
+                                            {{ removeKey(document.Key) }}
+                                        </div>
+                                        <div class="car-subtitle">
+                                            {{ formatBytes(document.Size) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </ng-template>
             </div>
         </div>
     </div>
