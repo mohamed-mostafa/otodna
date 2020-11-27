@@ -63,7 +63,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { TreeModule } from "primeng/tree";
 import { TreeTableModule } from "primeng/treetable";
 import { VirtualScrollerModule } from "primeng/virtualscroller";
-import { KeyFilterModule } from "primeng";
+import { KeyFilterModule, ProgressSpinnerModule } from "primeng";
 
 export const PrimeNgComponents = [
     AccordionModule,
@@ -132,4 +132,5 @@ export const PrimeNgComponents = [
     TreeTableModule,
     VirtualScrollerModule,
     KeyFilterModule,
+    ProgressSpinnerModule,
 ];

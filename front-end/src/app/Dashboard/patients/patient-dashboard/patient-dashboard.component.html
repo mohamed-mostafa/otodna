@@ -31,111 +31,140 @@
                                 [model]="addNewSessionMenu"
                             ></p-menu>
                         </div>
-                        <div
-                            class="ui-g-12"
-                            *ngFor="let data of patientHistoryData"
+                        <ng-container
+                            *ngIf="
+                                showPatientHistoryLoading;
+                                else notShowPatientHistoryLoading
+                            "
                         >
-                            <div class="ui-g-3">
-                                <br />
-                                <span>
-                                    <div
-                                        class="marginBottomAndTop pointerCursor rightFloated rightMargin"
-                                        (click)="openDataPage(data)"
-                                    >
-                                        {{ data.date | date }}
-                                    </div>
-                                </span>
-                                <i
-                                    *ngIf="data.sessionTypeId === 0"
-                                    class="fa fa-stethoscope marginBottomAndTop pointerCursor color"
-                                    (click)="openDataPage(data)"
-                                ></i>
-                                <i
-                                    *ngIf="data.sessionTypeId === 1"
-                                    class="fa fa-medkit marginBottomAndTop pointerCursor color"
-                                    (click)="openDataPage(data)"
-                                ></i>
-                                <i
-                                    *ngIf="data.sessionTypeId === 2"
-                                    class="fa fa-ambulance marginBottomAndTop pointerCursor color"
-                                    (click)="openDataPage(data)"
-                                ></i>
+                            <div class="ui-g-12 center">
+                                <p-progressSpinner
+                                    strokeWidth="8"
+                                    fill="#EEEEEE"
+                                    animationDuration=".5s"
+                                    class="center"
+                                ></p-progressSpinner>
                             </div>
-                            <div class="ui-g-9">
-                                <span
-                                    *ngIf="data.sessionTypeId === 0"
-                                    class="event-owner marginBottomAndTop pointerCursor"
-                                    (click)="openDataPage(data)"
-                                    >Diagnosis</span
-                                >
-                                <span
-                                    *ngIf="data.sessionTypeId === 1"
-                                    class="event-owner marginBottomAndTop pointerCursor"
-                                    (click)="openDataPage(data)"
-                                    >Treatment</span
-                                >
-                                <span
-                                    *ngIf="data.sessionTypeId === 2"
-                                    class="event-owner marginBottomAndTop pointerCursor"
-                                    (click)="openDataPage(data)"
-                                    >Followup</span
-                                >
-                                <span>
-                                    <div
-                                        class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                        </ng-container>
+                        <ng-template #notShowPatientHistoryLoading>
+                            <div
+                                class="ui-g-12"
+                                *ngFor="let data of patientHistoryData"
+                            >
+                                <div class="ui-g-3">
+                                    <br />
+                                    <span>
+                                        <div
+                                            class="marginBottomAndTop pointerCursor rightFloated rightMargin"
+                                            (click)="openDataPage(data)"
+                                        >
+                                            {{ data.date | date }}
+                                        </div>
+                                    </span>
+                                    <i
+                                        *ngIf="data.sessionTypeId === 0"
+                                        class="fa fa-stethoscope marginBottomAndTop pointerCursor color"
                                         (click)="openDataPage(data)"
+                                    ></i>
+                                    <i
+                                        *ngIf="data.sessionTypeId === 1"
+                                        class="fa fa-medkit marginBottomAndTop pointerCursor color"
+                                        (click)="openDataPage(data)"
+                                    ></i>
+                                    <i
+                                        *ngIf="data.sessionTypeId === 2"
+                                        class="fa fa-ambulance marginBottomAndTop pointerCursor color"
+                                        (click)="openDataPage(data)"
+                                    ></i>
+                                </div>
+                                <div class="ui-g-9">
+                                    <span
+                                        *ngIf="data.sessionTypeId === 0"
+                                        class="event-owner marginBottomAndTop pointerCursor"
+                                        (click)="openDataPage(data)"
+                                        >Diagnosis</span
                                     >
-                                        {{
-                                            data.notes
-                                                ? data.notes
-                                                : "Session is not ended, Please end session"
-                                        }}
-                                    </div>
-                                </span>
+                                    <span
+                                        *ngIf="data.sessionTypeId === 1"
+                                        class="event-owner marginBottomAndTop pointerCursor"
+                                        (click)="openDataPage(data)"
+                                        >Treatment</span
+                                    >
+                                    <span
+                                        *ngIf="data.sessionTypeId === 2"
+                                        class="event-owner marginBottomAndTop pointerCursor"
+                                        (click)="openDataPage(data)"
+                                        >Followup</span
+                                    >
+                                    <span>
+                                        <div
+                                            class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                                            (click)="openDataPage(data)"
+                                        >
+                                            {{
+                                                data.notes
+                                                    ? data.notes
+                                                    : "Session is not ended, Please end session"
+                                            }}
+                                        </div>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        </ng-template>
                     </div>
                 </div>
             </div>
-            <div
-                class="ui-g-12 ui-lg-12 card"
-                *ngIf="allDocuments && allDocuments.length > 0"
-            >
-                <p-carousel
-                    [value]="allDocuments"
-                    styleClass="custom-carousel"
-                    [numVisible]="2"
-                    [numScroll]="1"
-                    [circular]="true"
-                    [autoplayInterval]="3000"
+            <div class="ui-g-12 ui-lg-12 card">
+                <ng-container
+                    *ngIf="showDocumentsLoading; else notShowDocumentsLoading"
                 >
-                    <p-header>
-                        <h3 class="center col6Title">Documents</h3>
-                    </p-header>
-                    <ng-template let-document pTemplate="item">
-                        <div
-                            class="car-details"
-                            (click)="viewDocument(document)"
-                            class="pointerCursor height"
-                        >
-                            <div class="p-grid p-nogutter">
-                                <div class="p-col-12">
-                                    <app-files-icons
-                                        [key]="document.Key"
-                                    ></app-files-icons>
-                                </div>
-                                <div class="p-col-12 car-data">
-                                    <div class="car-title">
-                                        {{ removeKey(document.Key) }}
+                    <h3 class="center col6Title">Documents</h3>
+                    <div class="center">
+                        <p-progressSpinner
+                            [style]="{ width: '80px', height: '80px' }"
+                            strokeWidth="8"
+                            fill="#EEEEEE"
+                            animationDuration=".5s"
+                        ></p-progressSpinner>
+                    </div>
+                </ng-container>
+                <ng-template #notShowDocumentsLoading>
+                    <p-carousel
+                        [value]="allDocuments"
+                        styleClass="custom-carousel"
+                        [numVisible]="2"
+                        [numScroll]="1"
+                        [circular]="true"
+                        [autoplayInterval]="3000"
+                    >
+                        <p-header>
+                            <h3 class="center col6Title">Documents</h3>
+                        </p-header>
+                        <ng-template let-document pTemplate="item">
+                            <div
+                                class="car-details"
+                                (click)="viewDocument(document)"
+                                class="pointerCursor height"
+                            >
+                                <div class="p-grid p-nogutter">
+                                    <div class="p-col-12">
+                                        <app-files-icons
+                                            [key]="document.Key"
+                                        ></app-files-icons>
                                     </div>
-                                    <div class="car-subtitle">
-                                        {{ formatBytes(document.Size) }}
+                                    <div class="p-col-12 car-data">
+                                        <div class="car-title">
+                                            {{ removeKey(document.Key) }}
+                                        </div>
+                                        <div class="car-subtitle">
+                                            {{ formatBytes(document.Size) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-template>
-                </p-carousel>
+                        </ng-template>
+                    </p-carousel>
+                </ng-template>
             </div>
         </div>
         <div class="ui-g-12 ui-lg-7">
@@ -149,37 +178,55 @@
                     <div class="center">
                         <ng-container
                             *ngIf="
-                                lastSessionDiseasesAndRecommendations &&
-                                    lastSessionDiseasesAndRecommendations.length >
-                                        0;
-                                else elseNoLastDiagnosisAndRecommendations
+                                showDiseasesAndRecommendationLoading;
+                                else notShowDiseasesAndRecommendationLoading
                             "
                         >
-                            <span
-                                *ngFor="
-                                    let item of lastSessionDiseasesAndRecommendations
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowDiseasesAndRecommendationLoading>
+                            <ng-container
+                                *ngIf="
+                                    lastSessionDiseasesAndRecommendations &&
+                                        lastSessionDiseasesAndRecommendations.length >
+                                            0;
+                                    else elseNoLastDiagnosisAndRecommendations
                                 "
                             >
-                                <ng-container
-                                    *ngIf="item.treatmentId; else elsePathology"
+                                <span
+                                    *ngFor="
+                                        let item of lastSessionDiseasesAndRecommendations
+                                    "
                                 >
-                                    <span
-                                        class="tag"
-                                        style="background-color: green"
-                                        >{{ item.treatmentName }}</span
+                                    <ng-container
+                                        *ngIf="
+                                            item.treatmentId;
+                                            else elsePathology
+                                        "
                                     >
-                                </ng-container>
-                                <ng-template #elsePathology>
-                                    <span
-                                        class="tag"
-                                        style="background-color: orangered"
-                                        >{{ item.diseaseName }}</span
-                                    >
-                                </ng-template>
-                            </span>
-                        </ng-container>
-                        <ng-template #elseNoLastDiagnosisAndRecommendations>
-                            No Data To Show
+                                        <span
+                                            class="tag"
+                                            style="background-color: green"
+                                            >{{ item.treatmentName }}</span
+                                        >
+                                    </ng-container>
+                                    <ng-template #elsePathology>
+                                        <span
+                                            class="tag"
+                                            style="background-color: orangered"
+                                            >{{ item.diseaseName }}</span
+                                        >
+                                    </ng-template>
+                                </span>
+                            </ng-container>
+                            <ng-template #elseNoLastDiagnosisAndRecommendations>
+                                No Data To Show
+                            </ng-template>
                         </ng-template>
                     </div>
                 </p-card>
@@ -190,7 +237,22 @@
                         <div class="center col4Title">Num Of Diagnosis</div>
                     </p-header>
                     <div class="center">
-                        {{ diagnosisCount }}
+                        <ng-container
+                            *ngIf="
+                                showNumberOfDiagnosisLoading;
+                                else notShowNumberOfDiagnosisLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowNumberOfDiagnosisLoading>
+                            {{ diagnosisCount }}
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -200,7 +262,22 @@
                         <div class="center col4Title">Num Of Treatments</div>
                     </p-header>
                     <div class="center">
-                        {{ treatmentsCount }}
+                        <ng-container
+                            *ngIf="
+                                showNumberOfTreatmentsLoading;
+                                else notShowNumberOfTreatmentsLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowNumberOfTreatmentsLoading>
+                            {{ treatmentsCount }}
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -210,7 +287,22 @@
                         <div class="center col4Title">Num Of Followups</div>
                     </p-header>
                     <div class="center">
-                        {{ followupCount }}
+                        <ng-container
+                            *ngIf="
+                                showNumberOfFollowupsLoading;
+                                else notShowNumberOfFollowupsLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowNumberOfFollowupsLoading>
+                            {{ followupCount }}
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -220,18 +312,35 @@
                         <div class="center col6Title">Last Treatment</div>
                     </p-header>
                     <div class="center">
-                        <div class="marginBottom preLineWhiteSpace">
-                            {{
-                                lastTreatment
-                                    ? lastTreatment.notes
-                                    : "No Treatment Is Saved"
-                            }}
-                        </div>
-                        <div>
-                            {{
-                                lastTreatment ? (lastTreatment.date | date) : ""
-                            }}
-                        </div>
+                        <ng-container
+                            *ngIf="
+                                showLastTreatmentLoading;
+                                else notShowLastTreatmentLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowLastTreatmentLoading>
+                            <div class="marginBottom preLineWhiteSpace">
+                                {{
+                                    lastTreatment
+                                        ? lastTreatment.notes
+                                        : "No Treatment Is Saved"
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    lastTreatment
+                                        ? (lastTreatment.date | date)
+                                        : ""
+                                }}
+                            </div>
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -241,18 +350,35 @@
                         <div class="center col6Title">Last Diagnosis</div>
                     </p-header>
                     <div class="center">
-                        <div class="marginBottom preLineWhiteSpace">
-                            {{
-                                lastDiagnosis
-                                    ? lastDiagnosis.notes
-                                    : "No Diagnosis Is Saved"
-                            }}
-                        </div>
-                        <div>
-                            {{
-                                lastDiagnosis ? (lastDiagnosis.date | date) : ""
-                            }}
-                        </div>
+                        <ng-container
+                            *ngIf="
+                                showLastDiagnosisLoading;
+                                else notShowLastDiagnosisLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowLastDiagnosisLoading>
+                            <div class="marginBottom preLineWhiteSpace">
+                                {{
+                                    lastDiagnosis
+                                        ? lastDiagnosis.notes
+                                        : "No Diagnosis Is Saved"
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    lastDiagnosis
+                                        ? (lastDiagnosis.date | date)
+                                        : ""
+                                }}
+                            </div>
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -262,16 +388,35 @@
                         <div class="center col6Title">Last Followup</div>
                     </p-header>
                     <div class="center">
-                        <div class="marginBottom preLineWhiteSpace">
-                            {{
-                                lastFollowup
-                                    ? lastFollowup.notes
-                                    : "No Followup Is Saved"
-                            }}
-                        </div>
-                        <div>
-                            {{ lastFollowup ? (lastFollowup.date | date) : "" }}
-                        </div>
+                        <ng-container
+                            *ngIf="
+                                showLastFollowupLoading;
+                                else notShowLastFollowupLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowLastFollowupLoading>
+                            <div class="marginBottom preLineWhiteSpace">
+                                {{
+                                    lastFollowup
+                                        ? lastFollowup.notes
+                                        : "No Followup Is Saved"
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    lastFollowup
+                                        ? (lastFollowup.date | date)
+                                        : ""
+                                }}
+                            </div>
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -281,11 +426,26 @@
                         <div class="center col4Title">Last Audiology Test</div>
                     </p-header>
                     <div class="center">
-                        {{
-                            lastAudiologyTest
-                                ? lastAudiologyTest.testName
-                                : "No Audiology Test Is Saved"
-                        }}
+                        <ng-container
+                            *ngIf="
+                                showLastAudiologyTestLoading;
+                                else notShowLastAudiologyTestLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowLastAudiologyTestLoading>
+                            {{
+                                lastAudiologyTest
+                                    ? lastAudiologyTest.testName
+                                    : "No Audiology Test Is Saved"
+                            }}
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
@@ -295,15 +455,29 @@
                         <div class="center col4Title">Last Speech Test</div>
                     </p-header>
                     <div class="center">
-                        {{
-                            lastSpeechTest
-                                ? lastSpeechTest.testName
-                                : "No Speech Test Is Saved"
-                        }}
+                        <ng-container
+                            *ngIf="
+                                showLastSpeechTestLoading;
+                                else notShowLastSpeechTestLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowLastSpeechTestLoading>
+                            {{
+                                lastSpeechTest
+                                    ? lastSpeechTest.testName
+                                    : "No Speech Test Is Saved"
+                            }}
+                        </ng-template>
                     </div>
                 </p-card>
             </div>
         </div>
     </div>
 </div>
-<ngx-spinner></ngx-spinner>

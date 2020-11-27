@@ -1,6 +1,5 @@
 import { DocumentsService } from "./../../services/documents.service";
 import { PatientService } from "./../services/patient.service";
-import { NgxSpinnerService } from "ngx-spinner";
 import { PatientSessionService } from "./../services/patient-session.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
@@ -32,13 +31,23 @@ export class PatientDashboardComponent implements OnInit {
     lastAudiologyTest;
     lastSpeechTest;
     addNewSessionMenu = [];
+    showDiseasesAndRecommendationLoading = false;
+    showNumberOfDiagnosisLoading = false;
+    showNumberOfTreatmentsLoading = false;
+    showNumberOfFollowupsLoading = false;
+    showLastTreatmentLoading = false;
+    showLastDiagnosisLoading = false;
+    showLastFollowupLoading = false;
+    showLastAudiologyTestLoading = false;
+    showLastSpeechTestLoading = false;
+    showPatientHistoryLoading = false;
+    showDocumentsLoading = false;
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
         private patientService: PatientService,
         private documentService: DocumentsService,
-        private messageService: MessageService,
-        private spinner: NgxSpinnerService
+        private messageService: MessageService
     ) {}
 
     ngOnInit(): void {
@@ -78,7 +87,7 @@ export class PatientDashboardComponent implements OnInit {
         this.sharedClass.goToDashboard(this.router);
     }
     getPatientHistoryData() {
-        this.spinner.show();
+        this.showPatientHistoryLoading = true;
         this.patientSession
             .getAllSessions(this.selectedPatient.id)
             .subscribe(async (result) => {
@@ -88,7 +97,7 @@ export class PatientDashboardComponent implements OnInit {
                         new Date(b.date).getTime() - new Date(a.date).getTime()
                 );
 
-                this.spinner.hide();
+                this.showPatientHistoryLoading = false;
             });
     }
     openDataPage(data) {
@@ -102,67 +111,67 @@ export class PatientDashboardComponent implements OnInit {
         }
     }
     async getDiagnosisCount() {
-        this.spinner.show();
+        this.showNumberOfDiagnosisLoading = true;
         this.patientSession
             .getSessionCountByType(0, this.selectedPatient.id)
             .subscribe(async (result) => {
                 this.diagnosisCount = result.count;
-                this.spinner.hide();
+                this.showNumberOfDiagnosisLoading = false;
             });
     }
     async getTreatmentCount() {
-        this.spinner.show();
+        this.showNumberOfTreatmentsLoading = true;
         this.patientSession
             .getSessionCountByType(1, this.selectedPatient.id)
             .subscribe(async (result) => {
                 this.treatmentsCount = result.count;
-                this.spinner.hide();
+                this.showNumberOfTreatmentsLoading = false;
             });
     }
     async getFollowupCount() {
-        this.spinner.show();
+        this.showNumberOfFollowupsLoading = true;
         this.patientSession
             .getSessionCountByType(2, this.selectedPatient.id)
             .subscribe(async (result) => {
                 this.followupCount = result.count;
-                this.spinner.hide();
+                this.showNumberOfFollowupsLoading = false;
             });
     }
     getLastDiagnosis() {
-        this.spinner.show();
+        this.showLastDiagnosisLoading = true;
         this.patientSession
             .getLastSessionByType(0, this.selectedPatient.id)
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
                     this.lastDiagnosis = result[0];
                 }
-                this.spinner.hide();
+                this.showLastDiagnosisLoading = false;
             });
     }
     getLastTreatment() {
-        this.spinner.show();
+        this.showLastTreatmentLoading = true;
         this.patientSession
             .getLastSessionByType(1, this.selectedPatient.id)
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
                     this.lastTreatment = result[0];
                 }
-                this.spinner.hide();
+                this.showLastTreatmentLoading = false;
             });
     }
     getLastFollowup() {
-        this.spinner.show();
+        this.showLastFollowupLoading = true;
         this.patientSession
             .getLastSessionByType(2, this.selectedPatient.id)
             .subscribe(async (result) => {
                 if (result && result.length > 0) {
                     this.lastFollowup = result[0];
                 }
-                this.spinner.hide();
+                this.showLastFollowupLoading = false;
             });
     }
     getLastAudiologyTest() {
-        this.spinner.show();
+        this.showLastAudiologyTestLoading = true;
         this.patientSession
             .getLastTestByDepartmentId(this.selectedPatient.id, 2, 0)
             .subscribe(async (result) => {
@@ -172,11 +181,11 @@ export class PatientDashboardComponent implements OnInit {
                         this.lastAudiologyTest = last;
                     });
                 }
-                this.spinner.hide();
+                this.showLastAudiologyTestLoading = false;
             });
     }
     getLastSpeechTest() {
-        this.spinner.show();
+        this.showLastSpeechTestLoading = true;
         this.patientSession
             .getLastTestByDepartmentId(this.selectedPatient.id, 3, 0)
             .subscribe(async (result) => {
@@ -186,25 +195,25 @@ export class PatientDashboardComponent implements OnInit {
                         this.lastSpeechTest = last;
                     });
                 }
-                this.spinner.hide();
+                this.showLastSpeechTestLoading = false;
             });
     }
     getLastSessionDiseasesAndRecommendation() {
-        this.spinner.show();
+        this.showDiseasesAndRecommendationLoading = true;
         this.patientSession
             .getLastSessionDiseasesAndRecommendation(this.selectedPatient.id)
             .subscribe(async (result) => {
                 this.lastSessionDiseasesAndRecommendations = result;
-                this.spinner.hide();
+                this.showDiseasesAndRecommendationLoading = false;
             });
     }
     getAllDocuments() {
-        this.spinner.show();
+        this.showDocumentsLoading = true;
         this.documentService
             .getAllFiles(`Patient/${this.selectedPatient.id}`)
             .then((data) => {
                 this.allDocuments = data.Contents;
-                this.spinner.hide();
+                this.showDocumentsLoading = false;
             })
             .catch((err) => {
                 this.showMessageComponent.showMessage(
@@ -212,7 +221,7 @@ export class PatientDashboardComponent implements OnInit {
                     "Error",
                     "An error occured while processing your request. Please Contact the system administrator."
                 );
-                this.spinner.hide();
+                this.showDocumentsLoading = false;
             });
     }
     removeKey(text) {
