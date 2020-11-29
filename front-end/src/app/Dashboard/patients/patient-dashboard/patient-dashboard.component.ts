@@ -65,7 +65,7 @@ export class PatientDashboardComponent implements OnInit {
         this.getLastTreatment();
         this.getLastFollowup();
         this.getAllDocuments();
-        this.getLastSessionDiseasesAndRecommendation();
+        this.getSessionsDiseasesAndRecommendation();
         this.getLastAudiologyTest();
         this.getLastSpeechTest();
         this.getLastOtologyTest();
@@ -217,10 +217,10 @@ export class PatientDashboardComponent implements OnInit {
                 this.showLastOtologyTestLoading = false;
             });
     }
-    getLastSessionDiseasesAndRecommendation() {
+    getSessionsDiseasesAndRecommendation() {
         this.showDiseasesAndRecommendationLoading = true;
         this.patientSession
-            .getLastSessionDiseasesAndRecommendation(this.selectedPatient.id)
+            .getSessionsDiseasesAndRecommendation(this.selectedPatient.id)
             .subscribe(
                 async (result) => {
                     this.lastSessionDiseasesAndRecommendations = result;

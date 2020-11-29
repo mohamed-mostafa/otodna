@@ -42,9 +42,9 @@ export class PatientSessionService {
             `${this.apiUrl}/${this.link}?filter[order]=id DESC&filter[limit]=1&filter[where][and][0][sessionTypeId][eq]=${sessionTypeId}&filter[where][and][1][patientId][eq]=${patientId}`
         );
     }
-    getLastSessionDiseasesAndRecommendation(patientId): Observable<any> {
+    getSessionsDiseasesAndRecommendation(patientId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/getLastSessionDiseasesAndRecommendation/${patientId}`
+            `${this.apiUrl}/getSessionsDiseasesAndRecommendation/${patientId}`
         );
     }
     getLastTestByDepartmentId(

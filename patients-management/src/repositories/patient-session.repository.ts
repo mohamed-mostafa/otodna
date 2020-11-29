@@ -60,8 +60,6 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
       this.sessionTests.inclusionResolver,
     );
   }
-  @repository(SessionTreatmentRepository)
-  private sessionTreatmentRepository: SessionTreatmentRepository;
 
   public readonly sessionTests: HasManyRepositoryFactory<
     SessionTest,
@@ -77,33 +75,35 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
     PatientSessionPathology,
     typeof PatientSession.prototype.id
   >;
-  @repository(PatientSessionPathologyRepository)
-  private patientSessionPathologyRepository: PatientSessionPathologyRepository;
-  public getLastSessionDiseasesAndRecommendation(
-    patientId: number,
-  ): Promise<any> {
+  public getSessionsDiseasesAndRecommendation(patientId: number): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = await super.find({
-          limit: 1,
-          order: ['id DESC'],
+        const sessions = await super.find({
+          // order: ['id DESC'],
           where: {sessionTypeId: 0, patientId},
+          include: [
+            {relation: 'sessionTreatments'},
+            {relation: 'patientSessionPathologies'},
+          ],
         });
-        let id = data[0].id;
-        const treatments = await this.sessionTreatmentRepository.find({
-          where: {patientSessionId: id},
-        });
+        let allTreatments: any = [];
+        let allPathologies: any = [];
+        for (const session of sessions) {
+          if (session.sessionTreatments) {
+            allTreatments.push(...session.sessionTreatments);
+          }
+          if (session.patientSessionPathologies) {
+            allPathologies.push(...session.patientSessionPathologies);
+          }
+        }
         const uniqueTreatments = [
           ...new Map(
-            treatments.map((item: any) => [item['treatmentId'], item]),
+            allTreatments.map((item: any) => [item['treatmentId'], item]),
           ).values(),
         ];
-        const pathologies = await this.patientSessionPathologyRepository.find({
-          where: {patientSessionId: id},
-        });
         const uniquePathologies = [
           ...new Map(
-            pathologies.map((item: any) => [item['diseaseId'], item]),
+            allPathologies.map((item: any) => [item['diseaseId'], item]),
           ).values(),
         ];
         let returnedData = [...uniqueTreatments, ...uniquePathologies];

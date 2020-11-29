@@ -224,7 +224,7 @@ export class PatientSessionController {
     return this.patientTagsService.getPatientTags(id);
   }
 
-  @get('/getLastSessionDiseasesAndRecommendation/{id}', {
+  @get('/getSessionsDiseasesAndRecommendation/{id}', {
     responses: {
       '200': {
         description: 'PatientSession model instance',
@@ -236,10 +236,12 @@ export class PatientSessionController {
       },
     },
   })
-  async getLastSessionDiseasesAndRecommendation(
+  async getSessionsDiseasesAndRecommendation(
     @param.path.number('id') id: number,
   ): Promise<PatientSession> {
-    return this.patientSessionRepository.getLastSessionDiseasesAndRecommendation(id);
+    return this.patientSessionRepository.getSessionsDiseasesAndRecommendation(
+      id,
+    );
   }
 
   @patch('/patientSession/{id}', {
