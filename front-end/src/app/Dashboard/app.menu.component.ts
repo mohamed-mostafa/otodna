@@ -1,5 +1,5 @@
-import { filter } from "rxjs/operators";
-import { Router, NavigationEnd } from "@angular/router";
+import { PatientSessionService } from "./patients/services/patient-session.service";
+import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
 
@@ -15,7 +15,11 @@ export class AppMenuComponent implements OnInit {
     routesArray;
     disabledMenuItem;
     showOtherMenu: boolean;
-    constructor(public app: DashboardComponent, private router: Router) {}
+    constructor(
+        public app: DashboardComponent,
+        private router: Router,
+        private patientSessionService: PatientSessionService
+    ) {}
 
     ngOnInit() {
         let selectedUser = JSON.parse(localStorage.getItem("user"));
@@ -176,7 +180,7 @@ export class AppMenuComponent implements OnInit {
         }
     }
     setMenuData() {
-        let promise = new Promise((resolve) => {
+        let promise = new Promise(async (resolve) => {
             if (this.router.url === "/dashboard/search") {
                 localStorage.removeItem("selectedPatient");
                 localStorage.removeItem("sessionBasicInfo");
@@ -202,38 +206,46 @@ export class AppMenuComponent implements OnInit {
                     localStorage.getItem("sessionBasicInfo")
                 );
                 if (selectedSession) {
-                    this.otherMenu = [
-                        {
-                            label: "Basic Info",
-                            icon: "fa fa-fw fa-stethoscope",
-                            routerLink: ["addDiagnosis"],
-                        },
-                        {
-                            label: "Symptoms",
-                            icon: "fa fa-fw fa-medkit",
-                            routerLink: ["symptoms"],
-                        },
-                        {
-                            label: "Tests",
-                            icon: "fa fa-fw fa-flask",
-                            routerLink: ["diagnosisTests"],
-                        },
-                        {
-                            label: "Pathology",
-                            icon: "fa fa-fw fa-book",
-                            routerLink: ["diagnosisPathology"],
-                        },
-                        {
-                            label: "Recommendation",
-                            icon: "fa fa-fw fa-stethoscope",
-                            routerLink: ["diagnosisCandidacy"],
-                        },
-                        {
-                            label: "Documents",
-                            icon: "fa fa-fw fa-file-text",
-                            routerLink: ["diagnosisDocuments"],
-                        },
-                    ];
+                    this.patientSessionService
+                        .getSessionDataCounter(selectedSession.id)
+                        .subscribe((result) => {
+                            this.otherMenu = [
+                                {
+                                    label: "Basic Info",
+                                    icon: "fa fa-fw fa-stethoscope",
+                                    routerLink: ["addDiagnosis"],
+                                },
+                                {
+                                    label: "Symptoms",
+                                    icon: "fa fa-fw fa-medkit",
+                                    routerLink: ["symptoms"],
+                                },
+                                {
+                                    label: "Tests",
+                                    icon: "fa fa-fw fa-flask",
+                                    routerLink: ["diagnosisTests"],
+                                    badge: result.sessionTestsCounter,
+                                },
+                                {
+                                    label: "Pathology",
+                                    icon: "fa fa-fw fa-book",
+                                    routerLink: ["diagnosisPathology"],
+                                    badge:
+                                        result.patientSessionPathologiesCounter,
+                                },
+                                {
+                                    label: "Recommendation",
+                                    icon: "fa fa-fw fa-stethoscope",
+                                    routerLink: ["diagnosisCandidacy"],
+                                    badge: result.sessionTreatmentsCounter,
+                                },
+                                {
+                                    label: "Documents",
+                                    icon: "fa fa-fw fa-file-text",
+                                    routerLink: ["diagnosisDocuments"],
+                                },
+                            ];
+                        });
                 } else {
                     this.otherMenu = [
                         {
@@ -283,23 +295,28 @@ export class AppMenuComponent implements OnInit {
                     localStorage.getItem("sessionBasicInfo")
                 );
                 if (selectedSession) {
-                    this.otherMenu = [
-                        {
-                            label: "Basic Info",
-                            icon: "fa fa-fw fa-info",
-                            routerLink: ["addTreatment"],
-                        },
-                        {
-                            label: "Treatments",
-                            icon: "fa fa-fw fa-flask",
-                            routerLink: ["treatmentTests"],
-                        },
-                        {
-                            label: "Documents",
-                            icon: "fa fa-fw fa-file-text",
-                            routerLink: ["treatmentsDocuments"],
-                        },
-                    ];
+                    this.patientSessionService
+                        .getSessionDataCounter(selectedSession.id)
+                        .subscribe((result) => {
+                            this.otherMenu = [
+                                {
+                                    label: "Basic Info",
+                                    icon: "fa fa-fw fa-info",
+                                    routerLink: ["addTreatment"],
+                                },
+                                {
+                                    label: "Treatments",
+                                    icon: "fa fa-fw fa-flask",
+                                    routerLink: ["treatmentTests"],
+                                    badge: result.sessionTreatmentsCounter,
+                                },
+                                {
+                                    label: "Documents",
+                                    icon: "fa fa-fw fa-file-text",
+                                    routerLink: ["treatmentsDocuments"],
+                                },
+                            ];
+                        });
                 } else {
                     this.otherMenu = [
                         {
@@ -341,38 +358,46 @@ export class AppMenuComponent implements OnInit {
                     localStorage.getItem("sessionBasicInfo")
                 );
                 if (selectedSession) {
-                    this.otherMenu = [
-                        {
-                            label: "Basic Info",
-                            icon: "fa fa-fw fa-info",
-                            routerLink: ["addFollowup"],
-                        },
-                        {
-                            label: "Symptoms",
-                            icon: "fa fa-fw fa-medkit",
-                            routerLink: ["followupSymptoms"],
-                        },
-                        {
-                            label: "Tests",
-                            icon: "fa fa-fw fa-flask",
-                            routerLink: ["followupTests"],
-                        },
-                        {
-                            label: "Pathology",
-                            icon: "fa fa-fw fa-book",
-                            routerLink: ["followupPathology"],
-                        },
-                        {
-                            label: "Recommendation",
-                            icon: "fa fa-fw fa-stethoscope",
-                            routerLink: ["followupCandidacy"],
-                        },
-                        {
-                            label: "Documents",
-                            icon: "fa fa-fw fa-file-text",
-                            routerLink: ["followupDocuments"],
-                        },
-                    ];
+                    this.patientSessionService
+                        .getSessionDataCounter(selectedSession.id)
+                        .subscribe((result) => {
+                            this.otherMenu = [
+                                {
+                                    label: "Basic Info",
+                                    icon: "fa fa-fw fa-info",
+                                    routerLink: ["addFollowup"],
+                                },
+                                {
+                                    label: "Symptoms",
+                                    icon: "fa fa-fw fa-medkit",
+                                    routerLink: ["followupSymptoms"],
+                                },
+                                {
+                                    label: "Tests",
+                                    icon: "fa fa-fw fa-flask",
+                                    routerLink: ["followupTests"],
+                                    badge: result.sessionTestsCounter,
+                                },
+                                {
+                                    label: "Pathology",
+                                    icon: "fa fa-fw fa-book",
+                                    routerLink: ["followupPathology"],
+                                    badge:
+                                        result.patientSessionPathologiesCounter,
+                                },
+                                {
+                                    label: "Recommendation",
+                                    icon: "fa fa-fw fa-stethoscope",
+                                    routerLink: ["followupCandidacy"],
+                                    badge: result.sessionTreatmentsCounter,
+                                },
+                                {
+                                    label: "Documents",
+                                    icon: "fa fa-fw fa-file-text",
+                                    routerLink: ["followupDocuments"],
+                                },
+                            ];
+                        });
                 } else {
                     this.otherMenu = [
                         {

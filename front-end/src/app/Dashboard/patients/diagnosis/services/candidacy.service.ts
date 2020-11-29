@@ -18,6 +18,11 @@ export class CandidacyService {
             `${this.apiUrl}/${this.link}?filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
+    getSessionCandidaciesCounter(patientSessionId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/count?[where][patientSessionId][eq]=${patientSessionId}`
+        );
+    }
     getFrequentlyUsedCandidacies(departmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/frequentlyUsedCandidacies/${departmentId}`

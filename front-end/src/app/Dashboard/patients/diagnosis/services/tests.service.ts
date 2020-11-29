@@ -25,6 +25,11 @@ export class TestsService {
             `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
+    getSessionTestsCounter(patientSessionId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.sessionTestsLink}/count?[where][patientSessionId][eq]=${patientSessionId}`
+        );
+    }
     getFrequentlyUsedTests(departmentId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/frequentlyUsedTests/${departmentId}`

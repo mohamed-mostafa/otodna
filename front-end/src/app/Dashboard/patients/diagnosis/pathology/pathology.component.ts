@@ -4,7 +4,6 @@ import { SearchResultItemComponent } from "./../../shared/item-search/search-res
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
-import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { PathologyService } from "./../services/pathology.service";
 import { MenuItem } from "primeng/primeng";
@@ -74,7 +73,6 @@ export class PathologyComponent implements OnInit {
         private parameterValueService: ParameterValueService,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
-        private teamsService: TeamsService,
         private documentService: DocumentsService,
         private patientService: PatientService,
         private spinner: NgxSpinnerService

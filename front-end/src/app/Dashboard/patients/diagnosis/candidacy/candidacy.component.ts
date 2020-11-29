@@ -4,7 +4,6 @@ import { PatientService } from "./../../services/patient.service";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
-import { TeamsService } from "./../../../services/teams.service";
 import { ParameterValueService } from "./../../services/parameter-value.service";
 import { CandidacyService } from "./../services/candidacy.service";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -74,7 +73,6 @@ export class CandidacyComponent implements OnInit {
         private parameterValueService: ParameterValueService,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
-        private teamsService: TeamsService,
         private documentService: DocumentsService,
         private patientService: PatientService,
         private spinner: NgxSpinnerService

@@ -244,6 +244,24 @@ export class PatientSessionController {
     );
   }
 
+  @get('/getSessionDataCounter/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientSession, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async getSessionDataCounter(
+    @param.path.number('id') id: number,
+  ): Promise<PatientSession> {
+    return this.patientSessionRepository.getSessionDataCounter(id);
+  }
+
   @patch('/patientSession/{id}', {
     responses: {
       '204': {

@@ -113,4 +113,32 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
       }
     });
   }
+  public getSessionDataCounter(id: number): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await super.find({
+          where: {id},
+          include: [
+            {relation: 'sessionTests'},
+            {relation: 'sessionTreatments'},
+            {relation: 'patientSessionPathologies'},
+          ],
+        });
+        let obj = {
+          sessionTestsCounter: result[0].sessionTests
+            ? result[0].sessionTests.length
+            : 0,
+          sessionTreatmentsCounter: result[0].sessionTreatments
+            ? result[0].sessionTreatments.length
+            : 0,
+          patientSessionPathologiesCounter: result[0].patientSessionPathologies
+            ? result[0].patientSessionPathologies.length
+            : 0,
+        };
+        resolve(obj);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
 }
