@@ -496,57 +496,62 @@
                     </div>
                 </p-card>
             </div>
-            <div class="ui-g-12 ui-lg-12 card">
-                <ng-container
-                    *ngIf="showDocumentsLoading; else notShowDocumentsLoading"
-                >
-                    <h3 class="center col6Title">Documents</h3>
-                    <div class="center">
-                        <p-progressSpinner
-                            [style]="{ width: '80px', height: '80px' }"
-                            strokeWidth="8"
-                            fill="#EEEEEE"
-                            animationDuration=".5s"
-                        ></p-progressSpinner>
-                    </div>
-                </ng-container>
-                <ng-template #notShowDocumentsLoading>
-                    <p-carousel
-                        [value]="allDocuments"
-                        styleClass="custom-carousel"
-                        [numVisible]="2"
-                        [numScroll]="1"
-                        [circular]="true"
-                        [autoplayInterval]="3000"
+            <div class="ui-g-12 ui-lg-12">
+                <div class="card ui-g-12 ui-lg-12">
+                    <ng-container
+                        *ngIf="
+                            showDocumentsLoading;
+                            else notShowDocumentsLoading
+                        "
                     >
-                        <p-header>
-                            <h3 class="center col6Title">Documents</h3>
-                        </p-header>
-                        <ng-template let-document pTemplate="item">
-                            <div
-                                class="car-details"
-                                (click)="viewDocument(document)"
-                                class="pointerCursor height"
-                            >
-                                <div class="p-grid p-nogutter">
-                                    <div class="p-col-12">
-                                        <app-files-icons
-                                            [key]="document.Key"
-                                        ></app-files-icons>
-                                    </div>
-                                    <div class="p-col-12 car-data">
-                                        <div class="car-title">
-                                            {{ removeKey(document.Key) }}
+                        <h3 class="center col6Title">Documents</h3>
+                        <div class="center">
+                            <p-progressSpinner
+                                [style]="{ width: '80px', height: '80px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </div>
+                    </ng-container>
+                    <ng-template #notShowDocumentsLoading>
+                        <p-carousel
+                            [value]="allDocuments"
+                            styleClass="custom-carousel"
+                            [numVisible]="2"
+                            [numScroll]="1"
+                            [circular]="true"
+                            [autoplayInterval]="3000"
+                        >
+                            <p-header>
+                                <h3 class="center col6Title">Documents</h3>
+                            </p-header>
+                            <ng-template let-document pTemplate="item">
+                                <div
+                                    class="car-details"
+                                    (click)="viewDocument(document)"
+                                    class="pointerCursor height"
+                                >
+                                    <div class="p-grid p-nogutter">
+                                        <div class="p-col-12">
+                                            <app-files-icons
+                                                [key]="document.Key"
+                                            ></app-files-icons>
                                         </div>
-                                        <div class="car-subtitle">
-                                            {{ formatBytes(document.Size) }}
+                                        <div class="p-col-12 car-data">
+                                            <div class="car-title">
+                                                {{ removeKey(document.Key) }}
+                                            </div>
+                                            <div class="car-subtitle">
+                                                {{ formatBytes(document.Size) }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </ng-template>
-                    </p-carousel>
-                </ng-template>
+                            </ng-template>
+                        </p-carousel>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>
