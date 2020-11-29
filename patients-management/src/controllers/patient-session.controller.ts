@@ -244,7 +244,7 @@ export class PatientSessionController {
     );
   }
 
-  @get('/getSessionDataCounter/{id}', {
+  @get('/getAllSessionsWithPatientId/{id}', {
     responses: {
       '200': {
         description: 'PatientSession model instance',
@@ -256,10 +256,10 @@ export class PatientSessionController {
       },
     },
   })
-  async getSessionDataCounter(
+  async getAllSessionsWithPatientId(
     @param.path.number('id') id: number,
   ): Promise<PatientSession> {
-    return this.patientSessionRepository.getSessionDataCounter(id);
+    return this.patientSessionRepository.getAllSessionsWithPatientId(id);
   }
 
   @patch('/patientSession/{id}', {

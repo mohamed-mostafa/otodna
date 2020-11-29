@@ -12,7 +12,7 @@ export class PatientSessionService {
     constructor(private http: HttpClient) {}
     getAllSessions(patientId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.link}?filter[include][][relation]=sessionTests&filter[where][patientId][eq]=${patientId}`
+            `${this.apiUrl}/getAllSessionsWithPatientId/${patientId}`
         );
     }
     getSessionCount(sessionTypeId, date): Observable<any> {
@@ -55,8 +55,5 @@ export class PatientSessionService {
         return this.http.get<any>(
             `${this.apiUrl}/${this.link}?filter[order]=id DESC&filter[limit]=1&filter[include][][relation]=sessionTests&filter[where][and][0][departmentId][eq]=${departmentId}&filter[where][and][1][patientId][eq]=${patientId}&filter[where][and][2][sessionTypeId][eq]=${sessionTypeId}`
         );
-    }
-    getSessionDataCounter(id): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/getSessionDataCounter/${id}`);
     }
 }
