@@ -300,6 +300,8 @@
                                 {{
                                     lastTreatment
                                         ? lastTreatment.notes
+                                            ? lastTreatment.notes
+                                            : "Session is not ended, Please end session"
                                         : "No treatments found"
                                 }}
                             </div>
@@ -344,6 +346,8 @@
                                 {{
                                     lastDiagnosis
                                         ? lastDiagnosis.notes
+                                            ? lastDiagnosis.notes
+                                            : "Session is not ended, Please end session"
                                         : "No diagnosis found"
                                 }}
                             </div>
@@ -388,6 +392,8 @@
                                 {{
                                     lastFollowup
                                         ? lastFollowup.notes
+                                            ? lastFollowup.notes
+                                            : "Session is not ended, Please end session"
                                         : "No follow-ups found"
                                 }}
                             </div>
