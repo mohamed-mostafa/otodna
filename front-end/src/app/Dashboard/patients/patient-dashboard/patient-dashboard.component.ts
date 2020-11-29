@@ -101,13 +101,15 @@ export class PatientDashboardComponent implements OnInit {
             });
     }
     openDataPage(data) {
-        localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-        if (data.sessionTypeId === 0) {
-            this.addDiagnosis();
-        } else if (data.sessionTypeId === 1) {
-            this.addTreatment();
-        } else {
-            this.addFollowup();
+        if (data) {
+            localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+            if (data.sessionTypeId === 0) {
+                this.addDiagnosis();
+            } else if (data.sessionTypeId === 1) {
+                this.addTreatment();
+            } else {
+                this.addFollowup();
+            }
         }
     }
     async getDiagnosisCount() {
@@ -202,14 +204,17 @@ export class PatientDashboardComponent implements OnInit {
         this.showDiseasesAndRecommendationLoading = true;
         this.patientSession
             .getLastSessionDiseasesAndRecommendation(this.selectedPatient.id)
-            .subscribe(async (result) => {
-                this.lastSessionDiseasesAndRecommendations = result;
-                this.showDiseasesAndRecommendationLoading = false;
-            }, async(error) => {
-                console.log(error);
-                this.lastSessionDiseasesAndRecommendations = [];
-                this.showDiseasesAndRecommendationLoading = false;
-            });
+            .subscribe(
+                async (result) => {
+                    this.lastSessionDiseasesAndRecommendations = result;
+                    this.showDiseasesAndRecommendationLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastSessionDiseasesAndRecommendations = [];
+                    this.showDiseasesAndRecommendationLoading = false;
+                }
+            );
     }
     getAllDocuments() {
         this.showDocumentsLoading = true;

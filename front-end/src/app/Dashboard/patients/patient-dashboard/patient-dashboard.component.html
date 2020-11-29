@@ -113,21 +113,17 @@
                             <div class="ui-g-12">
                                 <div class="ui-g-3">
                                     <span>
-                                        <div
-                                            class="rightFloated rightMargin"
-                                        >
-                                            {{ selectedPatient.dateOfBirth | date }}
+                                        <div class="rightFloated rightMargin">
+                                            {{
+                                                selectedPatient.dateOfBirth
+                                                    | date
+                                            }}
                                         </div>
                                     </span>
-                                    <i
-                                        class="fa fa-child color"
-                                    ></i>
+                                    <i class="fa fa-child color"></i>
                                 </div>
                                 <div class="ui-g-9">
-                                    <span
-                                        class="event-owner"
-                                        >Born</span
-                                    >
+                                    <span class="event-owner">Born</span>
                                 </div>
                             </div>
                         </ng-template>
@@ -276,10 +272,16 @@
             </div>
             <div class="ui-g-12 ui-lg-12">
                 <p-card>
-                    <p-header>
+                    <p-header
+                        class="pointerCursor"
+                        (click)="openDataPage(lastTreatment)"
+                    >
                         <div class="center col6Title">Last treatment</div>
                     </p-header>
-                    <div class="center">
+                    <div
+                        class="center pointerCursor"
+                        (click)="openDataPage(lastTreatment)"
+                    >
                         <ng-container
                             *ngIf="
                                 showLastTreatmentLoading;
@@ -314,10 +316,16 @@
             </div>
             <div class="ui-g-12 ui-lg-12">
                 <p-card>
-                    <p-header>
+                    <p-header
+                        class="pointerCursor"
+                        (click)="openDataPage(lastDiagnosis)"
+                    >
                         <div class="center col6Title">Last diagnosis</div>
                     </p-header>
-                    <div class="center">
+                    <div
+                        class="center pointerCursor"
+                        (click)="openDataPage(lastDiagnosis)"
+                    >
                         <ng-container
                             *ngIf="
                                 showLastDiagnosisLoading;
@@ -352,10 +360,16 @@
             </div>
             <div class="ui-g-12 ui-lg-12">
                 <p-card>
-                    <p-header>
+                    <p-header
+                        class="pointerCursor"
+                        (click)="openDataPage(lastFollowup)"
+                    >
                         <div class="center col6Title">Last follow-up</div>
                     </p-header>
-                    <div class="center">
+                    <div
+                        class="center pointerCursor"
+                        (click)="openDataPage(lastFollowup)"
+                    >
                         <ng-container
                             *ngIf="
                                 showLastFollowupLoading;
