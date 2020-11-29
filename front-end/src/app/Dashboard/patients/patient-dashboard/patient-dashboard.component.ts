@@ -30,6 +30,7 @@ export class PatientDashboardComponent implements OnInit {
     lastSessionDiseasesAndRecommendations = [];
     lastAudiologyTest;
     lastSpeechTest;
+    lastOtologyTest;
     addNewSessionMenu = [];
     showDiseasesAndRecommendationLoading = false;
     showNumberOfDiagnosisLoading = false;
@@ -40,6 +41,7 @@ export class PatientDashboardComponent implements OnInit {
     showLastFollowupLoading = false;
     showLastAudiologyTestLoading = false;
     showLastSpeechTestLoading = false;
+    showLastOtologyTestLoading = false;
     showPatientHistoryLoading = false;
     showDocumentsLoading = false;
     constructor(
@@ -66,6 +68,7 @@ export class PatientDashboardComponent implements OnInit {
         this.getLastSessionDiseasesAndRecommendation();
         this.getLastAudiologyTest();
         this.getLastSpeechTest();
+        this.getLastOtologyTest();
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -198,6 +201,20 @@ export class PatientDashboardComponent implements OnInit {
                     });
                 }
                 this.showLastSpeechTestLoading = false;
+            });
+    }
+    getLastOtologyTest() {
+        this.showLastOtologyTestLoading = true;
+        this.patientSession
+            .getLastTestByDepartmentId(this.selectedPatient.id, 1, 0)
+            .subscribe(async (result) => {
+                if (result && result.length > 0) {
+                    result.forEach((element) => {
+                        const [last] = element.sessionTests.slice(-1);
+                        this.lastOtologyTest = last;
+                    });
+                }
+                this.showLastOtologyTestLoading = false;
             });
     }
     getLastSessionDiseasesAndRecommendation() {

@@ -402,7 +402,7 @@
                     </div>
                 </p-card>
             </div>
-            <div class="ui-g-12 ui-lg-6">
+            <div class="ui-g-12 ui-lg-4">
                 <p-card>
                     <p-header>
                         <div class="center col4Title">Last audiology test</div>
@@ -431,7 +431,7 @@
                     </div>
                 </p-card>
             </div>
-            <div class="ui-g-12 ui-lg-6">
+            <div class="ui-g-12 ui-lg-4">
                 <p-card>
                     <p-header>
                         <div class="center col4Title">Last speech test</div>
@@ -455,6 +455,35 @@
                                 lastSpeechTest
                                     ? lastSpeechTest.testName
                                     : "No speech tests found"
+                            }}
+                        </ng-template>
+                    </div>
+                </p-card>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p-card>
+                    <p-header>
+                        <div class="center col4Title">Last otology test</div>
+                    </p-header>
+                    <div class="center">
+                        <ng-container
+                            *ngIf="
+                                showLastOtologyTestLoading;
+                                else notShowLastOtologyTestLoading
+                            "
+                        >
+                            <p-progressSpinner
+                                [style]="{ width: '50px', height: '50px' }"
+                                strokeWidth="8"
+                                fill="#EEEEEE"
+                                animationDuration=".5s"
+                            ></p-progressSpinner>
+                        </ng-container>
+                        <ng-template #notShowLastOtologyTestLoading>
+                            {{
+                                lastOtologyTest
+                                    ? lastOtologyTest.testName
+                                    : "No otology tests found"
                             }}
                         </ng-template>
                     </div>
