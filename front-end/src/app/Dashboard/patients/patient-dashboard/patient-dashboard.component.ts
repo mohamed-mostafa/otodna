@@ -240,14 +240,11 @@ export class PatientDashboardComponent implements OnInit {
     getLastAudiologyTest() {
         this.showLastAudiologyTestLoading = true;
         this.patientSession
-            .getLastTestByDepartmentId(this.selectedPatient.id, 2, 0)
+            .getLastTestByDepartmentId(this.selectedPatient.id, 2)
             .subscribe(
                 async (result) => {
-                    if (result && result.length > 0) {
-                        result.forEach((element) => {
-                            const [last] = element.sessionTests.slice(-1);
-                            this.lastAudiologyTest = last;
-                        });
+                    if (result) {
+                        this.lastAudiologyTest = result;
                     }
                     this.showLastAudiologyTestLoading = false;
                 },
@@ -262,14 +259,11 @@ export class PatientDashboardComponent implements OnInit {
     getLastSpeechTest() {
         this.showLastSpeechTestLoading = true;
         this.patientSession
-            .getLastTestByDepartmentId(this.selectedPatient.id, 3, 0)
+            .getLastTestByDepartmentId(this.selectedPatient.id, 3)
             .subscribe(
                 async (result) => {
-                    if (result && result.length > 0) {
-                        result.forEach((element) => {
-                            const [last] = element.sessionTests.slice(-1);
-                            this.lastSpeechTest = last;
-                        });
+                    if (result) {
+                        this.lastSpeechTest = result;
                     }
                     this.showLastSpeechTestLoading = false;
                 },
@@ -284,14 +278,11 @@ export class PatientDashboardComponent implements OnInit {
     getLastOtologyTest() {
         this.showLastOtologyTestLoading = true;
         this.patientSession
-            .getLastTestByDepartmentId(this.selectedPatient.id, 1, 0)
+            .getLastTestByDepartmentId(this.selectedPatient.id, 1)
             .subscribe(
                 async (result) => {
-                    if (result && result.length > 0) {
-                        result.forEach((element) => {
-                            const [last] = element.sessionTests.slice(-1);
-                            this.lastOtologyTest = last;
-                        });
+                    if (result) {
+                        this.lastOtologyTest = result;
                     }
                     this.showLastOtologyTestLoading = false;
                 },

@@ -151,4 +151,32 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
       }
     });
   }
+  public getLastTestByDepartmentId(
+    patientId: number,
+    departmentId: number,
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sessions = await super.find({
+          order: ['id DESC'],
+          where: {patientId, departmentId},
+          include: [{relation: 'sessionTests'}],
+        });
+        let last;
+        if (sessions && sessions.length > 0) {
+          for (const session of sessions) {
+            if (session.sessionTests) {
+              [last] = session.sessionTests.slice(-1);
+              break;
+            }
+          }
+          resolve(last);
+        } else {
+          resolve({testName: 'No tests found'});
+        }
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
 }

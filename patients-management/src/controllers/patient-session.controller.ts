@@ -284,6 +284,28 @@ export class PatientSessionController {
     );
   }
 
+  @get('/getLastTestByDepartmentId/{patientId}/{departmentId}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientSession, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async getLastTestByDepartmentId(
+    @param.path.number('patientId') patientId: number,
+    @param.path.number('departmentId') departmentId: number,
+  ): Promise<PatientSession> {
+    return this.patientSessionRepository.getLastTestByDepartmentId(
+      patientId,
+      departmentId,
+    );
+  }
+
   @patch('/patientSession/{id}', {
     responses: {
       '204': {
