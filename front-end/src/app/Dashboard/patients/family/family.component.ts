@@ -2,7 +2,6 @@ import { PatientService } from "./../services/patient.service";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { FamilyService } from "./../services/family.service";
 import { Router } from "@angular/router";
-import { MenuItem } from "primeng/primeng";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, OnInit } from "@angular/core";
@@ -12,7 +11,6 @@ import { SharedClass } from "../shared/sharedFunctions";
     selector: "app-family",
     templateUrl: "./family.component.html",
     styleUrls: ["./family.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class FamilyComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

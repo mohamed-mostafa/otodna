@@ -249,6 +249,15 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                 if (this.session.notes === null) {
                     delete this.session.notes;
                 }
+                if (this.session.patientSessionPathologies) {
+                    delete this.session.patientSessionPathologies;
+                }
+                if (this.session.sessionTests) {
+                    delete this.session.sessionTests;
+                }
+                if (this.session.sessionTreatments) {
+                    delete this.session.sessionTreatments;
+                }
                 this.session.departmentId = this.selectedDepartment.id;
                 this.patientSession
                     .updateSession(this.session)

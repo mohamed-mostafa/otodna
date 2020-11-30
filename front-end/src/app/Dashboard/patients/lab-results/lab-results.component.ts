@@ -1,7 +1,6 @@
 import { PatientService } from "./../services/patient.service";
 import { LabResultsService } from "./../services/lab-results.service";
 import { Router } from "@angular/router";
-import { MenuItem } from "primeng/primeng";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { LabResult } from "./labResult";
@@ -12,7 +11,6 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     selector: "app-lab-results",
     templateUrl: "./lab-results.component.html",
     styleUrls: ["./lab-results.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class LabResultsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

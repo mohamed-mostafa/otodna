@@ -10,4 +10,7 @@ export class Session {
     patientId: number;
     departmentId: number;
     ended: string;
+    patientSessionPathologies: any;
+    sessionTests: any;
+    sessionTreatments: any;
 }

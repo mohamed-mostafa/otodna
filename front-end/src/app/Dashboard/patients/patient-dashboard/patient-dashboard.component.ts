@@ -10,7 +10,6 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     selector: "app-patient-dashboard",
     templateUrl: "./patient-dashboard.component.html",
     styleUrls: ["./patient-dashboard.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class PatientDashboardComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);
@@ -44,6 +43,19 @@ export class PatientDashboardComponent implements OnInit {
     showLastOtologyTestLoading = false;
     showPatientHistoryLoading = false;
     showDocumentsLoading = false;
+    showDiseasesAndRecommendationErrorMessage = false;
+    showNumberOfDiagnosisErrorMessage = false;
+    showNumberOfTreatmentsErrorMessage = false;
+    showNumberOfFollowupsErrorMessage = false;
+    showLastTreatmentErrorMessage = false;
+    showLastDiagnosisErrorMessage = false;
+    showLastFollowupErrorMessage = false;
+    showLastAudiologyTestErrorMessage = false;
+    showLastSpeechTestErrorMessage = false;
+    showLastOtologyTestErrorMessage = false;
+    showPatientHistoryErrorMessage = false;
+    showDocumentsErrorMessage = false;
+    errorMessage = "Not available at this moment.";
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
@@ -91,17 +103,22 @@ export class PatientDashboardComponent implements OnInit {
     }
     getPatientHistoryData() {
         this.showPatientHistoryLoading = true;
-        this.patientSession
-            .getAllSessions(this.selectedPatient.id)
-            .subscribe(async (result) => {
+        this.patientSession.getAllSessions(this.selectedPatient.id).subscribe(
+            async (result) => {
                 this.patientHistoryData = result;
                 this.patientHistoryData.sort(
                     (a, b) =>
                         new Date(b.date).getTime() - new Date(a.date).getTime()
                 );
-
                 this.showPatientHistoryLoading = false;
-            });
+            },
+            async (error) => {
+                console.log(error);
+                this.patientHistoryData = [];
+                this.showPatientHistoryErrorMessage = true;
+                this.showPatientHistoryLoading = false;
+            }
+        );
     }
     openDataPage(data) {
         if (data) {
@@ -119,103 +136,172 @@ export class PatientDashboardComponent implements OnInit {
         this.showNumberOfDiagnosisLoading = true;
         this.patientSession
             .getSessionCountByType(0, this.selectedPatient.id)
-            .subscribe(async (result) => {
-                this.diagnosisCount = result.count;
-                this.showNumberOfDiagnosisLoading = false;
-            });
+            .subscribe(
+                async (result) => {
+                    this.diagnosisCount = result.count;
+                    this.showNumberOfDiagnosisLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.showNumberOfDiagnosisErrorMessage = true;
+                    this.showNumberOfDiagnosisLoading = false;
+                }
+            );
     }
     async getTreatmentCount() {
         this.showNumberOfTreatmentsLoading = true;
         this.patientSession
             .getSessionCountByType(1, this.selectedPatient.id)
-            .subscribe(async (result) => {
-                this.treatmentsCount = result.count;
-                this.showNumberOfTreatmentsLoading = false;
-            });
+            .subscribe(
+                async (result) => {
+                    this.treatmentsCount = result.count;
+                    this.showNumberOfTreatmentsLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.showNumberOfTreatmentsErrorMessage = true;
+                    this.showNumberOfTreatmentsLoading = false;
+                }
+            );
     }
     async getFollowupCount() {
         this.showNumberOfFollowupsLoading = true;
         this.patientSession
             .getSessionCountByType(2, this.selectedPatient.id)
-            .subscribe(async (result) => {
-                this.followupCount = result.count;
-                this.showNumberOfFollowupsLoading = false;
-            });
+            .subscribe(
+                async (result) => {
+                    this.followupCount = result.count;
+                    this.showNumberOfFollowupsLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.showNumberOfFollowupsErrorMessage = true;
+                    this.showNumberOfFollowupsLoading = false;
+                }
+            );
     }
     getLastDiagnosis() {
         this.showLastDiagnosisLoading = true;
         this.patientSession
             .getLastSessionByType(0, this.selectedPatient.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    this.lastDiagnosis = result[0];
+            .subscribe(
+                async (result) => {
+                    if (result && result.length > 0) {
+                        this.lastDiagnosis = result[0];
+                    }
+                    this.showLastDiagnosisLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastDiagnosis = [];
+                    this.showLastDiagnosisErrorMessage = true;
+                    this.showLastDiagnosisLoading = false;
                 }
-                this.showLastDiagnosisLoading = false;
-            });
+            );
     }
     getLastTreatment() {
         this.showLastTreatmentLoading = true;
         this.patientSession
             .getLastSessionByType(1, this.selectedPatient.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    this.lastTreatment = result[0];
+            .subscribe(
+                async (result) => {
+                    if (result && result.length > 0) {
+                        this.lastTreatment = result[0];
+                    }
+                    this.showLastTreatmentLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastTreatment = [];
+                    this.showLastTreatmentErrorMessage = true;
+                    this.showLastTreatmentLoading = false;
                 }
-                this.showLastTreatmentLoading = false;
-            });
+            );
     }
     getLastFollowup() {
         this.showLastFollowupLoading = true;
         this.patientSession
             .getLastSessionByType(2, this.selectedPatient.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    this.lastFollowup = result[0];
+            .subscribe(
+                async (result) => {
+                    if (result && result.length > 0) {
+                        this.lastFollowup = result[0];
+                    }
+                    this.showLastFollowupLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastFollowup = [];
+                    this.showLastFollowupErrorMessage = true;
+                    this.showLastFollowupLoading = false;
                 }
-                this.showLastFollowupLoading = false;
-            });
+            );
     }
     getLastAudiologyTest() {
         this.showLastAudiologyTestLoading = true;
         this.patientSession
             .getLastTestByDepartmentId(this.selectedPatient.id, 2, 0)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    result.forEach((element) => {
-                        const [last] = element.sessionTests.slice(-1);
-                        this.lastAudiologyTest = last;
-                    });
+            .subscribe(
+                async (result) => {
+                    if (result && result.length > 0) {
+                        result.forEach((element) => {
+                            const [last] = element.sessionTests.slice(-1);
+                            this.lastAudiologyTest = last;
+                        });
+                    }
+                    this.showLastAudiologyTestLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastAudiologyTest = [];
+                    this.showLastAudiologyTestErrorMessage = true;
+                    this.showLastAudiologyTestLoading = false;
                 }
-                this.showLastAudiologyTestLoading = false;
-            });
+            );
     }
     getLastSpeechTest() {
         this.showLastSpeechTestLoading = true;
         this.patientSession
             .getLastTestByDepartmentId(this.selectedPatient.id, 3, 0)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    result.forEach((element) => {
-                        const [last] = element.sessionTests.slice(-1);
-                        this.lastSpeechTest = last;
-                    });
+            .subscribe(
+                async (result) => {
+                    if (result && result.length > 0) {
+                        result.forEach((element) => {
+                            const [last] = element.sessionTests.slice(-1);
+                            this.lastSpeechTest = last;
+                        });
+                    }
+                    this.showLastSpeechTestLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastSpeechTest = [];
+                    this.showLastSpeechTestErrorMessage = true;
+                    this.showLastSpeechTestLoading = false;
                 }
-                this.showLastSpeechTestLoading = false;
-            });
+            );
     }
     getLastOtologyTest() {
         this.showLastOtologyTestLoading = true;
         this.patientSession
             .getLastTestByDepartmentId(this.selectedPatient.id, 1, 0)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    result.forEach((element) => {
-                        const [last] = element.sessionTests.slice(-1);
-                        this.lastOtologyTest = last;
-                    });
+            .subscribe(
+                async (result) => {
+                    if (result && result.length > 0) {
+                        result.forEach((element) => {
+                            const [last] = element.sessionTests.slice(-1);
+                            this.lastOtologyTest = last;
+                        });
+                    }
+                    this.showLastOtologyTestLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.lastOtologyTest = [];
+                    this.showLastOtologyTestErrorMessage = true;
+                    this.showLastOtologyTestLoading = false;
                 }
-                this.showLastOtologyTestLoading = false;
-            });
+            );
     }
     getSessionsDiseasesAndRecommendation() {
         this.showDiseasesAndRecommendationLoading = true;
@@ -229,6 +315,7 @@ export class PatientDashboardComponent implements OnInit {
                 async (error) => {
                     console.log(error);
                     this.lastSessionDiseasesAndRecommendations = [];
+                    this.showDiseasesAndRecommendationErrorMessage = true;
                     this.showDiseasesAndRecommendationLoading = false;
                 }
             );

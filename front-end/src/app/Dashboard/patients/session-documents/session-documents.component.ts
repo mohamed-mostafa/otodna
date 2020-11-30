@@ -11,7 +11,6 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     selector: "app-session-documents",
     templateUrl: "./session-documents.component.html",
     styleUrls: ["./session-documents.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class SessionDocumentsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

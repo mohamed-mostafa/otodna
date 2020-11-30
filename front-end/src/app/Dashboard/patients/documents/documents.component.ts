@@ -3,7 +3,6 @@ import { DocumentsService } from "./../../services/documents.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
-import { MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 import { SharedClass } from "../shared/sharedFunctions";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
@@ -11,7 +10,6 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     selector: "app-documents",
     templateUrl: "./documents.component.html",
     styleUrls: ["./documents.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class DocumentsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

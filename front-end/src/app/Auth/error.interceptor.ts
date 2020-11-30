@@ -1,3 +1,5 @@
+import { ShowMessageComponent } from "./../Dashboard/shared/show-message/show-message.component";
+import { MessageService } from "primeng/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
@@ -9,15 +11,17 @@ import {
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-
 import { AuthenticationService } from "./auth.service";
-import swal from "sweetalert";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     constructor(
         private authenticationService: AuthenticationService,
         private spinner: NgxSpinnerService,
+        private messageService: MessageService,
         private router: Router
     ) {}
 
@@ -35,18 +39,18 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
                 } else if (err.status === 500 || err.status === 0) {
                     this.spinner.hide();
-                    this.callSwal(
+                    this.showMessageComponent.showMessage(
+                        "error",
                         "Internal server error",
-                        "An error occured while processing your request. Please Contact the system administrator.",
-                        "error"
+                        "An error occured while processing your request. Please Contact the system administrator."
                     );
                     console.log("Internal Server Error");
                 } else if (err.status === 403) {
                     this.spinner.hide();
-                    this.callSwal(
+                    this.showMessageComponent.showMessage(
+                        "error",
                         "Unauthorized",
-                        "You are not authorized to perform this operation.",
-                        "error"
+                        "You are not authorized to perform this operation."
                     );
                     console.log("Internal Server Error");
                 }
@@ -63,8 +67,5 @@ export class ErrorInterceptor implements HttpInterceptor {
                 return throwError(err);
             })
         );
-    }
-    callSwal(title, text, icon) {
-        return swal({ title, text, icon });
     }
 }

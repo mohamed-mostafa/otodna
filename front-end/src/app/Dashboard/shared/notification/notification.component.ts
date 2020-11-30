@@ -1,3 +1,5 @@
+import { ShowMessageComponent } from "./../show-message/show-message.component";
+import { MessageService } from "primeng/api";
 import { Router } from "@angular/router";
 import { NotificationsService } from "./../../patients/services/notifications.service";
 import { Component, OnInit } from "@angular/core";
@@ -6,13 +8,18 @@ import { Component, OnInit } from "@angular/core";
     selector: "app-notification",
     templateUrl: "./notification.component.html",
     styleUrls: ["./notification.component.css"],
+    providers: [MessageService],
 })
 export class NotificationComponent implements OnInit {
+    showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
+        this.messageService
+    );
     notifications = [];
     notificationCount = 0;
     loggedInUser;
     constructor(
         private notificationsService: NotificationsService,
+        private messageService: MessageService,
         private router: Router
     ) {}
 
@@ -44,9 +51,8 @@ export class NotificationComponent implements OnInit {
     getALlNotifications() {
         let markAsRead = false;
         for (const element of this.loggedInUser.teams) {
-            this.notificationsService
-                .getAllNotifications(element.id)
-                .subscribe(async (result) => {
+            this.notificationsService.getAllNotifications(element.id).subscribe(
+                async (result) => {
                     if (result && result.length > 0) {
                         result.forEach((res) => {
                             if (res.teamOwnerId === this.loggedInUser.id) {
@@ -65,7 +71,16 @@ export class NotificationComponent implements OnInit {
                             this.notifications.push(obj);
                         });
                     }
-                });
+                },
+                async (error) => {
+                    console.log(error);
+                    this.showMessageComponent.showMessage(
+                        "error",
+                        "Error Message",
+                        error.message
+                    );
+                }
+            );
         }
     }
     getNotificationsCount() {
@@ -73,9 +88,19 @@ export class NotificationComponent implements OnInit {
         for (const element of selectedUser.teams) {
             this.notificationsService
                 .getNotificationsCount(element.id)
-                .subscribe((result) => {
-                    this.notificationCount += result.count;
-                });
+                .subscribe(
+                    (result) => {
+                        this.notificationCount += result.count;
+                    },
+                    (error) => {
+                        console.log(error);
+                        this.showMessageComponent.showMessage(
+                            "error",
+                            "Error Message",
+                            error.message
+                        );
+                    }
+                );
         }
     }
 }

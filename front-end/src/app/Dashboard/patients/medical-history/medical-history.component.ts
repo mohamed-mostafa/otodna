@@ -9,7 +9,6 @@ import { Component, OnInit } from "@angular/core";
     selector: "app-medical-history",
     templateUrl: "./medical-history.component.html",
     styleUrls: ["./medical-history.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class MedicalHistoryComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

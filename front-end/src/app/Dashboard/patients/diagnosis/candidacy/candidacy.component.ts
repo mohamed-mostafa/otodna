@@ -17,7 +17,6 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
     selector: "app-candidacy",
     templateUrl: "./candidacy.component.html",
     styleUrls: ["./candidacy.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class CandidacyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;

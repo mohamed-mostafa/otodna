@@ -1,3 +1,4 @@
+import { ConfirmationService, MessageService } from "primeng/api";
 import { SERVICES } from "./services";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { PrimeNgComponents } from "./primengComponents";
@@ -24,6 +25,8 @@ import { ErrorInterceptor } from "../Auth/error.interceptor";
         SERVICES,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        MessageService,
+        ConfirmationService,
     ],
     bootstrap: [DashboardComponent],
 })

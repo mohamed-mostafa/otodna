@@ -39,7 +39,7 @@ export class PatientSessionService {
     }
     getLastSessionByType(sessionTypeId, patientId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.link}?filter[order]=id DESC&filter[limit]=1&filter[where][and][0][sessionTypeId][eq]=${sessionTypeId}&filter[where][and][1][patientId][eq]=${patientId}`
+            `${this.apiUrl}/getLastSessionByType/${sessionTypeId}/${patientId}`
         );
     }
     getSessionsDiseasesAndRecommendation(patientId): Observable<any> {

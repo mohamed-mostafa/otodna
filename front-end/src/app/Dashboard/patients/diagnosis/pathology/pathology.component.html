@@ -1,7 +1,5 @@
-<p-toast></p-toast>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <app-patient-summary></app-patient-summary>
-<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <ng-container *ngIf="displayTest; else elseDisplayPathologyTests">
     <div class="cardMargin">
         <p-card>

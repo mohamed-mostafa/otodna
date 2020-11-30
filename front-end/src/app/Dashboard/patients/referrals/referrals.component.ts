@@ -12,7 +12,6 @@ import { Component, OnInit } from "@angular/core";
     selector: "app-referrals",
     templateUrl: "./referrals.component.html",
     styleUrls: ["./referrals.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class ReferralsComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

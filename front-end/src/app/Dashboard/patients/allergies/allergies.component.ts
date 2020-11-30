@@ -12,7 +12,6 @@ import { ShowMessageComponent } from "./../../shared/show-message/show-message.c
     selector: "app-allergies",
     templateUrl: "./allergies.component.html",
     styleUrls: ["./allergies.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class AllergiesComponent implements OnInit {
     sharedClass: SharedClass = new SharedClass(this.patientService);

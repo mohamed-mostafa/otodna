@@ -79,7 +79,6 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
     return new Promise(async (resolve, reject) => {
       try {
         const sessions = await super.find({
-          // order: ['id DESC'],
           where: {sessionTypeId: 0, patientId},
           include: [
             {relation: 'sessionTreatments'},
@@ -118,6 +117,28 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
       try {
         const result = await super.find({
           where: {patientId},
+          include: [
+            {relation: 'sessionTests'},
+            {relation: 'sessionTreatments'},
+            {relation: 'patientSessionPathologies'},
+          ],
+        });
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+  public getLastSessionByType(
+    sessionTypeId: number,
+    patientId: number,
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await super.find({
+          order: ['id DESC'],
+          limit: 1,
+          where: {sessionTypeId, patientId},
           include: [
             {relation: 'sessionTests'},
             {relation: 'sessionTreatments'},

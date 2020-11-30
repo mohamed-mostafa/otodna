@@ -17,7 +17,6 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
     selector: "app-pathology",
     templateUrl: "./pathology.component.html",
     styleUrls: ["./pathology.component.css"],
-    providers: [MessageService, ConfirmationService],
 })
 export class PathologyComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
