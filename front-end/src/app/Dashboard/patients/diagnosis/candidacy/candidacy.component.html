@@ -173,7 +173,7 @@
                             styleClass="ui-card-shadow"
                         >
                             <div
-                                (click)="retrieveTestData(right, 'right')"
+                                (click)="retrieveTestData(right)"
                                 class="height50"
                             >
                                 <div class="ui-g-12 ui-md-12 bold">
@@ -236,7 +236,7 @@
                             styleClass="ui-card-shadow"
                         >
                             <div
-                                (click)="retrieveTestData(left, 'left')"
+                                (click)="retrieveTestData(left)"
                                 class="height50"
                             >
                                 <div class="ui-g-12 ui-md-12 bold">
@@ -288,7 +288,9 @@
             </div>
         </ng-container>
         <ng-template #elseNoDataToDisplay>
-            <span class="noDataToDisplay">No recommendations were recorded for this session.</span>
+            <span class="noDataToDisplay"
+                >No recommendations were recorded for this session.</span
+            >
         </ng-template>
     </div>
 </ng-template>

@@ -16,6 +16,7 @@
                         id="displayName"
                         placeholder="Display Name"
                         [(ngModel)]="session.displayName"
+                        [readonly]="selectedSession.ended === 'true'"
                     />
                 </div>
             </div>
@@ -32,6 +33,7 @@
                         [yearNavigator]="true"
                         yearRange="1950:2020"
                         showButtonBar="true"
+                        [disabled]="selectedSession.ended === 'true'"
                     ></p-calendar>
                 </div>
             </div>
@@ -47,6 +49,7 @@
                         id="performer"
                         placeholder="Performer"
                         [(ngModel)]="session.performer"
+                        [readonly]="selectedSession.ended === 'true'"
                     />
                 </div>
             </div>
@@ -60,6 +63,7 @@
                         id="department"
                         [showClear]="true"
                         [(ngModel)]="selectedDepartment"
+                        [readonly]="selectedSession.ended === 'true'"
                     ></p-dropdown>
                 </div>
             </div>
@@ -79,6 +83,7 @@
                                 autoResize="autoResize"
                                 placeholder="Conclusion"
                                 [(ngModel)]="session.notes"
+                                [readonly]="selectedSession.ended === 'true'"
                             ></textarea>
                             <div
                                 class="new-message-footer"

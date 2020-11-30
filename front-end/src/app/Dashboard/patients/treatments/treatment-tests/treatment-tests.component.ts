@@ -627,14 +627,17 @@ export class TreatmentTestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    async retrieveTestData(treatment, position) {
+    async retrieveTestData(treatment) {
         this.spinner.show();
         if (this.selectedSession.ended === "false") {
             this.readonly = false;
         } else {
             this.readonly = true;
         }
-        if (position === "right") {
+        if (treatment.ear === "BOTH") {
+            this.showDialogRightData = true;
+            this.showDialogLeftData = true;
+        } else if (treatment.ear === "R") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;
             this.ear = "R";

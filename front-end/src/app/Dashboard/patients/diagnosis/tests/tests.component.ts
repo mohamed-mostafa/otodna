@@ -610,14 +610,17 @@ export class TestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    async retrieveTestData(test, position) {
+    async retrieveTestData(test) {
         this.spinner.show();
         if (this.selectedSession.ended === "false") {
             this.readonly = false;
         } else {
             this.readonly = true;
         }
-        if (position === "right") {
+        if (test.ear === "BOTH") {
+            this.showDialogRightData = true;
+            this.showDialogLeftData = true;
+        } else if (test.ear === "R") {
             this.showDialogLeftData = false;
             this.showDialogRightData = true;
             this.ear = "R";
