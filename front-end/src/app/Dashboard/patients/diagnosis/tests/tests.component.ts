@@ -154,6 +154,9 @@ export class TestsComponent implements OnInit {
         this.getAllEquipments();
         this.getSessionTests();
         this.checkLoggedInUserTeamWithPatient();
+        if (window.history.state.test) {
+            this.retrieveTestData(window.history.state.test);
+        }
     }
     showDiagnosisTests() {
         this.displayTest = false;

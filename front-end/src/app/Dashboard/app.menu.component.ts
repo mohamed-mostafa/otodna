@@ -366,7 +366,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: "Tests",
                             icon: "fa fa-fw fa-flask",
-                            routerLink: ["diagnosisTests"],
+                            routerLink: ["followupTests"],
                             badge: selectedSession.sessionTests
                                 ? selectedSession.sessionTests.length
                                 : 0,
@@ -374,7 +374,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: "Pathology",
                             icon: "fa fa-fw fa-book",
-                            routerLink: ["diagnosisPathology"],
+                            routerLink: ["followupPathology"],
                             badge: selectedSession.patientSessionPathologies
                                 ? selectedSession.patientSessionPathologies
                                       .length
@@ -383,7 +383,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: "Recommendation",
                             icon: "fa fa-fw fa-stethoscope",
-                            routerLink: ["diagnosisCandidacy"],
+                            routerLink: ["followupCandidacy"],
                             badge: selectedSession.sessionTreatments
                                 ? selectedSession.sessionTreatments.length
                                 : 0,

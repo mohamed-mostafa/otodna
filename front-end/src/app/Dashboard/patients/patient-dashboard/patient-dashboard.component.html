@@ -192,7 +192,6 @@
                                         *ngFor="
                                             let item of lastSessionDiseasesAndRecommendations
                                         "
-                                        class="ui-g-12 ui-lg-4"
                                     >
                                         <ng-container
                                             *ngIf="
@@ -515,7 +514,12 @@
             <div class="ui-g-12 ui-lg-4">
                 <p-card [style]="{ height: '100px' }">
                     <p-header>
-                        <div class="center col4Title">Last audiology test</div>
+                        <div
+                            class="center col4Title pointerCursor"
+                            (click)="openLastTest(lastAudiologyTest)"
+                        >
+                            Last audiology test
+                        </div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -543,7 +547,12 @@
                                 </div>
                             </ng-container>
                             <ng-template #notShowLastAudiologyTestErrorMessage>
-                                {{ lastAudiologyTest.testName }}
+                                <div
+                                    class="pointerCursor"
+                                    (click)="openLastTest(lastAudiologyTest)"
+                                >
+                                    {{ lastAudiologyTest.testName }}
+                                </div>
                             </ng-template>
                         </ng-template>
                     </div>
@@ -552,7 +561,12 @@
             <div class="ui-g-12 ui-lg-4">
                 <p-card [style]="{ height: '100px' }">
                     <p-header>
-                        <div class="center col4Title">Last speech test</div>
+                        <div
+                            class="center col4Title pointerCursor"
+                            (click)="openLastTest(lastSpeechTest)"
+                        >
+                            Last speech test
+                        </div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -580,7 +594,12 @@
                                 </div>
                             </ng-container>
                             <ng-template #notShowLastSpeechTestErrorMessage>
-                                {{ lastSpeechTest.testName }}
+                                <div
+                                    class="pointerCursor"
+                                    (click)="openLastTest(lastSpeechTest)"
+                                >
+                                    {{ lastSpeechTest.testName }}
+                                </div>
                             </ng-template>
                         </ng-template>
                     </div>
@@ -589,7 +608,12 @@
             <div class="ui-g-12 ui-lg-4">
                 <p-card [style]="{ height: '100px' }">
                     <p-header>
-                        <div class="center col4Title">Last otology test</div>
+                        <div
+                            class="center col4Title pointerCursor"
+                            (click)="openLastTest(lastOtologyTest)"
+                        >
+                            Last otology test
+                        </div>
                     </p-header>
                     <div class="center">
                         <ng-container
@@ -617,7 +641,12 @@
                                 </div>
                             </ng-container>
                             <ng-template #notShowLastOtologyTestErrorMessage>
-                                {{ lastOtologyTest.testName }}
+                                <div
+                                    class="pointerCursor"
+                                    (click)="openLastTest(lastOtologyTest)"
+                                >
+                                    {{ lastOtologyTest.testName }}
+                                </div>
                             </ng-template>
                         </ng-template>
                     </div>

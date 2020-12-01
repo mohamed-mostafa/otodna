@@ -39,12 +39,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
                 } else if (err.status === 500 || err.status === 0) {
                     this.spinner.hide();
-                    this.showMessageComponent.showMessage(
-                        "error",
-                        "Internal server error",
-                        "An error occured while processing your request. Please Contact the system administrator."
-                    );
-                    console.log("Internal Server Error");
+                    if (err.url.includes("/notifications")) {
+                        console.log(err);
+                    } else {
+                        this.showMessageComponent.showMessage(
+                            "error",
+                            "Internal server error",
+                            "An error occured while processing your request. Please Contact the system administrator."
+                        );
+                        console.log("Internal Server Error");
+                    }
                 } else if (err.status === 403) {
                     this.spinner.hide();
                     this.showMessageComponent.showMessage(

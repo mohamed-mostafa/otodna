@@ -362,4 +362,44 @@ export class PatientDashboardComponent implements OnInit {
             },
         ];
     }
+    openLastTest(test) {
+        if (test && test.patientSessionId) {
+            this.patientSession.getSessionById(test.patientSessionId).subscribe(
+                async (result) => {
+                    if (result) {
+                        localStorage.setItem(
+                            "sessionBasicInfo",
+                            JSON.stringify(result)
+                        );
+                        if (result.sessionTypeId === 0) {
+                            this.router
+                                .navigateByUrl("/RefreshComponent", {
+                                    skipLocationChange: true,
+                                })
+                                .then(() => {
+                                    this.router.navigate(
+                                        ["/dashboard/diagnosisTests"],
+                                        { state: { test } }
+                                    );
+                                });
+                        } else {
+                            this.router
+                                .navigateByUrl("/RefreshComponent", {
+                                    skipLocationChange: true,
+                                })
+                                .then(() => {
+                                    this.router.navigate(
+                                        ["/dashboard/followupTests"],
+                                        { state: { test } }
+                                    );
+                                });
+                        }
+                    }
+                },
+                async (error) => {
+                    console.log(error);
+                }
+            );
+        }
+    }
 }

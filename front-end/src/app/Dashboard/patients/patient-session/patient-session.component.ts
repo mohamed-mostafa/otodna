@@ -38,6 +38,7 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
     showGenerateConclusion = true;
     departments = [];
     selectedDepartment;
+    showDepartmentSelect = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -184,6 +185,14 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
             this.selectedDepartment = await this.getDepartmentById(
                 this.selectedSession.departmentId
             );
+            const found = this.departments.some(
+                (depart) => depart.id === this.selectedDepartment.id
+            );
+            if (found) {
+                this.showDepartmentSelect = true;
+            } else {
+                this.showDepartmentSelect = false;
+            }
             this.showButtons = false;
         } else {
             this.session.date = new Date();

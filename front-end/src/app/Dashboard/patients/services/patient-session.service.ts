@@ -52,4 +52,9 @@ export class PatientSessionService {
             `${this.apiUrl}/getLastTestByDepartmentId/${patientId}/${departmentId}`
         );
     }
+    getSessionById(id): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}/${id}?filter[include][0][relation]=sessionTests&filter[include][1][relation]=sessionTreatments&filter[include][2][relation]=patientSessionPathologies`
+        );
+    }
 }
