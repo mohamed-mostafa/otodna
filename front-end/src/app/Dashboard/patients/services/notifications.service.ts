@@ -15,6 +15,12 @@ export class NotificationsService {
             `${this.apiUrl}/${this.link}?filter[where][and][0][teamId][eq]=${teamId}&filter[where][and][1][seen][eq]=false`
         );
     }
+    getAllNotificationsByTeams(teams): Observable<void> {
+        return this.http.post<void>(
+            `${this.apiUrl}/getAllNotificationsByTeams`,
+            teams
+        );
+    }
     deleteNotification(id: String): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${this.link}/${id}`);
     }

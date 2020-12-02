@@ -26,10 +26,8 @@ export class NotificationComponent implements OnInit {
     ngOnInit(): void {
         this.loggedInUser = JSON.parse(localStorage.getItem("user"));
         this.getALlNotifications();
-        this.getNotificationsCount();
         setInterval(() => {
             this.getALlNotifications();
-            this.getNotificationsCount();
             this.notifications = [];
             this.notificationCount = 0;
         }, 30000);
@@ -50,17 +48,19 @@ export class NotificationComponent implements OnInit {
     }
     getALlNotifications() {
         let markAsRead = false;
-        for (const element of this.loggedInUser.teams) {
-            this.notificationsService.getAllNotifications(element.id).subscribe(
+        this.notificationsService
+            .getAllNotificationsByTeams(this.loggedInUser.teams)
+            .subscribe(
                 async (result) => {
-                    if (result && result.length > 0) {
-                        result.forEach((res) => {
+                    const data: any = result;
+                    if (data && data.length > 0) {
+                        data.forEach((res) => {
                             if (res.teamOwnerId === this.loggedInUser.id) {
                                 markAsRead = true;
                             } else {
                                 markAsRead = false;
                             }
-                            let obj = {
+                            const obj = {
                                 label: res.notificationText,
                                 icon: markAsRead ? "fa fa-eye" : "",
                                 command: () => {
@@ -71,6 +71,7 @@ export class NotificationComponent implements OnInit {
                             this.notifications.push(obj);
                         });
                     }
+                    this.notificationCount = this.notifications.length;
                 },
                 async (error) => {
                     console.log(error);
@@ -81,26 +82,5 @@ export class NotificationComponent implements OnInit {
                     );
                 }
             );
-        }
-    }
-    getNotificationsCount() {
-        const selectedUser = JSON.parse(localStorage.getItem("user"));
-        for (const element of selectedUser.teams) {
-            this.notificationsService
-                .getNotificationsCount(element.id)
-                .subscribe(
-                    (result) => {
-                        this.notificationCount += result.count;
-                    },
-                    (error) => {
-                        console.log(error);
-                        this.showMessageComponent.showMessage(
-                            "error",
-                            "Error Message",
-                            error.message
-                        );
-                    }
-                );
-        }
     }
 }

@@ -22,14 +22,16 @@ import {NotificationRepository} from '../repositories';
 export class NotificationController {
   constructor(
     @repository(NotificationRepository)
-    public notificationRepository : NotificationRepository,
+    public notificationRepository: NotificationRepository,
   ) {}
 
   @post('/notifications', {
     responses: {
       '200': {
         description: 'Notification model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Notification)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(Notification)},
+        },
       },
     },
   })
@@ -47,6 +49,24 @@ export class NotificationController {
     notification: Omit<Notification, 'id'>,
   ): Promise<Notification> {
     return this.notificationRepository.create(notification);
+  }
+
+  @post('/getAllNotificationsByTeams', {
+    responses: {
+      '200': {
+        description: 'getAllNotificationsByTeams model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(Notification),
+          },
+        },
+      },
+    },
+  })
+  async getAllNotificationsByTeams(
+    @requestBody() data: Array<Object>,
+  ): Promise<any> {
+    return this.notificationRepository.getAllNotificationsByTeams(data);
   }
 
   @get('/notifications/count', {
@@ -120,7 +140,8 @@ export class NotificationController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Notification, {exclude: 'where'}) filter?: FilterExcludingWhere<Notification>
+    @param.filter(Notification, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Notification>,
   ): Promise<Notification> {
     return this.notificationRepository.findById(id, filter);
   }

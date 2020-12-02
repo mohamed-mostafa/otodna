@@ -325,6 +325,7 @@ export class PatientDashboardComponent implements OnInit {
                     "Error",
                     "An error occured while processing your request. Please Contact the system administrator."
                 );
+                this.showDocumentsErrorMessage = true;
                 this.showDocumentsLoading = false;
             });
     }

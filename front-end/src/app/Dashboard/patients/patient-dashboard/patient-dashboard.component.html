@@ -673,57 +673,74 @@
                     <ng-template #notShowDocumentsLoading>
                         <ng-container
                             *ngIf="
-                                allDocuments && allDocuments.length > 0;
-                                else elseNoDocuments
+                                showDocumentsErrorMessage;
+                                else notShowDocumentsErrorMessage
                             "
                         >
-                            <p-carousel
-                                [value]="allDocuments"
-                                styleClass="custom-carousel"
-                                [numVisible]="2"
-                                [numScroll]="1"
+                            <div class="ui-g-12 center">
+                                <h3 class="center col6Title">Documents</h3>
+                                {{ errorMessage }}
+                            </div>
+                        </ng-container>
+                        <ng-template #notShowDocumentsErrorMessage>
+                            <ng-container
+                                *ngIf="
+                                    allDocuments && allDocuments.length > 0;
+                                    else elseNoDocuments
+                                "
                             >
-                                <p-header>
-                                    <h3 class="center col6Title">Documents</h3>
-                                </p-header>
-                                <ng-template let-document pTemplate="item">
-                                    <div
-                                        class="car-details"
-                                        (click)="viewDocument(document)"
-                                        class="pointerCursor height"
-                                    >
-                                        <div class="p-grid p-nogutter">
-                                            <div class="p-col-12 center">
-                                                <app-files-icons
-                                                    [key]="document.Key"
-                                                ></app-files-icons>
-                                            </div>
-                                            <div
-                                                class="p-col-12 car-data center"
-                                            >
-                                                <div class="car-title">
-                                                    {{
-                                                        removeKey(document.Key)
-                                                    }}
+                                <p-carousel
+                                    [value]="allDocuments"
+                                    styleClass="custom-carousel"
+                                    [numVisible]="2"
+                                    [numScroll]="1"
+                                >
+                                    <p-header>
+                                        <h3 class="center col6Title">
+                                            Documents
+                                        </h3>
+                                    </p-header>
+                                    <ng-template let-document pTemplate="item">
+                                        <div
+                                            class="car-details"
+                                            (click)="viewDocument(document)"
+                                            class="pointerCursor height"
+                                        >
+                                            <div class="p-grid p-nogutter">
+                                                <div class="p-col-12 center">
+                                                    <app-files-icons
+                                                        [key]="document.Key"
+                                                    ></app-files-icons>
                                                 </div>
-                                                <div class="car-subtitle">
-                                                    {{
-                                                        formatBytes(
-                                                            document.Size
-                                                        )
-                                                    }}
+                                                <div
+                                                    class="p-col-12 car-data center"
+                                                >
+                                                    <div class="car-title">
+                                                        {{
+                                                            removeKey(
+                                                                document.Key
+                                                            )
+                                                        }}
+                                                    </div>
+                                                    <div class="car-subtitle">
+                                                        {{
+                                                            formatBytes(
+                                                                document.Size
+                                                            )
+                                                        }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </ng-template>
-                            </p-carousel>
-                        </ng-container>
-                        <ng-template #elseNoDocuments>
-                            <p-header>
-                                <h3 class="center col6Title">Documents</h3>
-                            </p-header>
-                            <div class="center">No Documents Found</div>
+                                    </ng-template>
+                                </p-carousel>
+                            </ng-container>
+                            <ng-template #elseNoDocuments>
+                                <p-header>
+                                    <h3 class="center col6Title">Documents</h3>
+                                </p-header>
+                                <div class="center">No Documents Found</div>
+                            </ng-template>
                         </ng-template>
                     </ng-template>
                 </div>

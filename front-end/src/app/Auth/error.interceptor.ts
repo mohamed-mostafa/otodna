@@ -31,6 +31,14 @@ export class ErrorInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
             catchError((err) => {
+                const errUrlsArray = [
+                    "getAllNotificationsByTeams",
+                    "getAllSessionsWithPatientId",
+                    "patientSession/count",
+                    "getLastSessionByType",
+                    "getLastTestByDepartmentId",
+                    "getSessionsDiseasesAndRecommendation",
+                ];
                 if (err.status === 401) {
                     // auto logout if 401 response returned from api
                     this.authenticationService.logout();
@@ -39,7 +47,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
                 } else if (err.status === 500 || err.status === 0) {
                     this.spinner.hide();
-                    if (err.url.includes("/notifications")) {
+                    const found = errUrlsArray.some((errUrl) =>
+                        err.url.includes(errUrl)
+                    );
+                    if (found) {
                         console.log(err);
                     } else {
                         this.showMessageComponent.showMessage(

@@ -442,7 +442,7 @@ export class AppMenuComponent implements OnInit {
                     "medical/immunizations",
                     "medical/medications",
                     "medical/problems",
-                    "patientHistory",
+                    // "patientHistory",
                     "referrals",
                     "medicalHistory",
                     "documents",
@@ -472,11 +472,11 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
-                        {
-                            label: "Patient History",
-                            icon: "fa fa-fw fa-lock",
-                            styleClass: "menuCss",
-                        },
+                        // {
+                        //     label: "Patient History",
+                        //     icon: "fa fa-fw fa-lock",
+                        //     styleClass: "menuCss",
+                        // },
                     ];
                 } else {
                     this.otherMenu = [
@@ -543,11 +543,11 @@ export class AppMenuComponent implements OnInit {
                         //     icon: "fa fa-fw fa-user-md",
                         //     routerLink: ["medicalHistory"],
                         // },
-                        {
-                            label: "Patient History",
-                            icon: "fa fa-fw fa-history",
-                            routerLink: ["patientHistory"],
-                        },
+                        // {
+                        //     label: "Patient History",
+                        //     icon: "fa fa-fw fa-history",
+                        //     routerLink: ["patientHistory"],
+                        // },
                         {
                             label: "Documents",
                             icon: "fa fa-fw fa-file-text",
