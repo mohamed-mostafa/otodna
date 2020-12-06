@@ -5,29 +5,34 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn: "root",
 })
-export class MedicalHistoryService {
+export class ClinicalHistoryService {
     apiUrl = environment.patientApiUrl;
-    link = "medical-histories";
+    link = "clinical-histories";
     constructor(private http: HttpClient) {}
 
-    getAllMedicalHistory(patientId): Observable<any> {
+    getAllClinicalHistory(patientId): Observable<any> {
         return this.http.get<any>(
             `${this.apiUrl}/${this.link}?filter[where][patientId][eq]=${patientId}`
         );
     }
-    deleteMedicalHistory(id: String): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${this.link}/${id}`);
-    }
-    updateMedicalHistory(medicalHistory): Observable<void> {
-        return this.http.patch<void>(
-            `${this.apiUrl}/${this.link}/${medicalHistory.id}`,
-            medicalHistory
+    getSelectedClinicalHistory(patientId, id): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/${this.link}?filter[where][and][0][patientId][eq]=${patientId}&filter[where][and][1][${id}][neq]=null`
         );
     }
-    createMedicalHistory(medicalHistory): Observable<void> {
+    deleteClinicalHistory(id: String): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${this.link}/${id}`);
+    }
+    updateClinicalHistory(clinicalHistory): Observable<void> {
+        return this.http.patch<void>(
+            `${this.apiUrl}/${this.link}/${clinicalHistory.id}`,
+            clinicalHistory
+        );
+    }
+    createClinicalHistory(clinicalHistory): Observable<void> {
         return this.http.post<void>(
             `${this.apiUrl}/${this.link}`,
-            medicalHistory
+            clinicalHistory
         );
     }
 }

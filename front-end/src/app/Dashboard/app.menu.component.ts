@@ -442,9 +442,10 @@ export class AppMenuComponent implements OnInit {
                     "medical/immunizations",
                     "medical/medications",
                     "medical/problems",
+                    "clinical/pathology",
+                    "clinical/treatment",
                     // "patientHistory",
                     "referrals",
-                    "medicalHistory",
                     "documents",
                 ];
                 let selectedPatient = JSON.parse(
@@ -464,6 +465,11 @@ export class AppMenuComponent implements OnInit {
                         },
                         {
                             label: "Documents",
+                            icon: "fa fa-fw fa-lock",
+                            styleClass: "menuCss",
+                        },
+                        {
+                            label: "Clinical History",
                             icon: "fa fa-fw fa-lock",
                             styleClass: "menuCss",
                         },
@@ -532,7 +538,23 @@ export class AppMenuComponent implements OnInit {
                                 },
                             ],
                         },
-
+                        {
+                            label: "Clinical History",
+                            icon: "fa fa-fw fa-history",
+                            routerLink: ["/dashboard/clinical"],
+                            items: [
+                                {
+                                    label: "Pathology",
+                                    icon: "fa fa-fw fa-book",
+                                    routerLink: ["clinical/pathology"],
+                                },
+                                {
+                                    label: "Treatment",
+                                    icon: "fa fa-fw fa-stethoscope",
+                                    routerLink: ["clinical/treatment"],
+                                },
+                            ],
+                        },
                         {
                             label: "Referrals",
                             icon: "fa fa-fw fa-user-plus",
@@ -590,5 +612,14 @@ export class AppMenuComponent implements OnInit {
                     });
             }
         }
+    }
+    onClickClinicalHistory(event) {
+        this.router
+            .navigateByUrl("/RefreshComponent", {
+                skipLocationChange: true,
+            })
+            .then(() => {
+                this.router.navigate(["/dashboard/clinical/pathology"]);
+            });
     }
 }

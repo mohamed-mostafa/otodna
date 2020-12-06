@@ -29,4 +29,5 @@ export * from './tests-count-by-department.repository';
 export * from './pathologies-count-by-department.repository';
 export * from './treatments-count-by-department.repository';
 export * from './candidacies-count-by-department.repository';
-export * from './medical-history.repository';
+export * from './clinical-history.repository';
+export * from './clinical-history.repository';

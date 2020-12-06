@@ -1,0 +1,130 @@
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-12">
+        <div
+            [ngClass]="
+                showDialogRightData && showDialogLeftData
+                    ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                    : showDialogRightData && !showDialogLeftData
+                    ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                    : 'ui-g-12 ui-md-2 '
+            "
+        >
+            <h2 class="centerHeader removeMarginAndPadding rightColor">
+                <p-checkbox
+                    label="R"
+                    [(ngModel)]="showDialogRightData"
+                    binary="true"
+                    (click)="checkCheckboxSelection()"
+                    [disabled]="disableRightDialogTest"
+                ></p-checkbox>
+            </h2>
+        </div>
+        <div
+            [ngClass]="
+                showDialogRightData && showDialogLeftData
+                    ? 'ui-g-12 ui-md-6 '
+                    : !showDialogRightData && showDialogLeftData
+                    ? 'ui-g-12 ui-md-10 leftVerticalColor'
+                    : 'ui-g-12 ui-md-2 '
+            "
+        >
+            <h2 class="centerHeader removeMarginAndPadding leftColor">
+                <p-checkbox
+                    label="L"
+                    [(ngModel)]="showDialogLeftData"
+                    binary="true"
+                    (click)="checkCheckboxSelection()"
+                    [disabled]="disableLeftDialogTest"
+                ></p-checkbox>
+            </h2>
+        </div>
+        <div class="ui-g-12 ui-md-12 removeMarginAndPadding">
+            <div class="ui-g-12 ui-md-12 removeMarginAndPadding">
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2'
+                    "
+                >
+                    <div *ngIf="showDialogRightData">
+                        <label for="right-date">Date</label>
+                        <div class="ui-inputgroup labelMarginTop">
+                            <span
+                                class="ui-inputgroup-addon rightBackgroundColor"
+                                >R</span
+                            >
+                            <p-calendar
+                                placeholder="Date"
+                                [showIcon]="true"
+                                id="right-date"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="1950:2020"
+                                showButtonBar="true"
+                                class="width100"
+                                [(ngModel)]="parameters.rightDate"
+                            ></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 leftVerticalColor'
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
+                    <div *ngIf="showDialogLeftData">
+                        <label for="left-date">Date</label>
+                        <div class="ui-inputgroup labelMarginTop">
+                            <span
+                                class="ui-inputgroup-addon leftBackgroundColor"
+                                >L</span
+                            >
+                            <p-calendar
+                                placeholder="Date"
+                                [showIcon]="true"
+                                id="left-date"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="1950:2020"
+                                showButtonBar="true"
+                                class="width100"
+                                [(ngModel)]="parameters.leftDate"
+                            ></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+                <label>Description</label>
+                <div class="labelMarginTop">
+                    <textarea
+                        [rows]="5"
+                        [cols]="30"
+                        pInputTextarea
+                        autoResize="autoResize"
+                        placeholder="Description"
+                        [(ngModel)]="parameters.description"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+                <div class="ui-g-12 ui-md-4" *ngFor="let item of earItems">
+                    <p-radioButton
+                        name="ear"
+                        value="{{ item.value }}"
+                        label="{{ item.item }}"
+                        inputId="ear"
+                        [(ngModel)]="parameters.ear"
+                    ></p-radioButton>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

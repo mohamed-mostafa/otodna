@@ -138,6 +138,69 @@
                                         <span class="event-owner">Born</span>
                                     </div>
                                 </div>
+                                <div>
+                                    <ng-container
+                                        *ngIf="
+                                            showClinicalHistoryLoading;
+                                            else notShowClinicalHistoryLoading
+                                        "
+                                    >
+                                        <p-progressSpinner
+                                            [style]="{
+                                                width: '50px',
+                                                height: '50px'
+                                            }"
+                                            strokeWidth="8"
+                                            fill="#EEEEEE"
+                                            animationDuration=".5s"
+                                        ></p-progressSpinner>
+                                    </ng-container>
+                                    <ng-template #notShowClinicalHistoryLoading>
+                                        <ng-container
+                                            *ngIf="
+                                                showClinicalHistoryErrorMessage;
+                                                else notShowClinicalHistoryErrorMessage
+                                            "
+                                        >
+                                            <div class="ui-g-12 center">
+                                                {{ errorMessage }}
+                                            </div>
+                                        </ng-container>
+                                        <ng-template
+                                            #notShowClinicalHistoryErrorMessage
+                                        >
+                                            <div
+                                                class="ui-g-12"
+                                                *ngFor="
+                                                    let clinical of clinicalHistory
+                                                "
+                                            >
+                                                <div class="ui-g-3">
+                                                    <span>
+                                                        <div
+                                                            class="rightFloated rightMargin"
+                                                        >
+                                                            {{
+                                                                clinical.date
+                                                                    | date
+                                                            }}
+                                                        </div>
+                                                    </span>
+                                                    <i
+                                                        class="fa fa-history color"
+                                                    ></i>
+                                                </div>
+                                                <div class="ui-g-9">
+                                                    <span class="event-owner">{{
+                                                        clinical.treatmentName
+                                                            ? clinical.treatmentName
+                                                            : clinical.pathologyName
+                                                    }}</span>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ng-template>
+                                </div>
                             </ng-template>
                         </ng-template>
                     </div>
@@ -551,7 +614,11 @@
                                     class="pointerCursor"
                                     (click)="openLastTest(lastAudiologyTest)"
                                 >
-                                    {{ lastAudiologyTest.testName }}
+                                    {{
+                                        lastAudiologyTest
+                                            ? lastAudiologyTest.testName
+                                            : "No Tests Found"
+                                    }}
                                 </div>
                             </ng-template>
                         </ng-template>
@@ -598,7 +665,11 @@
                                     class="pointerCursor"
                                     (click)="openLastTest(lastSpeechTest)"
                                 >
-                                    {{ lastSpeechTest.testName }}
+                                    {{
+                                        lastSpeechTest
+                                            ? lastSpeechTest.testName
+                                            : "No Tests Found"
+                                    }}
                                 </div>
                             </ng-template>
                         </ng-template>
@@ -645,7 +716,11 @@
                                     class="pointerCursor"
                                     (click)="openLastTest(lastOtologyTest)"
                                 >
-                                    {{ lastOtologyTest.testName }}
+                                    {{
+                                        lastOtologyTest
+                                            ? lastOtologyTest.testName
+                                            : "No Tests Found"
+                                    }}
                                 </div>
                             </ng-template>
                         </ng-template>

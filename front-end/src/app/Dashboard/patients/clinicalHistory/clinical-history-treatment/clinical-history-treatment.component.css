@@ -1,0 +1,169 @@
+.centerClass {
+    text-align: center;
+    margin-top: 12%;
+}
+
+.labelMarginTop {
+    margin-top: 7px;
+}
+
+.equipmentCenterClass {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.FullWidth {
+    width: 100%;
+}
+.labelMarginTop {
+    margin-top: 7px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.centerHeader {
+    text-align: center;
+}
+.marginTop28 {
+    margin-top: 28px;
+}
+.removeMarginAndPadding {
+    margin: 0px;
+    padding: 0px;
+}
+.rightVerticalLine {
+    border-right: 2px solid #e0e0e0;
+}
+.leftVerticalColor {
+    border-left: 5px solid #1e88e5;
+    padding-left: 5px;
+}
+.leftColor {
+    color: #1e88e5 !important;
+}
+.rightColor {
+    color: #c62828 !important;
+}
+.equipmentStyle {
+    font-size: 18px;
+    float: left;
+    margin: 10px 10px 0 0;
+}
+.rightBackgroundColor {
+    background-color: #c62828 !important;
+    color: white !important;
+}
+.leftBackgroundColor {
+    background-color: #1e88e5 !important;
+    color: white !important;
+}
+.ui-fluid .ui-dropdown,
+.ui-fluid p-dropdown {
+    width: 100%;
+    min-width: 90%;
+}
+.lineHeight {
+    line-height: 5px;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.bold {
+    font-weight: bold;
+}
+.addTestStyle {
+    padding-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.testStyle {
+    padding-top: 12px;
+    font-size: 15px;
+}
+.iconStyle {
+    color: red;
+    float: right;
+}
+@media screen and (max-width: 40em) {
+    .addTestStyle {
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+.photoStyle {
+    border: 3px solid #b3eee0;
+    height: 120px;
+}
+.buttonStyle {
+    border: 3px solid #b3eee0;
+    border-top: 0;
+}
+.centerText {
+    text-align: center;
+    margin-top: 12%;
+    font-weight: bold;
+    font-size: medium;
+}
+.width100 {
+    width: 100%;
+}
+.height50 {
+    height: 50px;
+    font-size: 20px;
+    padding-top: 12px;
+}
+.rightCardBorder {
+    border-left: 3px solid #c62828 !important;
+}
+.leftCardBorder {
+    border-right: 3px solid #1e88e5 !important;
+}
+.fontSize11px {
+    font-size: 11px !important;
+}
+.rightFloat {
+    float: left !important;
+}
+.leftFloat {
+    float: right !important;
+}
+.frequentlyUsed {
+    font-size: 17px;
+    font-weight: bold;
+}
+.frequentlyUsedDiv {
+    text-align: center;
+    margin-top: 12px;
+    border-left: 2px solid rgb(206, 205, 205);
+    /* height: 440px; */
+}
+::ng-deep .endSession {
+    color: #262222 !important;
+    background-color: #f4b6b6;
+    border: 1px solid #e38787;
+    margin-top: 5px !important;
+    border-radius: 5px;
+    float: right !important;
+}
+::ng-deep .displayNone {
+    color: white !important;
+    float: right !important;
+    background-color: powderblue;
+    margin-top: 5px !important;
+    border-radius: 5px;
+}
+.cardMargin {
+    margin: 25px 8px !important;
+}
+.noDataToDisplay {
+    text-align: center;
+    width: 100%;
+    padding-top: 50px;
+    font-size: 17px;
+    font-weight: bold;
+}
+.footer {
+    border-top: 1px solid #dadada !important;
+    margin: -15px;
+}

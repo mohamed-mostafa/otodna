@@ -1,3 +1,4 @@
+import {ClinicalHistoryRepository} from './../repositories/clinical-history.repository';
 import {OltpDsDataSource} from './../datasources/oltp-ds.datasource';
 import {inject} from '@loopback/context';
 import {
@@ -32,6 +33,8 @@ export class PatientTagsService extends DefaultTransactionalRepository<
   private sessionTreatmentRepository: SessionTreatmentRepository;
   @repository(PatientSessionPathologyRepository)
   private patientSessionPathologyRepository: PatientSessionPathologyRepository;
+  @repository(ClinicalHistoryRepository)
+  private clinicalHistoryRepository: ClinicalHistoryRepository;
   public getPatientTags(id: number): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const tx: Transaction = await this.beginTransaction();
@@ -42,57 +45,85 @@ export class PatientTagsService extends DefaultTransactionalRepository<
         const data = await super.find({
           where: {patientId: id},
         });
-        data.forEach(async element => {
-          if (element.sessionTypeId === 1) {
-            const result = await this.sessionTreatmentRepository
-              .find(
+        const clinicalHistories = await this.clinicalHistoryRepository.find({
+          where: {patientId: id},
+        });
+        if (data && data.length > 0) {
+          data.forEach(async element => {
+            if (element.sessionTypeId === 1) {
+              const result = await this.sessionTreatmentRepository
+                .find(
+                  {
+                    where: {patientSessionId: element.id},
+                  },
+                  {
+                    transaction: tx,
+                  },
+                )
+                .catch(error => {
+                  reject(error);
+                });
+              if (this.allTreatments && result) {
+                this.allTreatments.forEach((treat: any) => {
+                  result.forEach(res => {
+                    if (treat.treatmentId === res.treatmentId) {
+                      returnedData.push({
+                        type: 'Treatment',
+                        value: treat.tagName,
+                      });
+                    }
+                  });
+                });
+              }
+            }
+            if (element.sessionTypeId === 0) {
+              const result = await this.patientSessionPathologyRepository.find(
                 {
                   where: {patientSessionId: element.id},
                 },
                 {
                   transaction: tx,
                 },
-              )
-              .catch(error => {
-                reject(error);
-              });
-            if (this.allTreatments && result) {
+              );
+              if (this.allPathologies && result) {
+                this.allPathologies.forEach((pathology: any) => {
+                  result.forEach(res => {
+                    if (pathology.diseaseId === res.diseaseId) {
+                      returnedData.push({
+                        type: 'Pathology',
+                        value: pathology.tagName,
+                      });
+                    }
+                  });
+                });
+              }
+            }
+          });
+        }
+        if (clinicalHistories && clinicalHistories.length > 0) {
+          clinicalHistories.forEach(clinic => {
+            if (this.allTreatments && clinic.treatmentId) {
               this.allTreatments.forEach((treat: any) => {
-                result.forEach(res => {
-                  if (treat.treatmentId === res.treatmentId) {
-                    returnedData.push({
-                      type: 'Treatment',
-                      value: treat.tagName,
-                    });
-                  }
-                });
+                if (treat.treatmentId === clinic.treatmentId) {
+                  returnedData.push({
+                    type: 'Treatment',
+                    value: treat.tagName,
+                  });
+                }
               });
             }
-          }
-          if (element.sessionTypeId === 0) {
-            const result = await this.patientSessionPathologyRepository.find(
-              {
-                where: {patientSessionId: element.id},
-              },
-              {
-                transaction: tx,
-              },
-            );
-            if (this.allPathologies && result) {
+            if (this.allPathologies && clinic.pathologyId) {
               this.allPathologies.forEach((pathology: any) => {
-                result.forEach(res => {
-                  if (pathology.diseaseId === res.diseaseId) {
-                    returnedData.push({
-                      type: 'Pathology',
-                      value: pathology.tagName,
-                    });
-                  }
-                });
+                if (pathology.diseaseId === clinic.pathologyId) {
+                  returnedData.push({
+                    type: 'Pathology',
+                    value: pathology.tagName,
+                  });
+                }
               });
             }
-          }
-        });
-
+          });
+        }
         await tx.commit();
         const unique = [
           ...new Map(

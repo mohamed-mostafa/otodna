@@ -18,7 +18,10 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {PatientSessionPathology} from '../models';
-import {PathologiesCountByDepartmentRepository, PatientSessionPathologyRepository} from '../repositories';
+import {
+  PathologiesCountByDepartmentRepository,
+  PatientSessionPathologyRepository,
+} from '../repositories';
 
 export class SessionPathologyController {
   constructor(
@@ -162,8 +165,12 @@ export class SessionPathologyController {
   async getFrequentlyUsedTests(
     @param.path.number('id') id: number,
   ): Promise<PathologiesCountByDepartment[]> {
+    let where: any;
+    if (id) {
+      where = {departmentId: id};
+    }
     return this.pathologiesCountByDepartment.find({
-      where: {departmentId: id},
+      where,
       order: ['count desc'],
     });
   }

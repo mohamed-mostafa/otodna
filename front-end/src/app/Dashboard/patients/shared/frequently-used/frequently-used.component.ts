@@ -28,27 +28,33 @@ export class FrequentlyUsedComponent implements OnInit {
         this.getFrequentlyUsed();
     }
     getFrequentlyUsed() {
+        let departmentId;
+        if (this.selectedSession && this.selectedSession.departmentId) {
+            departmentId = this.selectedSession.departmentId;
+        } else {
+            departmentId = 0;
+        }
         if (this.type === "test") {
             this.testService
-                .getFrequentlyUsedTests(this.selectedSession.departmentId)
+                .getFrequentlyUsedTests(departmentId)
                 .subscribe((result) => {
                     this.frequentlyUsedTests = result;
                 });
         } else if (this.type === "treatment") {
             this.treatmentService
-                .getFrequentlyUsedTreatments(this.selectedSession.departmentId)
+                .getFrequentlyUsedTreatments(departmentId)
                 .subscribe((result) => {
                     this.frequentlyUsedTests = result;
                 });
         } else if (this.type === "candidacy") {
             this.candidacyService
-                .getFrequentlyUsedCandidacies(this.selectedSession.departmentId)
+                .getFrequentlyUsedCandidacies(departmentId)
                 .subscribe((result) => {
                     this.frequentlyUsedTests = result;
                 });
         } else {
             this.pathologyService
-                .getFrequentlyUsedPathologies(this.selectedSession.departmentId)
+                .getFrequentlyUsedPathologies(departmentId)
                 .subscribe((result) => {
                     this.frequentlyUsedTests = result;
                 });

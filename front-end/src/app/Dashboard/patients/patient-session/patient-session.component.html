@@ -16,7 +16,9 @@
                         id="displayName"
                         placeholder="Display Name"
                         [(ngModel)]="session.displayName"
-                        [readonly]="selectedSession.ended === 'true'"
+                        [readonly]="
+                            selectedSession && selectedSession.ended === 'true'
+                        "
                     />
                 </div>
             </div>
@@ -33,7 +35,9 @@
                         [yearNavigator]="true"
                         yearRange="1950:2020"
                         showButtonBar="true"
-                        [disabled]="selectedSession.ended === 'true'"
+                        [disabled]="
+                            selectedSession && selectedSession.ended === 'true'
+                        "
                     ></p-calendar>
                 </div>
             </div>
@@ -49,7 +53,9 @@
                         id="performer"
                         placeholder="Performer"
                         [(ngModel)]="session.performer"
-                        [readonly]="selectedSession.ended === 'true'"
+                        [readonly]="
+                            selectedSession && selectedSession.ended === 'true'
+                        "
                     />
                 </div>
             </div>
@@ -66,7 +72,10 @@
                             id="department"
                             [showClear]="true"
                             [(ngModel)]="selectedDepartment"
-                            [readonly]="selectedSession.ended === 'true'"
+                            [readonly]="
+                                selectedSession &&
+                                selectedSession.ended === 'true'
+                            "
                         ></p-dropdown>
                     </div>
                 </ng-container>
@@ -98,7 +107,10 @@
                                 autoResize="autoResize"
                                 placeholder="Conclusion"
                                 [(ngModel)]="session.notes"
-                                [readonly]="selectedSession.ended === 'true'"
+                                [readonly]="
+                                    selectedSession &&
+                                    selectedSession.ended === 'true'
+                                "
                             ></textarea>
                             <div
                                 class="new-message-footer"
@@ -156,7 +168,7 @@
                 pButton
                 type="button"
                 label="Back"
-                *ngIf="selectedSession.ended === 'false'"
+                *ngIf="selectedSession && selectedSession.ended === 'false'"
                 (click)="reset()"
                 style="margin-bottom: 10px"
                 class="ui-button-danger ui-button-raised"
@@ -169,7 +181,7 @@
                 label="Update"
                 (click)="update()"
                 style="margin-bottom: 10px"
-                *ngIf="selectedSession.ended === 'false'"
+                *ngIf="selectedSession && selectedSession.ended === 'false'"
                 class="ui-button-icon-primary ui-button-raised"
             ></button>
         </div>

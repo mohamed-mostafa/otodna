@@ -187,8 +187,12 @@ export class SessionTreatmentController {
   async getFrequentlyUsedTreatments(
     @param.path.number('id') id: number,
   ): Promise<TreatmentsCountByDepartment[]> {
+    let where: any;
+    if (id) {
+      where = {departmentId: id};
+    }
     return this.treatmentsCountByDepartment.find({
-      where: {departmentId: id},
+      where,
       order: ['count desc'],
     });
   }

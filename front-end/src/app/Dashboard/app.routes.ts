@@ -1,5 +1,7 @@
+import { ClinicalHistoryParametersComponent } from "./patients/clinicalHistory/clinical-history-parameters/clinical-history-parameters.component";
+import { ClinicalHistoryTreatmentComponent } from "./patients/clinicalHistory/clinical-history-treatment/clinical-history-treatment.component";
+import { ClinicalHistoryPathologyComponent } from "./patients/clinicalHistory/clinical-history-pathology/clinical-history-pathology.component";
 import { PatientDashboardComponent } from "./patients/patient-dashboard/patient-dashboard.component";
-import { MedicalHistoryComponent } from "./patients/medical-history/medical-history.component";
 import { SymptomsSummaryComponent } from "./patients/diagnosis/symptoms-summary/symptoms-summary.component";
 import { FrequentlyUsedComponent } from "./patients/shared/frequently-used/frequently-used.component";
 import { PatientSummaryComponent } from "./patients/shared/patient-summary/patient-summary.component";
@@ -129,8 +131,15 @@ export const routes: Routes = [
             { path: "followupDocuments", component: SessionDocumentsComponent },
             { path: "filesIcons", component: FilesIconsComponent },
             { path: "referrals", component: ReferralsComponent },
-            { path: "medicalHistory", component: MedicalHistoryComponent },
             { path: "patientDashboard", component: PatientDashboardComponent },
+            {
+                path: "clinical/pathology",
+                component: ClinicalHistoryPathologyComponent,
+            },
+            {
+                path: "clinical/treatment",
+                component: ClinicalHistoryTreatmentComponent,
+            },
         ],
     },
 ];
@@ -196,8 +205,10 @@ export const COMPONENTS = [
     PatientSummaryComponent,
     FrequentlyUsedComponent,
     SymptomsSummaryComponent,
-    MedicalHistoryComponent,
     PatientDashboardComponent,
+    ClinicalHistoryPathologyComponent,
+    ClinicalHistoryTreatmentComponent,
+    ClinicalHistoryParametersComponent,
 ];
 @NgModule({
     exports: [RouterModule],

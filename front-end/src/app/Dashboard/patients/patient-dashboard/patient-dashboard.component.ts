@@ -1,3 +1,4 @@
+import { ClinicalHistoryService } from "./../services/clinical-history.service";
 import { DocumentsService } from "./../../services/documents.service";
 import { PatientService } from "./../services/patient.service";
 import { PatientSessionService } from "./../services/patient-session.service";
@@ -31,6 +32,7 @@ export class PatientDashboardComponent implements OnInit {
     lastSpeechTest;
     lastOtologyTest;
     addNewSessionMenu = [];
+    clinicalHistory = [];
     showDiseasesAndRecommendationLoading = false;
     showNumberOfDiagnosisLoading = false;
     showNumberOfTreatmentsLoading = false;
@@ -43,6 +45,7 @@ export class PatientDashboardComponent implements OnInit {
     showLastOtologyTestLoading = false;
     showPatientHistoryLoading = false;
     showDocumentsLoading = false;
+    showClinicalHistoryLoading = false;
     showDiseasesAndRecommendationErrorMessage = false;
     showNumberOfDiagnosisErrorMessage = false;
     showNumberOfTreatmentsErrorMessage = false;
@@ -55,12 +58,14 @@ export class PatientDashboardComponent implements OnInit {
     showLastOtologyTestErrorMessage = false;
     showPatientHistoryErrorMessage = false;
     showDocumentsErrorMessage = false;
+    showClinicalHistoryErrorMessage = false;
     errorMessage = "Not available at this moment.";
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
         private patientService: PatientService,
         private documentService: DocumentsService,
+        private clinicalHistoryService: ClinicalHistoryService,
         private messageService: MessageService
     ) {}
 
@@ -81,6 +86,7 @@ export class PatientDashboardComponent implements OnInit {
         this.getLastAudiologyTest();
         this.getLastSpeechTest();
         this.getLastOtologyTest();
+        this.getAllClinicalHistories();
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -361,6 +367,13 @@ export class PatientDashboardComponent implements OnInit {
                     this.addFollowup();
                 },
             },
+            {
+                label: "Add Clinical History",
+                icon: "fa fa-history",
+                command: () => {
+                    this.addClinicalHistory();
+                },
+            },
         ];
     }
     openLastTest(test) {
@@ -402,5 +415,31 @@ export class PatientDashboardComponent implements OnInit {
                 }
             );
         }
+    }
+    addClinicalHistory() {
+        this.router
+            .navigateByUrl("/RefreshComponent", {
+                skipLocationChange: true,
+            })
+            .then(() => {
+                this.router.navigate(["/dashboard/clinical/pathology"]);
+            });
+    }
+    getAllClinicalHistories() {
+        this.showClinicalHistoryLoading = true;
+        this.clinicalHistoryService
+            .getAllClinicalHistory(this.selectedPatient.id)
+            .subscribe(
+                (result) => {
+                    this.clinicalHistory = result;
+                    this.showClinicalHistoryLoading = false;
+                },
+                (error) => {
+                    console.log(error);
+                    this.clinicalHistory = [];
+                    this.showClinicalHistoryErrorMessage = true;
+                    this.showClinicalHistoryLoading = false;
+                }
+            );
     }
 }

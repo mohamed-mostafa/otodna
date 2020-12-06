@@ -18,7 +18,7 @@ export * from './equipment-parameter-value.controller';
 export * from './session-test-equipment.controller';
 export * from './patient-referral.controller';
 export * from './notification.controller';
-export * from './medical-history.controller';
 export * from './patient-session-session-test.controller';
 export * from './patient-session-session-treatment.controller';
 export * from './patient-session-patient-session-pathology.controller';
+export * from './clinical-history.controller';
