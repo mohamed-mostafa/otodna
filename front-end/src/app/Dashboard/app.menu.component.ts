@@ -544,12 +544,12 @@ export class AppMenuComponent implements OnInit {
                             routerLink: ["/dashboard/clinical"],
                             items: [
                                 {
-                                    label: "Pathology",
+                                    label: "Pathologies",
                                     icon: "fa fa-fw fa-book",
                                     routerLink: ["clinical/pathology"],
                                 },
                                 {
-                                    label: "Treatment",
+                                    label: "Treatments",
                                     icon: "fa fa-fw fa-stethoscope",
                                     routerLink: ["clinical/treatment"],
                                 },
@@ -560,11 +560,6 @@ export class AppMenuComponent implements OnInit {
                             icon: "fa fa-fw fa-user-plus",
                             routerLink: ["referrals"],
                         },
-                        // {
-                        //     label: "Medical History",
-                        //     icon: "fa fa-fw fa-user-md",
-                        //     routerLink: ["medicalHistory"],
-                        // },
                         // {
                         //     label: "Patient History",
                         //     icon: "fa fa-fw fa-history",

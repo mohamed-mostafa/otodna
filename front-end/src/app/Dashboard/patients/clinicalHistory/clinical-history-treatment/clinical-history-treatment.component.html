@@ -159,10 +159,34 @@
                         class="centerHeader pointerCursor"
                         [style]="{ height: '100px' }"
                         styleClass="ui-card-shadow"
+                        [header]="right.treatmentName"
                     >
-                        <div (click)="retrieveTestData(right)" class="height50">
-                            <div class="ui-g-12 ui-md-12 bold">
-                                {{ right.treatmentName }}
+                        <div (click)="retrieveTestData(right)">
+                            <div class="ui-g-12 ui-md-8 bold">
+                                {{ right.date | date }}
+                            </div>
+                            <div class="ui-g-12 ui-md-4 bold">
+                                <ng-container
+                                    *ngIf="
+                                        right.ear === 'BOTH';
+                                        else elseRightNotEqualBoth
+                                    "
+                                >
+                                    Both ears
+                                </ng-container>
+                                <ng-template #elseRightNotEqualBoth>
+                                    <ng-container
+                                        *ngIf="
+                                            right.ear === 'R';
+                                            else elseRightNotEqualR
+                                        "
+                                    >
+                                        Right ear
+                                    </ng-container>
+                                    <ng-template #elseRightNotEqualR>
+                                        Left ear
+                                    </ng-template>
+                                </ng-template>
                             </div>
                         </div>
                         <p-footer *ngIf="showAllButtons">
@@ -208,10 +232,34 @@
                         class="centerHeader pointerCursor"
                         [style]="{ height: '100px' }"
                         styleClass="ui-card-shadow"
+                        [header]="left.treatmentName"
                     >
-                        <div (click)="retrieveTestData(left)" class="height50">
-                            <div class="ui-g-12 ui-md-12 bold">
-                                {{ left.treatmentName }}
+                        <div (click)="retrieveTestData(left)">
+                            <div class="ui-g-12 ui-md-8 bold">
+                                {{ left.date | date }}
+                            </div>
+                            <div class="ui-g-12 ui-md-4 bold">
+                                <ng-container
+                                    *ngIf="
+                                        left.ear === 'BOTH';
+                                        else elseLeftNotEqualBoth
+                                    "
+                                >
+                                    Both ears
+                                </ng-container>
+                                <ng-template #elseLeftNotEqualBoth>
+                                    <ng-container
+                                        *ngIf="
+                                            left.ear === 'R';
+                                            else elseLeftNotEqualR
+                                        "
+                                    >
+                                        Right ear
+                                    </ng-container>
+                                    <ng-template #elseLeftNotEqualR>
+                                        Left ear
+                                    </ng-template>
+                                </ng-template>
                             </div>
                         </div>
                         <p-footer *ngIf="showAllButtons">

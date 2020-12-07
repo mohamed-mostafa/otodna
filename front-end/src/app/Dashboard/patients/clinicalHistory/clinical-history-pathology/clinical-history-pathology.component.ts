@@ -60,6 +60,9 @@ export class ClinicalHistoryPathologyComponent implements OnInit {
         this.checkLoggedInUserTeamWithPatient();
         this.getAllDiagnosisPathologies();
         this.getAllClinicalHistories();
+        if (window.history.state.clinical) {
+            this.retrieveTestData(window.history.state.clinical);
+        }
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));

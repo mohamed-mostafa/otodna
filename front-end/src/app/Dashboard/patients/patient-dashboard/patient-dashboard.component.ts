@@ -111,7 +111,7 @@ export class PatientDashboardComponent implements OnInit {
         this.showPatientHistoryLoading = true;
         this.patientSession.getAllSessions(this.selectedPatient.id).subscribe(
             async (result) => {
-                this.patientHistoryData = result;
+                this.patientHistoryData.push(...result);
                 this.patientHistoryData.sort(
                     (a, b) =>
                         new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -432,6 +432,11 @@ export class PatientDashboardComponent implements OnInit {
             .subscribe(
                 (result) => {
                     this.clinicalHistory = result;
+                    this.clinicalHistory.sort(
+                        (a, b) =>
+                            new Date(b.date).getTime() -
+                            new Date(a.date).getTime()
+                    );
                     this.showClinicalHistoryLoading = false;
                 },
                 (error) => {
@@ -441,5 +446,28 @@ export class PatientDashboardComponent implements OnInit {
                     this.showClinicalHistoryLoading = false;
                 }
             );
+    }
+    openClinicalHistory(clinical) {
+        if (clinical.pathologyId) {
+            this.router
+                .navigateByUrl("/RefreshComponent", {
+                    skipLocationChange: true,
+                })
+                .then(() => {
+                    this.router.navigate(["/dashboard/clinical/pathology"], {
+                        state: { clinical },
+                    });
+                });
+        } else {
+            this.router
+                .navigateByUrl("/RefreshComponent", {
+                    skipLocationChange: true,
+                })
+                .then(() => {
+                    this.router.navigate(["/dashboard/clinical/treatment"], {
+                        state: { clinical },
+                    });
+                });
+        }
     }
 }

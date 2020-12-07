@@ -120,24 +120,6 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="ui-g-12">
-                                    <div class="ui-g-3">
-                                        <span>
-                                            <div
-                                                class="rightFloated rightMargin"
-                                            >
-                                                {{
-                                                    selectedPatient.dateOfBirth
-                                                        | date
-                                                }}
-                                            </div>
-                                        </span>
-                                        <i class="fa fa-child color"></i>
-                                    </div>
-                                    <div class="ui-g-9">
-                                        <span class="event-owner">Born</span>
-                                    </div>
-                                </div>
                                 <div>
                                     <ng-container
                                         *ngIf="
@@ -176,9 +158,15 @@
                                                 "
                                             >
                                                 <div class="ui-g-3">
+                                                    <br />
                                                     <span>
                                                         <div
-                                                            class="rightFloated rightMargin"
+                                                            class="marginBottomAndTop pointerCursor rightFloated rightMargin"
+                                                            (click)="
+                                                                openClinicalHistory(
+                                                                    clinical
+                                                                )
+                                                            "
                                                         >
                                                             {{
                                                                 clinical.date
@@ -187,19 +175,94 @@
                                                         </div>
                                                     </span>
                                                     <i
-                                                        class="fa fa-history color"
+                                                        class="fa fa-history marginBottomAndTop pointerCursor color"
+                                                        (click)="
+                                                            openClinicalHistory(
+                                                                clinical
+                                                            )
+                                                        "
                                                     ></i>
                                                 </div>
                                                 <div class="ui-g-9">
-                                                    <span class="event-owner">{{
-                                                        clinical.treatmentName
-                                                            ? clinical.treatmentName
-                                                            : clinical.pathologyName
-                                                    }}</span>
+                                                    <span
+                                                        class="event-owner marginBottomAndTop pointerCursor"
+                                                        (click)="
+                                                            openClinicalHistory(
+                                                                clinical
+                                                            )
+                                                        "
+                                                        >{{
+                                                            clinical.treatmentName
+                                                                ? clinical.treatmentName
+                                                                : clinical.pathologyName
+                                                        }}
+                                                        -
+                                                        <ng-container
+                                                            *ngIf="
+                                                                clinical.ear ===
+                                                                    'BOTH';
+                                                                else elseNoBothEars
+                                                            "
+                                                        >
+                                                            Both ears
+                                                        </ng-container>
+                                                        <ng-template
+                                                            #elseNoBothEars
+                                                        >
+                                                            <ng-container
+                                                                *ngIf="
+                                                                    clinical.ear ===
+                                                                        'R';
+                                                                    else elseLeftEar
+                                                                "
+                                                            >
+                                                                Right ear
+                                                            </ng-container>
+                                                            <ng-template
+                                                                #elseLeftEar
+                                                            >
+                                                                Left ear
+                                                            </ng-template>
+                                                        </ng-template>
+                                                    </span>
+                                                    <span>
+                                                        <div
+                                                            class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                                                            (click)="
+                                                                openClinicalHistory(
+                                                                    clinical
+                                                                )
+                                                            "
+                                                        >
+                                                            {{
+                                                                clinical.description
+                                                                    ? clinical.description
+                                                                    : "No conclusion is saved"
+                                                            }}
+                                                        </div>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </ng-template>
                                     </ng-template>
+                                </div>
+                                <div class="ui-g-12">
+                                    <div class="ui-g-3">
+                                        <span>
+                                            <div
+                                                class="rightFloated rightMargin"
+                                            >
+                                                {{
+                                                    selectedPatient.dateOfBirth
+                                                        | date
+                                                }}
+                                            </div>
+                                        </span>
+                                        <i class="fa fa-child color"></i>
+                                    </div>
+                                    <div class="ui-g-9">
+                                        <span class="event-owner">Born</span>
+                                    </div>
                                 </div>
                             </ng-template>
                         </ng-template>
