@@ -32,7 +32,6 @@ export class PatientDashboardComponent implements OnInit {
     lastSpeechTest;
     lastOtologyTest;
     addNewSessionMenu = [];
-    clinicalHistory = [];
     showDiseasesAndRecommendationLoading = false;
     showNumberOfDiagnosisLoading = false;
     showNumberOfTreatmentsLoading = false;
@@ -45,7 +44,6 @@ export class PatientDashboardComponent implements OnInit {
     showLastOtologyTestLoading = false;
     showPatientHistoryLoading = false;
     showDocumentsLoading = false;
-    showClinicalHistoryLoading = false;
     showDiseasesAndRecommendationErrorMessage = false;
     showNumberOfDiagnosisErrorMessage = false;
     showNumberOfTreatmentsErrorMessage = false;
@@ -58,14 +56,12 @@ export class PatientDashboardComponent implements OnInit {
     showLastOtologyTestErrorMessage = false;
     showPatientHistoryErrorMessage = false;
     showDocumentsErrorMessage = false;
-    showClinicalHistoryErrorMessage = false;
     errorMessage = "Not available at this moment.";
     constructor(
         private router: Router,
         private patientSession: PatientSessionService,
         private patientService: PatientService,
         private documentService: DocumentsService,
-        private clinicalHistoryService: ClinicalHistoryService,
         private messageService: MessageService
     ) {}
 
@@ -86,7 +82,6 @@ export class PatientDashboardComponent implements OnInit {
         this.getLastAudiologyTest();
         this.getLastSpeechTest();
         this.getLastOtologyTest();
-        this.getAllClinicalHistories();
     }
     async checkLoggedInUserTeamWithPatient() {
         const LoggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -109,32 +104,34 @@ export class PatientDashboardComponent implements OnInit {
     }
     getPatientHistoryData() {
         this.showPatientHistoryLoading = true;
-        this.patientSession.getAllSessions(this.selectedPatient.id).subscribe(
-            async (result) => {
-                this.patientHistoryData.push(...result);
-                this.patientHistoryData.sort(
-                    (a, b) =>
-                        new Date(b.date).getTime() - new Date(a.date).getTime()
-                );
-                this.showPatientHistoryLoading = false;
-            },
-            async (error) => {
-                console.log(error);
-                this.patientHistoryData = [];
-                this.showPatientHistoryErrorMessage = true;
-                this.showPatientHistoryLoading = false;
-            }
-        );
+        this.patientSession
+            .getPatientHistoryData(this.selectedPatient.id)
+            .subscribe(
+                async (result) => {
+                    this.patientHistoryData = result;
+                    this.showPatientHistoryLoading = false;
+                },
+                async (error) => {
+                    console.log(error);
+                    this.patientHistoryData = [];
+                    this.showPatientHistoryErrorMessage = true;
+                    this.showPatientHistoryLoading = false;
+                }
+            );
     }
     openDataPage(data) {
         if (data) {
-            localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
-            if (data.sessionTypeId === 0) {
-                this.addDiagnosis();
-            } else if (data.sessionTypeId === 1) {
-                this.addTreatment();
+            if (data.pathologyId || data.treatmentId) {
+                this.openClinicalHistory(data);
             } else {
-                this.addFollowup();
+                localStorage.setItem("sessionBasicInfo", JSON.stringify(data));
+                if (data.sessionTypeId === 0) {
+                    this.addDiagnosis();
+                } else if (data.sessionTypeId === 1) {
+                    this.addTreatment();
+                } else {
+                    this.addFollowup();
+                }
             }
         }
     }
@@ -424,28 +421,6 @@ export class PatientDashboardComponent implements OnInit {
             .then(() => {
                 this.router.navigate(["/dashboard/clinical/pathology"]);
             });
-    }
-    getAllClinicalHistories() {
-        this.showClinicalHistoryLoading = true;
-        this.clinicalHistoryService
-            .getAllClinicalHistory(this.selectedPatient.id)
-            .subscribe(
-                (result) => {
-                    this.clinicalHistory = result;
-                    this.clinicalHistory.sort(
-                        (a, b) =>
-                            new Date(b.date).getTime() -
-                            new Date(a.date).getTime()
-                    );
-                    this.showClinicalHistoryLoading = false;
-                },
-                (error) => {
-                    console.log(error);
-                    this.clinicalHistory = [];
-                    this.showClinicalHistoryErrorMessage = true;
-                    this.showClinicalHistoryLoading = false;
-                }
-            );
     }
     openClinicalHistory(clinical) {
         if (clinical.pathologyId) {

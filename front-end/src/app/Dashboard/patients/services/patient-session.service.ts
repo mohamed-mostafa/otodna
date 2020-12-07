@@ -57,4 +57,9 @@ export class PatientSessionService {
             `${this.apiUrl}/${this.link}/${id}?filter[include][0][relation]=sessionTests&filter[include][1][relation]=sessionTreatments&filter[include][2][relation]=patientSessionPathologies`
         );
     }
+    getPatientHistoryData(patientId): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/getPatientHistoryData/${patientId}`
+        );
+    }
 }

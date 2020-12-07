@@ -1,3 +1,4 @@
+import {ClinicalHistoryRepository} from './clinical-history.repository';
 import {PatientSessionPathologyRepository} from './patient-session-pathology.repository';
 import {SessionTreatmentRepository} from './session-treatment.repository';
 import {
@@ -15,6 +16,7 @@ import {
 import {OltpDsDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {SessionTestRepository} from './session-test.repository';
+import {constants} from 'fs';
 
 export class PatientSessionRepository extends DefaultTransactionalRepository<
   PatientSession,
@@ -75,6 +77,8 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
     PatientSessionPathology,
     typeof PatientSession.prototype.id
   >;
+  @repository(ClinicalHistoryRepository)
+  private clinicalHistoryRepository: ClinicalHistoryRepository;
   public getSessionsDiseasesAndRecommendation(patientId: number): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -124,6 +128,28 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
           ],
         });
         resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+  public getPatientHistoryData(patientId: number): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let patientHistoryData: any = [];
+        const patientSession = await super.find({
+          where: {patientId},
+        });
+        const clinicalHistory = await this.clinicalHistoryRepository.find({
+          where: {patientId},
+        });
+        patientHistoryData.push(...patientSession);
+        patientHistoryData.push(...clinicalHistory);
+        patientHistoryData.sort(
+          (a: any, b: any) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
+        resolve(patientHistoryData);
       } catch (err) {
         reject(err);
       }

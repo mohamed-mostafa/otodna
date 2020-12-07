@@ -262,6 +262,24 @@ export class PatientSessionController {
     return this.patientSessionRepository.getAllSessionsWithPatientId(id);
   }
 
+  @get('/getPatientHistoryData/{id}', {
+    responses: {
+      '200': {
+        description: 'PatientSession model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(PatientSession, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async getPatientHistoryData(
+    @param.path.number('id') id: number,
+  ): Promise<PatientSession> {
+    return this.patientSessionRepository.getPatientHistoryData(id);
+  }
+
   @get('/getLastSessionByType/{sessionTypeId}/{patientId}', {
     responses: {
       '200': {

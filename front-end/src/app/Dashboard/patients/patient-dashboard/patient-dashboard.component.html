@@ -86,6 +86,14 @@
                                             class="fa fa-ambulance marginBottomAndTop pointerCursor color"
                                             (click)="openDataPage(data)"
                                         ></i>
+                                        <i
+                                            *ngIf="
+                                                data.pathologyId ||
+                                                data.treatmentId
+                                            "
+                                            class="fa fa-history marginBottomAndTop pointerCursor color"
+                                            (click)="openClinicalHistory(data)"
+                                        ></i>
                                     </div>
                                     <div class="ui-g-9">
                                         <span
@@ -106,145 +114,80 @@
                                             (click)="openDataPage(data)"
                                             >Followup</span
                                         >
-                                        <span>
-                                            <div
-                                                class="marginBottomAndTop pointerCursor preLineWhiteSpace"
-                                                (click)="openDataPage(data)"
-                                            >
-                                                {{
-                                                    data.notes
-                                                        ? data.notes
-                                                        : "Session is not ended, Please end session"
-                                                }}
-                                            </div>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <ng-container
-                                        *ngIf="
-                                            showClinicalHistoryLoading;
-                                            else notShowClinicalHistoryLoading
-                                        "
-                                    >
-                                        <p-progressSpinner
-                                            [style]="{
-                                                width: '50px',
-                                                height: '50px'
-                                            }"
-                                            strokeWidth="8"
-                                            fill="#EEEEEE"
-                                            animationDuration=".5s"
-                                        ></p-progressSpinner>
-                                    </ng-container>
-                                    <ng-template #notShowClinicalHistoryLoading>
-                                        <ng-container
+                                        <span
                                             *ngIf="
-                                                showClinicalHistoryErrorMessage;
-                                                else notShowClinicalHistoryErrorMessage
+                                                data.pathologyId ||
+                                                data.treatmentId
                                             "
-                                        >
-                                            <div class="ui-g-12 center">
-                                                {{ errorMessage }}
-                                            </div>
-                                        </ng-container>
-                                        <ng-template
-                                            #notShowClinicalHistoryErrorMessage
-                                        >
-                                            <div
-                                                class="ui-g-12"
-                                                *ngFor="
-                                                    let clinical of clinicalHistory
+                                            class="event-owner marginBottomAndTop pointerCursor"
+                                            (click)="openClinicalHistory(data)"
+                                            >{{
+                                                data.treatmentName
+                                                    ? data.treatmentName
+                                                    : data.pathologyName
+                                            }}
+                                            -
+                                            <ng-container
+                                                *ngIf="
+                                                    data.ear === 'BOTH';
+                                                    else elseNoBothEars
                                                 "
                                             >
-                                                <div class="ui-g-3">
-                                                    <br />
-                                                    <span>
-                                                        <div
-                                                            class="marginBottomAndTop pointerCursor rightFloated rightMargin"
-                                                            (click)="
-                                                                openClinicalHistory(
-                                                                    clinical
-                                                                )
-                                                            "
-                                                        >
-                                                            {{
-                                                                clinical.date
-                                                                    | date
-                                                            }}
-                                                        </div>
-                                                    </span>
-                                                    <i
-                                                        class="fa fa-history marginBottomAndTop pointerCursor color"
-                                                        (click)="
-                                                            openClinicalHistory(
-                                                                clinical
-                                                            )
-                                                        "
-                                                    ></i>
+                                                Both ears
+                                            </ng-container>
+                                            <ng-template #elseNoBothEars>
+                                                <ng-container
+                                                    *ngIf="
+                                                        data.ear === 'R';
+                                                        else elseLeftEar
+                                                    "
+                                                >
+                                                    Right ear
+                                                </ng-container>
+                                                <ng-template #elseLeftEar>
+                                                    Left ear
+                                                </ng-template>
+                                            </ng-template>
+                                        </span>
+                                        <ng-container
+                                            *ngIf="
+                                                data.pathologyId ||
+                                                    data.treatmentId;
+                                                else elseNoClinicalHistoryData
+                                            "
+                                        >
+                                            <span>
+                                                <div
+                                                    class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                                                    (click)="
+                                                        openClinicalHistory(
+                                                            data
+                                                        )
+                                                    "
+                                                >
+                                                    {{
+                                                        data.description
+                                                            ? data.description
+                                                            : "No conclusion is saved"
+                                                    }}
                                                 </div>
-                                                <div class="ui-g-9">
-                                                    <span
-                                                        class="event-owner marginBottomAndTop pointerCursor"
-                                                        (click)="
-                                                            openClinicalHistory(
-                                                                clinical
-                                                            )
-                                                        "
-                                                        >{{
-                                                            clinical.treatmentName
-                                                                ? clinical.treatmentName
-                                                                : clinical.pathologyName
-                                                        }}
-                                                        -
-                                                        <ng-container
-                                                            *ngIf="
-                                                                clinical.ear ===
-                                                                    'BOTH';
-                                                                else elseNoBothEars
-                                                            "
-                                                        >
-                                                            Both ears
-                                                        </ng-container>
-                                                        <ng-template
-                                                            #elseNoBothEars
-                                                        >
-                                                            <ng-container
-                                                                *ngIf="
-                                                                    clinical.ear ===
-                                                                        'R';
-                                                                    else elseLeftEar
-                                                                "
-                                                            >
-                                                                Right ear
-                                                            </ng-container>
-                                                            <ng-template
-                                                                #elseLeftEar
-                                                            >
-                                                                Left ear
-                                                            </ng-template>
-                                                        </ng-template>
-                                                    </span>
-                                                    <span>
-                                                        <div
-                                                            class="marginBottomAndTop pointerCursor preLineWhiteSpace"
-                                                            (click)="
-                                                                openClinicalHistory(
-                                                                    clinical
-                                                                )
-                                                            "
-                                                        >
-                                                            {{
-                                                                clinical.description
-                                                                    ? clinical.description
-                                                                    : "No conclusion is saved"
-                                                            }}
-                                                        </div>
-                                                    </span>
+                                            </span>
+                                        </ng-container>
+                                        <ng-template #elseNoClinicalHistoryData>
+                                            <span>
+                                                <div
+                                                    class="marginBottomAndTop pointerCursor preLineWhiteSpace"
+                                                    (click)="openDataPage(data)"
+                                                >
+                                                    {{
+                                                        data.notes
+                                                            ? data.notes
+                                                            : "Session is not ended, Please end session"
+                                                    }}
                                                 </div>
-                                            </div>
+                                            </span>
                                         </ng-template>
-                                    </ng-template>
+                                    </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <div class="ui-g-3">
