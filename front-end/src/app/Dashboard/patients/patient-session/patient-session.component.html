@@ -72,10 +72,7 @@
                             id="department"
                             [showClear]="true"
                             [(ngModel)]="selectedDepartment"
-                            [readonly]="
-                                selectedSession &&
-                                selectedSession.ended === 'true'
-                            "
+                            [readonly]="selectedSession"
                         ></p-dropdown>
                     </div>
                 </ng-container>
