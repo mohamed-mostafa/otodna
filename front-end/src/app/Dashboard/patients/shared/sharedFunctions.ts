@@ -55,11 +55,15 @@ export class SharedClass {
     async checkLoggedInUserTeamWithPatient(LoggedInUser, patient) {
         const result = [];
         const patientTeams: any = await this.getPatientReferralById(patient.id);
+        patient.active = "true";
         patientTeams.push(patient);
         patientTeams.forEach((element) => {
             if (LoggedInUser.teams.length > 0) {
                 LoggedInUser.teams.forEach((team) => {
-                    if (team.id === element.teamId) {
+                    if (
+                        element.active === "true" &&
+                        team.id === element.teamId
+                    ) {
                         result.push(true);
                     }
                 });
