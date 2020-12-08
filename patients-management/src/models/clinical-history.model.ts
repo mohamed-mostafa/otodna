@@ -119,9 +119,9 @@ export class ClinicalHistory extends Entity {
 
   @property({
     type: 'date',
-    required: true,
+    required: false,
     mysql: {
-      columnName: 'date',
+      columnName: 'right_date',
       dataType: 'date',
       dataLength: null,
       dataPrecision: null,
@@ -129,7 +129,21 @@ export class ClinicalHistory extends Entity {
       nullable: 'N',
     },
   })
-  date: string;
+  rightDate: string;
+
+  @property({
+    type: 'date',
+    required: false,
+    mysql: {
+      columnName: 'left_date',
+      dataType: 'date',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'N',
+    },
+  })
+  leftDate: string;
 
   @property({
     type: 'string',

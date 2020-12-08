@@ -593,7 +593,8 @@ CREATE TABLE `clinical_history` (
   `pathology_id` varchar(45) DEFAULT NULL,
   `pathology_name` varchar(45) DEFAULT NULL,
   `ear` varchar(5) NOT NULL DEFAULT 'BOTH',
-  `date` dateTime NOT NULL,
+  `right_date` dateTime DEFAULT NULL,
+  `left_date` dateTime DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;

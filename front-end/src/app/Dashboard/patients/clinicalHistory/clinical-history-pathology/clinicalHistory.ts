@@ -2,6 +2,7 @@ export class ClinicalHistory {
     patientId: number;
     pathologyId: string;
     ear: string;
-    date: Date;
+    rightDate: Date;
+    leftDate: Date;
     description: string;
 }

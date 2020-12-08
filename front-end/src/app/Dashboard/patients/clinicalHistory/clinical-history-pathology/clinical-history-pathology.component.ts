@@ -189,9 +189,8 @@ export class ClinicalHistoryPathologyComponent implements OnInit {
                     patientId: this.selectedPatient.id,
                     pathologyId: this.selectedTest.diseaseId,
                     pathologyName: this.selectedTest.diseaseName,
-                    date: this.parameters.rightDate
-                        ? this.parameters.rightDate
-                        : this.parameters.leftDate,
+                    rightDate: this.parameters.rightDate,
+                    leftDate: this.parameters.leftDate,
                     ear: this.parameters.ear,
                     description: this.parameters.description,
                 };
@@ -242,6 +241,22 @@ export class ClinicalHistoryPathologyComponent implements OnInit {
                 "Ear is required"
             );
             return false;
+        }
+        if (this.parameters.ear === "BOTH" && !this.parameters.rightDate) {
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Right Date is required"
+            );
+            return false;
+        }
+        if (this.parameters.ear === "BOTH" && !this.parameters.leftDate) {
+            this.showMessageComponent.showMessage(
+                "error",
+                "Validation Error",
+                "Left Date is required"
+            );
+            return false;
         } else {
             callback("valid");
         }
@@ -254,9 +269,8 @@ export class ClinicalHistoryPathologyComponent implements OnInit {
                     patientId: this.selectedPatient.id,
                     pathologyId: this.selectedTest.diseaseId,
                     pathologyName: this.selectedTest.diseaseName,
-                    date: this.parameters.rightDate
-                        ? this.parameters.rightDate
-                        : this.parameters.leftDate,
+                    rightDate: this.parameters.rightDate,
+                    leftDate: this.parameters.leftDate,
                     ear: this.parameters.ear,
                     description: this.parameters.description,
                 };
@@ -303,15 +317,15 @@ export class ClinicalHistoryPathologyComponent implements OnInit {
         if (test.ear === "BOTH") {
             this.showDialogRightData = true;
             this.showDialogLeftData = true;
-            this.parameters.rightDate = new Date(test.date);
-            this.parameters.leftDate = new Date(test.date);
+            this.parameters.rightDate = new Date(test.rightDate);
+            this.parameters.leftDate = new Date(test.leftDate);
         } else if (test.ear === "R") {
-            this.parameters.rightDate = new Date(test.date);
+            this.parameters.rightDate = new Date(test.rightDate);
             this.showDialogLeftData = false;
             this.showDialogRightData = true;
             this.ear = "R";
         } else {
-            this.parameters.leftDate = new Date(test.date);
+            this.parameters.leftDate = new Date(test.leftDate);
             this.showDialogRightData = false;
             this.showDialogLeftData = true;
             this.ear = "L";
