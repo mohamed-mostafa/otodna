@@ -15,7 +15,7 @@ export class CandidacyService {
 
     getAllCandidacies(patientSessionId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.link}?filter[where][patientSessionId][eq]=${patientSessionId}`
+            `${this.apiUrl}/${this.link}?filter[include][][relation]=parameterValues&filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
     getSessionCandidaciesCounter(patientSessionId): Observable<any> {

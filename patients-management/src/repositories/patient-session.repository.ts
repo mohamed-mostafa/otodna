@@ -16,7 +16,6 @@ import {
 import {OltpDsDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {SessionTestRepository} from './session-test.repository';
-import {constants} from 'fs';
 
 export class PatientSessionRepository extends DefaultTransactionalRepository<
   PatientSession,
@@ -139,12 +138,39 @@ export class PatientSessionRepository extends DefaultTransactionalRepository<
         let patientHistoryData: any = [];
         const patientSession = await super.find({
           where: {patientId},
+          include: [
+            {relation: 'sessionTests'},
+            {relation: 'sessionTreatments'},
+            {relation: 'patientSessionPathologies'},
+          ],
         });
         const clinicalHistory = await this.clinicalHistoryRepository.find({
           where: {patientId},
         });
+        const newClinicalHistory = clinicalHistory.map(object => ({...object})); // remove Clinical History Type to be able to add date
+        let returnedClinicalHistory: any = [];
+        newClinicalHistory.forEach(clinical => {
+          let rightObj: any = {},
+            leftObj: any = {};
+          if (clinical.ear === 'BOTH') {
+            rightObj.date = clinical.rightDate;
+            rightObj = {...clinical, ...rightObj};
+            returnedClinicalHistory.push(rightObj);
+            leftObj.date = clinical.leftDate;
+            leftObj = {...clinical, ...leftObj};
+            returnedClinicalHistory.push(leftObj);
+          } else if (clinical.ear === 'R') {
+            rightObj.date = clinical.rightDate;
+            rightObj = {...clinical, ...rightObj};
+            returnedClinicalHistory.push(rightObj);
+          } else {
+            leftObj.date = clinical.leftDate;
+            leftObj = {...clinical, ...leftObj};
+            returnedClinicalHistory.push(leftObj);
+          }
+        });
         patientHistoryData.push(...patientSession);
-        patientHistoryData.push(...clinicalHistory);
+        patientHistoryData.push(...returnedClinicalHistory);
         patientHistoryData.sort(
           (a: any, b: any) =>
             new Date(b.date).getTime() - new Date(a.date).getTime(),

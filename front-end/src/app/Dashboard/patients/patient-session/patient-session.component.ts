@@ -1,3 +1,4 @@
+import { TeamsService } from "./../../services/teams.service";
 import { DepartmentsService } from "./../../services/departments.service";
 import { DocumentsService } from "./../../services/documents.service";
 import { PatientService } from "./../services/patient.service";
@@ -38,7 +39,10 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
     showGenerateConclusion = true;
     departments = [];
     selectedDepartment;
+    selectedPerformer;
     showDepartmentSelect = true;
+    teamMembers = [];
+    showSelectTeamMember = true;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -51,6 +55,7 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
         private patientService: PatientService,
         private departmentsService: DepartmentsService,
         private documentService: DocumentsService,
+        private teamsService: TeamsService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -146,6 +151,7 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
 
         this.loadData();
         this.checkLoggedInUserTeamWithPatient();
+        this.getTeamMembers();
     }
     ngAfterViewInit(): void {
         if (window.history.state.endSession) {
@@ -182,6 +188,7 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
             this.session = this.selectedSession;
             this.session.date = new Date(this.selectedSession.date);
             this.session.createdAt = new Date(this.selectedSession.createdAt);
+            this.showSelectTeamMember = false;
             this.selectedDepartment = await this.getDepartmentById(
                 this.selectedSession.departmentId
             );
@@ -201,22 +208,20 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                 this.selectedPatient.firstName +
                 " " +
                 this.selectedPatient.lastName;
-            this.session.performer =
-                this.selectedPatient.firstName +
-                " " +
-                this.selectedPatient.lastName;
             this.showButtons = true;
         }
     }
     reset() {
         this.session = new Session();
         this.selectedDepartment = "";
+        this.selectedPerformer = "";
         this.goToPatientPage("a");
     }
     save() {
         this.validateSession((callback) => {
             if (callback === "valid") {
                 this.session.departmentId = this.selectedDepartment.id;
+                this.session.performer = this.selectedPerformer.fullName;
                 this.spinner.show();
                 this.patientSession
                     .createSession(this.session)
@@ -324,7 +329,7 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
             );
             return false;
         }
-        if (!this.session.performer) {
+        if (!this.selectedPerformer && !this.session.performer) {
             this.showMessageComponent.showMessage(
                 "error",
                 "Validation Error",
@@ -481,5 +486,17 @@ export class PatientSessionComponent implements OnInit, AfterViewInit {
                     this.spinner.hide();
                 });
         }
+    }
+    getTeamMembers() {
+        this.spinner.show();
+        this.teamsService
+            .getTeamMembers(this.selectedPatient.teamId)
+            .subscribe((result) => {
+                this.teamMembers = result;
+                if (result.length === 1) {
+                    this.selectedPerformer = result[0];
+                }
+                this.spinner.hide();
+            });
     }
 }

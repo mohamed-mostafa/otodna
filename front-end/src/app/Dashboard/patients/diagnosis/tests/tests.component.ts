@@ -647,33 +647,22 @@ export class TestsComponent implements OnInit {
                 });
             }
         });
-        this.testService
-            .getTestParametersValues(test.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    if (
-                        this.selectedTestData &&
-                        this.selectedTestData.length > 0
-                    ) {
-                        this.selectedTestData[0].id = test.id;
-                        this.showSaveButton = false;
-                        let parameters = this.selectedTestData[0].parameters;
-                        if (parameters && parameters.length > 0) {
-                            parameters = await this.sharedClass.handleTestData(
-                                result,
-                                parameters
-                            );
-                            await this.checkForImagesAndFiles(test);
-                            this.showTests = false;
-                            this.displayTest = true;
-                        }
-                    }
-                    this.cdref.detectChanges();
-                } else {
-                    this.showTests = true;
-                }
-                this.spinner.hide();
-            });
+        if (test.parameterValues) {
+            let parameters = this.selectedTestData[0].parameters;
+            if (parameters && parameters.length > 0) {
+                parameters = await this.sharedClass.handleTestData(
+                    test.parameterValues,
+                    parameters
+                );
+                await this.checkForImagesAndFiles(test);
+                this.showTests = false;
+                this.displayTest = true;
+            }
+            this.cdref.detectChanges();
+        } else {
+            this.showTests = true;
+        }
+        this.spinner.hide();
     }
     async checkForImagesAndFiles(test) {
         const found = this.selectedTestData[0].parameters.some(

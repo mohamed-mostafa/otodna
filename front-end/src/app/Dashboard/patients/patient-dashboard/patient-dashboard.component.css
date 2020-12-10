@@ -48,3 +48,7 @@
 .addBtnStyle {
     font-size: 17px;
 }
+.dashboardStyle {
+    height: 1080px;
+    overflow: auto;
+}

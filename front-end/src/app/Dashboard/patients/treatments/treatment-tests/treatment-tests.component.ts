@@ -663,33 +663,22 @@ export class TreatmentTestsComponent implements OnInit {
                     });
                 }
             });
-        this.treatmentService
-            .getTestParametersValues(treatment.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    if (
-                        this.selectedTestData &&
-                        this.selectedTestData.length > 0
-                    ) {
-                        this.showSaveButton = false;
-                        this.selectedTestData[0].id = treatment.id;
-                        let parameters = this.selectedTestData[0].parameters;
-                        if (parameters && parameters.length > 0) {
-                            parameters = await this.sharedClass.handleTestData(
-                                result,
-                                parameters
-                            );
-                            await this.checkForImagesAndFiles(treatment);
-                            this.showTests = false;
-                            this.displayTest = true;
-                        }
-                    }
-                    this.cdref.detectChanges();
-                } else {
-                    this.showTests = true;
-                }
-                this.spinner.hide();
-            });
+        if (treatment.parameterValues) {
+            let parameters = this.selectedTestData[0].parameters;
+            if (parameters && parameters.length > 0) {
+                parameters = await this.sharedClass.handleTestData(
+                    treatment.parameterValues,
+                    parameters
+                );
+                await this.checkForImagesAndFiles(treatment);
+                this.showTests = false;
+                this.displayTest = true;
+            }
+            this.cdref.detectChanges();
+        } else {
+            this.showTests = true;
+        }
+        this.spinner.hide();
     }
     async checkForImagesAndFiles(treatment) {
         const found = this.selectedTestData[0].parameters.some(

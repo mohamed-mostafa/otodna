@@ -2,11 +2,11 @@ import {PatientSessionRepository} from './patient-session.repository';
 import {
   Transaction,
   DefaultTransactionalRepository,
-  repository,
-} from '@loopback/repository';
-import {SessionTest, SessionTestRelations} from '../models';
+  repository, HasManyRepositoryFactory} from '@loopback/repository';
+import {SessionTest, SessionTestRelations, ParameterValue} from '../models';
 import {OltpDsDataSource} from '../datasources';
-import {inject} from '@loopback/core';
+import {inject, Getter} from '@loopback/core';
+import {ParameterValueRepository} from './parameter-value.repository';
 
 export class SessionTestRepository extends DefaultTransactionalRepository<
   SessionTest,
@@ -14,8 +14,13 @@ export class SessionTestRepository extends DefaultTransactionalRepository<
   SessionTestRelations
 > {
   items: any = [];
-  constructor(@inject('datasources.oltp_ds') dataSource: OltpDsDataSource) {
+
+  public readonly parameterValues: HasManyRepositoryFactory<ParameterValue, typeof SessionTest.prototype.id>;
+
+  constructor(@inject('datasources.oltp_ds') dataSource: OltpDsDataSource, @repository.getter('ParameterValueRepository') protected parameterValueRepositoryGetter: Getter<ParameterValueRepository>,) {
     super(SessionTest, dataSource);
+    this.parameterValues = this.createHasManyRepositoryFactoryFor('parameterValues', parameterValueRepositoryGetter,);
+    this.registerInclusionResolver('parameterValues', this.parameterValues.inclusionResolver);
   }
   // @repository(PatientSessionRepository)
   // private patientSessionRepository: PatientSessionRepository;

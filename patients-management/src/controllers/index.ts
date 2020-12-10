@@ -22,3 +22,7 @@ export * from './patient-session-session-test.controller';
 export * from './patient-session-session-treatment.controller';
 export * from './patient-session-patient-session-pathology.controller';
 export * from './clinical-history.controller';
+export * from './session-test-parameter-value.controller';
+export * from './patient-session-pathology-parameter-value.controller';
+export * from './patient-session-pathology-parameter-value.controller';
+export * from './session-treatment-parameter-value.controller';

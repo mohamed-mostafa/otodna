@@ -1,3 +1,5 @@
+import {service} from '@loopback/core';
+import {ParametersValuesService} from './../services/parameters-values.service';
 import {SessionTest} from './../models/session-test.model';
 import {SessionTestRepository} from './../repositories/session-test.repository';
 import {
@@ -27,6 +29,8 @@ export class ParameterValueController {
     public parameterValueRepository: ParameterValueRepository,
     @repository(SessionTestRepository)
     private sessionTestRepository: SessionTestRepository,
+    @service(ParametersValuesService)
+    public parametersValuesService: ParametersValuesService,
   ) {}
 
   @post('/parameterValue', {
@@ -69,7 +73,7 @@ export class ParameterValueController {
   async createParametersValues(
     @requestBody() data: Array<Object>,
   ): Promise<any> {
-    return this.parameterValueRepository.createParametersValues(data);
+    return this.parametersValuesService.createParametersValues(data);
   }
   @put('/parametersValues', {
     responses: {
@@ -86,7 +90,7 @@ export class ParameterValueController {
   async updateParametersValues(
     @requestBody() data: Array<Object>,
   ): Promise<any> {
-    return this.parameterValueRepository.updateParametersValues(data);
+    return this.parametersValuesService.updateParametersValues(data);
   }
   @patch('/parametersValues', {
     responses: {
@@ -101,7 +105,7 @@ export class ParameterValueController {
     },
   })
   async deleteParametersValues(@requestBody() data: any): Promise<any> {
-    return this.parameterValueRepository.deleteParametersValues(data);
+    return this.parametersValuesService.deleteParametersValues(data);
   }
   @get('/parameterValue/count', {
     responses: {

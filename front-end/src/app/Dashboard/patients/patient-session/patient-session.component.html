@@ -43,21 +43,36 @@
             </div>
             <div class="ui-g-12 ui-md-3">
                 <label for="performer">Performer</label>
-                <div class="ui-inputgroup labelMarginTop">
-                    <span class="ui-inputgroup-addon backgroundColor"
-                        ><i class="pi pi-user"></i
-                    ></span>
-                    <input
-                        type="text"
-                        pInputText
-                        id="performer"
-                        placeholder="Performer"
-                        [(ngModel)]="session.performer"
-                        [readonly]="
-                            selectedSession && selectedSession.ended === 'true'
-                        "
-                    />
-                </div>
+                <ng-container
+                    *ngIf="showSelectTeamMember; else notShowSelectTeamMember"
+                >
+                    <div class="labelMarginTop">
+                        <p-dropdown
+                            [options]="teamMembers"
+                            placeholder="Select Performer"
+                            optionLabel="fullName"
+                            id="department"
+                            [showClear]="true"
+                            [(ngModel)]="selectedPerformer"
+                            [readonly]="selectedSession"
+                        ></p-dropdown>
+                    </div>
+                </ng-container>
+                <ng-template #notShowSelectTeamMember>
+                    <div class="ui-inputgroup labelMarginTop">
+                        <span class="ui-inputgroup-addon backgroundColor"
+                            ><i class="pi pi-user"></i
+                        ></span>
+                        <input
+                            type="text"
+                            pInputText
+                            id="performer"
+                            placeholder="Performer"
+                            [(ngModel)]="session.performer"
+                            readonly="true"
+                        />
+                    </div>
+                </ng-template>
             </div>
             <div class="ui-g-12 ui-md-3">
                 <label for="team">Department</label>

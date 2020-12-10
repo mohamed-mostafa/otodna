@@ -23,7 +23,7 @@ export class TreatmentTestsService {
     }
     getSessionTreatments(patientSessionId): Observable<any> {
         return this.http.get<any>(
-            `${this.apiUrl}/${this.sessionTestsLink}?filter[where][patientSessionId][eq]=${patientSessionId}`
+            `${this.apiUrl}/${this.sessionTestsLink}?filter[include][][relation]=parameterValues&filter[where][patientSessionId][eq]=${patientSessionId}`
         );
     }
     getFrequentlyUsedTreatments(departmentId): Observable<any> {
