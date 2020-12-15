@@ -141,14 +141,17 @@ export class ParametersValuesService extends DefaultTransactionalRepository<
       const tx: Transaction = await this.beginTransaction();
       try {
         if (data[0].sessionTestId) {
-          await super.deleteAll({sessionTestId: data[0].id}, {transaction: tx});
+          await super.deleteAll(
+            {sessionTestId: data[0].sessionTestId},
+            {transaction: tx},
+          );
           await this.sessionTestEquipmentRepository.deleteAll(
-            {sessionTestId: data[0].id},
+            {sessionTestId: data[0].sessionTestId},
             {transaction: tx},
           );
           let handledData = await this.handleData(
             data,
-            data[0].id,
+            data[0].sessionTestId,
             'sessionTestId',
           );
           let equipments = data[0].equipments;
@@ -171,16 +174,16 @@ export class ParametersValuesService extends DefaultTransactionalRepository<
           }
         } else if (data[0].sessionTreatmentId) {
           await super.deleteAll(
-            {sessionTreatmentId: data[0].id},
+            {sessionTreatmentId: data[0].sessionTreatmentId},
             {transaction: tx},
           );
           await this.sessionTreatmentEquipmentRepository.deleteAll(
-            {sessionTreatmentId: data[0].id},
+            {sessionTreatmentId: data[0].sessionTreatmentId},
             {transaction: tx},
           );
           let handledData = await this.handleData(
             data,
-            data[0].id,
+            data[0].sessionTreatmentId,
             'sessionTreatmentId',
           );
           let equipments = data[0].equipments;
@@ -203,12 +206,12 @@ export class ParametersValuesService extends DefaultTransactionalRepository<
           }
         } else {
           await super.deleteAll(
-            {sessionPathologyId: data[0].id},
+            {sessionPathologyId: data[0].sessionPathologyId},
             {transaction: tx},
           );
           let handledData = await this.handleData(
             data,
-            data[0].id,
+            data[0].sessionPathologyId,
             'sessionPathologyId',
           );
           if (handledData && handledData.length > 0) {

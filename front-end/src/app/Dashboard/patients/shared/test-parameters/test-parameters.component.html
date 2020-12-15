@@ -380,7 +380,7 @@
                         <label> {{ t.name }}</label>
                         <ng-container
                             *ngIf="
-                                savedRightImage.length > 0;
+                                t.retrievedRightImage.length > 0;
                                 else NoRightImage
                             "
                         >
@@ -388,7 +388,9 @@
                                 <div class="photoStyle">
                                     <img
                                         [src]="
-                                            appendUrl(savedRightImage[0].Key)
+                                            appendUrl(
+                                                t.retrievedRightImage[0].Key
+                                            )
                                         "
                                         height="100%"
                                         width="100%"
@@ -405,10 +407,7 @@
                                             maxFileSize="100000000"
                                             chooseLabel="Replace"
                                             (onSelect)="
-                                                replaceRightImage(
-                                                    $event,
-                                                    savedRightImage[0]
-                                                )
+                                                replaceRightImage($event, t)
                                             "
                                             [disabled]="readonly"
                                         ></p-fileUpload>
@@ -420,11 +419,7 @@
                                             icon="pi pi-times"
                                             label="Remove"
                                             class="ui-button-danger"
-                                            (click)="
-                                                removeRightImage(
-                                                    savedRightImage[0]
-                                                )
-                                            "
+                                            (click)="removeRightImage(t)"
                                             [disabled]="readonly"
                                         ></button>
                                     </div>
@@ -436,17 +431,17 @@
                                 <div class="photoStyle">
                                     <ng-container
                                         *ngIf="
-                                            previewRightImageUrl;
-                                            else elseTemplate
+                                            t.rightUrl;
+                                            else elseNoRightValImage
                                         "
                                     >
                                         <img
-                                            [src]="previewRightImageUrl"
+                                            [src]="t.rightUrl"
                                             height="100%"
                                             width="100%"
                                         />
                                     </ng-container>
-                                    <ng-template #elseTemplate>
+                                    <ng-template #elseNoRightValImage>
                                         <div class="centerText">
                                             No Image Chosen
                                         </div>
@@ -455,7 +450,7 @@
                                 <div class="buttonStyle">
                                     <ng-container
                                         *ngIf="
-                                            showRightButtons;
+                                            t.showRightUploadBtn;
                                             else noUploadRight
                                         "
                                     >
@@ -466,7 +461,7 @@
                                             maxFileSize="100000000"
                                             chooseLabel="Choose Image"
                                             (onSelect)="
-                                                previewRightImage($event)
+                                                previewRightImage($event, t)
                                             "
                                             [disabled]="readonly"
                                         ></p-fileUpload>
@@ -485,8 +480,9 @@
                                                     maxFileSize="100000000"
                                                     chooseLabel="Replace"
                                                     (onSelect)="
-                                                        replaceChoosedRightImage(
-                                                            $event
+                                                        replaceChosenRightImage(
+                                                            $event,
+                                                            t
                                                         )
                                                     "
                                                     [disabled]="readonly"
@@ -502,7 +498,9 @@
                                                     label="Remove"
                                                     class="ui-button-danger"
                                                     (click)="
-                                                        removeChoosedRightImage()
+                                                        removeChosenRightImage(
+                                                            t
+                                                        )
                                                     "
                                                     [disabled]="readonly"
                                                 ></button>
@@ -526,12 +524,19 @@
                     <div *ngIf="showDialogLeftData">
                         <label> {{ t.name }}</label>
                         <ng-container
-                            *ngIf="savedLeftImage.length > 0; else NoLeftImage"
+                            *ngIf="
+                                t.retrievedLeftImage.length > 0;
+                                else NoLeftImage
+                            "
                         >
                             <div class="ui-g-12 ui-md-12">
                                 <div class="photoStyle">
                                     <img
-                                        [src]="appendUrl(savedLeftImage[0].Key)"
+                                        [src]="
+                                            appendUrl(
+                                                t.retrievedLeftImage[0].Key
+                                            )
+                                        "
                                         height="100%"
                                         width="100%"
                                     />
@@ -547,10 +552,7 @@
                                             maxFileSize="100000000"
                                             chooseLabel="Replace"
                                             (onSelect)="
-                                                replaceLeftImage(
-                                                    $event,
-                                                    savedLeftImage[0]
-                                                )
+                                                replaceLeftImage($event, t)
                                             "
                                             [disabled]="readonly"
                                         ></p-fileUpload>
@@ -562,11 +564,7 @@
                                             icon="pi pi-times"
                                             label="Remove"
                                             class="ui-button-danger"
-                                            (click)="
-                                                removeLeftImage(
-                                                    savedLeftImage[0]
-                                                )
-                                            "
+                                            (click)="removeLeftImage(t)"
                                             [disabled]="readonly"
                                         ></button>
                                     </div>
@@ -577,13 +575,10 @@
                             <div class="ui-g-12 ui-md-12">
                                 <div class="photoStyle">
                                     <ng-container
-                                        *ngIf="
-                                            previewLeftImageUrl;
-                                            else elseTemplate
-                                        "
+                                        *ngIf="t.leftUrl; else elseTemplate"
                                     >
                                         <img
-                                            [src]="previewLeftImageUrl"
+                                            [src]="t.leftUrl"
                                             height="100%"
                                             width="100%"
                                         />
@@ -597,7 +592,7 @@
                                 <div class="buttonStyle">
                                     <ng-container
                                         *ngIf="
-                                            showLeftButtons;
+                                            t.showLeftUploadBtn;
                                             else noLeftUpload
                                         "
                                     >
@@ -608,7 +603,7 @@
                                             maxFileSize="100000000"
                                             chooseLabel="Choose Image"
                                             (onSelect)="
-                                                previewLeftImage($event)
+                                                previewLeftImage($event, t)
                                             "
                                             [disabled]="readonly"
                                         ></p-fileUpload>
@@ -627,8 +622,9 @@
                                                     maxFileSize="100000000"
                                                     chooseLabel="Replace"
                                                     (onSelect)="
-                                                        replaceChoosedLeftImage(
-                                                            $event
+                                                        replaceChosenLeftImage(
+                                                            $event,
+                                                            t
                                                         )
                                                     "
                                                     [disabled]="readonly"
@@ -644,7 +640,7 @@
                                                     label="Remove"
                                                     class="ui-button-danger"
                                                     (click)="
-                                                        removeChoosedLeftImage()
+                                                        removeChosenLeftImage(t)
                                                     "
                                                     [disabled]="readonly"
                                                 ></button>
@@ -670,14 +666,14 @@
                     <div *ngIf="showDialogRightData">
                         <ng-container
                             *ngIf="
-                                savedRightFiles.length > 0;
+                                t.retrievedRightFile.length > 0;
                                 else elseTemplate
                             "
                         >
                             <label> {{ t.name }}</label>
                             <div
                                 class="ui-g-12"
-                                *ngFor="let document of savedRightFiles"
+                                *ngFor="let document of t.retrievedRightFile"
                             >
                                 <p-card
                                     class="centerHeader"
@@ -688,9 +684,7 @@
                                         <a
                                             href="javascript:void(0)"
                                             class="iconStyle"
-                                            (click)="
-                                                deleteRightDocument(document)
-                                            "
+                                            (click)="deleteRightFile(t)"
                                             title="Remove"
                                         >
                                             <i
@@ -732,7 +726,7 @@
                                     name="file"
                                     ngDefaultControl
                                     [showUploadButton]="false"
-                                    (onSelect)="selectedRightFiles($event)"
+                                    (onSelect)="selectedRightFiles($event, t)"
                                     [disabled]="readonly"
                                 >
                                 </p-fileUpload>
@@ -752,14 +746,14 @@
                     <div *ngIf="showDialogLeftData">
                         <ng-container
                             *ngIf="
-                                savedLeftFiles.length > 0;
+                                t.retrievedLeftFile.length > 0;
                                 else elseTemplate2
                             "
                         >
                             <label> {{ t.name }}</label>
                             <div
                                 class="ui-g-12"
-                                *ngFor="let document of savedLeftFiles"
+                                *ngFor="let document of t.retrievedLeftFile"
                             >
                                 <p-card
                                     class="centerHeader"
@@ -770,9 +764,7 @@
                                         <a
                                             href="javascript:void(0)"
                                             class="iconStyle"
-                                            (click)="
-                                                deleteLeftDocument(document)
-                                            "
+                                            (click)="deleteLeftFile(t)"
                                             title="Remove"
                                         >
                                             <i
@@ -814,7 +806,7 @@
                                     name="file"
                                     ngDefaultControl
                                     [showUploadButton]="false"
-                                    (onSelect)="selectedLeftFiles($event)"
+                                    (onSelect)="selectedLeftFiles($event, t)"
                                     [disabled]="readonly"
                                 >
                                 </p-fileUpload>

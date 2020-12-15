@@ -12,11 +12,11 @@ export class DocumentsService {
             region: "ap-southeast-1",
         });
     }
-    fileUpload(files, filePath): Promise<any> {
+    fileUpload(files, name, filePath): Promise<any> {
         return new Promise((resolve, reject) => {
             Array.from(files).forEach((file: any) => {
                 const contentType = file.type;
-                const path = `${filePath}/${file.name}`;
+                const path = `${filePath}/${name}`;
                 const bucket = this.secret;
                 const params = {
                     Bucket: "otonda-upload-file",

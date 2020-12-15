@@ -63,12 +63,12 @@ export class TreatmentTestsComponent implements OnInit {
     savedLeftImage = [];
     rightImagePath;
     leftImagePath;
-    leftDocument;
-    rightDocument;
+    leftDeletedFiles;
+    rightDeletedFiles;
     rightImage;
     leftImage;
-    leftDeletedImage;
-    rightDeletedImage;
+    leftDeletedImages;
+    rightDeletedImages;
     displayEquipmentTest: boolean;
     showEquipments = true;
     selectedEquipment;
@@ -216,10 +216,10 @@ export class TreatmentTestsComponent implements OnInit {
         }
         return allSelectedEquipments;
     }
-    uploadFiles(id, data, side, type) {
+    uploadFiles(id, data, name, side, type) {
         this.spinner.show();
         let filePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${id}/${type}/${side}`;
-        this.documentService.fileUpload(data, filePath).then((data) => {
+        this.documentService.fileUpload(data, name, filePath).then((data) => {
             this.spinner.hide();
             if (side === "Right") {
                 this.rightFiles.splice(0, this.rightFiles.length);
@@ -229,10 +229,6 @@ export class TreatmentTestsComponent implements OnInit {
         });
     }
     saveTreatment() {
-        this.rightImage = this.testParameterComponent.rightImage;
-        this.leftImage = this.testParameterComponent.leftImage;
-        this.rightFiles = this.testParameterComponent.rightFiles;
-        this.leftFiles = this.testParameterComponent.leftFiles;
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
             const equipmentsAllData = this.getEquipmentsAllData(
                 this.selectedEquipments
@@ -259,36 +255,49 @@ export class TreatmentTestsComponent implements OnInit {
         this.parameterValueService
             .createParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
-                if (this.rightImage.length > 0) {
-                    this.uploadFiles(
-                        u[0].id,
-                        this.rightImage,
-                        "Right",
-                        "Images"
-                    );
-                }
-                if (this.rightFiles.length > 0) {
-                    this.uploadFiles(
-                        u[0].id,
-                        this.rightFiles,
-                        "Right",
-                        "Files"
-                    );
-                }
-                if (this.leftImage.length > 0) {
-                    this.uploadFiles(u[0].id, this.leftImage, "Left", "Images");
-                }
-                if (this.leftFiles.length > 0) {
-                    this.uploadFiles(u[0].id, this.leftFiles, "Left", "Files");
-                }
-                if (
-                    this.leftFiles.length < 0 &&
-                    this.rightFiles.length < 0 &&
-                    this.rightImage.length < 0 &&
-                    this.leftImage.length < 0
-                ) {
-                    this.spinner.hide();
-                }
+                this.selectedTestData[0].parameters.forEach((test) => {
+                    if (test.type === "image") {
+                        if (test.rightVal && test.rightVal.length > 0) {
+                            this.uploadFiles(
+                                u[0].id,
+                                test.rightVal,
+                                test.name,
+                                "Right",
+                                "Images"
+                            );
+                        }
+                        if (test.leftVal && test.leftVal.length > 0) {
+                            this.uploadFiles(
+                                u[0].id,
+                                test.leftVal,
+                                test.name,
+                                "Left",
+                                "Images"
+                            );
+                        }
+                    } else if (test.type === "file") {
+                        if (test.rightVal && test.rightVal.length > 0) {
+                            this.uploadFiles(
+                                u[0].id,
+                                test.rightVal,
+                                test.name,
+                                "Right",
+                                "Files"
+                            );
+                        }
+                        if (test.leftVal && test.leftVal.length > 0) {
+                            this.uploadFiles(
+                                u[0].id,
+                                test.leftVal,
+                                test.name,
+                                "Left",
+                                "Files"
+                            );
+                        }
+                    } else {
+                        this.spinner.hide();
+                    }
+                });
                 this.reset();
                 this.getSessionTreatments();
                 this.showMessageComponent.showMessage(
@@ -311,14 +320,10 @@ export class TreatmentTestsComponent implements OnInit {
             });
     }
     updateTreatment() {
-        this.rightImage = this.testParameterComponent.rightImage;
-        this.leftImage = this.testParameterComponent.leftImage;
-        this.rightFiles = this.testParameterComponent.rightFiles;
-        this.leftFiles = this.testParameterComponent.leftFiles;
-        this.rightDocument = this.testParameterComponent.rightDocument;
-        this.leftDocument = this.testParameterComponent.leftDocument;
-        this.rightDeletedImage = this.testParameterComponent.rightDeletedImage;
-        this.leftDeletedImage = this.testParameterComponent.leftDeletedImage;
+        this.rightDeletedFiles = this.testParameterComponent.rightDeletedFiles;
+        this.leftDeletedFiles = this.testParameterComponent.leftDeletedFiles;
+        this.rightDeletedImages = this.testParameterComponent.rightDeletedImages;
+        this.leftDeletedImages = this.testParameterComponent.leftDeletedImages;
         if (this.selectedEquipments && this.selectedEquipments.length > 0) {
             const equipmentsAllData = this.getEquipmentsAllData(
                 this.selectedEquipments
@@ -329,7 +334,7 @@ export class TreatmentTestsComponent implements OnInit {
         }
         this.selectedTestData.forEach((element) => {
             element.testId = this.selected.treatmentId;
-            element.sessionTreatmentId = this.selectedSession.id;
+            element.sessionTreatmentId = this.selected.id;
         });
         this.treatment.treatmentId = this.selected.treatmentId;
         this.treatment.treatmentName = this.selected.treatmentName;
@@ -337,48 +342,78 @@ export class TreatmentTestsComponent implements OnInit {
         this.parameterValueService
             .updateParametersValues(this.selectedTestData)
             .subscribe((u: any) => {
-                if (this.rightDeletedImage) {
-                    this.documentService.deleteFile(this.rightDeletedImage.Key);
-                }
-                if (this.leftDeletedImage) {
-                    this.documentService.deleteFile(this.leftDeletedImage.Key);
-                }
-                if (this.rightDocument) {
-                    this.documentService.deleteFile(this.rightDocument.Key);
-                }
-                if (this.leftDocument) {
-                    this.documentService.deleteFile(this.leftDocument.Key);
-                }
-                if (this.rightImage.length > 0) {
-                    this.uploadFiles(
-                        u[0].id,
-                        this.rightImage,
-                        "Right",
-                        "Images"
-                    );
-                }
-                if (this.rightFiles.length > 0) {
-                    this.uploadFiles(
-                        u[0].id,
-                        this.rightFiles,
-                        "Right",
-                        "Files"
-                    );
-                }
-                if (this.leftImage.length > 0) {
-                    this.uploadFiles(u[0].id, this.leftImage, "Left", "Images");
-                }
-                if (this.leftFiles.length > 0) {
-                    this.uploadFiles(u[0].id, this.leftFiles, "Left", "Files");
+                if (
+                    this.rightDeletedImages &&
+                    this.rightDeletedImages.length > 0
+                ) {
+                    this.rightDeletedImages.forEach((element) => {
+                        this.documentService.deleteFile(element);
+                    });
                 }
                 if (
-                    this.leftFiles.length < 0 &&
-                    this.rightFiles.length < 0 &&
-                    this.rightImage.length < 0 &&
-                    this.leftImage.length < 0
+                    this.leftDeletedImages &&
+                    this.leftDeletedImages.length > 0
                 ) {
-                    this.spinner.hide();
+                    this.leftDeletedImages.forEach((element) => {
+                        this.documentService.deleteFile(element);
+                    });
                 }
+                if (
+                    this.rightDeletedFiles &&
+                    this.rightDeletedFiles.length > 0
+                ) {
+                    this.rightDeletedFiles.forEach((element) => {
+                        this.documentService.deleteFile(element);
+                    });
+                }
+                if (this.leftDeletedFiles && this.leftDeletedFiles.length > 0) {
+                    this.leftDeletedFiles.forEach((element) => {
+                        this.documentService.deleteFile(element);
+                    });
+                }
+                this.selectedTestData[0].parameters.forEach((test) => {
+                    if (test.type === "image") {
+                        if (test.rightVal && test.rightVal.length > 0) {
+                            this.uploadFiles(
+                                this.selected.id,
+                                test.rightVal,
+                                test.name,
+                                "Right",
+                                "Images"
+                            );
+                        }
+                        if (test.leftVal && test.leftVal.length > 0) {
+                            this.uploadFiles(
+                                this.selected.id,
+                                test.leftVal,
+                                test.name,
+                                "Left",
+                                "Images"
+                            );
+                        }
+                    } else if (test.type === "file") {
+                        if (test.rightVal && test.rightVal.length > 0) {
+                            this.uploadFiles(
+                                this.selected.id,
+                                test.rightVal,
+                                test.name,
+                                "Right",
+                                "Files"
+                            );
+                        }
+                        if (test.leftVal && test.leftVal.length > 0) {
+                            this.uploadFiles(
+                                this.selected.id,
+                                test.leftVal,
+                                test.name,
+                                "Left",
+                                "Files"
+                            );
+                        }
+                    } else {
+                        this.spinner.hide();
+                    }
+                });
                 this.reset();
                 this.getSessionTreatments();
                 this.showMessageComponent.showMessage(
@@ -397,8 +432,8 @@ export class TreatmentTestsComponent implements OnInit {
         this.displayTest = false;
         this.selectedEquipments = [];
         this.showSaveButton = true;
-        this.rightDocument = "";
-        this.leftDocument = "";
+        this.rightDeletedFiles = "";
+        this.leftDeletedFiles = "";
         this.treatment = new Treatment();
         this.dialogHeader = "Add New Treatment";
         this.treatmentBreadCrumb = [
@@ -501,17 +536,14 @@ export class TreatmentTestsComponent implements OnInit {
         this.spinner.show();
         return new Promise(async (resolve, reject) => {
             this.selected = treatment;
-            this.savedRightFiles = [];
-            this.savedLeftFiles = [];
-            this.savedLeftImage = [];
-            this.savedRightImage = [];
+
             const result = await this.documentService
                 .getAllTests(treatment.treatmentId)
                 .catch((error) => {
                     if (this.showTests) {
                         treatment.patientSessionId = this.selectedSession.id;
                         this.saveWithoutParams(treatment);
-                        resolve();
+                        resolve(treatment);
                     } else {
                         this.showTests = true;
                         reject(false);
@@ -648,10 +680,6 @@ export class TreatmentTestsComponent implements OnInit {
         }
         this.showSaveButton = false;
         await this.openTest(treatment);
-        this.savedRightFiles = [];
-        this.savedLeftFiles = [];
-        this.savedLeftImage = [];
-        this.savedRightImage = [];
         this.showTests = true;
         this.treatmentService
             .getSessionTreatmentEquipment(treatment.id)
@@ -681,31 +709,59 @@ export class TreatmentTestsComponent implements OnInit {
         this.spinner.hide();
     }
     async checkForImagesAndFiles(treatment) {
-        const found = this.selectedTestData[0].parameters.some(
-            (param) => param.type === "image" || param.type === "file"
-        );
-        if (found) {
-            this.rightFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Files/Right`;
-            const right = await this.documentService.getAllFiles(
-                this.rightFilePath
-            );
-            this.savedRightFiles = right.Contents;
-            this.leftFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Files/Left`;
-            const left = await this.documentService.getAllFiles(
-                this.leftFilePath
-            );
-            this.savedLeftFiles = left.Contents;
-            this.rightImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Right`;
-            const rightImage = await this.documentService.getAllFiles(
-                this.rightImagePath
-            );
-            this.savedRightImage = rightImage.Contents;
-            this.leftImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/${treatment.id}/Images/Left`;
-            const leftImage = await this.documentService.getAllFiles(
-                this.leftImagePath
-            );
-            this.savedLeftImage = leftImage.Contents;
-        }
+        this.selectedTestData[0].parameters.forEach(async (param) => {
+            if (param.type === "image") {
+                this.rightImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Test/${treatment.id}/Images/Right`;
+                const rightImage = await this.documentService.getAllFiles(
+                    this.rightImagePath
+                );
+                let retrievedRightImage = [];
+                rightImage.Contents.forEach((content) => {
+                    if (
+                        content.Key === `${this.rightImagePath}/${param.name}`
+                    ) {
+                        retrievedRightImage.push(content);
+                    }
+                });
+                param.retrievedRightImage = retrievedRightImage;
+                this.leftImagePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Test/${treatment.id}/Images/Left`;
+                const leftImage = await this.documentService.getAllFiles(
+                    this.leftImagePath
+                );
+                let retrievedLeftImage = [];
+                leftImage.Contents.forEach((content) => {
+                    if (content.Key === `${this.leftImagePath}/${param.name}`) {
+                        retrievedLeftImage.push(content);
+                    }
+                });
+                param.retrievedLeftImage = retrievedLeftImage;
+            } else if (param.type === "file") {
+                this.rightFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Test/${treatment.id}/Files/Right`;
+                const right = await this.documentService.getAllFiles(
+                    this.rightFilePath
+                );
+                let retrievedRightImage = [];
+                right.Contents.forEach((content) => {
+                    if (
+                        content.Key === `${this.rightImagePath}/${param.name}`
+                    ) {
+                        retrievedRightImage.push(content);
+                    }
+                });
+                param.retrievedRightImage = retrievedRightImage;
+                this.leftFilePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Test/${treatment.id}/Files/Left`;
+                const left = await this.documentService.getAllFiles(
+                    this.leftFilePath
+                );
+                let retrievedLeftFile = [];
+                left.Contents.forEach((content) => {
+                    if (content.Key === `${this.leftImagePath}/${param.name}`) {
+                        retrievedLeftFile.push(content);
+                    }
+                });
+                param.retrievedLeftFile = retrievedLeftFile;
+            } else return false;
+        });
     }
     endSession() {
         if (this.selectedSession.ended === "false") {
@@ -835,14 +891,16 @@ export class TreatmentTestsComponent implements OnInit {
     uploadEquipmentsFiles(id, data, side, type) {
         this.spinner.show();
         let filePath = `Patient/${this.selectedPatient.id}/Treatment/${this.selectedSession.id}/Treatment/Equipments/${id}/${type}/${side}`;
-        this.documentService.fileUpload(data, filePath).then((data) => {
-            this.spinner.hide();
-            if (side === "Right") {
-                this.rightFiles.splice(0, this.rightFiles.length);
-            } else {
-                this.leftFiles.splice(0, this.leftFiles.length);
-            }
-        });
+        this.documentService
+            .fileUpload(data, "equipment document", filePath)
+            .then((data) => {
+                this.spinner.hide();
+                if (side === "Right") {
+                    this.rightFiles.splice(0, this.rightFiles.length);
+                } else {
+                    this.leftFiles.splice(0, this.leftFiles.length);
+                }
+            });
     }
     saveEquipment() {
         this.rightImage = this.equipmentTestParametersComponent.rightImage;
@@ -1003,10 +1061,10 @@ export class TreatmentTestsComponent implements OnInit {
         this.leftImage = this.equipmentTestParametersComponent.leftImage;
         this.rightFiles = this.equipmentTestParametersComponent.rightFiles;
         this.leftFiles = this.equipmentTestParametersComponent.leftFiles;
-        this.rightDocument = this.equipmentTestParametersComponent.rightDocument;
-        this.leftDocument = this.equipmentTestParametersComponent.leftDocument;
-        this.rightDeletedImage = this.equipmentTestParametersComponent.rightDeletedImage;
-        this.leftDeletedImage = this.equipmentTestParametersComponent.leftDeletedImage;
+        this.rightDeletedFiles = this.equipmentTestParametersComponent.rightDeletedFiles;
+        this.leftDeletedFiles = this.equipmentTestParametersComponent.leftDeletedFiles;
+        this.rightDeletedImages = this.equipmentTestParametersComponent.rightDeletedImages;
+        this.leftDeletedImages = this.equipmentTestParametersComponent.leftDeletedImages;
         this.selectedEquipmentData.forEach((element) => {
             element.equipmentId = this.selectedEquipment.equipmentId;
             element.equipmentName = this.selectedEquipment.equipmentName;
@@ -1016,17 +1074,19 @@ export class TreatmentTestsComponent implements OnInit {
         this.equipmentParameterValueService
             .updateEquipmentParametersValues(this.selectedEquipmentData)
             .subscribe((u: any) => {
-                if (this.rightDeletedImage) {
-                    this.documentService.deleteFile(this.rightDeletedImage.Key);
+                if (this.rightDeletedImages) {
+                    this.documentService.deleteFile(
+                        this.rightDeletedImages.Key
+                    );
                 }
-                if (this.leftDeletedImage) {
-                    this.documentService.deleteFile(this.leftDeletedImage.Key);
+                if (this.leftDeletedImages) {
+                    this.documentService.deleteFile(this.leftDeletedImages.Key);
                 }
-                if (this.rightDocument) {
-                    this.documentService.deleteFile(this.rightDocument.Key);
+                if (this.rightDeletedFiles) {
+                    this.documentService.deleteFile(this.rightDeletedFiles.Key);
                 }
-                if (this.leftDocument) {
-                    this.documentService.deleteFile(this.leftDocument.Key);
+                if (this.leftDeletedFiles) {
+                    this.documentService.deleteFile(this.leftDeletedFiles.Key);
                 }
                 if (this.rightImage.length > 0) {
                     this.uploadEquipmentsFiles(

@@ -41,25 +41,31 @@ export class DocumentsComponent implements OnInit {
     uploadFiles(event) {
         this.spinner.show();
         this.toFile = event.files;
-        this.documentService
-            .fileUpload(this.toFile, `Patient/${this.selectedPatient.id}`)
-            .then((data) => {
-                this.spinner.hide();
-                this.showMessageComponent.showMessage(
-                    "success",
-                    "Updated",
-                    "File uploaded successfully"
-                );
-                this.toFile.splice(0, this.toFile.length);
-                this.getAllFiles();
-            })
-            .catch((err) => {
-                this.showMessageComponent.showMessage(
-                    "error",
-                    "Error",
-                    "An error occured while processing your request. Please Contact the system administrator."
-                );
-            });
+        Array.from(event.files).forEach((file: any) => {
+            this.documentService
+                .fileUpload(
+                    this.toFile,
+                    file.name,
+                    `Patient/${this.selectedPatient.id}`
+                )
+                .then((data) => {
+                    this.spinner.hide();
+                    this.showMessageComponent.showMessage(
+                        "success",
+                        "Updated",
+                        "File uploaded successfully"
+                    );
+                    this.toFile.splice(0, this.toFile.length);
+                    this.getAllFiles();
+                })
+                .catch((err) => {
+                    this.showMessageComponent.showMessage(
+                        "error",
+                        "Error",
+                        "An error occured while processing your request. Please Contact the system administrator."
+                    );
+                });
+        });
     }
     getAllFiles() {
         this.spinner.show();

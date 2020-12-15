@@ -11,30 +11,18 @@ import { SharedClass } from "../sharedFunctions";
 })
 export class TestParametersComponent implements OnInit {
     @Input() parameters;
-    @Input() savedRightFiles;
-    @Input() savedLeftFiles;
     @Input() rightFilePath;
     @Input() leftFilePath;
-    @Input() savedRightImage;
-    @Input() savedLeftImage;
     @Input() showDialogRightData;
     @Input() showDialogLeftData;
     @Input() readonly;
     sharedClass: SharedClass = new SharedClass(this.patientService);
-    previewRightImageUrl: any = null;
-    previewLeftImageUrl: any = null;
-    rightImage: any[] = [];
-    leftImage: any[] = [];
-    rightFiles: any[] = [];
-    leftFiles: any[] = [];
     rightGraphValues = [];
     leftGraphValues = [];
-    leftDocument;
-    rightDocument;
-    leftDeletedImage;
-    rightDeletedImage;
-    showRightButtons = true;
-    showLeftButtons = true;
+    leftDeletedFiles = [];
+    rightDeletedFiles = [];
+    leftDeletedImages = [];
+    rightDeletedImages = [];
     rightGraphData: any;
     leftGraphData: any;
     rightCellsData = [];
@@ -109,36 +97,32 @@ export class TestParametersComponent implements OnInit {
             }
         });
     }
-    async previewRightImage(event) {
-        this.rightImage = event.currentFiles;
-        this.previewRightImageUrl = await this.sharedClass.previewImage(event);
-        this.showRightButtons = false;
+    async previewRightImage(event, data) {
+        data.rightVal = event.currentFiles;
+        data.rightUrl = await this.sharedClass.previewImage(event);
+        data.showRightUploadBtn = false;
     }
-    async previewLeftImage(event) {
-        this.leftImage = event.currentFiles;
-        this.previewLeftImageUrl = await this.sharedClass.previewImage(event);
-        this.showLeftButtons = false;
+    async previewLeftImage(event, data) {
+        data.leftVal = event.currentFiles;
+        data.leftUrl = await this.sharedClass.previewImage(event);
+        data.showLeftUploadBtn = false;
     }
     viewDocument(document) {
         this.documentService.getFileUrl(document.Key).then((data) => {});
     }
-    deleteRightDocument(document) {
-        this.rightDocument = document;
-        this.savedRightFiles = this.savedRightFiles.filter(
-            (obj) => obj !== document
-        );
+    deleteRightFile(document) {
+        this.rightDeletedFiles.push(document.retrievedRightFile[0].Key);
+        document.retrievedRightFile = [];
     }
-    deleteLeftDocument(document) {
-        this.leftDocument = document;
-        this.savedLeftFiles = this.savedLeftFiles.filter(
-            (obj) => obj !== document
-        );
+    deleteLeftFile(document) {
+        this.leftDeletedFiles.push(document.retrievedLeftFile[0].Key);
+        document.retrievedLeftFile = [];
     }
-    selectedRightFiles(event) {
-        this.rightFiles = event.currentFiles;
+    selectedRightFiles(event, data) {
+        data.rightVal = event.currentFiles;
     }
-    selectedLeftFiles(event) {
-        this.leftFiles = event.currentFiles;
+    selectedLeftFiles(event, data) {
+        data.leftVal = event.currentFiles;
     }
     formatBytes(bytes) {
         return this.sharedClass.formatBytes(bytes);
@@ -153,42 +137,38 @@ export class TestParametersComponent implements OnInit {
         return `https://otonda-upload-file.s3-ap-southeast-1.amazonaws.com/${key}`;
     }
     removeRightImage(image) {
-        this.rightDeletedImage = image;
-        this.savedRightImage = this.savedRightImage.filter(
-            (obj) => obj !== image
-        );
+        this.rightDeletedImages.push(image.retrievedRightImage[0].Key);
+        image.retrievedRightImage = [];
     }
     removeLeftImage(image) {
-        this.leftDeletedImage = image;
-        this.savedLeftImage = this.savedLeftImage.filter(
-            (obj) => obj !== image
-        );
+        this.leftDeletedImages.push(image.retrievedLeftImage[0].Key);
+        image.retrievedLeftImage = [];
     }
-    replaceRightImage(event, image) {
-        this.removeRightImage(image);
-        this.previewRightImage(event);
+    replaceRightImage(event, data) {
+        this.removeRightImage(data);
+        this.previewRightImage(event, data);
     }
-    replaceLeftImage(event, image) {
-        this.removeLeftImage(image);
-        this.previewLeftImage(event);
+    replaceLeftImage(event, data) {
+        this.removeLeftImage(data);
+        this.previewLeftImage(event, data);
     }
-    removeChoosedRightImage() {
-        this.rightImage = [];
-        this.previewRightImageUrl = "";
-        this.showRightButtons = true;
+    removeChosenRightImage(data) {
+        data.rightVal = "";
+        data.rightUrl = "";
+        data.showRightUploadBtn = true;
     }
-    removeChoosedLeftImage() {
-        this.leftImage = [];
-        this.previewLeftImageUrl = "";
-        this.showLeftButtons = true;
+    removeChosenLeftImage(data) {
+        data.leftVal = "";
+        data.leftUrl = "";
+        data.showLeftUploadBtn = true;
     }
-    replaceChoosedRightImage(event) {
-        this.removeChoosedRightImage();
-        this.previewRightImage(event);
+    replaceChosenRightImage(event, data) {
+        this.removeChosenRightImage(data);
+        this.previewRightImage(event, data);
     }
-    replaceChoosedLeftImage(event) {
-        this.removeChoosedLeftImage();
-        this.previewLeftImage(event);
+    replaceChosenLeftImage(event, data) {
+        this.removeChosenLeftImage(data);
+        this.previewLeftImage(event, data);
     }
     drawRightGraph(cells, name, color, pointStyle, noResponse, lineTension) {
         const drawGraph = this.parameters.some((p) => p.type === "graph");
