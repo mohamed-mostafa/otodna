@@ -48,6 +48,51 @@
         >
             <div
                 class="ui-g-12 ui-md-12 removeMarginAndPadding"
+                *ngIf="t.type === 'sectionTitle' && !t.conditional"
+            >
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 rightVerticalLine'
+                            : showDialogRightData && !showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 rightVerticalLine'
+                            : 'ui-g-12 ui-md-2'
+                    "
+                >
+                    <div *ngIf="showDialogRightData">
+                        <ng-container
+                            *ngIf="t.mainTitle; else elseNoRightMainTitle"
+                        >
+                            <p class="mainTitleStyle">{{ t.name }}</p>
+                        </ng-container>
+                        <ng-template #elseNoRightMainTitle>
+                            <p class="minorRightTitleStyle">{{ t.name }}</p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div
+                    [ngClass]="
+                        showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-6 '
+                            : !showDialogRightData && showDialogLeftData
+                            ? 'ui-g-12 ui-md-10 leftVerticalColor'
+                            : 'ui-g-12 ui-md-2 '
+                    "
+                >
+                    <div *ngIf="showDialogLeftData">
+                        <ng-container
+                            *ngIf="t.mainTitle; else elseNoLeftMainTitle"
+                        >
+                            <p class="mainTitleStyle">{{ t.name }}</p>
+                        </ng-container>
+                        <ng-template #elseNoLeftMainTitle>
+                            <p class="minorLeftTitleStyle">{{ t.name }}</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="ui-g-12 ui-md-12 removeMarginAndPadding"
                 *ngIf="t.type === 'text' && !t.conditional"
             >
                 <div

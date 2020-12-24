@@ -27,11 +27,11 @@ export class ParameterValue extends Entity {
   @property({
     type: 'string',
     required: true,
-    length: 45,
+    length: 250,
     mysql: {
       columnName: 'parameter_name',
       dataType: 'varchar',
-      dataLength: 45,
+      dataLength: 250,
       dataPrecision: null,
       dataScale: null,
       nullable: 'N',
@@ -41,11 +41,11 @@ export class ParameterValue extends Entity {
 
   @property({
     type: 'string',
-    length: 45,
+    length: 250,
     mysql: {
       columnName: 'sub_parameter_name',
       dataType: 'varchar',
-      dataLength: 45,
+      dataLength: 250,
       dataPrecision: null,
       dataScale: null,
       nullable: 'Y',

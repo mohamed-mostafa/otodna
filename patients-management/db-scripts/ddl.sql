@@ -171,8 +171,8 @@ DROP TABLE IF EXISTS `parameter_value`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `parameter_value` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `parameter_name` varchar(45) NOT NULL,
-  `sub_parameter_name` varchar(45) DEFAULT NULL,
+  `parameter_name` varchar(250) NOT NULL,
+  `sub_parameter_name` varchar(250) DEFAULT NULL,
   `parameter_type` varchar(45) NOT NULL,
   `value` varchar(45) NOT NULL,
   `unit` varchar(45) DEFAULT NULL,

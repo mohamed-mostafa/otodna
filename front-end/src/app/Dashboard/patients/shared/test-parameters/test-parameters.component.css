@@ -123,3 +123,18 @@
 .width70px {
     width: 70px;
 }
+.mainTitleStyle {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.minorRightTitleStyle {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -19px;
+}
+.minorLeftTitleStyle {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -6px;
+}
