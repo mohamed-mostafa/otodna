@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { DepartmentsService } from "./../../services/departments.service";
 import { ShowMessageComponent } from "./../../shared/show-message/show-message.component";
 import { Router } from "@angular/router";
@@ -16,6 +17,8 @@ export class MyTeamsComponent implements OnInit {
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
+    items: MenuItem[];
+    home: MenuItem;
     departments: any[];
     teams: any[];
     team: Team = new Team();
@@ -35,6 +38,13 @@ export class MyTeamsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.items = [
+            { label: "Teams" },
+            {
+                label: "My Teams",
+            },
+        ];
+        this.home = { icon: "fa fa-users" };
         this.loggedInUser = JSON.parse(localStorage.getItem("user"));
         this.team.ownerId = this.loggedInUser.id;
         this.team.owner = this.loggedInUser.fullName;

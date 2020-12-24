@@ -1,3 +1,4 @@
+import { MenuItem } from "primeng/primeng";
 import { ShowMessageComponent } from "./../shared/show-message/show-message.component";
 import { InviteUser } from "./inviteUser";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -16,6 +17,8 @@ export class UsersComponent implements OnInit {
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
         this.messageService
     );
+    items: MenuItem[];
+    home: MenuItem;
     cols: any[];
     users: any[];
     user: User = new User();
@@ -42,6 +45,13 @@ export class UsersComponent implements OnInit {
             { field: "email", header: "Email" },
             { field: "status", header: "Status" },
         ];
+        this.items = [
+            { label: "Settings" },
+            {
+                label: "Users",
+            },
+        ];
+        this.home = { icon: "fa fa-cogs" };
         this.getAllRoles();
         this.getAllUserTypes();
         this.getAllUsers();
