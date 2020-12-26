@@ -69,7 +69,6 @@ export class TestsComponent implements OnInit {
     position;
     showDialogRightData = true;
     showDialogLeftData = true;
-    cogsItems = [];
     ear;
     testBreadCrumb = [];
     readonly = false;
@@ -156,17 +155,6 @@ export class TestsComponent implements OnInit {
                 label: "Tests",
                 command: () => {
                     this.reset();
-                },
-            },
-        ];
-    }
-    onClickMenu(data: any) {
-        this.cogsItems = [
-            {
-                label: "Delete Test",
-                icon: "fa fa-trash-o",
-                command: () => {
-                    this.deleteTest(data);
                 },
             },
         ];
