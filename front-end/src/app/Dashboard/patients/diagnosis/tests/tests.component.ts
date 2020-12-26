@@ -1,7 +1,7 @@
+import { DiagnosisEquipment } from "./../../../settings/diagnosis-equipments/diagnosisEquipment";
+import { EquipmentsService } from "./../../../services/equipments.service";
 import { FrequentlyUsedComponent } from "./../../shared/frequently-used/frequently-used.component";
 import { PatientService } from "./../../services/patient.service";
-import { EquipmentParameterValueService } from "./../../services/equipment-parameter-value.service";
-import { EquipmentTestParametersComponent } from "./../../shared/equipment-test-parameters/equipment-test-parameters.component";
 import { TestParametersComponent } from "./../../shared/test-parameters/test-parameters.component";
 import { SharedClass } from "../../shared/sharedFunctions";
 import { DocumentsService } from "./../../../services/documents.service";
@@ -22,8 +22,6 @@ import { ShowMessageComponent } from "../../../shared/show-message/show-message.
 })
 export class TestsComponent implements OnInit {
     @ViewChild(TestParametersComponent) testParameterComponent;
-    @ViewChild(EquipmentTestParametersComponent)
-    equipmentTestParametersComponent;
     @ViewChild(FrequentlyUsedComponent) frequentlyUsedComponent;
     sharedClass: SharedClass = new SharedClass(this.patientService);
     showMessageComponent: ShowMessageComponent = new ShowMessageComponent(
@@ -39,14 +37,11 @@ export class TestsComponent implements OnInit {
     selectedTest;
     filteredTests: any[];
     allTests = [];
-    allEquipments = [];
     showTests = true;
     selected;
     selectedTestData = [];
     selectedSession;
     dialogHeader;
-    filteredEquipments: any[];
-    selectedEquipments = [];
     showSaveButton = true;
     showAllButtons = true;
     selectedPatient;
@@ -66,33 +61,29 @@ export class TestsComponent implements OnInit {
     leftImage;
     leftDeletedImages;
     rightDeletedImages;
-    displayEquipmentTest: boolean;
-    showEquipments = true;
-    selectedEquipment;
+    showEquipments = false;
+    retrievedEquipments = [];
+    selectedEquipment: any;
+    diagnosisEquipment: DiagnosisEquipment = new DiagnosisEquipment();
     selectedTestId;
-    showViewEquipments = false;
-    viewedEquipments = [];
     position;
-    selectedEquipmentData = [];
-    showSaveEquipmentButton = true;
-    addEquipmentDialogHeader;
-    viewEquipmentDialogHeader;
     showDialogRightData = true;
     showDialogLeftData = true;
     cogsItems = [];
     ear;
     testBreadCrumb = [];
     readonly = false;
+    displayViewDetailsDialog: boolean = false;
     constructor(
         private messageService: MessageService,
         private testService: TestsService,
         private parameterValueService: ParameterValueService,
-        private equipmentParameterValueService: EquipmentParameterValueService,
         private router: Router,
         private cdref: ChangeDetectorRef,
         private confirmationService: ConfirmationService,
         private documentService: DocumentsService,
         private patientService: PatientService,
+        private equipmentsService: EquipmentsService,
         private spinner: NgxSpinnerService
     ) {}
     ngOnInit(): void {
@@ -149,7 +140,6 @@ export class TestsComponent implements OnInit {
         ];
         this.home = { icon: "fa fa-stethoscope" };
         this.getAllTests();
-        this.getAllEquipments();
         this.getSessionTests();
         this.checkLoggedInUserTeamWithPatient();
         if (window.history.state.test) {
@@ -179,22 +169,6 @@ export class TestsComponent implements OnInit {
                     this.deleteTest(data);
                 },
             },
-            {
-                label: "Add Equipment",
-                icon: "fa fa-plus",
-                command: () => {
-                    this.showEquipmentDialog(data);
-                },
-                disabled: !data.showEquipment,
-            },
-            {
-                label: "view Equipment",
-                icon: "fa fa-desktop",
-                command: () => {
-                    this.viewEquipments(data);
-                },
-                disabled: !data.showEquipment || data.equipmentCount < 1,
-            },
         ];
     }
     async checkLoggedInUserTeamWithPatient() {
@@ -203,17 +177,6 @@ export class TestsComponent implements OnInit {
             LoggedInUser,
             this.selectedPatient
         );
-    }
-    getEquipmentsAllData(data) {
-        const allSelectedEquipments = [];
-        for (const d of data) {
-            for (const a of this.allEquipments) {
-                if (a.equipmentName === d) {
-                    allSelectedEquipments.push(a);
-                }
-            }
-        }
-        return allSelectedEquipments;
     }
     uploadFiles(id, data, name, side, type) {
         this.spinner.show();
@@ -231,12 +194,15 @@ export class TestsComponent implements OnInit {
         });
     }
     saveTest() {
-        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
-            const equipmentsAllData = this.getEquipmentsAllData(
-                this.selectedEquipments
-            );
+        if (this.selectedEquipment) {
+            let equipmentsArray = [
+                {
+                    equipmentId: this.selectedEquipment.id,
+                    equipmentName: this.selectedEquipment.equipmentName,
+                },
+            ];
             this.selectedTestData.forEach((element) => {
-                element.equipments = equipmentsAllData;
+                element.equipments = equipmentsArray;
             });
         }
         this.selectedTestData.forEach((element) => {
@@ -307,18 +273,6 @@ export class TestsComponent implements OnInit {
                     "Saved",
                     "Data saved successfully"
                 );
-                this.confirmationService.confirm({
-                    message: "Do you want to add equipment for this test?",
-                    header: "Add Equipment Confirmation",
-                    icon: "pi pi-info-circle",
-                    accept: () => {
-                        this.testService
-                            .getTestById(u[0].id)
-                            .subscribe((res) => {
-                                this.showEquipmentDialog(res);
-                            });
-                    },
-                });
             });
     }
     updateTest() {
@@ -326,12 +280,16 @@ export class TestsComponent implements OnInit {
         this.leftDeletedFiles = this.testParameterComponent.leftDeletedFiles;
         this.rightDeletedImages = this.testParameterComponent.rightDeletedImages;
         this.leftDeletedImages = this.testParameterComponent.leftDeletedImages;
-        if (this.selectedEquipments && this.selectedEquipments.length > 0) {
-            const equipmentsAllData = this.getEquipmentsAllData(
-                this.selectedEquipments
-            );
+        if (this.selectedEquipment) {
+            let equipmentsArray = [
+                {
+                    equipmentId: this.selectedEquipment.id,
+                    equipmentName: this.selectedEquipment.equipmentName,
+                    sessionTestId: this.selected.id,
+                },
+            ];
             this.selectedTestData.forEach((element) => {
-                element.equipments = equipmentsAllData;
+                element.equipments = equipmentsArray;
             });
         }
         this.selectedTestData.forEach((element) => {
@@ -428,7 +386,6 @@ export class TestsComponent implements OnInit {
         this.test = new Test();
         this.selectedTest = "";
         this.selected = "";
-        this.selectedEquipments = [];
         this.filteredTests = [];
         this.showSaveButton = true;
         this.showTests = true;
@@ -436,6 +393,8 @@ export class TestsComponent implements OnInit {
         this.rightDeletedFiles = "";
         this.leftDeletedFiles = "";
         this.dialogHeader = "Add New Test";
+        this.diagnosisEquipment = new DiagnosisEquipment();
+        this.selectedEquipment = "";
         this.testBreadCrumb = [
             {
                 label: "Tests",
@@ -505,25 +464,29 @@ export class TestsComponent implements OnInit {
                 this.spinner.hide();
             });
     }
-    getAllEquipments() {
-        this.documentService
-            .getAllTests("equipments")
-            .then((result) => {
-                this.allEquipments = result;
-            })
-            .catch((error) => {
-                this.showMessageComponent.showMessage(
-                    "error",
-                    "Error",
-                    "Something went error,Please try again"
-                );
-            });
-    }
     selectFrequentlyUsed(event) {
         this.openTest(event);
     }
+    checkForEquipment(id) {
+        this.diagnosisEquipment = new DiagnosisEquipment();
+        this.selectedEquipment = "";
+        this.retrievedEquipments = [];
+        this.equipmentsService.getEquipmentByTestId(id).subscribe((result) => {
+            if (result && result.length > 0) {
+                this.showEquipments = true;
+                result.forEach((element) => {
+                    element.displayName = `${element.equipmentName} - ${element.manufacturerName} - ${element.serialNumber} `;
+                    this.retrievedEquipments.push(element);
+                });
+            } else {
+                this.showEquipments = false;
+                this.retrievedEquipments = [];
+            }
+        });
+    }
     openTest(test) {
         this.spinner.show();
+        this.checkForEquipment(test.testId);
         return new Promise(async (resolve, reject) => {
             this.selected = test;
             const result = await this.documentService
@@ -579,31 +542,6 @@ export class TestsComponent implements OnInit {
             this.spinner.hide();
         });
     }
-    filterEquipments(event) {
-        const query = event.query;
-        this.documentService
-            .getAllTests("equipments")
-            .then(async (equipments) => {
-                this.filteredEquipments = await this.searchEquipments(
-                    query,
-                    equipments
-                );
-            })
-            .catch((error) => {
-                this.showMessageComponent.showMessage(
-                    "error",
-                    "Error",
-                    "Something went error,Please try again"
-                );
-            });
-    }
-    async searchEquipments(query, equipments) {
-        return await this.sharedClass.searchTest(
-            query,
-            equipments,
-            "equipmentName"
-        );
-    }
     getSessionTests() {
         this.spinner.show();
         this.testService
@@ -642,6 +580,7 @@ export class TestsComponent implements OnInit {
     }
     async retrieveTestData(test) {
         this.spinner.show();
+        await this.openTest(test);
         if (this.selectedSession.ended === "false") {
             this.readonly = false;
         } else {
@@ -660,16 +599,14 @@ export class TestsComponent implements OnInit {
             this.ear = "L";
         }
         this.showSaveButton = false;
-        await this.openTest(test);
         this.showTests = true;
-        this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
-            if (res && res.length > 0) {
-                this.selectedTestData[0].id = test.id;
-                res.forEach((element) => {
-                    this.selectedEquipments.push(element.equipmentName);
-                });
-            }
-        });
+        if (test.sessionTestEquipments) {
+            this.selectedEquipment = this.retrievedEquipments.find(
+                (equip) =>
+                    equip.id ===
+                    parseInt(test.sessionTestEquipments[0].equipmentId)
+            );
+        }
         if (test.parameterValues) {
             let parameters = this.selectedTestData[0].parameters;
             if (parameters && parameters.length > 0) {
@@ -770,379 +707,8 @@ export class TestsComponent implements OnInit {
             },
         });
     }
-    showEquipmentDialog(test) {
-        this.addEquipmentDialogHeader = `Add Equipment For ${test.testName}`;
-        this.selectedTestId = test.id;
-        this.displayEquipmentTest = true;
-    }
-    viewEquipments(test) {
-        this.viewEquipmentDialogHeader = `View Equipments Of ${test.testName}`;
-        this.testService.getSessionTestEquipment(test.id).subscribe((res) => {
-            if (res.length > 0) {
-                this.viewedEquipments = res;
-                this.showViewEquipments = true;
-            }
-        });
-    }
-    resetEquipment() {
-        this.showEquipments = true;
-        this.filteredEquipments = [];
-        this.selectedEquipments = [];
-        this.displayEquipmentTest = false;
-        this.selectedEquipment = "";
-        this.showSaveEquipmentButton = true;
-    }
-    saveEquipmentsWithoutParams(equipment) {
-        this.testService.createTestEquipment(equipment).subscribe((u: any) => {
-            this.displayEquipmentTest = false;
-            this.resetEquipment();
-            this.getSessionTests();
-            this.showMessageComponent.showMessage(
-                "success",
-                "Saved",
-                "Data saved successfully"
-            );
-            this.confirmationService.confirm({
-                message: "Do you want to add more equipment?",
-                header: "Add Equipment Confirmation",
-                icon: "pi pi-info-circle",
-                accept: () => {
-                    this.testService
-                        .getTestById(equipment.sessionTestId)
-                        .subscribe((res) => {
-                            this.showEquipmentDialog(res);
-                        });
-                },
-            });
-        });
-    }
-    async openEquipment(equipment) {
-        this.selectedEquipment = equipment;
-        this.savedRightFiles = [];
-        this.savedLeftFiles = [];
-        this.savedLeftImage = [];
-        this.savedRightImage = [];
-        const result = await this.documentService
-            .getAllTests(equipment.equipmentId)
-            .catch((error) => {
-                if (this.showEquipments) {
-                    equipment.sessionTestId = this.selectedTestId;
-                    this.saveEquipmentsWithoutParams(equipment);
-                } else {
-                    this.showEquipments = true;
-                    return false;
-                }
-            });
-        if (result) {
-            this.selectedEquipmentData = result;
-            this.showEquipments = false;
-        }
-    }
-    deleteEquipment(equipment, position) {
-        this.position = position;
-        this.confirmationService.confirm({
-            message: "Do you want to delete this equipment?",
-            header: "Delete Equipment Confirmation",
-            icon: "pi pi-info-circle",
-            accept: () => {
-                this.testService
-                    .deleteTestEquipment(equipment.id)
-                    .subscribe((u: any) => {
-                        this.viewedEquipments = this.viewedEquipments.filter(
-                            (eq) => eq !== equipment
-                        );
-                        if (this.viewedEquipments.length === 0) {
-                            this.showViewEquipments = false;
-                        }
-                        this.getSessionTests();
-                        this.showMessageComponent.showMessage(
-                            "success",
-                            "Confirmed",
-                            "Equipment has been deleted"
-                        );
-                        this.spinner.hide();
-                    });
-            },
-        });
-    }
-    uploadEquipmentsFiles(id, data, side, type) {
-        this.spinner.show();
-        let filePath;
-        if (this.selectedSession.sessionTypeId === 0) {
-            filePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/Equipments/${id}/${type}/${side}`;
-        } else {
-            filePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/Equipments/${id}/${type}/${side}`;
-        }
-        this.documentService
-            .fileUpload(data, "equipment document", filePath)
-            .then((data) => {
-                this.spinner.hide();
-                if (side === "Right") {
-                    this.rightFiles.splice(0, this.rightFiles.length);
-                } else {
-                    this.leftFiles.splice(0, this.leftFiles.length);
-                }
-            });
-    }
-    saveEquipment() {
-        this.rightImage = this.equipmentTestParametersComponent.rightImage;
-        this.leftImage = this.equipmentTestParametersComponent.leftImage;
-        this.rightFiles = this.equipmentTestParametersComponent.rightFiles;
-        this.leftFiles = this.equipmentTestParametersComponent.leftFiles;
-        this.selectedEquipmentData.forEach((element) => {
-            element.equipmentId = this.selectedEquipment.equipmentId;
-            element.equipmentName = this.selectedEquipment.equipmentName;
-            element.sessionTestId = this.selectedTestId;
-        });
-        this.spinner.show();
-        this.equipmentParameterValueService
-            .createEquipmentParametersValues(this.selectedEquipmentData)
-            .subscribe((u: any) => {
-                if (this.rightImage.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.rightImage,
-                        "Right",
-                        "Images"
-                    );
-                }
-                if (this.rightFiles.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.rightFiles,
-                        "Right",
-                        "Files"
-                    );
-                }
-                if (this.leftImage.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.leftImage,
-                        "Left",
-                        "Images"
-                    );
-                }
-                if (this.leftFiles.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.leftFiles,
-                        "Left",
-                        "Files"
-                    );
-                }
-                if (
-                    this.leftFiles.length < 0 &&
-                    this.rightFiles.length < 0 &&
-                    this.rightImage.length < 0 &&
-                    this.leftImage.length < 0
-                ) {
-                    this.spinner.hide();
-                }
-                this.reset();
-                this.resetEquipment();
-                this.getSessionTests();
-                this.showMessageComponent.showMessage(
-                    "success",
-                    "Saved",
-                    "Data saved successfully"
-                );
-                this.confirmationService.confirm({
-                    message: "Do you want to add more equipment?",
-                    header: "Add Equipment Confirmation",
-                    icon: "pi pi-info-circle",
-                    accept: () => {
-                        this.testService
-                            .getTestById(this.selectedTestId)
-                            .subscribe((res) => {
-                                this.showEquipmentDialog(res);
-                            });
-                    },
-                });
-            });
-    }
-    async retrieveEquipmentData(equipment) {
-        await this.openEquipment(equipment);
-        let sessionTest;
-        this.testService
-            .getTestById(equipment.sessionTestId)
-            .subscribe((res) => {
-                sessionTest = res;
-            });
-        this.savedRightFiles = [];
-        this.savedLeftFiles = [];
-        this.savedLeftImage = [];
-        this.savedRightImage = [];
-        this.showEquipments = false;
-        this.spinner.show();
-        this.equipmentParameterValueService
-            .getEquipmentParametersValues("equipmentTestId", equipment.id)
-            .subscribe(async (result) => {
-                if (result && result.length > 0) {
-                    this.showSaveEquipmentButton = false;
-                    this.selectedEquipmentData[0].id = equipment.id;
-                    let parameters = this.selectedEquipmentData[0].parameters;
-                    if (parameters && parameters.length > 0) {
-                        parameters = await this.sharedClass.handleTestData(
-                            result,
-                            parameters
-                        );
-                        await this.checkEquipmentForImagesAndFiles(equipment);
-                        const found = parameters.some(
-                            (param) => param.type === "graph"
-                        );
-                        if (found) {
-                            parameters.forEach((p) => {
-                                if (p.type === "table") {
-                                    this.testParameterComponent.drawRightGraph(
-                                        p.cells
-                                    );
-                                    this.testParameterComponent.drawLeftGraph(
-                                        p.cells
-                                    );
-                                }
-                            });
-                        }
-                    }
-                    this.showEquipmentDialog(sessionTest);
-                    this.cdref.detectChanges();
-                } else {
-                    this.showEquipments = true;
-                }
-                this.spinner.hide();
-            });
-    }
-    async checkEquipmentForImagesAndFiles(equipment) {
-        const found = this.selectedEquipmentData[0].parameters.some(
-            (param) => param.type === "image" || param.type === "file"
-        );
-        if (found) {
-            if (this.selectedSession.sessionTypeId === 0) {
-                this.rightFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Files/Right`;
-                const right = await this.documentService.getAllFiles(
-                    this.rightFilePath
-                );
-                this.savedRightFiles = right.Contents;
-                this.leftFilePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Files/Left`;
-                const left = await this.documentService.getAllFiles(
-                    this.leftFilePath
-                );
-                this.savedLeftFiles = left.Contents;
-                this.rightImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Images/Right`;
-                const rightImage = await this.documentService.getAllFiles(
-                    this.rightImagePath
-                );
-                this.savedRightImage = rightImage.Contents;
-                this.leftImagePath = `Patient/${this.selectedPatient.id}/Diagnosis/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Images/Left`;
-                const leftImage = await this.documentService.getAllFiles(
-                    this.leftImagePath
-                );
-                this.savedLeftImage = leftImage.Contents;
-            } else {
-                this.rightFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Files/Right`;
-                const right = await this.documentService.getAllFiles(
-                    this.rightFilePath
-                );
-                this.savedRightFiles = right.Contents;
-                this.leftFilePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Files/Left`;
-                const left = await this.documentService.getAllFiles(
-                    this.leftFilePath
-                );
-                this.savedLeftFiles = left.Contents;
-                this.rightImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Images/Right`;
-                const rightImage = await this.documentService.getAllFiles(
-                    this.rightImagePath
-                );
-                this.savedRightImage = rightImage.Contents;
-                this.leftImagePath = `Patient/${this.selectedPatient.id}/Followup/${this.selectedSession.id}/Test/Equipments/${equipment.id}/Images/Left`;
-                const leftImage = await this.documentService.getAllFiles(
-                    this.leftImagePath
-                );
-                this.savedLeftImage = leftImage.Contents;
-            }
-        }
-    }
-    updateEquipment() {
-        this.rightImage = this.equipmentTestParametersComponent.rightImage;
-        this.leftImage = this.equipmentTestParametersComponent.leftImage;
-        this.rightFiles = this.equipmentTestParametersComponent.rightFiles;
-        this.leftFiles = this.equipmentTestParametersComponent.leftFiles;
-        this.rightDeletedFiles = this.equipmentTestParametersComponent.rightDeletedFiles;
-        this.leftDeletedFiles = this.equipmentTestParametersComponent.leftDeletedFiles;
-        this.rightDeletedImages = this.equipmentTestParametersComponent.rightDeletedImages;
-        this.leftDeletedImages = this.equipmentTestParametersComponent.leftDeletedImages;
-        this.selectedEquipmentData.forEach((element) => {
-            element.equipmentId = this.selectedEquipment.equipmentId;
-            element.equipmentName = this.selectedEquipment.equipmentName;
-            element.sessionTestId = this.selectedTestId;
-        });
-        this.spinner.show();
-        this.equipmentParameterValueService
-            .updateEquipmentParametersValues(this.selectedEquipmentData)
-            .subscribe((u: any) => {
-                if (this.rightDeletedImages) {
-                    this.documentService.deleteFile(
-                        this.rightDeletedImages.Key
-                    );
-                }
-                if (this.leftDeletedImages) {
-                    this.documentService.deleteFile(this.leftDeletedImages.Key);
-                }
-                if (this.rightDeletedFiles) {
-                    this.documentService.deleteFile(this.rightDeletedFiles.Key);
-                }
-                if (this.leftDeletedFiles) {
-                    this.documentService.deleteFile(this.leftDeletedFiles.Key);
-                }
-                if (this.rightImage.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.rightImage,
-                        "Right",
-                        "Images"
-                    );
-                }
-                if (this.rightFiles.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.rightFiles,
-                        "Right",
-                        "Files"
-                    );
-                }
-                if (this.leftImage.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.leftImage,
-                        "Left",
-                        "Images"
-                    );
-                }
-                if (this.leftFiles.length > 0) {
-                    this.uploadEquipmentsFiles(
-                        u[0].id,
-                        this.leftFiles,
-                        "Left",
-                        "Files"
-                    );
-                }
-                if (
-                    this.leftFiles.length < 0 &&
-                    this.rightFiles.length < 0 &&
-                    this.rightImage.length < 0 &&
-                    this.leftImage.length < 0
-                ) {
-                    this.spinner.hide();
-                }
-                this.reset();
-                this.getSessionTests();
-                this.resetEquipment();
-                this.displayEquipmentTest = false;
-                this.showViewEquipments = false;
-                this.showMessageComponent.showMessage(
-                    "success",
-                    "Saved",
-                    "Data updated successfully"
-                );
-            });
+    showViewDetailsDialog() {
+        this.diagnosisEquipment = this.selectedEquipment;
+        this.displayViewDetailsDialog = true;
     }
 }

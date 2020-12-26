@@ -26,3 +26,6 @@ export * from './session-test-parameter-value.controller';
 export * from './patient-session-pathology-parameter-value.controller';
 export * from './patient-session-pathology-parameter-value.controller';
 export * from './session-treatment-parameter-value.controller';
+export * from './diagnosis-equipment.controller';
+export * from './session-test-session-test-equipment.controller';
+export * from './session-treatment-session-treatment-equipment.controller';

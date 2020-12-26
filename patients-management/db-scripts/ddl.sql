@@ -600,6 +600,24 @@ CREATE TABLE `clinical_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+--
+-- Table structure for table `diagnosis_equipment`
+--
+
+DROP TABLE IF EXISTS `diagnosis_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `diagnosis_equipment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `equipment_name` varchar(45) NOT NULL,
+  `manufacturer_name` varchar(45) NOT NULL,
+  `serial_number` int NOT NULL,
+  `test_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
 -- View structure for view `tests_count_by_department`
 --

@@ -62,12 +62,17 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: "SETTINGS",
                     icon: "fa fa-fw fa-cogs",
-                    routerLink: ["/dashboard/users"],
+                    routerLink: ["/dashboard/settings"],
                     items: [
                         {
                             label: "Users",
                             icon: "fa fa-fw fa-users",
-                            routerLink: ["users"],
+                            routerLink: ["settings/users"],
+                        },
+                        {
+                            label: "Equipments",
+                            icon: "fa fa-fw fa-cogs",
+                            routerLink: ["settings/diagnosisEquipments"],
                         },
                     ],
                 },
@@ -99,12 +104,17 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: "SETTINGS",
                     icon: "fa fa-fw fa-cogs",
-                    routerLink: ["/dashboard/users"],
+                    routerLink: ["/dashboard/settings"],
                     items: [
                         {
                             label: "Users",
                             icon: "fa fa-fw fa-users",
-                            routerLink: ["users"],
+                            routerLink: ["settings/users"],
+                        },
+                        {
+                            label: "Equipments",
+                            icon: "fa fa-fw fa-cogs",
+                            routerLink: ["settings/diagnosisEquipments"],
                         },
                     ],
                 },

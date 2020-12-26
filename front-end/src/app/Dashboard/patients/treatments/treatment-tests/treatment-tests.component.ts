@@ -181,7 +181,7 @@ export class TreatmentTestsComponent implements OnInit {
                 },
             },
             {
-                label: "Add Equipment",
+                label: "Add Product",
                 icon: "fa fa-plus",
                 command: () => {
                     this.showEquipmentDialog(data);
@@ -189,7 +189,7 @@ export class TreatmentTestsComponent implements OnInit {
                 disabled: !data.showEquipment,
             },
             {
-                label: "view Equipment",
+                label: "View Product",
                 icon: "fa fa-desktop",
                 command: () => {
                     this.viewEquipments(data);
@@ -306,8 +306,8 @@ export class TreatmentTestsComponent implements OnInit {
                     "Data saved successfully"
                 );
                 this.confirmationService.confirm({
-                    message: "Do you want to add equipment for this treatment?",
-                    header: "Add Equipment Confirmation",
+                    message: "Do you want to add product for this treatment?",
+                    header: "Add Product Confirmation",
                     icon: "pi pi-info-circle",
                     accept: () => {
                         this.treatmentService
@@ -681,16 +681,16 @@ export class TreatmentTestsComponent implements OnInit {
         this.showSaveButton = false;
         await this.openTest(treatment);
         this.showTests = true;
-        this.treatmentService
-            .getSessionTreatmentEquipment(treatment.id)
-            .subscribe((res) => {
-                if (res && res.length > 0) {
-                    this.selectedTestData[0].id = treatment.id;
-                    res.forEach((element) => {
-                        this.selectedEquipments.push(element.equipmentName);
-                    });
-                }
-            });
+        // this.treatmentService
+        //     .getSessionTreatmentEquipment(treatment.id)
+        //     .subscribe((res) => {
+        //         if (res && res.length > 0) {
+        //             this.selectedTestData[0].id = treatment.id;
+        //             res.forEach((element) => {
+        //                 this.selectedEquipments.push(element.equipmentName);
+        //             });
+        //         }
+        //     });
         if (treatment.parameterValues) {
             let parameters = this.selectedTestData[0].parameters;
             if (parameters && parameters.length > 0) {
@@ -790,20 +790,16 @@ export class TreatmentTestsComponent implements OnInit {
         });
     }
     showEquipmentDialog(treatment) {
-        this.addEquipmentDialogHeader = `Add Equipment For ${treatment.treatmentName}`;
+        this.addEquipmentDialogHeader = `Add Product For ${treatment.treatmentName}`;
         this.selectedTreatmentId = treatment.id;
         this.displayEquipmentTest = true;
     }
     viewEquipments(treatment) {
-        this.viewEquipmentDialogHeader = `View Equipments Of ${treatment.treatmentName}`;
-        this.treatmentService
-            .getSessionTreatmentEquipment(treatment.id)
-            .subscribe((res) => {
-                if (res.length > 0) {
-                    this.viewedEquipments = res;
-                    this.showViewEquipments = true;
-                }
-            });
+        this.viewEquipmentDialogHeader = `View Products Of ${treatment.treatmentName}`;
+        if (treatment.sessionTreatmentEquipments) {
+            this.viewedEquipments = treatment.sessionTreatmentEquipments;
+            this.showViewEquipments = true;
+        }
     }
     resetEquipment() {
         this.showEquipments = true;
@@ -826,8 +822,8 @@ export class TreatmentTestsComponent implements OnInit {
                     "Data saved successfully"
                 );
                 this.confirmationService.confirm({
-                    message: "Do you want to add more equipment?",
-                    header: "Add Equipment Confirmation",
+                    message: "Do you want to add more product?",
+                    header: "Add Product Confirmation",
                     icon: "pi pi-info-circle",
                     accept: () => {
                         this.treatmentService
@@ -865,7 +861,7 @@ export class TreatmentTestsComponent implements OnInit {
         this.position = position;
         this.confirmationService.confirm({
             message: "Do you want to delete this equipment?",
-            header: "Delete Equipment Confirmation",
+            header: "Delete Product Confirmation",
             icon: "pi pi-info-circle",
             accept: () => {
                 this.treatmentService
@@ -881,7 +877,7 @@ export class TreatmentTestsComponent implements OnInit {
                         this.showMessageComponent.showMessage(
                             "success",
                             "Confirmed",
-                            "Equipment has been deleted"
+                            "Product has been deleted"
                         );
                         this.spinner.hide();
                     });
@@ -965,8 +961,8 @@ export class TreatmentTestsComponent implements OnInit {
                     "Data saved successfully"
                 );
                 this.confirmationService.confirm({
-                    message: "Do you want to add more equipment?",
-                    header: "Add Equipment Confirmation",
+                    message: "Do you want to add more product?",
+                    header: "Add Product Confirmation",
                     icon: "pi pi-info-circle",
                     accept: () => {
                         this.treatmentService

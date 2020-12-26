@@ -31,3 +31,4 @@ export * from './treatments-count-by-department.repository';
 export * from './candidacies-count-by-department.repository';
 export * from './clinical-history.repository';
 export * from './clinical-history.repository';
+export * from './diagnosis-equipment.repository';

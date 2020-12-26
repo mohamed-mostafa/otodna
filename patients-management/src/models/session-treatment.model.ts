@@ -1,5 +1,6 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {ParameterValue} from './parameter-value.model';
+import {SessionTreatmentEquipment} from './session-treatment-equipment.model';
 
 @model({
   settings: {
@@ -105,6 +106,9 @@ export class SessionTreatment extends Entity {
 
   @hasMany(() => ParameterValue)
   parameterValues: ParameterValue[];
+
+  @hasMany(() => SessionTreatmentEquipment)
+  sessionTreatmentEquipments: SessionTreatmentEquipment[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

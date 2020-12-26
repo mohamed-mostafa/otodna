@@ -1,0 +1,37 @@
+.centerHeader {
+    text-align: center;
+}
+.labelMarginTop {
+    margin-top: 7px;
+}
+.labelStyle {
+    margin-top: 5px;
+    margin-right: 5px;
+    float: left;
+}
+.btnColor {
+    background-color: #89d6c4;
+    color: black;
+}
+.btnStyle {
+    float: right;
+    text-decoration: underline;
+}
+.iconStyle {
+    color: red;
+    float: right;
+}
+.bold {
+    font-weight: bold;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+@media screen and (max-width: 40em) {
+    .title {
+        font-size: 1.2em !important;
+        font-weight: bold;
+        margin-bottom: 0.2em !important;
+    }
+}

@@ -165,7 +165,7 @@ export class ParametersValuesService extends DefaultTransactionalRepository<
               let obj = {
                 equipmentId: e.equipmentId,
                 equipmentName: e.equipmentName,
-                sessionTestId: data[0].id,
+                sessionTestId: data[0].sessionTestId,
               };
               await this.sessionTestEquipmentRepository.create(obj, {
                 transaction: tx,
@@ -197,7 +197,7 @@ export class ParametersValuesService extends DefaultTransactionalRepository<
               let obj = {
                 equipmentId: e.equipmentId,
                 equipmentName: e.equipmentName,
-                sessionTreatmentId: data[0].id,
+                sessionTreatmentId: data[0].sessionTreatmentId,
               };
               await this.sessionTreatmentEquipmentRepository.create(obj, {
                 transaction: tx,

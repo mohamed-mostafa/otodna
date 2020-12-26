@@ -32,3 +32,4 @@ export * from './pathologies-count-by-department.model';
 export * from './treatments-count-by-department.model';
 export * from './candidacies-count-by-department.model';
 export * from './clinical-history.model';
+export * from './diagnosis-equipment.model';

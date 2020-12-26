@@ -1,3 +1,4 @@
+import { EquipmentsService } from "./services/equipments.service";
 import { ClinicalHistoryService } from "./patients/services/clinical-history.service";
 import { NotificationsService } from "./patients/services/notifications.service";
 import { ReferralsService } from "./patients/services/referrals.service";
@@ -62,4 +63,5 @@ export const SERVICES = [
     ReferralsService,
     NotificationsService,
     ClinicalHistoryService,
+    EquipmentsService,
 ];

@@ -1,12 +1,12 @@
 import { MenuItem } from "primeng/primeng";
-import { ShowMessageComponent } from "./../shared/show-message/show-message.component";
+import { ShowMessageComponent } from "../../shared/show-message/show-message.component";
 import { InviteUser } from "./inviteUser";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Component, OnInit } from "@angular/core";
 import { User } from "./user";
-import { UsersService } from "../services/users.service";
-import { RolesService } from "../services/roles.service";
+import { UsersService } from "../../services/users.service";
+import { RolesService } from "../../services/roles.service";
 @Component({
     selector: "app-users",
     templateUrl: "./users.component.html",

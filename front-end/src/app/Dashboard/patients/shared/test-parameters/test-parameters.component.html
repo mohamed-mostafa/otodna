@@ -425,7 +425,8 @@
                         <label> {{ t.name }}</label>
                         <ng-container
                             *ngIf="
-                                t.retrievedRightImage.length > 0;
+                                t.retrievedRightImage &&
+                                    t.retrievedRightImage.length > 0;
                                 else NoRightImage
                             "
                         >
@@ -570,7 +571,8 @@
                         <label> {{ t.name }}</label>
                         <ng-container
                             *ngIf="
-                                t.retrievedLeftImage.length > 0;
+                                t.retrievedLeftImage &&
+                                    t.retrievedLeftImage.length > 0;
                                 else NoLeftImage
                             "
                         >
@@ -711,7 +713,8 @@
                     <div *ngIf="showDialogRightData">
                         <ng-container
                             *ngIf="
-                                t.retrievedRightFile.length > 0;
+                                t.retrievedRightFile &&
+                                    t.retrievedRightFile.length > 0;
                                 else elseTemplate
                             "
                         >
@@ -791,7 +794,8 @@
                     <div *ngIf="showDialogLeftData">
                         <ng-container
                             *ngIf="
-                                t.retrievedLeftFile.length > 0;
+                                t.retrievedLeftFile &&
+                                    t.retrievedLeftFile.length > 0;
                                 else elseTemplate2
                             "
                         >

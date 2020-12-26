@@ -3,10 +3,11 @@ import {
   Transaction,
   DefaultTransactionalRepository,
   repository, HasManyRepositoryFactory} from '@loopback/repository';
-import {SessionTest, SessionTestRelations, ParameterValue} from '../models';
+import {SessionTest, SessionTestRelations, ParameterValue, SessionTestEquipment} from '../models';
 import {OltpDsDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {ParameterValueRepository} from './parameter-value.repository';
+import {SessionTestEquipmentRepository} from './session-test-equipment.repository';
 
 export class SessionTestRepository extends DefaultTransactionalRepository<
   SessionTest,
@@ -17,8 +18,12 @@ export class SessionTestRepository extends DefaultTransactionalRepository<
 
   public readonly parameterValues: HasManyRepositoryFactory<ParameterValue, typeof SessionTest.prototype.id>;
 
-  constructor(@inject('datasources.oltp_ds') dataSource: OltpDsDataSource, @repository.getter('ParameterValueRepository') protected parameterValueRepositoryGetter: Getter<ParameterValueRepository>,) {
+  public readonly sessionTestEquipments: HasManyRepositoryFactory<SessionTestEquipment, typeof SessionTest.prototype.id>;
+
+  constructor(@inject('datasources.oltp_ds') dataSource: OltpDsDataSource, @repository.getter('ParameterValueRepository') protected parameterValueRepositoryGetter: Getter<ParameterValueRepository>, @repository.getter('SessionTestEquipmentRepository') protected sessionTestEquipmentRepositoryGetter: Getter<SessionTestEquipmentRepository>,) {
     super(SessionTest, dataSource);
+    this.sessionTestEquipments = this.createHasManyRepositoryFactoryFor('sessionTestEquipments', sessionTestEquipmentRepositoryGetter,);
+    this.registerInclusionResolver('sessionTestEquipments', this.sessionTestEquipments.inclusionResolver);
     this.parameterValues = this.createHasManyRepositoryFactoryFor('parameterValues', parameterValueRepositoryGetter,);
     this.registerInclusionResolver('parameterValues', this.parameterValues.inclusionResolver);
   }

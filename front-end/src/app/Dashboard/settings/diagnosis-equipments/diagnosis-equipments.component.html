@@ -1,0 +1,132 @@
+<p-toast></p-toast>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6" *ngFor="let equip of equipments">
+        <p-card
+            class="centerHeader"
+            [style]="{ height: '110px' }"
+            styleClass="ui-card-shadow cardBorderRadius"
+            header="{{ equip.equipmentName }} "
+        >
+            <div>
+                <div class="ui-g-12 ui-md-3 bold">
+                    {{ equip.manufacturerName }}
+                </div>
+                <div class="ui-g-6 ui-md-3 bold">
+                    {{ equip.serialNumber }}
+                </div>
+                <div class="ui-g-6 ui-md-6 bold">
+                    {{ getTestById(equip.testId) }}
+                </div>
+            </div>
+            <p-footer>
+                <a
+                    href="javascript:void(0)"
+                    class="iconStyle"
+                    (click)="deleteEquipment(equip)"
+                    title="Remove"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </p-footer>
+        </p-card>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <div style="border-style: dotted">
+            <p-card
+                class="centerHeader pointerCursor"
+                [style]="{ height: '110px' }"
+                (click)="openEquipmentDialog()"
+            >
+                <h3 style="margin-top: 30px">
+                    <i
+                        class="fa fa-plus"
+                        aira-hidden="true"
+                        style="margin: 5px"
+                    ></i>
+                    New Equipment
+                </h3>
+            </p-card>
+        </div>
+    </div>
+</div>
+<p-dialog
+    header="Add New Equipment"
+    [(visible)]="displayEquipmentDialog"
+    [style]="{ width: '55vw' }"
+    [baseZIndex]="10000"
+    [maximizable]="true"
+>
+    <p-card [style]="{ height: '250px' }">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <label for="equipmentName">Equipment Name</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        id="equipmentName"
+                        pInputText
+                        placeholder="Equipment Name"
+                        [(ngModel)]="diagnosisEquipment.equipmentName"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <label for="manufacturerName">Manufacturer Name</label>
+                <div class="ui-inputgroup labelMarginTop">
+                    <input
+                        type="text"
+                        id="manufacturerName"
+                        pInputText
+                        placeholder="Manufacturer Name"
+                        [(ngModel)]="diagnosisEquipment.manufacturerName"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <label for="serialNumber">Serial Number</label>
+                <div class="labelMarginTop">
+                    <input
+                        type="number"
+                        id="serialNumber"
+                        pInputText
+                        placeholder="Serial Number"
+                        [(ngModel)]="diagnosisEquipment.serialNumber"
+                    />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+                <label for="selectedTest">Test</label>
+                <div class="labelMarginTop">
+                    <p-dropdown
+                        [options]="allTests"
+                        [(ngModel)]="selectedTest"
+                        id="selectedTest"
+                        placeholder="Select A Test"
+                        optionLabel="testName"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
+            </div>
+        </div>
+    </p-card>
+    <p-footer>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="displayEquipmentDialog = false"
+            label="Cancel"
+            class="ui-button-secondary"
+        ></button>
+        <button
+            type="button"
+            pButton
+            icon="pi pi-check"
+            (click)="save()"
+            label="Add"
+        ></button>
+    </p-footer>
+</p-dialog>
+<ngx-spinner type="ball-fussion" color="#61b5a1"></ngx-spinner>

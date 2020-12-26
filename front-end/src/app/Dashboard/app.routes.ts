@@ -1,3 +1,4 @@
+import { DiagnosisEquipmentsComponent } from "./settings/diagnosis-equipments/diagnosis-equipments.component";
 import { ClinicalHistoryParametersComponent } from "./patients/clinicalHistory/clinical-history-parameters/clinical-history-parameters.component";
 import { ClinicalHistoryTreatmentComponent } from "./patients/clinicalHistory/clinical-history-treatment/clinical-history-treatment.component";
 import { ClinicalHistoryPathologyComponent } from "./patients/clinicalHistory/clinical-history-pathology/clinical-history-pathology.component";
@@ -60,7 +61,7 @@ import { ChartsDemoComponent } from "./demo/view/chartsdemo.component";
 import { FileDemoComponent } from "./demo/view/filedemo.component";
 import { DocumentationComponent } from "./demo/view/documentation.component";
 import { SearchPatientComponent } from "./patients/search-patient/search-patient.component";
-import { UsersComponent } from "./users/users.component";
+import { UsersComponent } from "./settings/users/users.component";
 import { TestsComponent } from "./patients/diagnosis/tests/tests.component";
 import { PathologyComponent } from "./patients/diagnosis/pathology/pathology.component";
 import { CandidacyComponent } from "./patients/diagnosis/candidacy/candidacy.component";
@@ -74,7 +75,11 @@ export const routes: Routes = [
             { path: "search", component: SearchPatientComponent },
             { path: "", redirectTo: "search", pathMatch: "full" },
             { path: "dashboard", component: DashboardDemoComponent },
-            { path: "users", component: UsersComponent },
+            { path: "settings/users", component: UsersComponent },
+            {
+                path: "settings/diagnosisEquipments",
+                component: DiagnosisEquipmentsComponent,
+            },
             { path: "myTeams", component: MyTeamsComponent },
             { path: "teamMembers", component: TeamMembersComponent },
             { path: "sample", component: SampleDemoComponent },
@@ -209,6 +214,7 @@ export const COMPONENTS = [
     ClinicalHistoryPathologyComponent,
     ClinicalHistoryTreatmentComponent,
     ClinicalHistoryParametersComponent,
+    DiagnosisEquipmentsComponent,
 ];
 @NgModule({
     exports: [RouterModule],
