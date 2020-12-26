@@ -82,6 +82,7 @@
 }
 .iconStyle {
     float: right;
+    color: red;
 }
 @media screen and (max-width: 40em) {
     .addTestStyle {

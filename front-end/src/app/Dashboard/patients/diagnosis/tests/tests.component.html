@@ -263,18 +263,14 @@
                                 <a
                                     href="javascript:void(0)"
                                     class="iconStyle"
-                                    (click)="
-                                        menu.toggle($event); onClickMenu(right)
-                                    "
-                                    title="Settings"
+                                    (click)="deleteTest(right)"
+                                    title="Remove"
                                 >
-                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <i
+                                        class="fa fa-trash-o"
+                                        aria-hidden="true"
+                                    ></i>
                                 </a>
-                                <p-menu
-                                    #menu
-                                    [popup]="true"
-                                    [model]="cogsItems"
-                                ></p-menu>
                             </p-footer>
                         </p-card>
                     </div>
@@ -330,18 +326,14 @@
                                 <a
                                     href="javascript:void(0)"
                                     class="iconStyle"
-                                    (click)="
-                                        menu.toggle($event); onClickMenu(left)
-                                    "
-                                    title="Settings"
+                                    (click)="deleteTest(left)"
+                                    title="Remove"
                                 >
-                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <i
+                                        class="fa fa-trash-o"
+                                        aria-hidden="true"
+                                    ></i>
                                 </a>
-                                <p-menu
-                                    #menu
-                                    [popup]="true"
-                                    [model]="cogsItems"
-                                ></p-menu>
                             </p-footer>
                         </p-card>
                     </div>
