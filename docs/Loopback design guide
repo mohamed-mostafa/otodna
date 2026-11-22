@@ -1,0 +1,21 @@
+https://loopback.io/doc/en/lb4/Inside-LoopBack-Application.html
+https://loopback.io/doc/en/lb4/Concepts.html
+
+backend microservices
+
+	connector to mysql
+	datasource to mysel using connector
+	repository per database table
+	custom repositories for complex CRUD operations => how do we expose them ?
+	model per database table, relations whenever needed
+	controllers connected to
+		repositories directly
+		local services for any business logic
+		proxy services for external connections
+	
+bff
+	3 datasources to the 3 microservices
+	service proxies for the 3 datasources
+	controllers for every domain
+	local services for local busines logic or libraries
+	security

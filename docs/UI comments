@@ -1,0 +1,26 @@
+Search patients field to be narrower (1 line instead of 2)
+Advanced search: button should be a hyperlink, if possible with an arrow to show if collapsed or expanded
+advanced search: fields should be on one line if possible
+advanced search: Username should be renamed to patient name
+advances search: all teams should be a checkbox, or better a multi select dropdown list
+advanced search: title not needed if part of the  search section
+
+Patients table: ID column should be small
+patients table: global filter not needed
+patients table: patient name should be clickable, and actions column not needed for now
+
+When you click a sub-menu (e.g. Search Patients) the page opens but the menu collapses.
+
+let's put the counters from the template at the top. call them
+	new patients this month
+	diagnosis this month
+	treatments this month
+	followups this month
+
+left menu: remove theme-related items from left menu
+Add the logo
+Apply the theme: 
+
+Apply same colors to login page
+
+	

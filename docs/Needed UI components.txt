@@ -1,0 +1,14 @@
+left menues
+top menues
+forms
+drill-down menu
+tables
+graphs
+tags
+auto-complete text boxes (to add tags)
+vertical timeline
+
+
+Theme:
+Top menu: Left to right: Company name & logo, Patients, Teams, Reports ------ Account Name + Photo (opens a slide showing name and photo + Logout + Edit Profile)
+Left Menu: Search Patients, New Patient, 

@@ -1,0 +1,52 @@
+Login Page opens first - Only admin/admin passes, otherwise, show incorrect credentials error
+
+Landing page:
+
+Left menu:
+Patients
+	Search
+	New Patient
+Reports
+Teams
+Settings
+	Users
+	
+Top Menu:
+Only profile name and picture are visible, and logout button and modify profile button. rest are hidden. Use logo and name from image
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+Patients - Search is open by default
+Shows a big text box 'Search' and a 'Search' button at the far right and 'Advanced Search' next to it.
+Advanced Search expands a section below the searchbox including Name(text), Phone(text), Email (text), Last Modified Between (2 dates, or range selection), All Teams (checkbox)
+Results appear in a table showing Name, Phone, Last Modified Date, Last Action (Or N/A if none), Owning Team. Name is clickable
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Patients - New Patient
+Opens the patient page.
+breadcrumb: Home > Patients > <PatientName>
+Left menu: 
+Personal Info (Enabled)
+Medical Info (Disabled with lock icon)
+Family (Disabled with lock icon)
+Allergies (Disabled with lock icon)
+Vitals (Disabled with lock icon)
+Immunization (Disabled with lock icon)
+Medications (Disabled with lock icon)
+Problems (Disabled with lock icon)
+Lab Results (Disabled with lock icon)
+History (Disabled with lock icon)
+
+Buttons: 'Continue', 'Save and Close', and 'Cancel' buttons.
+	Once Continue button is clicked, patient is saved and we're taken to Edit Patient mode, alert appears at the top that patient created successfully. Hides in 5 seconds
+	Once Save and Close is clicked, patient is saved and we go back to search page - alert appears at the top of the search page that patient created successfully. Hides in 5 seconds
+	Once Cancel is clicked, we go back to Search page - Are you sure appears first
+	
+Patient in Edit Mode
+All left menu items are enabled
+Save button in every tab that contains data (not tabs that contain tables)
+Add Item in every tab that contains table which opens a popup to add an item. and Save on the popup itself. A delete button infrot of each row. Main field in row is clickable and opens same popup in edit mode and an update button. when popup closes, refresh the table
+History tab is different. It shows a timeline and 3 buttons at the top: Add diagnosis, tratment, followup
+Each item in the timeline is clickable and opens its item in a popup. with modify button. Add buttons opens separate page for every type
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Add Diagnosis Page
